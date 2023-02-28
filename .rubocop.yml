@@ -7,6 +7,24 @@ require:
 inherit_gem:
   standard: config/base.yml
 
+AllCops:
+  NewCops: enable
+  Exclude:
+    - bin/*
+    - config/puma.rb
+
+Layout/ExtraSpacing:
+  Exclude:
+    - config/environments/*
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Exclude:
+    - config/environments/*
+
+Style/GlobalStdStream:
+  Exclude:
+    - config/environments/production.rb
+
 Minitest:
   Enabled: true
 Rails:
