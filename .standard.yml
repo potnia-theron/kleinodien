@@ -1,0 +1,10 @@
+extend_config:
+  - .standard_extensions.yml
+
+ignore:
+  - config/environments/*:
+      - Layout/ExtraSpacing
+      - Layout/SpaceInsideArrayLiteralBrackets
+  - config/environments/production.rb:
+      - Style/GlobalStdStream
+  - config/puma.rb
