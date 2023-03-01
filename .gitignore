@@ -33,4 +33,5 @@
 .rbenv-gemsets
 
 
+coverage
 .vscode
