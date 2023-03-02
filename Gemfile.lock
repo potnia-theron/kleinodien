@@ -71,6 +71,7 @@ GEM
     ast (2.4.2)
     authentication-zero (2.16.7)
     backport (1.2.0)
+    bcrypt (3.1.18)
     benchmark (0.2.1)
     bindex (0.8.1)
     bootsnap (1.16.0)
@@ -282,6 +283,7 @@ PLATFORMS
 
 DEPENDENCIES
   authentication-zero
+  bcrypt (~> 3.1.7)
   bootsnap
   capybara
   debug
