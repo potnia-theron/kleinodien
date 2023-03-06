@@ -2,7 +2,7 @@ require "test_helper"
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:lazaro_nixon)
+    @user = users(:kim)
   end
 
   test "should get index" do
@@ -18,7 +18,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should sign in" do
-    post sign_in_url, params: {email: @user.email, password: "Secret1*3*5*"}
+    post sign_in_url, params: {email: @user.email, password: "123TopSecret"}
     assert_enqueued_email_with SessionMailer, :signed_in_notification, args: {session: @user.sessions.last}
 
     assert_redirected_to root_url

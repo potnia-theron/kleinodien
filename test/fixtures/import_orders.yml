@@ -7,7 +7,7 @@ one:
   type:
   uri: MyString
   # import_order: one
-  user: lazaro_nixon
+  user: kim
 
 two:
   code: MyString
@@ -16,4 +16,4 @@ two:
   type:
   uri: MyString
   # import_order: two
-  user: lazaro_nixon
+  user: kim

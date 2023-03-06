@@ -2,7 +2,7 @@ require "test_helper"
 
 class Identity::PasswordResetsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:lazaro_nixon)
+    @user = users(:kim)
   end
 
   test "should get new" do
@@ -48,14 +48,14 @@ class Identity::PasswordResetsControllerTest < ActionDispatch::IntegrationTest
   test "should update password" do
     sid = @user.password_reset_tokens.create.signed_id(expires_in: 20.minutes)
 
-    patch identity_password_reset_url, params: {sid: sid, password: "Secret6*4*2*", password_confirmation: "Secret6*4*2*"}
+    patch identity_password_reset_url, params: {sid: sid, password: "123TopSecret", password_confirmation: "123TopSecret"}
     assert_redirected_to sign_in_url
   end
 
   test "should not update password with expired token" do
     sid_exp = @user.password_reset_tokens.create.signed_id(expires_in: 0.minutes)
 
-    patch identity_password_reset_url, params: {sid: sid_exp, password: "Secret6*4*2*", password_confirmation: "Secret6*4*2*"}
+    patch identity_password_reset_url, params: {sid: sid_exp, password: "TopSecret", password_confirmation: "TopSecret"}
     assert_redirected_to new_identity_password_reset_url
     assert_equal "That password reset link is invalid", flash[:alert]
   end

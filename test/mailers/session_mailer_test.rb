@@ -2,7 +2,7 @@ require "test_helper"
 
 class SessionMailerTest < ActionMailer::TestCase
   setup do
-    @session = users(:lazaro_nixon).sessions.create!
+    @session = users(:kim).sessions.create!
   end
 
   test "signed_in_notification" do
