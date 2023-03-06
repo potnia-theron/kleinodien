@@ -18,8 +18,7 @@ class ImportOrdersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create import_order" do
     assert_difference("ImportOrder.count") do
-      post import_orders_url, params: {import_order: {code: "diana", import_order_id: @import_order.import_order_id, kind: @import_order.kind, state: @import_order.state, type: @import_order.type, uri: @import_order.uri, user_id: @import_order.user_id}}
-      # post import_orders_url, params: {import_order: {code: @import_order.code, import_order_id: @import_order.import_order_id, kind: @import_order.kind, state: @import_order.state, type: @import_order.type, uri: @import_order.uri, user_id: @import_order.user_id}}
+      post import_orders_url, params: {import_order: {code: @import_order.code, import_order_id: @import_order.import_order_id, kind: @import_order.kind, state: @import_order.state, type: @import_order.type, uri: @import_order.uri, user_id: @import_order.user_id}}
     end
 
     # Does not work because UUIDs are used as primary key
