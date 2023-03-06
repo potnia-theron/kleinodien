@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  kind: MyString
+  state: MyString
+  type:
+  uri: MyString
+  # import_order: one
+  user: lazaro_nixon
+
+two:
+  code: MyString
+  kind: MyString
+  state: MyString
+  type:
+  uri: MyString
+  # import_order: two
+  user: lazaro_nixon

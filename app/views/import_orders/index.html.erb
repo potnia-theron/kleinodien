@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Import orders</h1>
+
+<div id="import_orders">
+  <% @import_orders.each do |import_order| %>
+    <%= render import_order %>
+    <p>
+      <%= link_to "Show this import order", import_order %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New import order", new_import_order_path %>

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @import_order %>
+
+<div>
+  <%= link_to "Edit this import order", edit_import_order_path(@import_order) %> |
+  <%= link_to "Back to import orders", import_orders_path %>
+
+  <%= button_to "Destroy this import order", @import_order, method: :delete %>
+</div>
