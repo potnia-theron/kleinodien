@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :import_orders
+  resources :music_brainz_import_orders, controller: "import_orders", type: "MusicBrainzImportOrder"
   get "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
   get "sign_up", to: "registrations#new"

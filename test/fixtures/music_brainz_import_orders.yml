@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+# one: {}
+# column: value
+#
+# two: {}
+# column: value
+### Copy of import_orders.yml starts below
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+music_brainz_one:
+  code: MyString
+  kind: MyString
+  state: MyString
+  type: MusicBrainzImportOrder
+  uri: MyString
+  # import_order: one
+  user: kim
+
+music_brainz_two:
+  code: MyString
+  kind: MyString
+  state: MyString
+  type: MusicBrainzImportOrder
+  uri: MyString
+  # import_order: two
+  user: kim
