@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'main/index'
   resources :import_orders
   resources :music_brainz_import_orders, controller: "import_orders", type: "MusicBrainzImportOrder"
   get "sign_in", to: "sessions#new"
