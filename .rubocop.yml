@@ -21,6 +21,16 @@ Layout/SpaceInsideArrayLiteralBrackets:
   Exclude:
     - config/environments/*
 
+Rails/CreateTableWithTimestamps:
+  Exclude:
+    - db/migrate/*_create_email_verification_tokens.rb
+    - db/migrate/*_create_password_reset_tokens.rb
+
+# Rails/I18nLocaleTexts may be enabled in future but
+# for now it is disabled to make RuboCop not so noisy.
+Rails/I18nLocaleTexts:
+  Enabled: false
+
 Style/GlobalStdStream:
   Exclude:
     - config/environments/production.rb
