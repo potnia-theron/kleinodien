@@ -21,10 +21,7 @@ class ImportOrdersControllerTest < ActionDispatch::IntegrationTest
       post import_orders_url, params: {import_order: {code: @import_order.code, import_order_id: @import_order.import_order_id, kind: @import_order.kind, state: @import_order.state, type: @import_order.type, uri: @import_order.uri, user_id: @import_order.user_id}}
     end
 
-    # Does not work because UUIDs are used as primary key
-    # From https://guides.rubyonrails.org/active_record_querying.html#last
-    # > The last method finds the last record ordered by primary key (default).
-    # assert_redirected_to import_order_url(ImportOrder.last)
+    assert_redirected_to import_order_url(ImportOrder.last)
   end
 
   test "should show import_order" do
