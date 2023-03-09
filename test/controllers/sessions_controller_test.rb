@@ -32,7 +32,10 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to sign_in_url(email_hint: @user.email)
     assert_equal "That email or password is incorrect", flash[:alert]
 
-    get root_url
+    # The autenhentication-zero GEM used `get root_url` instead of `get home_url`.
+    # The `main_url` should be free for everyone, so we use `home_url` which used
+    # to be the "root".
+    get home_url
     assert_redirected_to sign_in_url
   end
 

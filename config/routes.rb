@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "main", to: "main#index"
+  get "home", to: "home#index"
   resources :import_orders
   resources :music_brainz_import_orders, controller: "import_orders", type: "MusicBrainzImportOrder"
   get "sign_in", to: "sessions#new"
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resource :email_verification, only: [:edit, :create]
     resource :password_reset, only: [:new, :edit, :create, :update]
   end
-  root "home#index"
+  root "main#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
