@@ -7,11 +7,13 @@ class PasswordsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get edit" do
     get edit_password_url
+
     assert_response :success
   end
 
   test "should update password" do
     patch password_url, params: {current_password: "123TopSecret", password: "TopSecret123", password_confirmation: "TopSecret123"}
+
     assert_redirected_to root_url
   end
 

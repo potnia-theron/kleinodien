@@ -8,11 +8,13 @@ class ImportOrdersControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index" do
     get import_orders_url
+
     assert_response :success
   end
 
   test "should get new" do
     get new_import_order_url
+
     assert_response :success
   end
 
@@ -26,16 +28,19 @@ class ImportOrdersControllerTest < ActionDispatch::IntegrationTest
 
   test "should show import_order" do
     get import_order_url(@import_order)
+
     assert_response :success
   end
 
   test "should get edit" do
     get edit_import_order_url(@import_order)
+
     assert_response :success
   end
 
   test "should update import_order" do
     patch import_order_url(@import_order), params: {import_order: {code: @import_order.code, import_order_id: @import_order.import_order_id, kind: @import_order.kind, state: @import_order.state, type: @import_order.type, uri: @import_order.uri, user_id: @import_order.user_id}}
+
     assert_redirected_to import_order_url(@import_order)
   end
 

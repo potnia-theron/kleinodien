@@ -7,6 +7,7 @@ class ImportOrdersTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit import_orders_url
+
     assert_selector "h1", text: "Import orders"
   end
 
