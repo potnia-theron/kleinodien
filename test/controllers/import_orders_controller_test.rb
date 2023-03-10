@@ -26,6 +26,14 @@ class ImportOrdersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to import_order_url(ImportOrder.last)
   end
 
+  test "should not create import_order with bad parameters" do
+    assert_no_difference("ImportOrder.count") do
+      post import_orders_url, params: {import_order: {wrong: "parameter"}}
+    end
+
+    assert_response :unprocessable_entity
+  end
+
   test "should show import_order" do
     get import_order_url(@import_order)
 
@@ -42,6 +50,13 @@ class ImportOrdersControllerTest < ActionDispatch::IntegrationTest
     patch import_order_url(@import_order), params: {import_order: {code: @import_order.code, import_order_id: @import_order.import_order_id, kind: @import_order.kind, state: @import_order.state, type: @import_order.type, uri: @import_order.uri, user_id: @import_order.user_id}}
 
     assert_redirected_to import_order_url(@import_order)
+  end
+
+  test "should not update import_order with bad parameters" do
+    patch import_order_url(@import_order), params: {import_order: {user_id: "abc"}}
+
+    # assert_redirected_to import_order_url(@import_order)
+    assert_response :unprocessable_entity
   end
 
   test "should destroy import_order" do
