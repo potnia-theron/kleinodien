@@ -10,7 +10,7 @@ class CreateMusicBrainzImportOrderTest < ActionDispatch::IntegrationTest
 
     assert_response :success
 
-    post "/import_orders", params: {import_order: {code: "c0f4b036-e215-43f7-970d-9506e053ea82", kind: "release", state: "pending", type: "MusicBrainzImportOrder", user_id: @user.id}}
+    post "/import_orders", params: {import_order: {code: "c0f4b036-e215-43f7-970d-9506e053ea82", kind: "release", state: "open", type: "MusicBrainzImportOrder", user_id: @user.id}}
 
     assert_response :redirect
     follow_redirect!

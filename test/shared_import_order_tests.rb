@@ -23,6 +23,10 @@ module SharedImportOrderTests
     assert_not @import_order.valid?
   end
 
+  def test_with_an_illegal_state
+    assert_raises(ArgumentError) { @import_order.state = :illegal_state }
+  end
+
   def test_without_a_user_it_is_not_valid
     @import_order.user = nil
 

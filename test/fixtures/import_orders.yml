@@ -3,7 +3,7 @@
 one:
   code: MyString
   kind: MyString
-  state: MyString
+  state: 0
   type:
   uri: MyString
   # import_order: one
@@ -12,7 +12,7 @@ one:
 two:
   code: MyString
   kind: MyString
-  state: MyString
+  state: 0
   type:
   uri: MyString
   # import_order: two

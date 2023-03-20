@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_133020) do
   create_table "import_orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "code", null: false
     t.string "kind", null: false
-    t.string "state", null: false
+    t.integer "state", limit: 2, null: false
     t.string "type"
     t.string "uri"
     t.uuid "import_order_id"

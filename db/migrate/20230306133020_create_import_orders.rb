@@ -3,7 +3,7 @@ class CreateImportOrders < ActiveRecord::Migration[7.0]
     create_table :import_orders, id: :uuid do |t|
       t.string :code, null: false
       t.string :kind, null: false
-      t.string :state, null: false
+      t.column :state, :smallint, null: false
       t.string :type
       t.string :uri
       t.references :import_order, foreign_key: true, type: :uuid

@@ -15,7 +15,7 @@
 music_brainz_one:
   code: MyString
   kind: MyString
-  state: MyString
+  state: open
   type: MusicBrainzImportOrder
   uri: MyString
   # import_order: one
@@ -24,7 +24,7 @@ music_brainz_one:
 music_brainz_two:
   code: MyString
   kind: MyString
-  state: MyString
+  state: done
   type: MusicBrainzImportOrder
   uri: MyString
   # import_order: two
