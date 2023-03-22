@@ -7,6 +7,6 @@ class MusicBrainzImportOrderTest < ActiveSupport::TestCase
   include SharedTransitionableTests
 
   setup do
-    @import_order = music_brainz_import_orders(:music_brainz_one)
+    @subject = music_brainz_import_orders(:music_brainz_one)
   end
 end
