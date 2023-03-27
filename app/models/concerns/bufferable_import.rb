@@ -8,9 +8,9 @@ module BufferableImport
   end
 
   ALLOWED_TRANSITIONS = {
-    open: [:buffering].freeze,
-    buffering: [:persisting].freeze,
-    persisting: [:done].freeze
+    "open" => [:buffering].freeze,
+    "buffering" => [:persisting].freeze,
+    "persisting" => [:done].freeze
   }.freeze
 
   # ALLOWED_TRANSITIONS = {
