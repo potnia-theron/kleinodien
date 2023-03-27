@@ -8,10 +8,16 @@ module BufferableImport
   end
 
   ALLOWED_TRANSITIONS = {
-    open: [:buffering, :failed].freeze,
-    buffering: [:persisting, :failed].freeze,
-    persisting: [:done, :failed].freeze
+    open: [:buffering].freeze,
+    buffering: [:persisting].freeze,
+    persisting: [:done].freeze
   }.freeze
+
+  # ALLOWED_TRANSITIONS = {
+  #   open: [:buffering, :failed].freeze,
+  #   buffering: [:persisting, :failed].freeze,
+  #   persisting: [:done, :failed].freeze
+  # }.freeze
 
   def allowed_transitions
     ALLOWED_TRANSITIONS
