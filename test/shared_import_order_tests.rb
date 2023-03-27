@@ -23,9 +23,9 @@ module SharedImportOrderTests
   #   assert_not @subject.valid?
   # end
 
-  # def test_with_an_illegal_state
-  #   assert_raises(ArgumentError) { @subject.state = :illegal_state }
-  # end
+  def test_with_an_illegal_state
+    assert_raises(ArgumentError) { @subject.state = :illegal_state }
+  end
 
   def test_without_a_user_it_is_not_valid
     @subject.user = nil
