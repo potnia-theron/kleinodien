@@ -12,6 +12,41 @@
   <% end %>
 
   <div>
+    <%= form.label :code, style: "display: block" %>
+    <%= form.text_field :code %>
+  </div>
+
+  <div>
+    <%= form.label :kind, style: "display: block" %>
+    <%= form.text_field :kind %>
+  </div>
+
+  <div>
+    <%= form.label :state, style: "display: block" %>
+    <%= form.text_field :state %>
+  </div>
+
+  <div>
+    <%= form.label :type, style: "display: block" %>
+    <%= form.text_field :type %>
+  </div>
+
+  <div>
+    <%= form.label :uri, style: "display: block" %>
+    <%= form.text_field :uri %>
+  </div>
+
+  <div>
+    <%= form.label :music_brainz_import_order_id, style: "display: block" %>
+    <%= form.text_field :music_brainz_import_order_id %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
