@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  resources :music_brainz_import_orders
   get "home", to: "home#index"
   resources :import_orders
-  resources :music_brainz_import_orders, controller: "import_orders", type: "MusicBrainzImportOrder"
+  # resources :music_brainz_import_orders, controller: "import_orders", type: "MusicBrainzImportOrder"
   get "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
   get "sign_up", to: "registrations#new"

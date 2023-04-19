@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Music brainz import orders</h1>
+
+<div id="music_brainz_import_orders">
+  <% @music_brainz_import_orders.each do |music_brainz_import_order| %>
+    <%= render music_brainz_import_order %>
+    <p>
+      <%= link_to "Show this music brainz import order", music_brainz_import_order %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New music brainz import order", new_music_brainz_import_order_path %>
