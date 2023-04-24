@@ -19,8 +19,8 @@ class Identity::PasswordResetsTest < ApplicationSystemTestCase
   test "updating password" do
     visit edit_identity_password_reset_url(sid: @sid)
 
-    fill_in "New password", with: "TopSecret"
-    fill_in "Confirm new password", with: "TopSecret"
+    fill_in "New password", with: "123TopSecret"
+    fill_in "Confirm new password", with: "123TopSecret"
     click_on "Save changes"
 
     assert_text "Your password was reset successfully. Please sign in"
