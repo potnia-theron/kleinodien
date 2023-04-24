@@ -3,7 +3,7 @@ class ImportOrdersController < ApplicationController
 
   # GET /import_orders or /import_orders.json
   def index
-    @import_orders = ImportOrder.all
+    @import_orders = current_user.import_orders
   end
 
   # GET /import_orders/1 or /import_orders/1.json
@@ -12,7 +12,7 @@ class ImportOrdersController < ApplicationController
 
   # GET /import_orders/new
   def new
-    @import_order = ImportOrder.new
+    @import_order = current_user.import_orders.build
   end
 
   # GET /import_orders/1/edit
@@ -21,7 +21,7 @@ class ImportOrdersController < ApplicationController
 
   # POST /import_orders or /import_orders.json
   def create
-    @import_order = ImportOrder.new(import_order_params)
+    @import_order = current_user.import_orders.build(import_order_params)
 
     respond_to do |format|
       if @import_order.save
@@ -61,7 +61,7 @@ class ImportOrdersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_import_order
-    @import_order = ImportOrder.find(params[:id])
+    @import_order = current_user.import_orders.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
