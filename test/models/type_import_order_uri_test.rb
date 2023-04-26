@@ -1,6 +1,12 @@
 require "test_helper"
 
 class TypeImportOrderUriTest < ActiveSupport::TestCase
+  def test_with_a_bad_string_it_returns_an_import_order_uri_common_object
+    iou = TypeImportOrderUri.new.cast("Evil")
+
+    assert_kind_of ImportOrderUri::Common, iou
+  end
+
   def test_that_it_returns_an_import_order_uri_common_object
     iou = TypeImportOrderUri.new.cast("https://example.com/nothing/here")
 

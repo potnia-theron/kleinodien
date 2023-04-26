@@ -10,7 +10,9 @@ class TypeImportOrderUri < ActiveRecord::Type::Value
 
     uri_object = URI(value)
     host = uri_object.host
-    extension_key = EXTENSION_FOR.keys.find { |key| key.ends_with?(host)}
+    extension_key = uri_object
+      &.host
+      &.then { EXTENSION_FOR.keys.find { |key| key.ends_with?(host) } }
 
     extension = EXTENSION_FOR.fetch(extension_key, ImportOrderUri::Common)
 
