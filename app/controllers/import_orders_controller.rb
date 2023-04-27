@@ -66,6 +66,13 @@ class ImportOrdersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def import_order_params
-    params.require(:import_order).permit(:code, :kind, :state, :type, :uri, :import_order_id, :user_id)
+    parameters = params.require(:import_order).permit(:code, :kind, :state, :type, :uri, :import_order_id, :user_id)
+
+    type, uri_string = parameters.values_at(:type, :uri)
+    return parameters if type
+    return parameters unless uri_string
+
+    parameters[:type] = ImportOrderUri.build(uri_string).import_order_type
+    parameters
   end
 end

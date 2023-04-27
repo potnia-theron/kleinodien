@@ -6,6 +6,8 @@ module ImportOrderUri
 
     def import_order_class = ImportOrder
 
+    def import_order_type = "ImportOrder"
+
     def code
       # kind_and_code&.named_captures&.dig("code")
       kind_and_code&.code
