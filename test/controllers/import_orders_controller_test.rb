@@ -26,6 +26,14 @@ class ImportOrdersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to import_order_url(ImportOrder.last)
   end
 
+  test "with a MusicBrainz-URI it should create a MusicBrainzImportOrder" do
+    assert_difference("ImportOrder.count") do
+      post import_orders_url, params: {import_order: {uri: "https://musicbrainz.org/release/040c8e28-74d8-482e-ba47-175dbf46499c"}}
+    end
+
+    assert_redirected_to music_brainz_import_order_url(ImportOrder.last)
+  end
+
   test "should not create import_order with bad parameters" do
     assert_no_difference("ImportOrder.count") do
       post import_orders_url, params: {import_order: {wrong: "parameter"}}

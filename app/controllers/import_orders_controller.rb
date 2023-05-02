@@ -25,7 +25,7 @@ class ImportOrdersController < ApplicationController
 
     respond_to do |format|
       if @import_order.save
-        format.html { redirect_to import_order_url(@import_order), notice: "Import order was successfully created." }
+        format.html { redirect_to url_for(@import_order), notice: "Import order was successfully created." }
         format.json { render :show, status: :created, location: @import_order }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -73,6 +73,7 @@ class ImportOrdersController < ApplicationController
     return parameters unless uri_string
 
     parameters[:type] = ImportOrderUri.build(uri_string).import_order_type
+
     parameters
   end
 end
