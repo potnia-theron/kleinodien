@@ -6,9 +6,9 @@ class ImportOrder < ApplicationRecord
   private
 
   def set_kind_and_code
-    return if kind
-    return if code
-    return unless uri
+    return if kind.present?
+    return if code.present?
+    return if uri.blank?
 
     import_order_uri = ImportOrderUri.build(uri)
     self.kind = import_order_uri.kind
