@@ -4,6 +4,8 @@ module Importable
   extend ActiveSupport::Concern
 
   included do
+    attribute :state, default: :open
+
     belongs_to :import_order, optional: true
     belongs_to :user
 
