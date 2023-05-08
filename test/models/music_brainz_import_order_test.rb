@@ -1,8 +1,10 @@
 require "test_helper"
 require "shared_import_order_tests"
+require "shared_transitionable_tests"
 
 class MusicBrainzImportOrderTest < ActiveSupport::TestCase
   include SharedImportOrderTests
+  include SharedTransitionableTests
 
   def setup
     @subject = MusicBrainzImportOrder.new(kind: "release", code: "41362dd7-0665-4e09-8158-9ad8109d47bc", user: users(:kim))
