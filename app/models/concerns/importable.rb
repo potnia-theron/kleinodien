@@ -1,5 +1,5 @@
 require "active_support/concern"
-require "active_record/type/import_order_uri"
+require "import_order_uri_type"
 
 module Importable
   extend ActiveSupport::Concern

@@ -1,8 +1,8 @@
 require "test_helper"
 
-class ImportOrderUriTest < ActiveSupport::TestCase
+class ImportOrderUriTypeTest < ActiveSupport::TestCase
   def setup
-    @type_iou = ActiveRecord::Type::ImportOrderUri.new
+    @type_iou = ImportOrderUriType.new
   end
 
   def test_cast_musicbrainz_uri
