@@ -1,7 +1,5 @@
 require "test_helper"
+require "shared_import_order_tests"
 
 class ImportOrderTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
 end
