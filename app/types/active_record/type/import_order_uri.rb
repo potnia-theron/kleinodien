@@ -15,6 +15,6 @@ module ActiveRecord
       end
     end
 
-    register :import_order_uri, ImportOrderUri
+    register :import_order_uri, ::ActiveRecord::Type::ImportOrderUri
   end
 end
