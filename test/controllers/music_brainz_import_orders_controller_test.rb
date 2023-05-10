@@ -52,6 +52,12 @@ class MusicBrainzImportOrdersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to music_brainz_import_order_url(@music_brainz_import_order)
   end
 
+  test "should not update music_brainz_import_order_with_bad_parameters" do
+    patch music_brainz_import_order_url(@music_brainz_import_order), params: {music_brainz_import_order: {user_id: "821d86ea-ef5b-11ed-a5e2-4f9156b7e391"}}
+
+    assert_response :unprocessable_entity
+  end
+
   test "should destroy music_brainz_import_order" do
     assert_difference("MusicBrainzImportOrder.count", -1) do
       delete music_brainz_import_order_url(@music_brainz_import_order)
