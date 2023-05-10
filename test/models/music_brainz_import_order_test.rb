@@ -43,4 +43,10 @@ class MusicBrainzImportOrderTest < ActiveSupport::TestCase
     assert_nil import_order.kind
     assert_equal "41362dd7-0665-4e09-8158-9ad8109d47bc", import_order.code
   end
+
+  def test_with_an_invalid_code
+    import_order = MusicBrainzImportOrder.new(code: "no-uuid", kind: "release", user: users(:kim))
+
+    assert_not_predicate import_order, :valid?
+  end
 end

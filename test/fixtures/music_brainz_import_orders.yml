@@ -13,19 +13,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 music_brainz_one:
-  code: MyString
+  code: d439b5c6-ef5f-11ed-8da3-1b2cc3f68897
   kind: MyString
   state: open
   type: MusicBrainzImportOrder
   uri: MyString
-  # import_order: one
   user: kim
 
 music_brainz_two:
-  code: MyString
+  code: db1b25be-ef5f-11ed-be5f-f3083ac8dbc5
   kind: MyString
   state: done
   type: MusicBrainzImportOrder
   uri: MyString
-  # import_order: two
   user: kim
