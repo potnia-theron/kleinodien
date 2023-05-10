@@ -26,6 +26,14 @@ class MusicBrainzImportOrdersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to music_brainz_import_order_url(MusicBrainzImportOrder.last)
   end
 
+  test "should not create music_brainz_import_order with bad parameters" do
+    assert_no_difference("MusicBrainzImportOrder.count") do
+      post music_brainz_import_orders_url, params: {music_brainz_import_order: {bad: "evil"}}
+    end
+
+    assert_response :unprocessable_entity
+  end
+
   test "should show music_brainz_import_order" do
     get music_brainz_import_order_url(@music_brainz_import_order)
 
