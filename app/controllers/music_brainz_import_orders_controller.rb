@@ -1,5 +1,5 @@
 class MusicBrainzImportOrdersController < ApplicationController
-  before_action :set_music_brainz_import_order, only: %i[ show edit update destroy ]
+  before_action :set_music_brainz_import_order, only: %i[show edit update destroy]
 
   # GET /music_brainz_import_orders or /music_brainz_import_orders.json
   def index
