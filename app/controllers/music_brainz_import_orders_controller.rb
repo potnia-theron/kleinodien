@@ -3,7 +3,7 @@ class MusicBrainzImportOrdersController < ApplicationController
 
   # GET /music_brainz_import_orders or /music_brainz_import_orders.json
   def index
-    @music_brainz_import_orders = MusicBrainzImportOrder.all
+    @music_brainz_import_orders = current_user.music_brainz_import_orders
   end
 
   # GET /music_brainz_import_orders/1 or /music_brainz_import_orders/1.json
@@ -12,7 +12,7 @@ class MusicBrainzImportOrdersController < ApplicationController
 
   # GET /music_brainz_import_orders/new
   def new
-    @music_brainz_import_order = MusicBrainzImportOrder.new
+    @music_brainz_import_order = current_user.music_brainz_import_orders.build
   end
 
   # GET /music_brainz_import_orders/1/edit
@@ -21,7 +21,7 @@ class MusicBrainzImportOrdersController < ApplicationController
 
   # POST /music_brainz_import_orders or /music_brainz_import_orders.json
   def create
-    @music_brainz_import_order = MusicBrainzImportOrder.new(music_brainz_import_order_params)
+    @music_brainz_import_order = current_user.music_brainz_import_orders.build(music_brainz_import_order_params)
 
     respond_to do |format|
       if @music_brainz_import_order.save
@@ -58,14 +58,15 @@ class MusicBrainzImportOrdersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_music_brainz_import_order
-      @music_brainz_import_order = MusicBrainzImportOrder.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def music_brainz_import_order_params
-      # params.fetch(:music_brainz_import_order, {})
-      params.require(:music_brainz_import_order).permit(:code, :kind, :state, :type, :uri, :import_order_id, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_music_brainz_import_order
+    @music_brainz_import_order = MusicBrainzImportOrder.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def music_brainz_import_order_params
+    # params.fetch(:music_brainz_import_order, {})
+    params.require(:music_brainz_import_order).permit(:code, :kind, :state, :type, :uri, :import_order_id, :user_id)
+  end
 end
