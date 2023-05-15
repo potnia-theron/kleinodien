@@ -26,4 +26,15 @@ module Transitionable
     return if allowed_transitions[old_state]&.include?(new_state)
     raise %(Can't change state from "#{old_state}" to "#{new_state}")
   end
+
+  # The old state might be an Integer, so we ensure that it is a String.
+  def state_change_to_be_saved
+    old, new = super
+
+    if old.is_a? Integer
+      old = self.class.states.find { |_, int| int == old }.first
+    end
+
+    [old, new]
+  end
 end

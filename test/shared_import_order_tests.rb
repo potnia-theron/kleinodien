@@ -17,10 +17,8 @@ module SharedImportOrderTests
     assert_not @subject.valid?
   end
 
-  def test_without_a_state_it_is_not_valid
-    @subject.state = nil
-
-    assert_not @subject.valid?
+  def test_state_can_not_be_nil
+    assert_raises(RuntimeError) { @subject.state = nil }
   end
 
   def test_with_an_illegal_state

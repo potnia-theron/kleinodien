@@ -21,9 +21,12 @@ module SharedBufferableImportOrderTests
     assert_equal "open", @subject.state
 
     @subject.state = :buffering
-    @subject.state = :persisting
-    @subject.state = :done
+    @subject.save!
 
+    @subject.state = :persisting
+    @subject.save!
+
+    @subject.state = :done
     @subject.save!
 
     assert_equal "done", @subject.state
