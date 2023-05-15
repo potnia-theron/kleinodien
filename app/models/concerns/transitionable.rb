@@ -13,6 +13,8 @@ module Transitionable
     validate_state_change
   end
 
+  private
+
   def validate_state_change
     old_state, new_state = state_change_to_be_saved
 
