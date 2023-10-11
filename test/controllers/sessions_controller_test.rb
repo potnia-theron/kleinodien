@@ -22,7 +22,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   test "should sign in" do
     post sign_in_url, params: {email: @user.email, password: "123TopSecret"}
 
-    assert_enqueued_email_with SessionMailer, :signed_in_notification, args: {session: @user.sessions.last}
+    assert_enqueued_email_with SessionMailer, :signed_in_notification, params: {session: @user.sessions.last}
 
     assert_redirected_to root_url
 
