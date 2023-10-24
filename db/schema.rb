@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_11_183638) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_24_180558) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,24 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_11_183638) do
     t.datetime "updated_at", null: false
     t.index ["import_order_id"], name: "index_import_orders_on_import_order_id"
     t.index ["user_id"], name: "index_import_orders_on_user_id"
+  end
+
+  create_table "participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "name", null: false
+    t.text "sort_name", null: false
+    t.text "disambiguation"
+    t.date "begin_date"
+    t.integer "begin_date_mask", limit: 2
+    t.date "end_date"
+    t.integer "end_date_mask", limit: 2
+    t.uuid "import_order_id"
+    t.integer "discogs_code"
+    t.integer "imdb_code"
+    t.uuid "musicbrainz_code"
+    t.integer "tmdb_code"
+    t.integer "wikidata_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "password_reset_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -59,6 +77,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_11_183638) do
   add_foreign_key "email_verification_tokens", "users"
   add_foreign_key "import_orders", "import_orders"
   add_foreign_key "import_orders", "users"
+  add_foreign_key "participants", "import_orders", on_delete: :nullify
   add_foreign_key "password_reset_tokens", "users"
   add_foreign_key "sessions", "users"
 end
