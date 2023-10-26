@@ -1,7 +1,8 @@
 version: '3.4'
 services:
   app:
-    image: "ghcr.io/rails/cli:latest"
+    # image: "ghcr.io/rails/cli:latest"
+    build: .
     command: /bin/bash -c "rm -f /tmp/server.pid && bundle exec rails server -b 0.0.0.0 -P /tmp/server.pid"
     env_file: .env
     ports:
