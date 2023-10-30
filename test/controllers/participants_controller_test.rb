@@ -20,7 +20,7 @@ class ParticipantsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create participant" do
     assert_difference("Participant.count") do
-      post participants_url, params: {participant: {begin_date: @participant.begin_date, begin_date_mask: @participant.begin_date_mask, disambiguation: @participant.disambiguation, discogs_code: @participant.discogs_code, end_date: @participant.end_date, end_date_mask: @participant.end_date_mask, imdb_code: @participant.imdb_code, import_order_id: @participant.import_order_id, musicbrainz_code: @participant.musicbrainz_code, name: @participant.name, sort_name: @participant.sort_name, tmdb_code: @participant.tmdb_code, wikidata_code: @participant.wikidata_code}}
+      post participants_url, params: {participant: {begin_date: @participant.begin_date, begin_date_accuracy: @participant.begin_date_accuracy, disambiguation: @participant.disambiguation, discogs_code: @participant.discogs_code, end_date: @participant.end_date, end_date_accuracy: @participant.end_date_accuracy, imdb_code: @participant.imdb_code, import_order_id: @participant.import_order_id, musicbrainz_code: @participant.musicbrainz_code, name: @participant.name, sort_name: @participant.sort_name, tmdb_code: @participant.tmdb_code, wikidata_code: @participant.wikidata_code}}
     end
 
     assert_redirected_to participant_url(Participant.last)
@@ -39,7 +39,7 @@ class ParticipantsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update participant" do
-    patch participant_url(@participant), params: {participant: {begin_date: @participant.begin_date, begin_date_mask: @participant.begin_date_mask, disambiguation: @participant.disambiguation, discogs_code: @participant.discogs_code, end_date: @participant.end_date, end_date_mask: @participant.end_date_mask, imdb_code: @participant.imdb_code, import_order_id: @participant.import_order_id, musicbrainz_code: @participant.musicbrainz_code, name: @participant.name, sort_name: @participant.sort_name, tmdb_code: @participant.tmdb_code, wikidata_code: @participant.wikidata_code}}
+    patch participant_url(@participant), params: {participant: {begin_date: @participant.begin_date, begin_date_accuracy: @participant.begin_date_accuracy, disambiguation: @participant.disambiguation, discogs_code: @participant.discogs_code, end_date: @participant.end_date, end_date_accuracy: @participant.end_date_accuracy, imdb_code: @participant.imdb_code, import_order_id: @participant.import_order_id, musicbrainz_code: @participant.musicbrainz_code, name: @participant.name, sort_name: @participant.sort_name, tmdb_code: @participant.tmdb_code, wikidata_code: @participant.wikidata_code}}
 
     assert_redirected_to participant_url(@participant)
   end

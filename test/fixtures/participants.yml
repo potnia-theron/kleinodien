@@ -5,13 +5,13 @@ one:
   sort_name: MyText
   disambiguation: MyText
   begin_date: 2023-10-24
-  begin_date_mask: 1
+  begin_date_accuracy: 1
   end_date: 2023-10-24
-  end_date_mask: 1
+  end_date_accuracy: 1
   import_order: one
   discogs_code: 1
   imdb_code: 1
-  musicbrainz_code: 
+  musicbrainz_code:
   tmdb_code: 1
   wikidata_code: 1
 
@@ -20,12 +20,12 @@ two:
   sort_name: MyText
   disambiguation: MyText
   begin_date: 2023-10-24
-  begin_date_mask: 1
+  begin_date_accuracy: 1
   end_date: 2023-10-24
-  end_date_mask: 1
+  end_date_accuracy: 1
   import_order: two
   discogs_code: 1
   imdb_code: 1
-  musicbrainz_code: 
+  musicbrainz_code:
   tmdb_code: 1
   wikidata_code: 1

@@ -15,11 +15,11 @@ class ParticipantsTest < ApplicationSystemTestCase
     click_on "New participant"
 
     fill_in "Begin date", with: @participant.begin_date
-    fill_in "Begin date mask", with: @participant.begin_date_mask
+    fill_in "Begin date mask", with: @participant.begin_date_accuracy
     fill_in "Disambiguation", with: @participant.disambiguation
     fill_in "Discogs code", with: @participant.discogs_code
     fill_in "End date", with: @participant.end_date
-    fill_in "End date mask", with: @participant.end_date_mask
+    fill_in "End date mask", with: @participant.end_date_accuracy
     fill_in "Imdb code", with: @participant.imdb_code
     fill_in "Import order", with: @participant.import_order_id
     fill_in "Musicbrainz code", with: @participant.musicbrainz_code
@@ -38,11 +38,11 @@ class ParticipantsTest < ApplicationSystemTestCase
     click_on "Edit this participant", match: :first
 
     fill_in "Begin date", with: @participant.begin_date
-    fill_in "Begin date mask", with: @participant.begin_date_mask
+    fill_in "Begin date mask", with: @participant.begin_date_accuracy
     fill_in "Disambiguation", with: @participant.disambiguation
     fill_in "Discogs code", with: @participant.discogs_code
     fill_in "End date", with: @participant.end_date
-    fill_in "End date mask", with: @participant.end_date_mask
+    fill_in "End date mask", with: @participant.end_date_accuracy
     fill_in "Imdb code", with: @participant.imdb_code
     fill_in "Import order", with: @participant.import_order_id
     fill_in "Musicbrainz code", with: @participant.musicbrainz_code

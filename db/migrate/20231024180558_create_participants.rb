@@ -5,9 +5,9 @@ class CreateParticipants < ActiveRecord::Migration[7.1]
       t.text :sort_name, null: false
       t.text :disambiguation
       t.date :begin_date
-      t.column :begin_date_mask, :smallint
+      t.column :begin_date_accuracy, :smallint
       t.date :end_date
-      t.column :end_date_mask, :smallint
+      t.column :end_date_accuracy, :smallint
       # t.references :import_order, null: true, foreign_key: true, type: :uuid
       t.uuid :import_order_id
       t.integer :discogs_code
