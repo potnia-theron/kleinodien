@@ -1,16 +1,10 @@
-ARG RUBY_VERSION=3.2.0
+ARG RUBY_VERSION=3.2.2
 
 FROM ruby:$RUBY_VERSION-slim
 
 # Install dependencies
-RUN apt-get update -qq && apt-get install -y build-essential libvips gnupg2 curl git libpq-dev
-
-# Ensure node.js 18 is available for apt-get
-ARG NODE_MAJOR=18
-RUN curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash -
-
-# Install node and yarn
-RUN apt-get update -qq && apt-get install -y nodejs && npm install -g yarn
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libssl-dev libvips pkg-config
 
 # Mount $PWD to this workdir
 WORKDIR /rails
@@ -20,11 +14,11 @@ VOLUME /bundle
 RUN bundle config set --global path '/bundle'
 ENV PATH="/bundle/ruby/$RUBY_VERSION/bin:${PATH}"
 
-# Install Rails
-RUN gem install rails
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
 
 # Ensure binding is always 0.0.0.0, even in development, to access server from outside container
 ENV BINDING="0.0.0.0"
 
-# Overwrite ruby image's entrypoint to provide open cli
-ENTRYPOINT [""]
+EXPOSE 3000
+CMD ["./bin/rails", "server"]
