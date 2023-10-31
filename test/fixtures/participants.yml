@@ -5,9 +5,9 @@ one:
   sort_name: MyText
   disambiguation: MyText
   begin_date: 2023-10-24
-  begin_date_accuracy: 1
-  end_date: 2023-10-24
-  end_date_accuracy: 1
+  begin_date_accuracy: :day
+  end_date: 2023-10-26
+  end_date_accuracy: :day
   import_order: one
   discogs_code: 1
   imdb_code: 1
@@ -19,10 +19,10 @@ two:
   name: MyText
   sort_name: MyText
   disambiguation: MyText
-  begin_date: 2023-10-24
-  begin_date_accuracy: 1
+  begin_date: 2010-01-01
+  begin_date_accuracy: :year
   end_date: 2023-10-24
-  end_date_accuracy: 1
+  end_date_accuracy: :day
   import_order: two
   discogs_code: 1
   imdb_code: 1
