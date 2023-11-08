@@ -6,7 +6,4 @@ class ParticipantTest < ActiveSupport::TestCase
   setup do
     @subject = Participant.new
   end
-  # test "the truth" do
-  #   assert true
-  # end
 end
