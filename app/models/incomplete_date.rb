@@ -8,9 +8,16 @@ class IncompleteDate
   validate :all_or_nothing, :all_or_nothing
 
   def initialize(date, accuracy)
+    date ||= Date.new
+    date = Date.new(date) if date.is_a? String
+
     @date = date
     @accuracy = accuracy
   end
+
+  delegate_missing_to :date
+
+  delegate :to_s, to: :date
 
   private
 
