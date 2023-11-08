@@ -6,7 +6,11 @@ class IncompleteDateTest < ActiveSupport::TestCase
   end
 
   def test_with_valid_arguments
-    assert_instance_of IncompleteDate, IncompleteDate.new(@today, "month")
+    ida = IncompleteDate.new("2000-01-02", "month")
+
+    assert_equal 2000, ida.year
+    assert_equal 1, ida.month
+    assert_equal 2, ida.day
   end
 
   def test_with_an_invalid_date
