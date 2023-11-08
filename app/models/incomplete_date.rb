@@ -1,36 +1,12 @@
 class IncompleteDate
-  include ActiveModel::Validations
   include DateAccuracy
-  attr_accessor :accuracy, :date
-
-  validates :accuracy, inclusion: {in: DateAccuracy::DATE_ACCURACY_VALUES}
-  validate :is_a_date, :is_a_date
-  validate :all_or_nothing, :all_or_nothing
+  attr_reader :accuracy, :date
 
   def initialize(date, accuracy)
-    date ||= Date.new
-    date = Date.new(date) if date.is_a? String
-
+    date = Date.iso8601(date) if date.is_a? String
     @date = date
+
+    raise ArgumentError, "invalid accuracy" unless accuracy.in? DATE_ACCURACY_VALUES
     @accuracy = accuracy
-  end
-
-  delegate_missing_to :date
-
-  delegate :to_s, to: :date
-
-  private
-
-  def all_or_nothing
-    return unless date.nil? ^ accuracy.nil?
-
-    errors.add("Either #date and #accuracy are set or neither of them")
-  end
-
-  def is_a_date
-    return unless date
-    return if date.is_a?(Date)
-
-    errors.add("#{date} is not an instance of Date")
   end
 end

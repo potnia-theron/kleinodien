@@ -2,46 +2,26 @@ require "test_helper"
 
 class IncompleteDateTest < ActiveSupport::TestCase
   setup do
-    @subject = IncompleteDate.new(Time.zone.today, :day)
+    # @subject = IncompleteDate.new(Time.zone.today, :day)
+    @args = [Time.zone.today, :day]
+    @today = Time.zone.today
   end
 
-  def test_accessors
-    assert_respond_to(@subject, :date)
-    assert_respond_to(@subject, :accuracy)
-  end
-
-  def test_validation_on_valid_instance
-    assert_predicate @subject, :valid?
+  def test_with_valid_arguments
+    assert_instance_of IncompleteDate, IncompleteDate.new(*@args)
   end
 
   def test_with_an_invalid_date
-    @subject.date = "Wednesday"
-
-    assert_not_predicate @subject, :valid?
+    assert_raises(Date::Error) { IncompleteDate.new("Wednsday", :day) }
   end
 
   def test_with_an_invalid_accuracy
-    @subject.accuracy = "green"
-
-    assert_not_predicate @subject, :valid?
+    assert_raises(ArgumentError) { IncompleteDate.new(@today, "green") }
   end
 
-  def test_without_accuracy
-    @subject.accuracy = nil
+  def test_with_date_as_string
+    ida = IncompleteDate.new("2023-11-07", :year)
 
-    assert_not_predicate @subject, :valid?
-  end
-
-  def test_without_date
-    @subject.date = nil
-
-    assert_not_predicate @subject, :valid?
-  end
-
-  def test_without_accuracy_and_without_date
-    @subject.accuracy = nil
-    @subject.date = nil
-
-    assert_not_predicate @subject, :valid?
+    assert_instance_of Date, ida.date
   end
 end
