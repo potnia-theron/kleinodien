@@ -13,6 +13,17 @@ class IncompleteDateTest < ActiveSupport::TestCase
     assert_raises(Date::Error) { IncompleteDate.new("Wednesday", :day) }
   end
 
+  def test_with_valid_accuracies
+    accuracies = %i[year month day].map { |accuracy| [accuracy, accuracy.to_sym] }
+    accuracies.push [4, 6, 7]
+
+    accuracies.flatten.each do |accuracy|
+      ida = IncompleteDate.new(@today, accuracy)
+
+      assert_equal accuracy, ida.accuracy
+    end
+  end
+
   def test_with_an_invalid_accuracy
     assert_raises(ArgumentError) { IncompleteDate.new(@today, "green") }
   end
