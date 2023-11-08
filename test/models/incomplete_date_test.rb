@@ -2,17 +2,15 @@ require "test_helper"
 
 class IncompleteDateTest < ActiveSupport::TestCase
   setup do
-    # @subject = IncompleteDate.new(Time.zone.today, :day)
-    @args = [Time.zone.today, :day]
     @today = Time.zone.today
   end
 
   def test_with_valid_arguments
-    assert_instance_of IncompleteDate, IncompleteDate.new(*@args)
+    assert_instance_of IncompleteDate, IncompleteDate.new(@today, "month")
   end
 
   def test_with_an_invalid_date
-    assert_raises(Date::Error) { IncompleteDate.new("Wednsday", :day) }
+    assert_raises(Date::Error) { IncompleteDate.new("Wednesday", :day) }
   end
 
   def test_with_an_invalid_accuracy
