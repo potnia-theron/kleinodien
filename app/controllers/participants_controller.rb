@@ -67,6 +67,6 @@ class ParticipantsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def participant_params
-    params.require(:participant).permit(:name, :sort_name, :disambiguation, :begin_date, :begin_date_mask, :end_date, :end_date_mask, :import_order_id, :discogs_code, :imdb_code, :musicbrainz_code, :tmdb_code, :wikidata_code)
+    params.require(:participant).permit(:name, :sort_name, :disambiguation, :begin_date, :begin_date_accuracy, :end_date, :end_date_accuracy, :import_order_id, :discogs_code, :imdb_code, :musicbrainz_code, :tmdb_code, :wikidata_code)
   end
 end

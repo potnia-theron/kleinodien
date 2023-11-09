@@ -38,9 +38,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_24_180558) do
     t.text "sort_name", null: false
     t.text "disambiguation"
     t.date "begin_date"
-    t.integer "begin_date_mask", limit: 2
+    t.integer "begin_date_accuracy", limit: 2
     t.date "end_date"
-    t.integer "end_date_mask", limit: 2
+    t.integer "end_date_accuracy", limit: 2
     t.uuid "import_order_id"
     t.integer "discogs_code"
     t.integer "imdb_code"
