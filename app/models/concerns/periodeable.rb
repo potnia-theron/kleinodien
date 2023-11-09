@@ -13,6 +13,8 @@ module Periodeable
     validate :ends_all_or_nothing
   end
 
+  private
+
   def begins_all_or_nothing
     if begin_date.present? ^ begin_date_accuracy.present?
       errors.add(:begin_date, "either begin_date and begin_date_accuracy must be set or neither of them")
