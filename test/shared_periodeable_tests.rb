@@ -59,4 +59,32 @@ module SharedPeriodeableTests
     assert_equal 11, ends_at.month
     assert_equal 7, ends_at.day
   end
+
+  def test_begin_with_date_but_without_accuracy
+    @subject.begin_date = Time.zone.today
+    @subject.begin_date_accuracy = nil
+
+    assert_not_predicate @subject, :valid?
+  end
+
+  def test_begin_with_accuracy_but_without_date
+    @subject.begin_date = nil
+    @subject.begin_date_accuracy = :day
+
+    assert_not_predicate @subject, :valid?
+  end
+
+  def test_end_with_date_but_without_accuracy
+    @subject.end_date = Time.zone.today
+    @subject.end_date_accuracy = nil
+
+    assert_not_predicate @subject, :valid?
+  end
+
+  def test_end_with_accuracy_but_without_date
+    @subject.end_date = nil
+    @subject.end_date_accuracy = :day
+
+    assert_not_predicate @subject, :valid?
+  end
 end

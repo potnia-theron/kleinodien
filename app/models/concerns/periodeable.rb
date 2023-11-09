@@ -20,8 +20,8 @@ module Periodeable
   end
 
   def ends_all_or_nothing
-    if begin_date.present? ^ begin_date_accuracy.present?
-      errors.add(:begin_date, "either begin_date and begin_date_accuracy must be set or neither of them")
+    if end_date.present? ^ end_date_accuracy.present?
+      errors.add(:end_date, "either end_date and end_date_accuracy must be set or neither of them")
     end
   end
 end
