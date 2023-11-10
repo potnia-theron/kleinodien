@@ -1,0 +1,2 @@
+module ArtistCreditParticipantsHelper
+end

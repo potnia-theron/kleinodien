@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @artist_credit_participant %>
+
+<div>
+  <%= link_to "Edit this artist credit participant", edit_artist_credit_participant_path(@artist_credit_participant) %> |
+  <%= link_to "Back to artist credit participants", artist_credit_participants_path %>
+
+  <%= button_to "Destroy this artist credit participant", @artist_credit_participant, method: :delete %>
+</div>

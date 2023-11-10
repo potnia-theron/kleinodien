@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  artist_credit: one
+  join_phrase: MyText
+  participant: one
+  position: 1
+
+two:
+  artist_credit: two
+  join_phrase: MyText
+  participant: two
+  position: 1

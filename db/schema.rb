@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_10_074733) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_10_084838) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "artist_credit_participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "artist_credit_id", null: false
+    t.text "join_phrase"
+    t.uuid "participant_id", null: false
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_credit_id"], name: "index_artist_credit_participants_on_artist_credit_id"
+    t.index ["participant_id"], name: "index_artist_credit_participants_on_participant_id"
+  end
 
   create_table "artist_credits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
@@ -80,6 +91,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_10_074733) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "artist_credit_participants", "artist_credits"
+  add_foreign_key "artist_credit_participants", "participants"
   add_foreign_key "email_verification_tokens", "users"
   add_foreign_key "import_orders", "import_orders"
   add_foreign_key "import_orders", "users"

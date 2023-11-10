@@ -1,5 +1,6 @@
 class Participant < ApplicationRecord
-  belongs_to :import_order, optional: true
-
   include Periodeable
+
+  belongs_to :import_order, optional: true
+  has_many :artist_credit_participants, dependent: :destroy
 end
