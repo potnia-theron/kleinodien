@@ -1,0 +1,1 @@
+json.partial! "artist_credit_participants/artist_credit_participant", artist_credit_participant: @artist_credit_participant

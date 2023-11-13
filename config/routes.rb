@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :artist_credit_participants
+  resources :artist_credits
   resources :participants
   resources :music_brainz_import_orders
   get "home", to: "home#index"

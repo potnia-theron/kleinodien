@@ -1,0 +1,2 @@
+module ArtistCreditsHelper
+end

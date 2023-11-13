@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Artist credit participants</h1>
+
+<div id="artist_credit_participants">
+  <% @artist_credit_participants.each do |artist_credit_participant| %>
+    <%= render artist_credit_participant %>
+    <p>
+      <%= link_to "Show this artist credit participant", artist_credit_participant %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New artist credit participant", new_artist_credit_participant_path %>
