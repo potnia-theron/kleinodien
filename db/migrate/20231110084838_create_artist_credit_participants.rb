@@ -4,7 +4,7 @@ class CreateArtistCreditParticipants < ActiveRecord::Migration[7.1]
       t.references :artist_credit, null: false, foreign_key: true, type: :uuid
       t.text :join_phrase
       t.references :participant, null: false, foreign_key: true, type: :uuid
-      t.integer :position
+      t.column :position, :smallint, null: false
 
       t.timestamps
     end

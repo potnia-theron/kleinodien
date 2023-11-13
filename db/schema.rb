@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_10_084838) do
     t.uuid "artist_credit_id", null: false
     t.text "join_phrase"
     t.uuid "participant_id", null: false
-    t.integer "position"
+    t.integer "position", limit: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["artist_credit_id"], name: "index_artist_credit_participants_on_artist_credit_id"
