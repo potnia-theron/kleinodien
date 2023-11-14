@@ -1,11 +1,14 @@
 class ArtistCredit < ApplicationRecord
   has_many :participants, class_name: "ArtistCreditParticipant", dependent: :destroy
 
-  def name
-    joinables = participants.map { |acp| [acp.name, join_phrase_for(acp)] }
-    joinables = joinables.flatten
+  before_validation :ensure_name_has_a_value
+
+  private
+
+  def ensure_name_has_a_value
+    joinables = participants.map { |acp| [acp.name, join_phrase_for(acp)] }.flatten
     joinables.pop # ignore the last join_phrase
-    joinables.join
+    self.name = joinables.join
   end
 
   private
