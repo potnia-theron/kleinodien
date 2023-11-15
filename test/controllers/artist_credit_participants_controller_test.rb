@@ -19,8 +19,10 @@ class ArtistCreditParticipantsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create artist_credit_participant" do
+    position = @artist_credit_participant.position.next
+
     assert_difference("ArtistCreditParticipant.count") do
-      post artist_credit_participants_url, params: {artist_credit_participant: {artist_credit_id: @artist_credit_participant.artist_credit_id, join_phrase: @artist_credit_participant.join_phrase, participant_id: @artist_credit_participant.participant_id, position: @artist_credit_participant.position}}
+      post artist_credit_participants_url, params: {artist_credit_participant: {artist_credit_id: @artist_credit_participant.artist_credit_id, join_phrase: @artist_credit_participant.join_phrase, participant_id: @artist_credit_participant.participant_id, position: position}}
     end
 
     assert_redirected_to artist_credit_participant_url(ArtistCreditParticipant.last)

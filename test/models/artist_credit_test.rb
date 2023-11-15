@@ -1,9 +1,11 @@
 require "test_helper"
 
 class ArtistCreditTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "without participants it's invalid" do
+    artist_credit = ArtistCredit.new
+
+    assert_not_predicate artist_credit, :valid?
+  end
 
   test "join names" do
     artist_credit = ArtistCredit.new
