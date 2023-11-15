@@ -8,9 +8,9 @@ class ArtistCredit < ApplicationRecord
   def ensure_name_has_a_value
     return if name.present?
 
-    joinables = participants.map { |acp| [acp.name, join_phrase_for(acp)] }.flatten
-    joinables.pop # ignore the last join_phrase
-    self.name = joinables.join
+    pairs = participants.map { |acp| [acp.name, join_phrase_for(acp)] }.flatten
+    pairs.pop # ignore the last join_phrase
+    self.name = pairs.join
   end
 
   private
