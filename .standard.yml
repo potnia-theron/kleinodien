@@ -2,6 +2,11 @@ extend_config:
     - .standard_extensions.yml
 
 ignore:
+    - app/models/*:
+          # The Rails/UniqueValidationWithoutIndex shall be enabled
+          # in future. For now (2023-11-16) the schema is evolving
+          # so we don't want too much optimizations.
+          - Rails/UniqueValidationWithoutIndex
     - config/environments/*:
           - Layout/ExtraSpacing
           - Layout/SpaceInsideArrayLiteralBrackets
