@@ -12,10 +12,10 @@ class MockBrainzTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "foobar" do
-    response = connection.get("https://musicbrainz.org/ws/2/hello/world")
+  test "get ACDC" do
+    uri_string = "https://musicbrainz.org/ws/2/artist/66c662b6-6e2f-4930-8610-912e24c63ed1"
+    response = connection.get(uri_string)
 
     assert_predicate response, :success?
-    assert_equal response.body, '{"hello": "world"}'
   end
 end
