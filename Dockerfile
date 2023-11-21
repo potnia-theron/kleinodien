@@ -19,17 +19,17 @@ RUN groupadd --gid ${GROUP_ID} rails \
 WORKDIR /rails
 
 # Ensure gems are installed on a persistent volume and available as bins
-VOLUME /bundle
-RUN bundle config set --global path '/bundle'
-ENV PATH="/bundle/ruby/$RUBY_VERSION/bin:${PATH}"
+# VOLUME /bundle
+# RUN bundle config set --global path '/bundle'
+# ENV PATH="/bundle/ruby/$RUBY_VERSION/bin:${PATH}"
 
 # WORKDIR /rails
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 COPY --chown=rails:rails . .
 
-USER rails
-RUN bundle config set path '/bundle'
+# USER rails
+# RUN bundle config set path '/bundle'
 
 # Ensure binding is always 0.0.0.0, even in development, to access server from outside container
 ENV BINDING="0.0.0.0"
