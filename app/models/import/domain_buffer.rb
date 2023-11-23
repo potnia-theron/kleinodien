@@ -6,7 +6,6 @@ module Import
     end
 
     def fetch(*cache_key_parts, &block)
-      # buffer.fetch("musicbrainz.org", cache_key_parts, &block)
       buffer.fetch(domain_key, cache_key_parts, &block)
     end
 
