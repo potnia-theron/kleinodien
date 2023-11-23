@@ -12,6 +12,14 @@ class Import::BufferTest < ActiveSupport::TestCase
     assert_equal @buffer.fetch("foo", :bar), :baz
   end
 
+  # test "freeze" do
+  #   @buffer.fetch("foo", :bar, "baz") { :blubber }
+  #   @buffer.freeze
+
+  #   assert_predicate @buffer, :frozen?
+  #   assert_equal @buffer.fetch("foo", "bar", :baz), :blubber
+  # end
+
   test "musicbrainz" do
     assert_nil @buffer.musicbrainz.fetch(:foo, "bar")
 

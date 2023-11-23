@@ -1,10 +1,11 @@
 module Import
   class Buffer
-    def fetch(domain_key, *cache_key_parts, &block)
-      cache_key = cache_key_for(cache_key_parts)
+    def fetch(domain_key, *, &block)
+      domain_cache = domain_cache_for(domain_key)
+      cache_key = cache_key_for(*)
 
-      cache[cache_key] = block.call if block
-      cache[cache_key]
+      domain_cache[cache_key] = block.call if block
+      domain_cache[cache_key]
     end
 
     def musicbrainz
@@ -15,6 +16,10 @@ module Import
 
     def cache
       @cache ||= {}
+    end
+
+    def domain_cache_for(domain_key)
+      cache[domain_key.to_s] ||= {}
     end
 
     def cache_key_for(*cache_key_parts)
