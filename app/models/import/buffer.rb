@@ -1,15 +1,14 @@
 module Import
   class Buffer
-    def fetch(domain_key, *, &block)
-      domain_cache = domain_cache_for(domain_key)
-      cache_key = cache_key_for(*)
-
-      domain_cache[cache_key] = block.call if block
-      domain_cache[cache_key]
+    def fetch(kind, code, &block)
+      kind, code = kind_code_to_s(kind, code)
+      store(kind, code, block.call) if block
+      get(kind, code)
     end
 
-    def musicbrainz
-      Import::DomainBuffer.new(self, "musicbrainz.org")
+    def get(*)
+      kind, code = kind_code_to_s(*)
+      cache.dig(kind, code)
     end
 
     private
@@ -18,13 +17,13 @@ module Import
       @cache ||= {}
     end
 
-    def domain_cache_for(domain_key)
-      cache[domain_key.to_s] ||= {}
+    def kind_code_to_s(kind, code)
+      [kind.to_s, code.to_s]
     end
 
-    def cache_key_for(*cache_key_parts)
-      raise ArgumentError, "can't build a cache_key without values" if cache_key_parts.empty?
-      cache_key_parts.map(&:to_s).join("/")
+    def store(kind, code, value)
+      cache[kind] ||= {}
+      cache[kind][code] = value
     end
   end
 end

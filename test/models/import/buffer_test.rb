@@ -11,11 +11,4 @@ class Import::BufferTest < ActiveSupport::TestCase
     assert_equal @buffer.fetch("foo", :bar) { :baz }, :baz
     assert_equal @buffer.fetch("foo", :bar), :baz
   end
-
-  test "musicbrainz" do
-    assert_nil @buffer.musicbrainz.fetch(:foo, "bar")
-
-    assert_equal @buffer.musicbrainz.fetch("foo", :bar) { :baz }, :baz
-    assert_equal @buffer.musicbrainz.fetch(:foo, "bar") { :baz }, :baz
-  end
 end
