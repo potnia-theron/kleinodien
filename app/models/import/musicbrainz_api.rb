@@ -6,6 +6,8 @@ module Import
       @import_order = import_order
     end
 
+    attr_reader :buffer
+
     def build_uri(kind, code)
       "https://musicbrainz.org/ws/2/#{kind}/#{code}?fmt=json"
     end
