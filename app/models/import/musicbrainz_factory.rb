@@ -20,9 +20,7 @@ module Import
     end
 
     def connection
-      obj = Object.new
-      obj.define_singleton_method(:get) { |_| :foo }
-      obj
+      Faraday.new
     end
 
     def interrupter
@@ -33,7 +31,7 @@ module Import
     def max_tries = 1
 
     def purify(response)
-      response
+      JSON.parse(response.body)
     end
   end
 end

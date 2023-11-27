@@ -9,7 +9,8 @@ class Import::BufferAParticipantFromMusicBrainzTest < ActiveSupport::TestCase
   end
 
   test "participant gets buffered" do
-    # TODO: test with real data
-    assert_equal @from.musicbrainz.get(:artist, "66c662b6-6e2f-4930-8610-912e24c63ed1"), :foo
+    response_data = @from.musicbrainz.get(:artist, "66c662b6-6e2f-4930-8610-912e24c63ed1")
+
+    assert_equal response_data["name"], "AC/DC"
   end
 end
