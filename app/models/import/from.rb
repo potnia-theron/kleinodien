@@ -12,11 +12,6 @@ module Import
 
     attr_reader :import_order
 
-    # def build_musicbrainz_handler
-    #   factory = MusicbrainzFactory.new(import_order)
-    #   FromHandler.new(factory)
-    # end
-
     def build_handler(factory_name)
       factory = factory_name.constantize.new(import_order)
       FromHandler.new(factory)

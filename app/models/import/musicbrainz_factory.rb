@@ -15,6 +15,7 @@ module Import
       Import::Fetcher.new(factory: self, uri: uri_string)
     end
 
+    # TODO: rename build_uri to build_uri_string
     def build_uri(kind, code)
       "https://musicbrainz.org/ws/2/#{kind}/#{code}?fmt=json"
     end
