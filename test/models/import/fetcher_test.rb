@@ -1,19 +1,11 @@
 require "test_helper"
 require "minitest/mock"
 
-class FakeFetcherFactory
-  def max_tries = 1
-
-  attr_accessor :attempt
-
-  def purify(response)
-    response
-  end
-end
-
 class Import::FetcherTest < ActiveSupport::TestCase
   setup do
-    @factory = FakeFetcherFactory.new
+    @factory = Minitest::Mock.new
+    @factory.expect :max_tries, 1
+
     @fetcher = Import::Fetcher.new(factory: @factory, uri: "https://example.com")
   end
 
@@ -24,22 +16,25 @@ class Import::FetcherTest < ActiveSupport::TestCase
     attempt = Minitest::Mock.new
     attempt.expect :get, response, ["https://example.com"]
 
-    @factory.attempt = attempt
+    @factory.expect :attempt, attempt
+    @factory.expect :purify, response, [response]
 
     assert_equal @fetcher.get, response
 
     attempt.verify
     response.verify
+    @factory.verify
   end
 
   test "attempt.get doesn't return a response" do
     attempt = Minitest::Mock.new
     attempt.expect :get, nil, ["https://example.com"]
 
-    @factory.attempt = attempt
+    @factory.expect :attempt, attempt
 
     assert_raises(RuntimeError) { @fetcher.get }
 
     attempt.verify
+    @factory.verify
   end
 end
