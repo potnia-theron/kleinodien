@@ -1,5 +1,5 @@
 module Import
-  class MusicbrainzApi
+  class MusicbrainzFactory
     def initialize(buffer: nil, import_order: nil)
       # TODO: @import_order musten't be nil
       @buffer = buffer || Buffer.new

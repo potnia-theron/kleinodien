@@ -5,8 +5,8 @@ class Import::BufferAParticipantFromMusicBrainzTest < ActiveSupport::TestCase
   setup do
     WebMockExternalApis.setup
 
-    @api = Import::MusicbrainzApi.new
-    @handler = Import::FromHandler.new(@api)
+    @factory = Import::MusicbrainzFactory.new
+    @handler = Import::FromHandler.new(@factory)
   end
 
   test "participant gets buffered" do

@@ -1,8 +1,8 @@
 require "test_helper"
 
-class Import::MusicbrainzApiTest < ActiveSupport::TestCase
+class Import::MusicbrainzFactoryTest < ActiveSupport::TestCase
   setup do
-    @api = Import::MusicbrainzApi.new
+    @api = Import::MusicbrainzFactory.new
   end
 
   test "build_uri" do
