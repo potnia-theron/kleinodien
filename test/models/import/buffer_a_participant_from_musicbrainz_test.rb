@@ -5,12 +5,11 @@ class Import::BufferAParticipantFromMusicBrainzTest < ActiveSupport::TestCase
   setup do
     WebMockExternalApis.setup
 
-    @factory = Import::MusicbrainzFactory.new
-    @handler = Import::FromHandler.new(@factory)
+    @from = Import::From.new(:fake_import_order)
   end
 
   test "participant gets buffered" do
-    @handler.fetch(:artist, "66c662b6-6e2f-4930-8610-912e24c63ed1") { :expected }
-    assert_equal @handler.get(:artist, "66c662b6-6e2f-4930-8610-912e24c63ed1"), :expected
+    # TODO: test with real data
+    assert_equal @from.musicbrainz.get(:artist, "66c662b6-6e2f-4930-8610-912e24c63ed1"), :foo
   end
 end

@@ -17,6 +17,15 @@ class FakeFactory
   def buffer
     @buffer ||= FakeBuffer.new
   end
+
+  def build_fetcher(uri_string)
+    fetcher = Minitest::Mock.new
+    fetcher.expect :get, :some_value
+
+    fetcher
+  end
+
+  def build_uri(*) = "https://example.com"
 end
 
 class Import::FromHandlerTest < ActiveSupport::TestCase
@@ -25,16 +34,6 @@ class Import::FromHandlerTest < ActiveSupport::TestCase
   end
 
   test "get" do
-    assert_nil @handler.get("some_kind", 123)
     assert_equal @handler.get(:with_value, 123), :some_value
-  end
-
-  test "fetch without block" do
-    assert_nil @handler.fetch("some_kind", 123)
-    assert_equal @handler.fetch(:with_value, 123), :some_value
-  end
-
-  test "fetch with block" do
-    assert_equal @handler.fetch(:with_value, 123) { :block_value }, :block_value
   end
 end

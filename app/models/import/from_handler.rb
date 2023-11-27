@@ -4,17 +4,19 @@ module Import
       @factory = factory
     end
 
-    def fetch(kind, code, &block)
-      return factory.buffer.fetch(kind, code, &block) if block
-      get(kind, code)
-    end
-
     def get(kind, code)
-      factory.buffer.get(kind, code)
+      buffer.get(kind, code) || fetch(kind, code)
     end
 
     private
 
     attr_reader :factory
+    delegate_missing_to :factory
+
+    def fetch(kind, code)
+      uri_string = build_uri(kind, code)
+      fetcher = build_fetcher(uri_string)
+      buffer.fetch(kind, code) { fetcher.get }
+    end
   end
 end
