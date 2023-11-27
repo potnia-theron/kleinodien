@@ -8,7 +8,7 @@ module Import
     def get
       max_tries.times do
         response = attempt.get(uri)
-        return response if response
+        return purify(response) if response
       end
 
       raise "can't get #{uri}"
