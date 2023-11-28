@@ -29,6 +29,16 @@ class Import::FromHandlerTest < ActiveSupport::TestCase
     @factory.verify
   end
 
+  test "#dump_buffer" do
+    @factory.expect :buffer, @buffer
+    @buffer.expect :dump, {}
+
+    assert_kind_of Hash, @handler.dump_buffer
+
+    @buffer.verify
+    @factory.verify
+  end
+
   test "get" do
     @factory.expect :buffer, @buffer
     @buffer.expect :get, :some_value, [:kind, :code]

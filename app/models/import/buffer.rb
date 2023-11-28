@@ -7,6 +7,10 @@ module Import
       false
     end
 
+    def dump
+      cache.deep_dup
+    end
+
     def fetch(kind, code, &block)
       kind, code = kind_code_to_s(kind, code)
 

@@ -6,6 +6,10 @@ module Import
 
     delegate :buffered?, to: :buffer
 
+    def dump_buffer
+      buffer.dump
+    end
+
     def get(kind, code)
       buffer.get(kind, code) || fetch(kind, code)
     end
