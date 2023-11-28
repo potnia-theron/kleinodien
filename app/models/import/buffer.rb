@@ -13,8 +13,8 @@ module Import
       get(kind, code)
     end
 
-    def get(*)
-      kind, code = kind_code_to_s(*)
+    def get(kind, code)
+      kind, code = kind_code_to_s(kind, code)
       cache.dig(kind, code)
     end
 
