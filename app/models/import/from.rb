@@ -1,7 +1,7 @@
 module Import
   class From
-    def initialize(fake_import_order)
-      @fake_import_order = fake_import_order
+    def initialize(import_order)
+      @import_order = import_order
     end
 
     def musicbrainz
