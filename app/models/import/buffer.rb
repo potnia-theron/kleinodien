@@ -9,7 +9,8 @@ module Import
 
     def fetch(kind, code, &block)
       kind, code = kind_code_to_s(kind, code)
-      store(kind, code, block.call) if block
+
+      store(kind, code, block) if block
       get(kind, code)
     end
 
@@ -28,9 +29,9 @@ module Import
       [kind.to_s, code.to_s]
     end
 
-    def store(kind, code, value)
+    def store(kind, code, block)
       cache[kind] ||= {}
-      cache[kind][code] = value
+      cache[kind][code] = block.call
     end
   end
 end
