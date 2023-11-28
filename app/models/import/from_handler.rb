@@ -4,6 +4,8 @@ module Import
       @factory = factory
     end
 
+    delegate :buffered?, to: :buffer
+
     def get(kind, code)
       buffer.get(kind, code) || fetch(kind, code)
     end
