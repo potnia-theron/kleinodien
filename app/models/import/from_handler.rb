@@ -1,0 +1,24 @@
+module Import
+  class FromHandler
+    def initialize(factory)
+      @factory = factory
+    end
+
+    delegate :buffered?, to: :buffer
+
+    def get(kind, code)
+      buffer.get(kind, code) || fetch(kind, code)
+    end
+
+    private
+
+    attr_reader :factory
+    delegate_missing_to :factory
+
+    def fetch(kind, code)
+      uri_string = build_uri(kind, code)
+      fetcher = build_fetcher(uri_string)
+      buffer.fetch(kind, code) { fetcher.get }
+    end
+  end
+end
