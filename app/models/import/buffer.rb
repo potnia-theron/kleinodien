@@ -1,5 +1,12 @@
 module Import
   class Buffer
+    def buffered?(kind, code)
+      kind, code = kind_code_to_s(kind, code)
+
+      return true if cache.dig(kind, code)
+      false
+    end
+
     def fetch(kind, code, &block)
       kind, code = kind_code_to_s(kind, code)
       store(kind, code, block.call) if block
