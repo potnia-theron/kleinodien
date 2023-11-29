@@ -16,7 +16,7 @@ module Import
     end
 
     # TODO: rename build_uri to build_uri_string
-    def build_uri(kind, code)
+    def build_uri_string(kind, code)
       "https://musicbrainz.org/ws/2/#{kind}/#{code}?fmt=json"
     end
 
