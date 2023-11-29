@@ -1,0 +1,11 @@
+musicbrainz_default: &musicbrainz_default
+  max_tries: <%= ENV.fetch("IMPORT_MUSICBRAINZ_MAX_TRIES") { 3 } %>
+
+production:
+
+development:
+
+test:
+  musicbrainz:
+    <<: *musicbrainz_default
+    skip_sleep: true
