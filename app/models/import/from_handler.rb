@@ -20,7 +20,7 @@ module Import
     delegate_missing_to :factory
 
     def fetch(kind, code)
-      uri_string = build_uri(kind, code)
+      uri_string = build_uri_string(kind, code)
       fetcher = build_fetcher(uri_string)
       buffer.fetch(kind, code) { fetcher.get }
     end

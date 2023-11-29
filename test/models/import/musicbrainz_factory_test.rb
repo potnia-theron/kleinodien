@@ -14,8 +14,8 @@ class Import::MusicbrainzFactoryTest < ActiveSupport::TestCase
     assert_kind_of Import::Fetcher, @factory.build_fetcher("https://example.com")
   end
 
-  test "#build_uri builds the expected uri_string" do
-    assert_equal @factory.build_uri(:artist, "66c662b6-6e2f-4930-8610-912e24c63ed1"), "https://musicbrainz.org/ws/2/artist/66c662b6-6e2f-4930-8610-912e24c63ed1?fmt=json"
+  test "#build_uri_string builds the expected uri_string" do
+    assert_equal @factory.build_uri_string(:artist, "66c662b6-6e2f-4930-8610-912e24c63ed1"), "https://musicbrainz.org/ws/2/artist/66c662b6-6e2f-4930-8610-912e24c63ed1?fmt=json"
   end
 
   test "#connection returns a Faraday::Connection" do
