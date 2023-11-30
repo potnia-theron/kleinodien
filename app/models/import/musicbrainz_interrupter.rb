@@ -1,27 +1,44 @@
 module Import
   class MusicbrainzInterrupter
-    def initialize
-      @errors = 0
+    def initialize(slumber_time = Import::SlumberTime.new(:musicbrainz))
+      @slumber_time = slumber_time
+      @success = false
     end
-
-    attr_reader :errors
 
     def analyze?(response)
       if response.success?
-        reset
+        @success = true
         return true
       end
 
-      @errors += 1
+      @success = false
+
       false
     end
 
-    def perform = nil
+    def perform
+      slumber_time = calculate_slumber_time
+
+      return slumber_time if config[:skip_sleep]
+
+      slumber(slumber_time)
+    end
 
     private
 
-    def reset
-      @errors = 0
+    attr_reader :slumber_time, :success
+
+    def calculate_slumber_time
+      slumber_time.calculate(success)
+    end
+
+    def config
+      @config ||= Rails.configuration.import[:musicbrainz]
+    end
+
+    def slumber(slumber_time)
+      sleep(slumber_time)
+      slumber_time
     end
   end
 end

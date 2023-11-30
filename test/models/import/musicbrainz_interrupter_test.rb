@@ -4,13 +4,15 @@ require "minitest/mock"
 class Import::MusicbrainzInterrupterTest < ActiveSupport::TestCase
   setup do
     @response = Minitest::Mock.new
-    @interrupter = Import::MusicbrainzInterrupter.new
+    @slumber = Object.new
+    @slumber.define_singleton_method(:calculate) { |_| 0 }
+
+    @interrupter = Import::MusicbrainzInterrupter.new(@slumber)
   end
 
   test "#analze? with a failed response" do
     @response.expect :success?, false
     assert_not @interrupter.analyze? @response
-    assert_equal @interrupter.errors, 1
 
     @response.verify
   end
@@ -21,7 +23,6 @@ class Import::MusicbrainzInterrupterTest < ActiveSupport::TestCase
 
     @response.expect :success?, true
     assert @interrupter.analyze? @response
-    assert_equal @interrupter.errors, 0, "errors is set to 0"
 
     @response.verify
   end
@@ -31,7 +32,22 @@ class Import::MusicbrainzInterrupterTest < ActiveSupport::TestCase
       @response.expect(:success?, false)
       @interrupter.analyze?(@response)
     end
+  end
 
-    assert_equal @interrupter.errors, 3
+  test "private #slumber - ensures that #slumber is called at least one time" do
+    import = Minitest::Mock.new
+    import.expect :import, {musicbrainz: {skip_sleep: false}}
+
+    slumber = Minitest::Mock.new
+
+    Rails.stub :configuration, import do
+      slumber.expect :calculate, 0, [false]
+
+      @interrupter = Import::MusicbrainzInterrupter.new(slumber)
+      assert_equal @interrupter.perform, 0
+    end
+
+    import.verify
+    slumber.verify
   end
 end
