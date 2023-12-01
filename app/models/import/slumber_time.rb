@@ -34,7 +34,7 @@ module Import
       error_multiplier = config[:error_multiplier]
       minimal_interruption = config[:minimal_interruption]
 
-      minimal_interruption + errors * error_multiplier * minimal_interruption
+      errors * error_multiplier * minimal_interruption + minimal_interruption
     end
 
     def wake_up_in
