@@ -30,11 +30,8 @@ class Import::SlumberTimeTest < ActiveSupport::TestCase
   end
 
   test "with a custom config" do
-    # Minitest mocks seem not to work in a stub so we use a simple object
-    import_config = {test: {error_multiplier: 10, minimal_interruption: 10}}
-
-    import = Object.new
-    import.define_singleton_method(:import) { import_config }
+    import = Minitest::Mock.new
+    import.expect :import, {test: {error_multiplier: 10, minimal_interruption: 10}}
 
     Rails.stub :configuration, import do
       @slumber_time = Import::SlumberTime.new(:test, last_penalty_ends_at: @time_1970)
@@ -43,5 +40,7 @@ class Import::SlumberTimeTest < ActiveSupport::TestCase
     Time.stub :current, @time_1970 do
       assert assert_equal @slumber_time.calculate(false), 110
     end
+
+    import.verify
   end
 end
