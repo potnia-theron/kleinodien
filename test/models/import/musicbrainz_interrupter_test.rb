@@ -4,10 +4,7 @@ require "minitest/mock"
 class Import::MusicbrainzInterrupterTest < ActiveSupport::TestCase
   setup do
     @response = Minitest::Mock.new
-    @slumber = Object.new
-    @slumber.define_singleton_method(:calculate) { |_| 0 }
-
-    @interrupter = Import::MusicbrainzInterrupter.new(@slumber)
+    @interrupter = Import::MusicbrainzInterrupter.new(:fake_slumber)
   end
 
   test "#analze? with a failed response" do
