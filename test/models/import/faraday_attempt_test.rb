@@ -1,52 +1,45 @@
 require "test_helper"
 require "minitest/mock"
 
-class FakeFaradayAttemptInterrupter
-  def initialize(analyze = true)
-    @analyze = analyze
-  end
-
-  attr_accessor :analyze
-
-  def analyze?(_)
-    analyze
-  end
-
-  def perform = nil
-end
-
-class FakeFaradayAttemptFactory
-  def initialize(interrupter = FakeFaradayAttemptInterrupter.new)
-    @interrupter = interrupter
-  end
-
-  attr_reader :interrupter
-
-  def connection
-    Object.new.then do |connection|
-      connection.define_singleton_method(:get) { |uri_string| uri_string }
-      connection
-    end
-  end
-end
+FakeFactory = Data.define(:connection, :interrupter)
 
 class Import::FaradayAttemptTest < ActiveSupport::TestCase
   setup do
-    @factory = ::FakeFaradayAttemptFactory.new
-    @attempt = Import::FaradayAttempt.new(@factory)
+    @connection = Minitest::Mock.new
+    @connection.expect :get, :fake_response, ["https://example.com"]
+
+    @interrupter = Minitest::Mock.new
+    @interrupter.expect :perform, nil
+
+    factory = FakeFactory.new(@connection, @interrupter)
+
+    @attempt = Import::FaradayAttempt.new(factory)
   end
 
   test "get when interrupter.analyze? returns true" do
-    assert_equal @attempt.get("https://example.com"), "https://example.com"
+    @interrupter.expect :analyze?, :fake_response, [:fake_response]
+
+    assert_equal @attempt.get("https://example.com"), :fake_response
+
+    @connection.verify
+    @interrupter.verify
   end
 
   test "get when interrupter.analyze? returns false" do
-    @factory.interrupter.analyze = false
+    @interrupter.expect :analyze?, false, [:fake_response]
+
     assert_nil @attempt.get("https://example.com")
+
+    @connection.verify
+    @interrupter.verify
   end
 
   test "get when interrupter.analyze? returns nil" do
-    @factory.interrupter.analyze = nil
+    @interrupter.expect :analyze?, nil, [:fake_response]
+
     assert_nil @attempt.get("https://example.com")
+
+    @connection.verify
+    @interrupter.verify
   end
 end
