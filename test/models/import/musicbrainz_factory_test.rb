@@ -36,4 +36,19 @@ class Import::MusicbrainzFactoryTest < ActiveSupport::TestCase
 
     assert_equal @factory.purify(response)["name"], "Suffocation"
   end
+
+  test "#max_tries" do
+    import = Minitest::Mock.new
+    import.expect "[]", {max_tries: 999}, [:musicbrainz]
+
+    configuration = Minitest::Mock.new
+    configuration.expect :import, import
+
+    Rails.stub :configuration, configuration do
+      assert_equal @factory.max_tries, 999
+    end
+
+    configuration.verify
+    import.verify
+  end
 end

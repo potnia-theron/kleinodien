@@ -27,11 +27,16 @@ module Import
       @interrupt ||= Import::MusicbrainzInterrupter.new
     end
 
-    # TODO: read #max_tries from config
-    def max_tries = 1
+    def max_tries
+      config.fetch(:max_tries, 3)
+    end
 
     def purify(response)
       JSON.parse(response.body)
+    end
+
+    def config
+      @config ||= Rails.configuration.import[:musicbrainz]
     end
   end
 end
