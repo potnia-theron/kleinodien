@@ -20,7 +20,7 @@ module Import
     end
 
     def connection
-      Faraday.new
+      @connection ||= Faraday.new
     end
 
     def interrupter
