@@ -7,7 +7,7 @@ module Import
 
     def get
       max_tries.times do
-        response = attempt.get(uri)
+        response = build_attempt.get(uri)
         return purify(response) if response
       end
 

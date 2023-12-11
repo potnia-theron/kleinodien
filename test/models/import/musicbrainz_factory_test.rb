@@ -6,8 +6,8 @@ class Import::MusicbrainzFactoryTest < ActiveSupport::TestCase
     @factory = Import::MusicbrainzFactory.new(:fake_import_order)
   end
 
-  test "#attempt returns an Import::FaradayAttempt" do
-    assert_kind_of Import::FaradayAttempt, @factory.attempt
+  test "#build_attempt returns an Import::Faradaybuild_attempt" do
+    assert_kind_of Import::FaradayAttempt, @factory.build_attempt
   end
 
   test "#build_fetcher returns an Import::Fetcher" do
@@ -35,5 +35,22 @@ class Import::MusicbrainzFactoryTest < ActiveSupport::TestCase
     response.expect :body, '{"name": "Suffocation"}'
 
     assert_equal @factory.purify(response)["name"], "Suffocation"
+
+    response.verify
+  end
+
+  test "#max_tries" do
+    import = Minitest::Mock.new
+    import.expect "[]", {max_tries: 999}, [:musicbrainz]
+
+    configuration = Minitest::Mock.new
+    configuration.expect :import, import
+
+    Rails.stub :configuration, configuration do
+      assert_equal @factory.max_tries, 999
+    end
+
+    configuration.verify
+    import.verify
   end
 end

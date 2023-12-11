@@ -16,7 +16,7 @@ class Import::FetcherTest < ActiveSupport::TestCase
     attempt = Minitest::Mock.new
     attempt.expect :get, response, ["https://example.com"]
 
-    @factory.expect :attempt, attempt
+    @factory.expect :build_attempt, attempt
     @factory.expect :purify, response, [response]
 
     assert_equal @fetcher.get, response
@@ -30,7 +30,7 @@ class Import::FetcherTest < ActiveSupport::TestCase
     attempt = Minitest::Mock.new
     attempt.expect :get, nil, ["https://example.com"]
 
-    @factory.expect :attempt, attempt
+    @factory.expect :build_attempt, attempt
 
     assert_raises(RuntimeError) { @fetcher.get }
 

@@ -7,7 +7,7 @@ module Import
 
     attr_reader :buffer
 
-    def attempt
+    def build_attempt
       Import::FaradayAttempt.new(self)
     end
 
@@ -15,24 +15,28 @@ module Import
       Import::Fetcher.new(factory: self, uri: uri_string)
     end
 
-    # TODO: rename build_uri to build_uri_string
     def build_uri_string(kind, code)
       "https://musicbrainz.org/ws/2/#{kind}/#{code}?fmt=json"
     end
 
     def connection
-      Faraday.new
+      @connection ||= Faraday.new
     end
 
     def interrupter
       @interrupt ||= Import::MusicbrainzInterrupter.new
     end
 
-    # TODO: read #max_tries from config
-    def max_tries = 1
+    def max_tries
+      config.fetch(:max_tries, 3)
+    end
 
     def purify(response)
       JSON.parse(response.body)
+    end
+
+    def config
+      @config ||= Rails.configuration.import[:musicbrainz]
     end
   end
 end
