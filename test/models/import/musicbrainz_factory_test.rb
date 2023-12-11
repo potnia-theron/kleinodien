@@ -6,8 +6,8 @@ class Import::MusicbrainzFactoryTest < ActiveSupport::TestCase
     @factory = Import::MusicbrainzFactory.new(:fake_import_order)
   end
 
-  test "#attempt returns an Import::FaradayAttempt" do
-    assert_kind_of Import::FaradayAttempt, @factory.attempt
+  test "#build_attempt returns an Import::Faradaybuild_attempt" do
+    assert_kind_of Import::FaradayAttempt, @factory.build_attempt
   end
 
   test "#build_fetcher returns an Import::Fetcher" do

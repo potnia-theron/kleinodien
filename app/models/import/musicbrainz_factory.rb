@@ -7,7 +7,7 @@ module Import
 
     attr_reader :buffer
 
-    def attempt
+    def build_attempt
       Import::FaradayAttempt.new(self)
     end
 
