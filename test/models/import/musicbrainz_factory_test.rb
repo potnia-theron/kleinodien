@@ -35,6 +35,8 @@ class Import::MusicbrainzFactoryTest < ActiveSupport::TestCase
     response.expect :body, '{"name": "Suffocation"}'
 
     assert_equal @factory.purify(response)["name"], "Suffocation"
+
+    response.verify
   end
 
   test "#max_tries" do
