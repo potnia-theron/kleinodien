@@ -27,4 +27,20 @@ class Import::BufferTest < ActiveSupport::TestCase
     assert_equal @buffer.fetch("foo", :bar) { :baz }, :baz
     assert_equal @buffer.fetch("foo", :bar), :baz
   end
+
+  test "#buffered? with wrong arguments" do
+    assert_raises(ArgumentError) { @buffer.buffered?(:foo) }
+    assert_raises(ArgumentError) { @buffer.buffered?(:foo, :bar, :baz) }
+  end
+
+  test "#fetch with wrong arguments" do
+    assert_raises(ArgumentError) { @buffer.fetch(:foo) }
+    assert_raises(ArgumentError) { @buffer.fetch(:foo, :bar, :baz) }
+    assert_raises(ArgumentError) { @buffer.fetch(:foo, :bar, :baz) { :blubber } }
+  end
+
+  test "#get with wrong arguments" do
+    assert_raises(ArgumentError) { @buffer.get(:foo) }
+    assert_raises(ArgumentError) { @buffer.get(:foo, :bar, :baz) }
+  end
 end
