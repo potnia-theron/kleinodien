@@ -1,25 +1,20 @@
 module Import
   class Buffer
-    def buffered?(kind, code)
-      kind, code = kind_code_to_s(kind, code)
-
-      return true if buffer.dig(kind, code)
-      false
+    def buffered?(*)
+      get(*) ? true : false
     end
 
     def dump
       buffer.deep_dup
     end
 
-    def fetch(kind, code, &block)
-      kind, code = kind_code_to_s(kind, code)
-
-      store(kind, code, block) if block
-      get(kind, code)
+    def fetch(*, &block)
+      store(*, block) if block
+      get(*)
     end
 
-    def get(kind, code)
-      kind, code = kind_code_to_s(kind, code)
+    def get(*)
+      kind, code = kind_code_to_s(*)
       buffer.dig(kind, code)
     end
 
@@ -33,7 +28,8 @@ module Import
       [kind.to_s, code.to_s]
     end
 
-    def store(kind, code, block)
+    def store(*, block)
+      kind, code = kind_code_to_s(*)
       buffer[kind] ||= {}
       buffer[kind][code] = block.call
     end
