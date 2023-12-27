@@ -29,11 +29,11 @@ class Import::FromHandlerTest < ActiveSupport::TestCase
     @factory.verify
   end
 
-  test "#dump_buffer" do
+  test "#deep_dup_buffer" do
     @factory.expect :buffer, @buffer
     @buffer.expect :deep_dup, {}
 
-    assert_kind_of Hash, @handler.dump_buffer
+    assert_kind_of Hash, @handler.deep_dup_buffer
 
     @buffer.verify
     @factory.verify

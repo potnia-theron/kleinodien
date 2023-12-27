@@ -6,7 +6,7 @@ module Import
 
     delegate :buffered?, to: :buffer
 
-    def dump_buffer
+    def deep_dup_buffer
       buffer.deep_dup
     end
 
