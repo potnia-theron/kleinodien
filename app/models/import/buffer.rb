@@ -3,12 +3,12 @@ module Import
     def buffered?(kind, code)
       kind, code = kind_code_to_s(kind, code)
 
-      return true if cache.dig(kind, code)
+      return true if buffer.dig(kind, code)
       false
     end
 
     def dump
-      cache.deep_dup
+      buffer.deep_dup
     end
 
     def fetch(kind, code, &block)
@@ -20,13 +20,13 @@ module Import
 
     def get(kind, code)
       kind, code = kind_code_to_s(kind, code)
-      cache.dig(kind, code)
+      buffer.dig(kind, code)
     end
 
     private
 
-    def cache
-      @cache ||= {}
+    def buffer
+      @buffer ||= {}
     end
 
     def kind_code_to_s(kind, code)
@@ -34,8 +34,8 @@ module Import
     end
 
     def store(kind, code, block)
-      cache[kind] ||= {}
-      cache[kind][code] = block.call
+      buffer[kind] ||= {}
+      buffer[kind][code] = block.call
     end
   end
 end
