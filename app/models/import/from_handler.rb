@@ -6,8 +6,8 @@ module Import
 
     delegate :buffered?, to: :buffer
 
-    def dump_buffer
-      buffer.dump
+    def deep_dup_buffer
+      buffer.deep_dup
     end
 
     def get(kind, code)

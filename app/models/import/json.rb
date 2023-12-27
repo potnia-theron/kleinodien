@@ -16,22 +16,11 @@ module Import
 
     attr_reader :json_string
 
-    # def transform(given)
-    #   return transform_array(given) if given.is_a? Array
-    #   return transform_hash(given) if given.is_a? Hash
-
-    #   given
-    # end
-
     def transform(given)
-      case given.class.name
-      when "Array"
-        transform_array(given)
-      when "Hash"
-        transform_hash(given)
-      else
-        given
-      end
+      return transform_array(given) if given.is_a? Array
+      return transform_hash(given) if given.is_a? Hash
+
+      given
     end
 
     def transform_array(values)

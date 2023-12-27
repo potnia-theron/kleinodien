@@ -17,7 +17,7 @@ module Import
     end
 
     def buffered
-      @buffered ||= from.musicbrainz.dump_buffer
+      @buffered ||= from.musicbrainz.deep_dup_buffer
     end
   end
 end

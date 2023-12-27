@@ -14,17 +14,33 @@ class Import::BufferTest < ActiveSupport::TestCase
     assert @buffer.buffered?("aphrodites_child", 666)
   end
 
-  test "#dump" do
-    assert_empty @buffer.dump
+  test "#deep_dup" do
+    assert_empty @buffer.deep_dup
 
     @buffer.fetch("foo", :bar) { :baz }
 
-    assert_not_empty @buffer.dump
+    assert_not_empty @buffer.deep_dup
   end
 
   test "#fetch" do
     assert_nil @buffer.fetch(:foo, "bar")
     assert_equal @buffer.fetch("foo", :bar) { :baz }, :baz
     assert_equal @buffer.fetch("foo", :bar), :baz
+  end
+
+  test "#buffered? with wrong arguments" do
+    assert_raises(ArgumentError) { @buffer.buffered?(:foo) }
+    assert_raises(ArgumentError) { @buffer.buffered?(:foo, :bar, :baz) }
+  end
+
+  test "#fetch with wrong arguments" do
+    assert_raises(ArgumentError) { @buffer.fetch(:foo) }
+    assert_raises(ArgumentError) { @buffer.fetch(:foo, :bar, :baz) }
+    assert_raises(ArgumentError) { @buffer.fetch(:foo, :bar, :baz) { :blubber } }
+  end
+
+  test "#get with wrong arguments" do
+    assert_raises(ArgumentError) { @buffer.get(:foo) }
+    assert_raises(ArgumentError) { @buffer.get(:foo, :bar, :baz) }
   end
 end
