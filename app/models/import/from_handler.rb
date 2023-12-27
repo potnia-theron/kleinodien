@@ -7,7 +7,7 @@ module Import
     delegate :buffered?, to: :buffer
 
     def dump_buffer
-      buffer.dump
+      buffer.deep_dup
     end
 
     def get(kind, code)

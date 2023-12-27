@@ -14,12 +14,12 @@ class Import::BufferTest < ActiveSupport::TestCase
     assert @buffer.buffered?("aphrodites_child", 666)
   end
 
-  test "#dump" do
-    assert_empty @buffer.dump
+  test "#deep_dup" do
+    assert_empty @buffer.deep_dup
 
     @buffer.fetch("foo", :bar) { :baz }
 
-    assert_not_empty @buffer.dump
+    assert_not_empty @buffer.deep_dup
   end
 
   test "#fetch" do

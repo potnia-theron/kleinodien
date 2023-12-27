@@ -4,10 +4,6 @@ module Import
       get(*) ? true : false
     end
 
-    def dump
-      buffer.deep_dup
-    end
-
     def fetch(*, &block)
       store(*, block) if block
       get(*)
@@ -17,6 +13,8 @@ module Import
       kind, code = kind_code_to_s(*)
       buffer.dig(kind, code)
     end
+
+    delegate :deep_dup, to: :buffer
 
     private
 

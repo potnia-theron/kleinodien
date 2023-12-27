@@ -31,7 +31,7 @@ class Import::FromHandlerTest < ActiveSupport::TestCase
 
   test "#dump_buffer" do
     @factory.expect :buffer, @buffer
-    @buffer.expect :dump, {}
+    @buffer.expect :deep_dup, {}
 
     assert_kind_of Hash, @handler.dump_buffer
 
