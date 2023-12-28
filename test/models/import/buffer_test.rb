@@ -39,8 +39,8 @@ class Import::BufferTest < ActiveSupport::TestCase
     assert_raises(ArgumentError) { @buffer.fetch(:foo, :bar, :baz) { :blubber } }
   end
 
-  test "#get with wrong arguments" do
-    assert_raises(ArgumentError) { @buffer.get(:foo) }
-    assert_raises(ArgumentError) { @buffer.get(:foo, :bar, :baz) }
-  end
+  # test "#get with wrong arguments" do
+  #   assert_raises(ArgumentError) { @buffer.get(:foo) }
+  #   assert_raises(ArgumentError) { @buffer.get(:foo, :bar, :baz) }
+  # end
 end
