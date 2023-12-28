@@ -41,7 +41,7 @@ class Import::FromHandlerTest < ActiveSupport::TestCase
 
   test "get" do
     @factory.expect :buffer, @buffer
-    @buffer.expect :get, :some_value, [:kind, :code]
+    @buffer.expect :fetch, :some_value, [:kind, :code]
 
     assert_equal @handler.get(:kind, :code), :some_value
 

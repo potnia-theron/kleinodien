@@ -39,8 +39,17 @@ class Import::BufferTest < ActiveSupport::TestCase
     assert_raises(ArgumentError) { @buffer.fetch(:foo, :bar, :baz) { :blubber } }
   end
 
-  test "#get with wrong arguments" do
-    assert_raises(ArgumentError) { @buffer.get(:foo) }
-    assert_raises(ArgumentError) { @buffer.get(:foo, :bar, :baz) }
+  test "read from a frozen buffer" do
+    @buffer.fetch(:a, :nice) { :value }
+    @buffer.freeze
+
+    assert @buffer.frozen?
+    assert @buffer.buffered?(:a, "nice")
+    assert_equal @buffer.fetch("a", "nice"), :value
+  end
+
+  test "write to a frozen buffer" do
+    @buffer.freeze
+    assert_raises(RuntimeError) { @buffer.fetch(:foo, :bar) { :baz } }
   end
 end

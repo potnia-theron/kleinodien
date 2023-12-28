@@ -11,7 +11,7 @@ module Import
     end
 
     def get(kind, code)
-      buffer.get(kind, code) || fetch(kind, code)
+      buffer.fetch(kind, code) || fetch(kind, code)
     end
 
     private

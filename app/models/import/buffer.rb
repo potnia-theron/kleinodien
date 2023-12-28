@@ -1,16 +1,13 @@
 module Import
   class Buffer
-    def buffered?(*)
-      get(*) ? true : false
+    def buffered?(kind, code)
+      fetch(kind, code) ? true : false
     end
 
-    def fetch(*, &block)
-      store(*, block) if block
-      get(*)
-    end
+    def fetch(kind, code, &block)
+      kind, code = [kind.to_s, code.to_s]
 
-    def get(*)
-      kind, code = kind_code_to_s(*)
+      store(kind, code, block) if block
       buffer.dig(kind, code)
     end
 
@@ -22,12 +19,7 @@ module Import
       @buffer ||= {}
     end
 
-    def kind_code_to_s(kind, code)
-      [kind.to_s, code.to_s]
-    end
-
-    def store(*, block)
-      kind, code = kind_code_to_s(*)
+    def store(kind, code, block)
       buffer[kind] ||= {}
       buffer[kind][code] = block.call
     end
