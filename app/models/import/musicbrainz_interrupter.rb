@@ -6,14 +6,7 @@ module Import
     end
 
     def analyze?(response)
-      if response.success?
-        @success = true
-        return true
-      end
-
-      @success = false
-
-      false
+      @success = response.success?
     end
 
     def perform
