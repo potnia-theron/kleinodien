@@ -19,12 +19,7 @@ module Import
       @buffer ||= {}
     end
 
-    def kind_code_to_s(kind, code)
-      [kind.to_s, code.to_s]
-    end
-
-    def store(*, block)
-      kind, code = kind_code_to_s(*)
+    def store(kind, code, block)
       buffer[kind] ||= {}
       buffer[kind][code] = block.call
     end
