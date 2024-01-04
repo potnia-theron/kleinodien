@@ -11,7 +11,8 @@ class Import::MusicbrainzParticipantAdapterTest < ActiveSupport::TestCase
   end
 
   def acdc
-    File.read("test/webmock/musicbrainz.org/ws/2/artist/66c662b6-6e2f-4930-8610-912e24c63ed1_inc_url-rels.json")
+    json_string = File.read("test/webmock/musicbrainz.org/ws/2/artist/66c662b6-6e2f-4930-8610-912e24c63ed1_inc_url-rels.json")
+    Import::Json.parse(json_string)
   end
 
   test "#inherent_codes_hash" do
