@@ -6,10 +6,14 @@ module Import
     end
 
     def arguments
+      {
+        name: data["name"],
+        sort_name: data["sort-name"]
+      }
     end
 
     def full_codes_hash
-      inherent_codes_hash.merge({discogs_code: discogs_code})
+      inherent_codes_hash.merge({discogs_code: discogs_code}).compact
     end
 
     def inherent_codes_hash
@@ -23,11 +27,13 @@ module Import
     delegate_missing_to :factory
 
     def data
-      @data ||= from.musicbrainz.get(:artist, code).then { |string| ActiveSupport::JSON.decode(string) }
+      # debugger
+      @data ||= from.musicbrainz.get(:artist, code) # .then { |string| ActiveSupport::JSON.decode(string) }
     end
 
     def discogs_code
       url_rel = url_rels.find { |relation| relation["type"] == "discogs" }
+      return unless url_rel
       uri = url_rel.dig("url", "resource")
       match = uri.match %r{/artist/(?<code>[0-9]+)}
       match[:code]
@@ -43,8 +49,7 @@ module Import
 
     def url_rels
       return [] unless relations
-
-      relations.filter { |relation| relation["target-type"] == "url" }
+      relations.filter { |relation| relation.target_type == "url" }
     end
   end
 end
