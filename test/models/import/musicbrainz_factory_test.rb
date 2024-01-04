@@ -18,12 +18,16 @@ class Import::MusicbrainzFactoryTest < ActiveSupport::TestCase
     assert_equal @factory.build_uri_string(:artist, "66c662b6-6e2f-4930-8610-912e24c63ed1"), "https://musicbrainz.org/ws/2/artist/66c662b6-6e2f-4930-8610-912e24c63ed1?fmt=json"
   end
 
+  test "#buffer returns an Import::Buffer" do
+    assert_kind_of Import::Buffer, @factory.buffer
+  end
+
   test "#connection returns a Faraday::Connection" do
     assert_kind_of Faraday::Connection, @factory.connection
   end
 
-  test "#buffer returns an Import::Buffer" do
-    assert_kind_of Import::Buffer, @factory.buffer
+  test "#from" do
+    assert_kind_of Import::From, @factory.from
   end
 
   test "#interrupter returns an Import::MusicbrainzInterrupter" do
