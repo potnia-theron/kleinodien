@@ -10,7 +10,7 @@ module Import
     def prepare!
       return if id
 
-      find_existing_by_inherent_code || find_existing_by_all_codes
+      cheap_find || expensive_find
     end
 
     def save!
@@ -27,18 +27,18 @@ module Import
 
     private
 
-    def find_existing_by_inherent_code
-      codes_hash = adapter.inherent_codes_hash
-      find_by_codes(codes_hash)
+    def cheap_find
+      search_parameters = adapter.cheap_search_parameters
+      find_record(search_parameters)
     end
 
-    def find_existing_by_all_codes
-      codes_hash = adapter.full_codes_hash
-      find_by_codes(codes_hash)
+    def expensive_find
+      search_parameters = adapter.expensive_search_parameters
+      find_record(search_parameters)
     end
 
-    def find_by_codes(codes_hash)
-      results = model_class.where(codes_hash)
+    def find_record(search_parameters)
+      results = model_class.where(search_parameters)
 
       return unless results.any?
       raise "Too many records found" if results.length > 1

@@ -15,16 +15,16 @@ class Import::MusicbrainzParticipantAdapterTest < ActiveSupport::TestCase
     Import::Json.parse(json_string)
   end
 
-  test "#inherent_codes_hash" do
-    assert_equal @adapter.inherent_codes_hash, {musicbrainz_code: @code}
+  test "#cheap_search_parameters" do
+    assert_equal @adapter.cheap_search_parameters, {musicbrainz_code: @code}
   end
 
-  test "#full_codes_hash" do
+  test "#expensive_search_parameters" do
     @factory.expect :from, @from
     musicbrainz = Minitest::Mock.new
     @from.expect :musicbrainz, musicbrainz
     musicbrainz.expect :get, acdc, [:artist, @code]
 
-    assert_equal @adapter.full_codes_hash, {discogs_code: "84752", musicbrainz_code: @code}
+    assert_equal @adapter.expensive_search_parameters, {discogs_code: "84752", musicbrainz_code: @code}
   end
 end
