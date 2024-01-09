@@ -5,8 +5,6 @@ class Import::IntermediateTest < ActiveSupport::TestCase
   setup do
     @adapter = Minitest::Mock.new
     @model_class = Minitest::Mock.new
-    # @model_class.expect :instance_of?, false, [Class]
-    # @model_class.expect :constantize, @model_class
 
     @intermediate = Import::Intermediate.new(adapter: @adapter, model_class: @model_class)
   end

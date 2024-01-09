@@ -50,15 +50,6 @@ module Import
 
     private
 
-    # TODO: Work with a real adapter
-    # def build_adapter(model_class, code)
-    #   adapter = Object.new
-    #   adapter.define_singleton_method(:inherent_codes_hash) { {musicbrainz_code: "66c662b6-6e2f-4930-8610-912e24c63ed1"} }
-    #   adapter.define_singleton_method(:full_codes_hash) { {musicbrainz_code: "66c662b6-6e2f-4930-8610-912e24c63ed1", discogs_code: "123"} }
-    #   adapter.define_singleton_method(:arguments) { {name: "AC/DC"} }
-
-    #   adapter
-    # end
     def build_adapter(model_class, code)
       klass = "Import::Musicbrainz#{model_class.name}Adapter".constantize
       klass.new(self, code: code)
