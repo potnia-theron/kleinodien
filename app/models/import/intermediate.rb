@@ -28,13 +28,13 @@ module Import
     private
 
     def cheap_find
-      codes_hash = adapter.inherent_codes_hash
-      find_by_codes(codes_hash)
+      search_parameters = adapter.cheap_search_parameters
+      find_by_codes(search_parameters)
     end
 
     def expensive_find
-      codes_hash = adapter.full_codes_hash
-      find_by_codes(codes_hash)
+      search_parameters = adapter.expensive_search_parameters
+      find_by_codes(search_parameters)
     end
 
     def find_by_codes(codes_hash)

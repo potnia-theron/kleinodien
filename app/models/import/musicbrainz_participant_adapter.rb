@@ -12,11 +12,11 @@ module Import
       }
     end
 
-    def full_codes_hash
-      inherent_codes_hash.merge({discogs_code: discogs_code}).compact
+    def expensive_search_parameters
+      cheap_search_parameters.merge({discogs_code: discogs_code}).compact
     end
 
-    def inherent_codes_hash
+    def cheap_search_parameters
       {musicbrainz_code: code}
     end
 
@@ -27,7 +27,6 @@ module Import
     delegate_missing_to :factory
 
     def data
-      # debugger
       @data ||= from.musicbrainz.get(:artist, code) # .then { |string| ActiveSupport::JSON.decode(string) }
     end
 
