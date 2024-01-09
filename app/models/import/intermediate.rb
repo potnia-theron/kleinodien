@@ -29,16 +29,16 @@ module Import
 
     def cheap_find
       search_parameters = adapter.cheap_search_parameters
-      find_by_codes(search_parameters)
+      find_record(search_parameters)
     end
 
     def expensive_find
       search_parameters = adapter.expensive_search_parameters
-      find_by_codes(search_parameters)
+      find_record(search_parameters)
     end
 
-    def find_by_codes(codes_hash)
-      results = model_class.where(codes_hash)
+    def find_record(search_parameters)
+      results = model_class.where(search_parameters)
 
       return unless results.any?
       raise "Too many records found" if results.length > 1
