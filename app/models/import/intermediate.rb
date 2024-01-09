@@ -10,7 +10,7 @@ module Import
     def prepare!
       return if id
 
-      find_existing_by_inherent_code || find_existing_by_all_codes
+      cheap_find || expensive_find
     end
 
     def save!
@@ -27,12 +27,12 @@ module Import
 
     private
 
-    def find_existing_by_inherent_code
+    def cheap_find
       codes_hash = adapter.inherent_codes_hash
       find_by_codes(codes_hash)
     end
 
-    def find_existing_by_all_codes
+    def expensive_find
       codes_hash = adapter.full_codes_hash
       find_by_codes(codes_hash)
     end
