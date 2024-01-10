@@ -27,7 +27,11 @@ module Import
     delegate_missing_to :factory
 
     def data
-      @data ||= from.musicbrainz.get(:artist, code) # .then { |string| ActiveSupport::JSON.decode(string) }
+      @data ||= Import::Json.parse(json_string)
+    end
+
+    def json_string
+      from.musicbrainz.get(:artist, code)
     end
 
     def discogs_code
