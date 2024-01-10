@@ -34,15 +34,6 @@ class Import::MusicbrainzFactoryTest < ActiveSupport::TestCase
     assert_kind_of Import::MusicbrainzInterrupter, @factory.interrupter
   end
 
-  test "#purify returns ruby-data" do
-    response = Minitest::Mock.new
-    response.expect :body, '{"name": "Suffocation"}'
-
-    assert_equal @factory.purify(response)["name"], "Suffocation"
-
-    response.verify
-  end
-
   test "#max_tries" do
     import = Minitest::Mock.new
     import.expect "[]", {max_tries: 999}, [:musicbrainz]

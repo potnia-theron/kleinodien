@@ -1,4 +1,5 @@
 require "sinatra/base"
+require "support/retrieve"
 
 # Mock API calls to https://musicbrainz.org
 class WebMockMusicBrainz < Sinatra::Base
@@ -6,8 +7,10 @@ class WebMockMusicBrainz < Sinatra::Base
     content_type :json
     status 200
 
-    path = "test/webmock/musicbrainz.org/ws/2/#{params[:kind]}/#{params[:id]}.json"
-    json_string = File.read(path)
+    # path = "test/webmock/musicbrainz.org/ws/2/#{params[:kind]}/#{params[:id]}.json"
+    # json_string = File.read(path)
+    # debugger
+    json_string = Retrieve.musicbrainz(params[:kind], params[:id])
 
     return json_string if json_string
 
