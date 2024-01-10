@@ -40,10 +40,6 @@ module Import
       config.fetch(:max_tries, 3)
     end
 
-    def purify(response)
-      JSON.parse(response.body)
-    end
-
     def config
       @config ||= Rails.configuration.import[:musicbrainz]
     end
