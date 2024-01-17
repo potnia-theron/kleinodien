@@ -14,7 +14,7 @@ class Import::MusicbrainzRelationsCode
   end
 
   def extract
-    urls_of_interest.map { |uri| kind_and_code_for(uri) }
+    urls_of_interest.inject({}) { |memo, uri| memo.update(kind_and_code_for(uri)) }
   end
 
   private
@@ -50,6 +50,6 @@ class Import::MusicbrainzRelationsCode
     regex = DOMAINS_OF_INTEREST[key]
 
     match_data = regex.match(uri_obj.path)
-    [match_data[:kind], match_data[:code]]
+    {key => {match_data[:kind] => match_data[:code]}}
   end
 end

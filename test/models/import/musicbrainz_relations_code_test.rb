@@ -8,7 +8,9 @@ class Import::MusicbrainzRelationsCodeTest < ActiveSupport::TestCase
   end
 
   test "foobar" do
-    assert true
     codes = Import::MusicbrainzRelationsCode.extract(@relations)
+
+    assert_equal codes["discogs.com"]["artist"], "84752"
+    assert_equal codes["imdb.com"]["name"], "nm0009540"
   end
 end
