@@ -7,10 +7,10 @@ class Import::MusicbrainzRelationsCodeTest < ActiveSupport::TestCase
     @relations = Import::Json.parse(json_string).relations
   end
 
-  test "foobar" do
+  test "AC/DC" do
     codes = Import::MusicbrainzRelationsCode.extract(@relations)
 
-    assert_equal codes["discogs.com"]["artist"], "84752"
-    assert_equal codes["imdb.com"]["name"], "nm0009540"
+    assert_equal codes["discogs"]["artist"], "84752"
+    assert_equal codes["imdb"]["name"], "nm0009540"
   end
 end
