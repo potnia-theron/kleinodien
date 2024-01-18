@@ -1,42 +1,52 @@
-class Import::MusicbrainzRelationsCode
-  REGEX_FOR = {
-    "discogs" => %r{/(?<kind>[a-z-]+)/(?<code>\d+)},
-    "imdb" => %r{/(?<kind>[a-z-]+)/(?<code>\w\w\d+)}
-  }
-  def initialize(relations)
-    @relations = relations
-  end
+module Import
+  class MusicbrainzRelationsCode
+    REGEX_FOR = {
+      "discogs" => %r{/(?<kind>[a-z-]+)/(?<code>\d+)},
+      "imdb" => %r{/(?<kind>[a-z-]+)/(?<code>\w\w\d+)}
+    }
 
-  def self.extract(*)
-    new(*).extract
-  end
+    def initialize(relations)
+      @relations = relations
+    end
 
-  def extract
-    url_rels_of_interest.inject({}) { |memo, url_rel| memo.update(kind_and_code_for(url_rel)) }
-  end
+    def self.extract(*)
+      new(*).extract
+    end
 
-  private
+    def extract
+      result = Hash.new { |hash, key| hash[key] = {} }
 
-  attr_reader :relations
+      url_rels_of_interest.each do |url_rel|
+        type, kind, code = type_kind_and_code_for(url_rel)
+        result[type][kind] = code
+      end
 
-  def url_rels
-    relations.filter { |relation| relation.target_type == "url" }
-  end
+      result
+    end
 
-  def url_rels_of_interest
-    url_rels.filter { |url_rel| REGEX_FOR.include?(key_for(url_rel)) }
-  end
+    private
 
-  def kind_and_code_for(url_rel)
-    key = key_for(url_rel)
-    regex = REGEX_FOR[key]
-    uri_obj = URI(url_rel.url.resource)
+    attr_reader :relations
 
-    match_data = regex.match(uri_obj.path)
-    {key => {match_data[:kind] => match_data[:code]}}
-  end
+    def url_rels
+      relations.filter { |relation| relation.target_type == "url" }
+    end
 
-  def key_for(url_rel)
-    url_rel.type.downcase
+    def url_rels_of_interest
+      url_rels.filter { |url_rel| REGEX_FOR.include?(type_of(url_rel)) }
+    end
+
+    def type_kind_and_code_for(url_rel)
+      type = type_of(url_rel)
+      regex = REGEX_FOR[type]
+      uri_obj = URI(url_rel.url.resource)
+
+      match_data = regex.match(uri_obj.path)
+      [type, match_data[:kind], match_data[:code]]
+    end
+
+    def type_of(url_rel)
+      url_rel.type.downcase
+    end
   end
 end
