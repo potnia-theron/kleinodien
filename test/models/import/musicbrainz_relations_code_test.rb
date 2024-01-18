@@ -11,12 +11,17 @@ class Import::MusicbrainzRelationsCodeTest < ActiveSupport::TestCase
 
   test "with generic data" do
     relations = [
+      # shoud be used:
       url_rel_for("url", "discogs", "https://discogs.com/release/5432"),
       url_rel_for("url", "discogs", "https://discogs.com/artist/123"),
       url_rel_for("url", "IMDb", "https://imdb.com/name/nm123"),
+      # should be ignored:
+      url_rel_for("someting"),
       url_rel_for("url", "example", "http://example.com/gizmo/gremlin"),
-      # url_rel_for("url", "discogs", "NOT AN URI!"),
-      url_rel_for("someting")
+      # bad:
+      url_rel_for("url", "discogs", "NOT AN URI!"),
+      url_rel_for("url", "discogs", "http://example.com/gizmo/gremlin"),
+      OpenStruct.new(target_type: "url", type: "IMDb")
     ]
 
     codes = Import::MusicbrainzRelationsCode.extract(relations)
