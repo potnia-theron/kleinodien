@@ -24,6 +24,7 @@ class Import::MusicbrainzParticipantAdapterTest < ActiveSupport::TestCase
     @from.expect :musicbrainz, musicbrainz
     musicbrainz.expect :get, acdc, [:artist, @code]
 
-    assert_equal @adapter.expensive_search_parameters, {discogs_code: "84752", musicbrainz_code: @code}
+    expected = {discogs_code: "84752", imdb_code: "nm0009540", musicbrainz_code: @code}
+    assert_equal @adapter.expensive_search_parameters, expected
   end
 end
