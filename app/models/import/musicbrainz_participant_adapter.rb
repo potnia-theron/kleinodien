@@ -17,6 +17,11 @@ module Import
       cheap_search_parameters
         .merge({discogs_code: relations_code["discogs"]["artist"]})
         .compact
+
+      {
+        discogs_code: relations_code.dig("discogs", "artist"),
+        imdb_code: relations_code.dig("imdb", "name")
+      }.merge(cheap_search_parameters).compact
     end
 
     def cheap_search_parameters
