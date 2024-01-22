@@ -13,7 +13,10 @@ module Import
     end
 
     def expensive_search_parameters
-      cheap_search_parameters.merge({discogs_code: discogs_code}).compact
+      relations_code = Import::MusicbrainzRelationsCode.extract(relations)
+      cheap_search_parameters
+        .merge({discogs_code: relations_code["discogs"]["artist"]})
+        .compact
     end
 
     def cheap_search_parameters
@@ -34,25 +37,8 @@ module Import
       from.musicbrainz.get(:artist, code)
     end
 
-    def discogs_code
-      url_rel = url_rels.find { |relation| relation["type"] == "discogs" }
-      return unless url_rel
-      uri = url_rel.dig("url", "resource")
-      match = uri.match %r{/artist/(?<code>[0-9]+)}
-      match[:code]
-    end
-
     def relations
       data["relations"]
-    end
-
-    def urls
-      url_rels.map { |url_rel| url_rel.dig("url", "resource") }
-    end
-
-    def url_rels
-      return [] unless relations
-      relations.filter { |relation| relation.target_type == "url" }
     end
   end
 end
