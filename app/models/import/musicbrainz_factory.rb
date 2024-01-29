@@ -15,11 +15,6 @@ module Import
       Import::Fetcher.new(factory: self, uri: uri_string)
     end
 
-    def build_intermediate(model_class, code)
-      adapter = build_adapter(model_class, code)
-      Import::Intermediate.new(adapter: adapter, model_class: model_class)
-    end
-
     def build_uri_string(kind, code)
       "https://musicbrainz.org/ws/2/#{kind}/#{code}?fmt=json"
     end
