@@ -26,10 +26,6 @@ class Import::MusicbrainzFactoryTest < ActiveSupport::TestCase
     assert_kind_of Faraday::Connection, @factory.connection
   end
 
-  test "#session" do
-    assert_kind_of Import::Session, @factory.session
-  end
-
   test "#interrupter returns an Import::MusicbrainzInterrupter" do
     assert_kind_of Import::MusicbrainzInterrupter, @factory.interrupter
   end

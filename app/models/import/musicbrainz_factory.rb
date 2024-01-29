@@ -23,10 +23,6 @@ module Import
       @connection ||= Faraday.new
     end
 
-    def session
-      @from ||= Import::Session.new(import_order)
-    end
-
     def interrupter
       @interrupt ||= Import::MusicbrainzInterrupter.new
     end
