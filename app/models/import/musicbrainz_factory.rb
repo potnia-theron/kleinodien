@@ -23,8 +23,8 @@ module Import
       @connection ||= Faraday.new
     end
 
-    def from
-      @from ||= Import::From.new(import_order)
+    def session
+      @from ||= Import::Session.new(import_order)
     end
 
     def interrupter

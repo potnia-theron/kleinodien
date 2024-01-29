@@ -1,5 +1,5 @@
 module Import
-  class FromHandler
+  class SessionAncillary
     def initialize(factory)
       @factory = factory
     end
