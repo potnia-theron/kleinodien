@@ -1,12 +1,12 @@
 require "test_helper"
 require "minitest/mock"
 
-class Import::FromHandlerTest < ActiveSupport::TestCase
+class Import::SessionAncillaryTest < ActiveSupport::TestCase
   setup do
     @buffer = Minitest::Mock.new
     @factory = Minitest::Mock.new
 
-    @handler = Import::FromHandler.new(@factory)
+    @handler = Import::SessionAncillary.new(@factory)
   end
 
   test "#buffered? false" do
