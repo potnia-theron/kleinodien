@@ -4,27 +4,29 @@ require "minitest/mock"
 class Import::MusicbrainzParticipantAdapterTest < ActiveSupport::TestCase
   setup do
     @code = "66c662b6-6e2f-4930-8610-912e24c63ed1" # AC/DC
-    @factory = Minitest::Mock.new
-    @from = Minitest::Mock.new
 
-    @adapter = Import::MusicbrainzParticipantAdapter.new(@factory, code: @code)
+    @ancillary = Minitest::Mock.new
+    @session = Minitest::Mock.new
   end
 
   def acdc
-    File.read("test/webmock/musicbrainz.org/ws/2/artist/66c662b6-6e2f-4930-8610-912e24c63ed1_inc_url-rels.json")
+    json_string = File.read("test/webmock/musicbrainz.org/ws/2/artist/66c662b6-6e2f-4930-8610-912e24c63ed1_inc_url-rels.json")
+    Import::Json.parse(json_string)
   end
 
-  test "#cheap_search_parameters" do
-    assert_equal @adapter.cheap_search_parameters, {musicbrainz_code: @code}
+  test "#prepare with code" do
+    adapter = Import::MusicbrainzParticipantAdapter.new(@session, code: @code)
+    @session.expect :musicbrainz, @ancillary
+    @ancillary.expect :get, acdc, [:artist, @code]
+
+    adapter.prepare
+
+    @ancillary.verify
+    @session.verify
   end
 
-  test "#expensive_search_parameters" do
-    @factory.expect :from, @from
-    musicbrainz = Minitest::Mock.new
-    @from.expect :musicbrainz, musicbrainz
-    musicbrainz.expect :get, acdc, [:artist, @code]
-
-    expected = {discogs_code: "84752", imdb_code: "nm0009540", musicbrainz_code: @code}
-    assert_equal @adapter.expensive_search_parameters, expected
+  test "#prepare with data" do
+    adapter = Import::MusicbrainzParticipantAdapter.new(@session, data: acdc)
+    assert_nil adapter.prepare
   end
 end

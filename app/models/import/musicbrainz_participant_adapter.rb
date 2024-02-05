@@ -1,49 +1,37 @@
 module Import
   class MusicbrainzParticipantAdapter
-    def initialize(factory, code:)
-      @code = code
-      @factory = factory
+    def model_class = Participant
+
+    def initialize(session, data: nil, **options)
+      @session = session
+      @data = data
+      @options = options
     end
 
-    def arguments
-      {
-        name: data["name"],
-        sort_name: data["sort-name"]
-      }
+    def prepare
+      model_class.find_by(musicbrainz_code: code) || find_by_all_codes
     end
 
-    def expensive_search_parameters
-      relations_code = Import::MusicbrainzRelationsCode.extract(relations)
-      cheap_search_parameters
-        .merge({discogs_code: relations_code["discogs"]["artist"]})
-        .compact
+    attr_reader :options, :session
 
-      {
-        discogs_code: relations_code.dig("discogs", "artist"),
-        imdb_code: relations_code.dig("imdb", "name")
-      }.merge(cheap_search_parameters).compact
+    def code
+      options[:code] || data&.id || raise("can't get code")
     end
-
-    def cheap_search_parameters
-      {musicbrainz_code: code}
-    end
-
-    private
-
-    attr_reader :code, :factory
-
-    delegate_missing_to :factory
 
     def data
-      @data ||= Import::Json.parse(json_string)
+      @data ||= session.musicbrainz.get(:artist, code)
     end
 
-    def json_string
-      from.musicbrainz.get(:artist, code)
-    end
+    def find_by_all_codes
+      relations = Import::MusicbrainzRelationsCode.extract(data.relations)
 
-    def relations
-      data["relations"]
+      codes_hash = {
+        discogs_code: relations.dig("discogs", "artist"),
+        imdb_code: relations.dig("imdb", "name"),
+        musicbrainz_code: code
+      }.compact
+
+      model_class.find_by(codes_hash) if codes_hash.any?
     end
   end
 end
