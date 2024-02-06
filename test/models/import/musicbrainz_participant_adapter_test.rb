@@ -14,7 +14,7 @@ class Import::MusicbrainzParticipantAdapterTest < ActiveSupport::TestCase
     Import::Json.parse(json_string)
   end
 
-  test "#prepare with code" do
+  test "#prepare with code when no record can be found" do
     adapter = Import::MusicbrainzParticipantAdapter.new(@session, code: @code)
     @session.expect :musicbrainz, @ancillary
     @ancillary.expect :get, acdc, [:artist, @code]
@@ -25,7 +25,7 @@ class Import::MusicbrainzParticipantAdapterTest < ActiveSupport::TestCase
     @session.verify
   end
 
-  test "#prepare with data" do
+  test "#prepare with data when no record can be found" do
     adapter = Import::MusicbrainzParticipantAdapter.new(@session, data: acdc)
     assert_nil adapter.prepare
   end
