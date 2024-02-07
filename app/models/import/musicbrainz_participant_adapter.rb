@@ -27,11 +27,15 @@ module Import
 
       codes_hash = {
         discogs_code: relations.dig("discogs", "artist"),
-        imdb_code: relations.dig("imdb", "name"),
-        musicbrainz_code: code
+        imdb_code: relations.dig("imdb", "name")
       }.compact
 
-      model_class.find_by(codes_hash) if codes_hash.any?
+      query = model_class.where(musicbrainz_code: code)
+      codes_hash.each do |attr, code_value|
+        query = query.or(model_class.where(attr => code_value))
+      end
+
+      query.load&.first
     end
   end
 end

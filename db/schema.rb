@@ -60,7 +60,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_10_084838) do
     t.integer "end_date_accuracy", limit: 2
     t.uuid "import_order_id"
     t.integer "discogs_code"
-    t.integer "imdb_code"
+    t.text "imdb_code"
     t.uuid "musicbrainz_code"
     t.integer "tmdb_code"
     t.integer "wikidata_code"
