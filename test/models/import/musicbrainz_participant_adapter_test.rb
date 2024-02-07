@@ -34,12 +34,9 @@ class Import::MusicbrainzParticipantAdapterTest < ActiveSupport::TestCase
   end
 
   test "#prepare xxx" do
-    # xxx = {discogs_code: 123, imdb_code: "nm123"}
     test_values = [
-      ["discogs_code", "123", "discogs", "https://discogs.com/artist/123"]
-      # The column "participants.imdb_code" expects an integer
-      # but "nm333" is a string
-      # ["imdb_code", "nm333", "IMDb", "https://imdb.com/name/nm333"]
+      ["discogs_code", "123", "discogs", "https://discogs.com/artist/123"],
+      ["imdb_code", "nm333", "IMDb", "https://imdb.com/name/nm333"]
     ]
 
     test_values.each do |test_data|

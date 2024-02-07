@@ -45,6 +45,7 @@ module Import
       type = type_of(url_rel)
       regex = REGEX_FOR[type]
 
+      # debugger
       match_data = regex.match(uri_obj.path)
       return unless match_data
 
