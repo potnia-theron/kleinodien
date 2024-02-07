@@ -11,7 +11,7 @@ class CreateParticipants < ActiveRecord::Migration[7.1]
       # t.references :import_order, null: true, foreign_key: true, type: :uuid
       t.uuid :import_order_id
       t.integer :discogs_code
-      t.integer :imdb_code
+      t.text :imdb_code
       t.uuid :musicbrainz_code
       t.integer :tmdb_code
       t.integer :wikidata_code
