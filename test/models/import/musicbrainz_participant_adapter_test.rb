@@ -2,6 +2,10 @@ require "test_helper"
 require "minitest/mock"
 
 class Import::MusicbrainzParticipantAdapterTest < ActiveSupport::TestCase
+  MusicbrainzTestData = Data.define(:relations)
+  MusicbrainzTestRelation = Data.define(:target_type, :type, :url)
+  MusicbrainzTestUrl = Data.define(:resource)
+
   setup do
     @musicbrainz_code = "66c662b6-6e2f-4930-8610-912e24c63ed1" # AC/DC
     @discogs_code = 84752
@@ -33,7 +37,7 @@ class Import::MusicbrainzParticipantAdapterTest < ActiveSupport::TestCase
     assert_equal adapter.prepare.musicbrainz_code, @musicbrainz_code
   end
 
-  test "#prepare xxx" do
+  test "#prepare with existing record and various code-columns" do
     test_values = [
       ["discogs_code", "123", "discogs", "https://discogs.com/artist/123"],
       ["imdb_code", "nm333", "IMDb", "https://imdb.com/name/nm333"]
@@ -46,15 +50,9 @@ class Import::MusicbrainzParticipantAdapterTest < ActiveSupport::TestCase
 
       Participant.create!(:name => "AC/DC", :sort_name => "AC/DC", code_column => code)
 
-      data = OpenStruct.new(
-        relations: [
-          OpenStruct.new(
-            target_type: "url",
-            type: type,
-            url: OpenStruct.new(resource: url)
-          )
-        ]
-      )
+      url_obj = MusicbrainzTestUrl.new(url)
+      relation = MusicbrainzTestRelation.new(target_type: "url", type: type, url: url_obj)
+      data = MusicbrainzTestData.new([relation])
       adapter = Import::MusicbrainzParticipantAdapter.new(@session, data: data, code: @musicbrainz_code)
 
       assert_equal adapter.prepare.name, "AC/DC"
@@ -70,5 +68,19 @@ class Import::MusicbrainzParticipantAdapterTest < ActiveSupport::TestCase
     participants(:one).update!(discogs_code: @discogs_code)
     adapter = Import::MusicbrainzParticipantAdapter.new(@session, data: acdc)
     assert_equal adapter.prepare.discogs_code, @discogs_code
+  end
+
+  test "#persist" do
+    adapter = Import::MusicbrainzParticipantAdapter.new(@session, code: @musicbrainz_code)
+
+    @session.expect :musicbrainz, @ancillary
+    @ancillary.expect :get, acdc, [:artist, @musicbrainz_code]
+
+    participant = adapter.persist!
+    assert_not participant.new_record?
+    assert_equal participant.name, "AC/DC"
+
+    @session.verify
+    @ancillary.verify
   end
 end
