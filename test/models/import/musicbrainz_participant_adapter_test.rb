@@ -37,7 +37,7 @@ class Import::MusicbrainzParticipantAdapterTest < ActiveSupport::TestCase
     assert_equal adapter.prepare.musicbrainz_code, @musicbrainz_code
   end
 
-  test "#prepare xxx" do
+  test "#prepare with existing record and various code-columns" do
     test_values = [
       ["discogs_code", "123", "discogs", "https://discogs.com/artist/123"],
       ["imdb_code", "nm333", "IMDb", "https://imdb.com/name/nm333"]
