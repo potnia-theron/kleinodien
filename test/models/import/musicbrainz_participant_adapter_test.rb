@@ -71,4 +71,18 @@ class Import::MusicbrainzParticipantAdapterTest < ActiveSupport::TestCase
     adapter = Import::MusicbrainzParticipantAdapter.new(@session, data: acdc)
     assert_equal adapter.prepare.discogs_code, @discogs_code
   end
+
+  test "#persist" do
+    adapter = Import::MusicbrainzParticipantAdapter.new(@session, code: @musicbrainz_code)
+
+    @session.expect :musicbrainz, @ancillary
+    @ancillary.expect :get, acdc, [:artist, @musicbrainz_code]
+
+    participant = adapter.persist!
+    assert_not participant.new_record?
+    assert_equal participant.name, "AC/DC"
+
+    @session.verify
+    @ancillary.verify
+  end
 end

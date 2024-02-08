@@ -12,6 +12,14 @@ module Import
       model_class.find_by(musicbrainz_code: code) || find_by_all_codes
     end
 
+    def persist!
+      model_class.create!(
+        name: data.name,
+        sort_name: data.sort_name,
+        musicbrainz_code: code
+      )
+    end
+
     attr_reader :options, :session
 
     def code
