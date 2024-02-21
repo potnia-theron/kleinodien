@@ -15,6 +15,15 @@ module Import
       Import::Fetcher.new(factory: self, uri: uri_string)
     end
 
+    def build_finder(presenter)
+      model_name = presenter.model.name
+
+      class_name = "Import::Find#{model_name}"
+
+      klass = class_name.constantize
+      klass.new(presenter)
+    end
+
     def build_uri_string(kind, code)
       "https://musicbrainz.org/ws/2/#{kind}/#{code}?fmt=json"
     end
@@ -33,6 +42,10 @@ module Import
 
     def config
       @config ||= Rails.configuration.import[:musicbrainz]
+    end
+
+    def transform_response(response)
+      Import::Json.parse(response.body)
     end
 
     private
