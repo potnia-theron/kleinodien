@@ -35,5 +35,13 @@ module Import
 
       tokens.join("")
     end
+
+    def participants
+      factory.build_on_to_many(one: self, many: :participants)
+    end
+
+    def raw_participants
+      data.artist_credit
+    end
   end
 end
