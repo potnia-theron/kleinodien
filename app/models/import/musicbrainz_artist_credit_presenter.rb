@@ -26,9 +26,6 @@ module Import
     def has_many_associations
       assos = model.reflect_on_all_associations(:has_many)
       inverse = assos.map do |asso|
-        # needs:
-        # - [ ] ActiveRecord-class of the referenced association
-        # - [ ] name of the ArtistCredit-attribute in the ActiveRecord-class
         class_name = asso.class_name
         inverse_name = asso.inverse_of.name
         [class_name, inverse_name]
@@ -46,9 +43,9 @@ module Import
       tokens.join("")
     end
 
-    # def participants
-    #   factory.build_presenter_list(ArtistCreditParticipant, data)
-    # end
+    def participants
+      session.build_presenter_list(data: data, model: ArtistCreditParticipant)
+    end
 
     # def raw_participants
     #   data.artist_credit

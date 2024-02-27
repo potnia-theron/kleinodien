@@ -35,24 +35,13 @@ module Import
       end
     end
 
-    def prepare_has_many_associations = nil
-    # def prepare_has_many_associations
-    #   presenter.has_many_associations.each do |assoc|
-    #     # asso_class_name = asso.class_name
-    #     # asso_column_name = asso.inverse_of.name
-
-    #     # factory.build_presenter_list()
-    #     name = assoc.name
-
-    #     raw_data = assoc.send name
-    #     list = factory.build_presenter_list(association: asso, data: raw_data)
-    #     # list.each(&:pepare)
-    #     list.each do |presenter_x|
-    #       preparer = factory.build_preparer(presenter_x, skip: [name])
-    #       preparer.prepare
-    #     end
-    #   end
-    # end
+    def prepare_has_many_associations
+      presenter.has_many_associations.each do |association|
+        presenter_list = presenter.send association.name
+        preparer_list = session.build_preparer_list(presenter_list)
+        preparer_list.each(&:call)
+      end
+    end
 
     def prepare_has_and_belongs_to_many_associations
     end

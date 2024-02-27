@@ -19,7 +19,8 @@ module Import
     delegate_missing_to :default_factory
 
     def build_ancillary(factory_name)
-      factory = factory_name.constantize.new(import_order)
+      # factory = factory_name.constantize.new(import_order)
+      factory = factory_name.constantize.new(self)
       SessionAncillary.new(factory)
     end
   end

@@ -2,16 +2,16 @@ module Import
   class PresenterList
     include Enumerable
 
-    def initialize(session, class_name:, data:)
+    def initialize(session, data:, model:)
       @session = session
-      @class_name = class_name
       @data = data
+      @model = model
     end
 
-    attr_reader :data, :session
+    attr_reader :data, :model, :session
 
     def each
-      data.map { |raw| session.build_presenter(class_name: class_name, data: raw) }
+      data.map { |raw_data| session.build_presenter(data: raw_data, model: model) }
     end
   end
 end

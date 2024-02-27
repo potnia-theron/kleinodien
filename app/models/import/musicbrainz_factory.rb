@@ -1,11 +1,11 @@
 module Import
   class MusicbrainzFactory
-    def initialize(import_order, buffer: nil)
+    def initialize(session, buffer: nil)
       @buffer = buffer || Buffer.new
-      @import_order = import_order
+      @session = session
     end
 
-    attr_reader :buffer, :import_order
+    attr_reader :buffer, :session
 
     def build_attempt
       Import::FaradayAttempt.new(self)
@@ -22,6 +22,27 @@ module Import
 
       klass = class_name.constantize
       klass.new(presenter)
+    end
+
+    def build_preparer(presenter)
+      Import::Preparer.new(presenter)
+    end
+
+    def build_preparer_list(presenter_list)
+      # presenter_list.map { |presenter| build_preparer(presenter) }
+      Import::PreparerList.new(session, presenter_list: presenter_list)
+    end
+
+    def build_presenter(data:, model:)
+      name = model.name
+      presenter_class = "Import::Musicbrainz#{name}Presenter".constantize
+      presenter_class.new(session, data: data) # , model: model)
+    end
+
+    def build_presenter_list(data:, model:)
+      name = model.name
+      presenter_class = "Import::Musicbrainz#{name}Presenter".constantize
+      Import::PresenterList.new(session, data: data, model: model)
     end
 
     def build_uri_string(kind, code)
