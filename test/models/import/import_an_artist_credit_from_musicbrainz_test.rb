@@ -1,7 +1,7 @@
 require "test_helper"
 require "support/web_mock_external_apis"
 
-class Import::SpikeImportAnArtistCreditFromMusicbrainzTest < ActiveSupport::TestCase
+class Import::ImportAnArtistCreditFromMusicbrainzTest < ActiveSupport::TestCase
   setup do
     WebMockExternalApis.setup
 
@@ -18,7 +18,6 @@ class Import::SpikeImportAnArtistCreditFromMusicbrainzTest < ActiveSupport::Test
   test "import an ArtistCredit" do
     persisted_artist_credit = @aquirer.aquire
 
-    # debugger
     assert_equal persisted_artist_credit.name, "Jello Biafra With NoMeansNo"
   end
 end
