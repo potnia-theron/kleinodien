@@ -30,7 +30,7 @@ module Import
 
     def build_preparer_list(presenter_list)
       # presenter_list.map { |presenter| build_preparer(presenter) }
-      Import::PreparerList.new(session, presenter_list: presenter_list)
+      Import::CollectorList.new(session, presenter_list: presenter_list)
     end
 
     def build_presenter(data:, model:)

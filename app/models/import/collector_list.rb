@@ -1,5 +1,5 @@
 module Import
-  class PreparerList
+  class CollectorList
     include Enumerable
 
     def initialize(session, presenter_list:)
