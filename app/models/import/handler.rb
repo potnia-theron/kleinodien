@@ -1,12 +1,12 @@
 module Import
-  class Aquirer
+  class Handler
     def initialize(presenter)
       @presenter = presenter
     end
 
     attr_reader :presenter
 
-    def aquire
+    def call
       collect || persist!
     end
 

@@ -13,11 +13,11 @@ class Import::ImportAnArtistCreditFromMusicbrainzTest < ActiveSupport::TestCase
       .artist_credit
     @presenter = @session.build_presenter(data: @artist_credit, model: ArtistCredit)
 
-    @aquirer = Import::Aquirer.new(@presenter)
+    @handler = Import::Handler.new(@presenter)
   end
 
   test "import an ArtistCredit" do
-    persisted_artist_credit = @aquirer.aquire
+    persisted_artist_credit = @handler.call
 
     assert_equal persisted_artist_credit.name, "Jello Biafra With NoMeansNo"
     # assert_equal persisted_artist_credit.participants.first.name, "Jello Biafra"
