@@ -10,7 +10,7 @@ module Import
     attr_reader :presenter_list, :session
 
     def each
-      presenter_list.map { |presenter| session.build_preparer(presenter) }
+      presenter_list.map { |presenter| session.build_collector(presenter) }
     end
   end
 end
