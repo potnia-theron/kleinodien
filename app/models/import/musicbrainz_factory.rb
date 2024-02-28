@@ -28,8 +28,7 @@ module Import
       Import::Collector.new(presenter)
     end
 
-    def build_preparer_list(presenter_list)
-      # presenter_list.map { |presenter| build_preparer(presenter) }
+    def build_collector_list(presenter_list)
       Import::CollectorList.new(session, presenter_list: presenter_list)
     end
 

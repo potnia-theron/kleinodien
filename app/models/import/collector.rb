@@ -38,7 +38,7 @@ module Import
     def prepare_has_many_associations
       presenter.has_many_associations.each do |association|
         presenter_list = presenter.send association.name
-        preparer_list = session.build_preparer_list(presenter_list)
+        preparer_list = session.build_collector_list(presenter_list)
         preparer_list.each(&:call)
       end
     end
