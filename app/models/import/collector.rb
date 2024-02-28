@@ -22,12 +22,11 @@ module Import
     end
 
     def buffer
-      # prepare_belongs_to
-      prepare_has_many_associations
-      prepare_has_and_belongs_to_many_associations
+      collect_has_many_associations
+      collect_has_and_belongs_to_many_associations
     end
 
-    def prepare_belongs_to
+    def collect_belongs_to
       associations = model.belongs_to_associations
 
       associations.each do |association|
@@ -35,15 +34,15 @@ module Import
       end
     end
 
-    def prepare_has_many_associations
+    def collect_has_many_associations
       presenter.has_many_associations.each do |association|
         presenter_list = presenter.send association.name
-        preparer_list = session.build_collector_list(presenter_list)
-        preparer_list.each(&:call)
+        collector_list = session.build_collector_list(presenter_list)
+        collector_list.each(&:call)
       end
     end
 
-    def prepare_has_and_belongs_to_many_associations
+    def collect_has_and_belongs_to_many_associations
     end
   end
 end
