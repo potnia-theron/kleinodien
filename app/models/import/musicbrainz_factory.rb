@@ -15,32 +15,32 @@ module Import
       Import::Fetcher.new(factory: self, uri: uri_string)
     end
 
-    def build_finder(presenter)
-      model_name = presenter.model.name
+    def build_finder(facade)
+      model_name = facade.model.name
 
       class_name = "Import::Find#{model_name}"
 
       klass = class_name.constantize
-      klass.new(presenter)
+      klass.new(facade)
     end
 
-    def build_collecotor(presenter)
-      Import::Collector.new(presenter)
+    def build_collecotor(facade)
+      Import::Collector.new(facade)
     end
 
-    def build_collector_list(presenter_list)
-      Import::CollectorList.new(session, presenter_list: presenter_list)
+    def build_collector_list(facade_list)
+      Import::CollectorList.new(session, facade_list: facade_list)
     end
 
-    def build_presenter(data:, model:)
+    def build_facade(data:, model:)
       name = model.name
-      presenter_class = "Import::Musicbrainz#{name}Facade".constantize
-      presenter_class.new(session, data: data) # , model: model)
+      facade_class = "Import::Musicbrainz#{name}Facade".constantize
+      facade_class.new(session, data: data) # , model: model)
     end
 
-    def build_presenter_list(data:, model:)
+    def build_facade_list(data:, model:)
       name = model.name
-      presenter_class = "Import::Musicbrainz#{name}Facade".constantize
+      facade_class = "Import::Musicbrainz#{name}Facade".constantize
       Import::FacadeList.new(session, data: data, model: model)
     end
 

@@ -1,12 +1,12 @@
 module Import
   class FindParticipant
     # Does not need a session,
-    # all calls to external apis are done by the presenter
-    def initialize(presenter:)
-      @presenter = presenter
+    # all calls to external apis are done by the facade
+    def initialize(facade:)
+      @facade = facade
     end
 
-    attr_reader :presenter, :session
+    attr_reader :facade, :session
 
     # model ????
 
@@ -15,14 +15,14 @@ module Import
     end
 
     def find_by_intrinsic_code
-      attrs = presenter.intrinsic_code
+      attrs = facade.intrinsic_code
       return unless attrs
 
       model.record_class.find(attrs)
     end
 
     def find_by_all_codes
-      attrs = presenter.all_codes
+      attrs = facade.all_codes
       return unless attrs
 
       result = model.record_class.find(attrs)

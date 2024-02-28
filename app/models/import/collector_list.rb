@@ -2,15 +2,15 @@ module Import
   class CollectorList
     include Enumerable
 
-    def initialize(session, presenter_list:)
+    def initialize(session, facade_list:)
       @session = session
-      @presenter_list = presenter_list
+      @facade_list = facade_list
     end
 
-    attr_reader :presenter_list, :session
+    attr_reader :facade_list, :session
 
     def each
-      presenter_list.map { |presenter| session.build_collector(presenter) }
+      facade_list.map { |facade| session.build_collector(facade) }
     end
   end
 end

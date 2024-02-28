@@ -11,9 +11,9 @@ class Import::ImportAnArtistCreditFromMusicbrainzTest < ActiveSupport::TestCase
       .musicbrainz
       .get(:release, "36ddebf6-7fb2-4dc4-8931-aca5a3a35a30")
       .artist_credit
-    @presenter = @session.build_presenter(data: @artist_credit, model: ArtistCredit)
+    @facade = @session.build_facade(data: @artist_credit, model: ArtistCredit)
 
-    @handler = Import::Handler.new(@presenter)
+    @handler = Import::Handler.new(@facade)
   end
 
   test "import an ArtistCredit" do

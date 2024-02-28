@@ -37,7 +37,7 @@ module Import
     end
 
     def participants
-      session.build_presenter_list(data: data, model: ArtistCreditParticipant)
+      session.build_facade_list(data: data, model: ArtistCreditParticipant)
     end
 
     # def raw_participants

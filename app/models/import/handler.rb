@@ -1,10 +1,10 @@
 module Import
   class Handler
-    def initialize(presenter)
-      @presenter = presenter
+    def initialize(facade)
+      @facade = facade
     end
 
-    attr_reader :presenter
+    attr_reader :facade
 
     def call
       collect || persist!
@@ -17,11 +17,11 @@ module Import
     delegate :persist!, to: :persister
 
     def collector
-      Import::Collector.new(session, presenter: presenter, model: presenter.model)
+      Import::Collector.new(session, facade: facade, model: facade.model)
     end
 
     def persister
-      Import::Persist.new(presenter)
+      Import::Persist.new(facade)
     end
 
     def session

@@ -4,20 +4,20 @@ module Import
       new(...).call
     end
 
-    def initialize(session, model:, presenter:)
+    def initialize(session, model:, facade:)
       @session = session
       @model = model
-      @presenter = presenter
+      @facade = facade
     end
 
-    attr_reader :session, :model, :presenter
+    attr_reader :session, :model, :facade
 
     def call
       find || buffer && nil
     end
 
     def find
-      finder = session.build_finder(presenter)
+      finder = session.build_finder(facade)
       finder.call
     end
 
@@ -35,9 +35,9 @@ module Import
     end
 
     def collect_has_many_associations
-      presenter.has_many_associations.each do |association|
-        presenter_list = presenter.send association.name
-        collector_list = session.build_collector_list(presenter_list)
+      facade.has_many_associations.each do |association|
+        facade_list = facade.send association.name
+        collector_list = session.build_collector_list(facade_list)
         collector_list.each(&:call)
       end
     end

@@ -11,7 +11,7 @@ module Import
     attr_reader :data, :model, :session
 
     def each
-      data.map { |raw_data| session.build_presenter(data: raw_data, model: model) }
+      data.map { |raw_data| session.build_facade(data: raw_data, model: model) }
     end
   end
 end

@@ -1,16 +1,16 @@
 module Import
   class Persist
-    def initialize(presenter)
-      @presenter = presenter
+    def initialize(facade)
+      @facade = facade
     end
 
-    attr_reader :presenter
+    attr_reader :facade
 
     def persist!
       persist_belongs_to!
 
-      model_class = presenter.model
-      attributes = presenter.attributes
+      model_class = facade.model
+      attributes = facade.attributes
 
       record = model_class.create!(attributes)
 
@@ -19,7 +19,7 @@ module Import
     end
 
     def persist_belongs_to!
-      presenter.belongs_to_association_names.each do |name|
+      facade.belongs_to_association_names.each do |name|
       end
     end
 
