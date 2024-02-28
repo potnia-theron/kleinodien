@@ -1,5 +1,5 @@
 module Import
-  class PresenterList
+  class FacadeList
     include Enumerable
 
     def initialize(session, data:, model:)

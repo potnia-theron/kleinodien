@@ -1,5 +1,5 @@
 module Import
-  class MusicbrainzArtistCreditParticipantPresenter
+  class MusicbrainzArtistCreditParticipantFacade
     def initialize(session, data:)
       @session = session
       @data = data

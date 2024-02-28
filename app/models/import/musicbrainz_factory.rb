@@ -34,14 +34,14 @@ module Import
 
     def build_presenter(data:, model:)
       name = model.name
-      presenter_class = "Import::Musicbrainz#{name}Presenter".constantize
+      presenter_class = "Import::Musicbrainz#{name}Facade".constantize
       presenter_class.new(session, data: data) # , model: model)
     end
 
     def build_presenter_list(data:, model:)
       name = model.name
-      presenter_class = "Import::Musicbrainz#{name}Presenter".constantize
-      Import::PresenterList.new(session, data: data, model: model)
+      presenter_class = "Import::Musicbrainz#{name}Facade".constantize
+      Import::FacadeList.new(session, data: data, model: model)
     end
 
     def build_uri_string(kind, code)
