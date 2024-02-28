@@ -7,16 +7,16 @@ module Import
     attr_reader :presenter
 
     def aquire
-      prepare || persist!
+      collect || persist!
     end
 
-    def prepare
-      perparer.call
+    def collect
+      collector.call
     end
 
     delegate :persist!, to: :persister
 
-    def perparer
+    def collector
       Import::Collector.new(session, presenter: presenter, model: presenter.model)
     end
 
