@@ -24,14 +24,7 @@ module Import
     end
 
     def has_many_associations
-      assos = model.reflect_on_all_associations(:has_many)
-      inverse = assos.map do |asso|
-        class_name = asso.class_name
-        inverse_name = asso.inverse_of.name
-        [class_name, inverse_name]
-      end
-      # debugger
-      assos
+      model.reflect_on_all_associations(:has_many)
     end
 
     def name
