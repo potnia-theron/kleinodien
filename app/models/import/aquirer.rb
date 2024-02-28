@@ -17,7 +17,7 @@ module Import
     delegate :persist!, to: :persister
 
     def perparer
-      Import::Prepare.new(session, presenter: presenter, model: presenter.model)
+      Import::Collector.new(session, presenter: presenter, model: presenter.model)
     end
 
     def persister

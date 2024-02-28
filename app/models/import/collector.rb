@@ -1,5 +1,5 @@
 module Import
-  class Prepare
+  class Collector
     def self.call(...)
       new(...).call
     end

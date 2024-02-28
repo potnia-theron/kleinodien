@@ -24,8 +24,8 @@ module Import
       klass.new(presenter)
     end
 
-    def build_preparer(presenter)
-      Import::Preparer.new(presenter)
+    def build_collecotor(presenter)
+      Import::Collector.new(presenter)
     end
 
     def build_preparer_list(presenter_list)
