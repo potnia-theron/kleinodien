@@ -4,13 +4,13 @@ module Import
       new(...).call
     end
 
-    def initialize(session, model:, facade:)
+    def initialize(session, model_class:, facade:)
       @session = session
-      @model = model
+      @model_class = model_class
       @facade = facade
     end
 
-    attr_reader :session, :model, :facade
+    attr_reader :session, :model_class, :facade
 
     def call
       find || buffer && nil

@@ -17,7 +17,7 @@ module Import
     delegate :persist!, to: :persister
 
     def collector
-      Import::Collector.new(session, facade: facade, model: facade.model)
+      Import::Collector.new(session, facade: facade, model_class: facade.model_class)
     end
 
     def persister

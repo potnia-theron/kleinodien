@@ -9,7 +9,7 @@ module Import
     def persist!
       persist_belongs_to!
 
-      model_class = facade.model
+      model_class = facade.model_class
       attributes = facade.attributes
 
       record = model_class.create!(attributes)

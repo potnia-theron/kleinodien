@@ -7,8 +7,6 @@ module Import
 
     attr_reader :data, :session
 
-    def model = ArtistCreditParticipant
-
     def model_class = ArtistCreditParticipant
 
     def properties

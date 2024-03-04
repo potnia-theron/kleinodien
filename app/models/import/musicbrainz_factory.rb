@@ -16,7 +16,7 @@ module Import
     end
 
     def build_finder(facade)
-      model_name = facade.model.name
+      model_name = facade.model_class.name
 
       class_name = "Import::Find#{model_name}"
 
