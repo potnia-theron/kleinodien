@@ -22,12 +22,13 @@ module Import
     end
 
     def buffer
+      collect_belongs_to
       collect_has_many_associations
       collect_has_and_belongs_to_many_associations
     end
 
     def collect_belongs_to
-      associations = model.belongs_to_associations
+      associations = facade.belongs_to_associations
 
       associations.each do |association|
         # ???

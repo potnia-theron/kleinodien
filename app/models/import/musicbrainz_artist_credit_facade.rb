@@ -23,6 +23,10 @@ module Import
       []
     end
 
+    def belongs_to_associations
+      []
+    end
+
     def has_many_associations
       model.reflect_on_all_associations(:has_many)
     end

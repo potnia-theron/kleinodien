@@ -6,5 +6,11 @@ module Import
     end
 
     attr_reader :data, :session
+
+    def model = ArtistCreditParticipant
+
+    def belongs_to_associations
+      model.reflect_on_all_associations(:belongs_to)
+    end
   end
 end
