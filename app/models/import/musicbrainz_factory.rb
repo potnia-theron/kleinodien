@@ -33,10 +33,6 @@ module Import
     end
 
     def build_facade(data:, model:)
-      # name = model.name
-      # facade_class = "Import::Musicbrainz#{name}Facade".constantize
-      # facade_class.new(session, data: data) # , model: model)
-      # Import::FacadeList.new(session, data: data, model: facade_class)
       name = model.name
       facade_class = "Import::Musicbrainz#{name}Facade".constantize
       facade_class.new(session, data: data)
