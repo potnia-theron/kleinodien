@@ -19,7 +19,7 @@ module Import
     end
 
     def persist_belongs_to!
-      facade.belongs_to_association_names.each do |name|
+      facade.belongs_to_associations.each do |name|
       end
     end
 

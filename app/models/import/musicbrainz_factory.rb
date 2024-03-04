@@ -44,6 +44,12 @@ module Import
       Import::FacadeList.new(session, data: data, model: model)
     end
 
+    def build_properties(model_class)
+      name = model_class.name
+      properties_class = "Import::#{name}Properties".constantize
+      properties_class.new
+    end
+
     def build_uri_string(kind, code)
       "https://musicbrainz.org/ws/2/#{kind}/#{code}?fmt=json"
     end

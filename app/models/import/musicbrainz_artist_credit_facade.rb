@@ -9,6 +9,14 @@ module Import
 
     def model = ArtistCredit
 
+    def model_class = ArtistCredit
+
+    def properties
+      @properties ||= session.build_properties(model_class)
+    end
+
+    delegate_missing_to :properties
+
     def all_codes = nil
 
     def intrinsic_code = nil
@@ -17,18 +25,6 @@ module Import
       {
         name: name
       }
-    end
-
-    def belongs_to_association_names
-      []
-    end
-
-    def belongs_to_associations
-      []
-    end
-
-    def has_many_associations
-      model.reflect_on_all_associations(:has_many)
     end
 
     def name
@@ -43,9 +39,5 @@ module Import
     def participants
       session.build_facade_list(data: data, model: ArtistCreditParticipant)
     end
-
-    # def raw_participants
-    #   data.artist_credit
-    # end
   end
 end
