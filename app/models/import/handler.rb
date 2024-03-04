@@ -21,7 +21,7 @@ module Import
     end
 
     def persister
-      Import::Persist.new(facade)
+      Import::Persist.new(session, facade: facade)
     end
 
     def session

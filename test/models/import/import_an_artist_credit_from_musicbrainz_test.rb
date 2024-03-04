@@ -17,9 +17,9 @@ class Import::ImportAnArtistCreditFromMusicbrainzTest < ActiveSupport::TestCase
   end
 
   test "import an ArtistCredit" do
-    persisted_artist_credit = @handler.call
+    persisted = @handler.call
 
-    assert_equal persisted_artist_credit.name, "Jello Biafra With NoMeansNo"
+    assert_equal persisted.name, "Jello Biafra With NoMeansNo"
     # assert_equal persisted_artist_credit.participants.first.name, "Jello Biafra"
   end
 end

@@ -1,5 +1,5 @@
 module Import
-  class CollectorList
+  class PersisterList
     include Enumerable
 
     def initialize(session, facade_list:)
@@ -10,7 +10,7 @@ module Import
     attr_reader :facade_list, :session
 
     def each
-      facade_list.map { |facade| session.build_collector(facade) }
+      facade_list.map { |facade| session.build_persister(facade) }
     end
   end
 end
