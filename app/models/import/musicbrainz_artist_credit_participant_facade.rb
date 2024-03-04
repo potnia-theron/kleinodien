@@ -9,8 +9,12 @@ module Import
 
     def model = ArtistCreditParticipant
 
-    def belongs_to_associations
-      model.reflect_on_all_associations(:belongs_to)
+    def model_class = ArtistCreditParticipant
+
+    def properties
+      @properties ||= session.build_properties(model_class)
     end
+
+    delegate_missing_to :properties
   end
 end
