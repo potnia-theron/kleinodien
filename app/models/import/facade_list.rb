@@ -10,8 +10,10 @@ module Import
 
     attr_reader :data, :model, :session
 
-    def each
-      data.map { |raw_data| session.build_facade(data: raw_data, model: model) }
+    delegate :each, to: :facades
+
+    def facades
+      data.map { |item| session.build_facade(data: item, model: model) }
     end
   end
 end
