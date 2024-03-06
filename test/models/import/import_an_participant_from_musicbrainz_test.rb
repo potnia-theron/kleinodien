@@ -6,17 +6,16 @@ class Import::ImportAnFromParticipantFromMusicbrainzTest < ActiveSupport::TestCa
     WebMockExternalApis.setup
 
     @session = Import::Session.new(:fake_import_order, default_factory: :musicbrainz)
-
-    @participant = @session
-      .musicbrainz
-      .get(:artist, "66c662b6-6e2f-4930-8610-912e24c63ed1")
-    @facade = @session.build_facade(data: @participant, model: Participant)
-
-    @handler = Import::Handler.new(@facade)
   end
 
-  test "import an ArtistCredit" do
-    persisted = @handler.call
+  test "import a Participant with already fetched data" do
+    participant = @session
+      .musicbrainz
+      .get(:artist, "66c662b6-6e2f-4930-8610-912e24c63ed1")
+    facade = @session.build_facade(data: participant, model: Participant)
+    handler = Import::Handler.new(facade)
+
+    persisted = handler.call
 
     assert_equal persisted.name, "AC/DC"
   end
