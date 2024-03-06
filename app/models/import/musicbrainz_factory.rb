@@ -24,8 +24,8 @@ module Import
       klass.new(facade)
     end
 
-    def build_collecotor(facade)
-      Import::Collector.new(facade)
+    def build_collector(facade)
+      Import::Collector.new(session, facade: facade, model_class: facade.model_class)
     end
 
     def build_collector_list(facade_list)
@@ -40,6 +40,17 @@ module Import
 
     def build_facade_list(data:, model:)
       Import::FacadeList.new(session, data: data, model: model)
+    end
+
+    def build_persister(facade)
+      Import::Persist.new(session, facade: facade)
+    end
+
+    def build_persister_list(facade_list)
+      lst = Import::PersisterList.new(session, facade_list: facade_list)
+      # debugger
+      lst.class
+      lst
     end
 
     def build_properties(model_class)

@@ -28,7 +28,9 @@ module Import
       facade.has_many_associations.each do |association|
         name = association.name
         facade_list = facade.send name
-        persister_list = Import::PersisterList.new(session, facade_list: facade_list)
+        # persister_list = Import::PersisterList.new(session, facade_list: facade_list)
+        persister_list = session.build_persister_list(facade_list)
+        # debugger
         persister_list.each(&:persist!)
       end
     end
