@@ -21,7 +21,7 @@ module Import
       class_name = "Import::Find#{model_name}"
 
       klass = class_name.constantize
-      klass.new(facade)
+      klass.new(session, facade: facade)
     end
 
     def build_collector(facade)

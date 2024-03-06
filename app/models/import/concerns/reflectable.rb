@@ -14,6 +14,7 @@ module Import::Concerns
       model_class.attribute_names
         .without("id", "created_at", "updated_at")
         .reject { |attr| attr.end_with? "_id" }
+        .reject { |attr| attr.end_with? "_code" }
     end
 
     def belongs_to_associations

@@ -2,7 +2,8 @@ module Import
   class FindArtistCredit
     # Does not need a session,
     # all calls to external apis are done by the facade
-    def initialize(facade)
+    def initialize(session, facade:)
+      @session = session
       @facade = facade
     end
 
