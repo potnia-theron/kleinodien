@@ -18,6 +18,7 @@ class Import::ImportAnFromParticipantFromMusicbrainzTest < ActiveSupport::TestCa
     persisted = handler.call
 
     assert_equal persisted.name, "AC/DC"
+    assert_not persisted.new_record?
   end
 
   test "import a Participant partialy fetched data" do
@@ -28,5 +29,6 @@ class Import::ImportAnFromParticipantFromMusicbrainzTest < ActiveSupport::TestCa
     persisted = handler.call
 
     assert_equal persisted.name, "AC/DC"
+    assert_not persisted.new_record?
   end
 end
