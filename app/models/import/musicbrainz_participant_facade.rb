@@ -1,8 +1,7 @@
 module Import
   class MusicbrainzParticipantFacade
-    def initialize(session, data:, **options)
+    def initialize(session, options)
       @session = session
-      @data = data
       @options = options
     end
 
@@ -11,7 +10,7 @@ module Import
     def model_class = Participant
 
     def data
-      @xxx = @data || get
+      @data ||= options[:data] || session.get(:artist, options[:code])
     end
 
     def get
@@ -28,7 +27,7 @@ module Import
       # data.id
     end
 
-    def all_codes = nil
+    # def all_codes = nil
 
     delegate :name, to: :data
     delegate :sort_name, to: :data
