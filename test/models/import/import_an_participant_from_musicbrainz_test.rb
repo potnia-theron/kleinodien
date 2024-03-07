@@ -19,4 +19,14 @@ class Import::ImportAnFromParticipantFromMusicbrainzTest < ActiveSupport::TestCa
 
     assert_equal persisted.name, "AC/DC"
   end
+
+  test "import a Participant partialy fetched data" do
+    code = "66c662b6-6e2f-4930-8610-912e24c63ed1"
+    facade = @session.build_facade(data: nil, code: code, model: Participant)
+    handler = Import::Handler.new(facade)
+
+    persisted = handler.call
+
+    assert_equal persisted.name, "AC/DC"
+  end
 end

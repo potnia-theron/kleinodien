@@ -1,13 +1,22 @@
 module Import
   class MusicbrainzParticipantFacade
-    def initialize(session, data:)
-      @data = data
+    def initialize(session, data:, **options)
       @session = session
+      @data = data
+      @options = options
     end
 
-    attr_reader :data, :session
+    attr_reader :options, :session
 
     def model_class = Participant
+
+    def data
+      @xxx = @data || get
+    end
+
+    def get
+      session.get(:artist, options[:code])
+    end
 
     def properties
       @properties ||= session.build_properties(model_class)
