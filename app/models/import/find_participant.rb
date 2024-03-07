@@ -16,11 +16,10 @@ module Import
     end
 
     def find_by_intrinsic_code
-      attrs = facade.intrinsic_code
-      return unless attrs
+      search_attribibutes = facade.intrinsic_code
+      return unless search_attribibutes
 
-      # model.record_class.find(attrs)
-      facade.model_class.record_class.find(attrs)
+      facade.model_class.find_by(search_attribibutes)
     end
 
     def find_by_all_codes

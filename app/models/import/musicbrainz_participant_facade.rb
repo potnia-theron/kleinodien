@@ -24,10 +24,11 @@ module Import
     delegate_missing_to :properties
 
     def intrinsic_code
-      # data.id
-    end
+      code = options[:code] || options.dig(:data, :id)
+      return unless code
 
-    # def all_codes = nil
+      {musicbrainz_code: code}
+    end
 
     delegate :name, to: :data
     delegate :sort_name, to: :data

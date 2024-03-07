@@ -5,6 +5,7 @@ class Import::ImportAnFromParticipantFromMusicbrainzTest < ActiveSupport::TestCa
   setup do
     WebMockExternalApis.setup
 
+    @code = "66c662b6-6e2f-4930-8610-912e24c63ed1"
     @session = Import::Session.new(:fake_import_order, default_factory: :musicbrainz)
   end
 
@@ -22,14 +23,22 @@ class Import::ImportAnFromParticipantFromMusicbrainzTest < ActiveSupport::TestCa
   end
 
   test "import a Participant partialy fetched data" do
-    code = "66c662b6-6e2f-4930-8610-912e24c63ed1"
-    # facade = @session.build_facade(Participant, data: nil, code: code)
-    facade = @session.build_facade(Participant, code: code)
+    facade = @session.build_facade(Participant, code: @code)
     handler = Import::Handler.new(facade)
 
     persisted = handler.call
 
     assert_equal persisted.name, "AC/DC"
     assert_not persisted.new_record?
+  end
+
+  test "don't import if a Participant with that musicbrainz_code already exists" do
+    existing = Participant.create!(name: "Not AC/DC", sort_name: "AC/DC, Not", musicbrainz_code: @code)
+    facade = @session.build_facade(Participant, code: @code)
+    handler = Import::Handler.new(facade)
+
+    persisted = handler.call
+
+    assert_equal persisted, existing
   end
 end
