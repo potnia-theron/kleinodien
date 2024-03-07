@@ -23,7 +23,8 @@ class Import::ImportAnFromParticipantFromMusicbrainzTest < ActiveSupport::TestCa
 
   test "import a Participant partialy fetched data" do
     code = "66c662b6-6e2f-4930-8610-912e24c63ed1"
-    facade = @session.build_facade(Participant, data: nil, code: code)
+    # facade = @session.build_facade(Participant, data: nil, code: code)
+    facade = @session.build_facade(Participant, code: code)
     handler = Import::Handler.new(facade)
 
     persisted = handler.call
