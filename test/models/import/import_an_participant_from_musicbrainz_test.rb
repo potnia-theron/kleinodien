@@ -41,4 +41,14 @@ class Import::ImportAnFromParticipantFromMusicbrainzTest < ActiveSupport::TestCa
 
     assert_equal persisted, existing
   end
+
+  test "don't import if a Participant with that discogs_code already exists" do
+    existing = Participant.create!(name: "Not AC/DC", sort_name: "AC/DC, Not", discogs_code: 84752)
+    facade = @session.build_facade(Participant, code: @code)
+    handler = Import::Handler.new(facade)
+
+    persisted = handler.call
+
+    assert_equal persisted, existing
+  end
 end

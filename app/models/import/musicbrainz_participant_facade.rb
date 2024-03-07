@@ -43,7 +43,14 @@ module Import
 
     def end_date_accuracy = nil
 
-    def all_codes = []
+    # def all_codes = []
+    def all_codes
+      relations = Import::MusicbrainzRelationsCode.extract(data.relations)
+      {
+        discogs_code: relations.dig("discogs", "artist"),
+        imdb_code: relations.dig("imdb", "name")
+      }.compact
+    end
 
     def attributes
       properties.coining_attributes.index_with { |attr_name| send(attr_name) }
