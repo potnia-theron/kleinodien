@@ -72,9 +72,5 @@ module Import
         imdb_code: relations.dig("imdb", "name")
       }.compact
     end
-
-    def attributes
-      properties.coining_attributes.index_with { |attr_name| send(attr_name) }
-    end
   end
 end
