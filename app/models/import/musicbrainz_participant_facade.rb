@@ -17,14 +17,17 @@ module Import
       session.get(:artist, options[:code])
     end
 
+    def code
+      options[:code] || data.code
+    end
+
     def properties
       @properties ||= session.build_properties(model_class)
     end
 
     delegate_missing_to :properties
 
-    def intrinsic_code
-      code = options[:code] || options.dig(:data, :id)
+    def intrinsic_codes
       return unless code
 
       {musicbrainz_code: code}

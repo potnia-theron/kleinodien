@@ -8,7 +8,12 @@ module Import
     end
 
     attr_reader :facade, :session
+    delegate :model_class, to: :facade
+    delegate :intrinsic_codes, to: :facade
 
+    def properties
+      @properties ||= session.build_properties(model_class)
+    end
     # model ????
 
     def call
@@ -16,7 +21,7 @@ module Import
     end
 
     def find_by_intrinsic_code
-      search_attribibutes = facade.intrinsic_code
+      search_attribibutes = intrinsic_codes # facade.intrinsic_code
       return unless search_attribibutes
       facade.model_class.find_by(search_attribibutes)
     end
@@ -36,6 +41,9 @@ module Import
       raise "Too much reslts" if result.length != 1
 
       result.first
+    end
+
+    def all_codes
     end
   end
 end
