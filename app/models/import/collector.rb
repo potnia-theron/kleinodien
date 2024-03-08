@@ -4,13 +4,21 @@ module Import
       new(...).call
     end
 
+    # TODO: remove :model_class from parameter list
     def initialize(session, model_class:, facade:)
       @session = session
-      @model_class = model_class
+      # @model_class = model_class
       @facade = facade
     end
 
-    attr_reader :session, :model_class, :facade
+    # attr_reader :session, :model_class, :facade
+    attr_reader :session, :facade
+
+    delegate :model_class, to: :facade
+
+    def properties
+      @properties ||= session.build_properties(model_class)
+    end
 
     def call
       find || buffer && nil
@@ -28,7 +36,7 @@ module Import
     end
 
     def collect_belongs_to
-      associations = facade.belongs_to_associations
+      associations = properties.belongs_to_associations
 
       associations.each do |association|
         # ???
@@ -36,7 +44,7 @@ module Import
     end
 
     def collect_has_many_associations
-      facade.has_many_associations.each do |association|
+      properties.has_many_associations.each do |association|
         facade_list = facade.send association.name
         collector_list = session.build_collector_list(facade_list)
         # debugger

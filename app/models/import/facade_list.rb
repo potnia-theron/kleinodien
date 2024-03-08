@@ -13,7 +13,9 @@ module Import
     delegate :each, to: :facades
 
     def facades
-      data.map { |item| session.build_facade(data: item, model: model) }
+      # debugger
+      # data.map { |item| session.build_facade(data: item, model: model) }
+      data.map { |item| session.build_facade(model, data: item) }
     end
   end
 end

@@ -12,6 +12,7 @@ module Import
     delegate :each, to: :collectors
 
     def collectors
+      # debugger
       facade_list.map { |facade| session.build_collector(facade) }
     end
 
