@@ -18,7 +18,7 @@ module Import
     end
 
     def code
-      options[:code] || data.code
+      options[:code] || data.id
     end
 
     def properties
@@ -47,6 +47,24 @@ module Import
     def end_date_accuracy = nil
 
     # def all_codes = []
+    def discogs_code
+      all_codes[:discogs_code]
+    end
+
+    def imdb_code
+      all_codes[:imdb_code]
+    end
+
+    # delegate :musicbrainz_code, to: :code
+    def musicbrainz_code
+      # debugger
+      code
+    end
+
+    def tmdb_code = nil
+
+    def wikidata_code = nil
+
     def all_codes
       relations = Import::MusicbrainzRelationsCode.extract(data.relations)
       {

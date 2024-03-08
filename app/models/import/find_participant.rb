@@ -14,25 +14,24 @@ module Import
     def properties
       @properties ||= session.build_properties(model_class)
     end
-    # model ????
 
     def call
       find_by_intrinsic_code || find_by_all_codes
     end
 
     def find_by_intrinsic_code
-      search_attribibutes = intrinsic_codes # facade.intrinsic_code
-      return unless search_attribibutes
-      facade.model_class.find_by(search_attribibutes)
+      search_attributes = intrinsic_codes
+      return unless search_attributes
+      facade.model_class.find_by(search_attributes)
     end
 
     def find_by_all_codes
-      search_attribibutes = facade.all_codes
-      return unless search_attribibutes.any?
+      search_attributes = all_codes
+      return unless search_attributes.any?
 
-      first_pair = search_attribibutes.shift
+      first_pair = search_attributes.shift
       query = Participant.where(first_pair.first => first_pair.second)
-      search_attribibutes.each do |attr, code_value|
+      search_attributes.each do |attr, code_value|
         query = query.or(Participant.where(attr => code_value))
       end
 
@@ -44,6 +43,10 @@ module Import
     end
 
     def all_codes
+      attribute_names = properties.code_attribute_names
+      return unless attribute_names&.any?
+
+      attribute_names.index_with { |attr_name| facade.send(attr_name) }.compact
     end
   end
 end
