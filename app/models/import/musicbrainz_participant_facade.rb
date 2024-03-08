@@ -46,7 +46,6 @@ module Import
 
     def end_date_accuracy = nil
 
-    # def all_codes = []
     def discogs_code
       all_codes[:discogs_code]
     end
@@ -55,11 +54,7 @@ module Import
       all_codes[:imdb_code]
     end
 
-    # delegate :musicbrainz_code, to: :code
-    def musicbrainz_code
-      # debugger
-      code
-    end
+    alias_method :musicbrainz_code, :code
 
     def tmdb_code = nil
 
