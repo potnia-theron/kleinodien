@@ -35,9 +35,6 @@ module Import
     def build_facade(model, **xx)
       name = model.name
       facade_class = "Import::Musicbrainz#{name}Facade".constantize
-      yy = yy
-
-      # debugger
       facade_class.new(session, **xx)
     end
 
@@ -50,10 +47,7 @@ module Import
     end
 
     def build_persister_list(facade_list)
-      lst = Import::PersisterList.new(session, facade_list: facade_list)
-      # debugger
-      lst.class
-      lst
+      Import::PersisterList.new(session, facade_list: facade_list)
     end
 
     def build_properties(model_class)
