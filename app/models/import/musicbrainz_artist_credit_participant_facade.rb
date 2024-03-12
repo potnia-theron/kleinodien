@@ -8,15 +8,6 @@ module Import
 
     attr_reader :data, :options, :session
 
-    def attributes
-      properties.coining_attributes.index_with { |attr_name| send(attr_name) }
-    end
-
-    def artist_credit
-      debugger
-      options[:artist_credit]
-    end
-
     def join_phrase = nil
 
     def participant
@@ -28,10 +19,6 @@ module Import
     def position
       @@pos += 1
     end
-    # def position = 1
-    # def position
-    #   debugger
-    # end
 
     def model_class = ArtistCreditParticipant
 

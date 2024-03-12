@@ -9,12 +9,6 @@ module Import
 
     def model_class = ArtistCredit
 
-    def properties
-      @properties ||= session.build_properties(model_class)
-    end
-
-    delegate_missing_to :properties
-
     def all_codes = nil
 
     def intrinsic_code = nil
