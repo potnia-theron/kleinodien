@@ -1,13 +1,10 @@
 module Import
   class Collector
-    # TODO: remove :model_class from parameter list
-    def initialize(session, model_class:, facade:)
+    def initialize(session, facade:)
       @session = session
-      # @model_class = model_class
       @facade = facade
     end
 
-    # attr_reader :session, :model_class, :facade
     attr_reader :session, :facade
 
     delegate :model_class, to: :facade

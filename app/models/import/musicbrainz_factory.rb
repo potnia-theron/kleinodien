@@ -25,7 +25,7 @@ module Import
     end
 
     def build_collector(facade)
-      Import::Collector.new(session, facade: facade, model_class: facade.model_class)
+      Import::Collector.new(session, facade: facade)
     end
 
     def build_collector_list(facade_list)
