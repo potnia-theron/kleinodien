@@ -14,7 +14,7 @@ module Import
       session.build_facade(Import::MusicbrainzParticipantFacade, code: data.artist.id)
     end
 
-    # BUG: #position is just a fake
+    # FIXME: #position is just a fake
     @@pos = 0
     def position
       @@pos += 1
