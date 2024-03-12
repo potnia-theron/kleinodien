@@ -12,12 +12,12 @@ class Import::FacadeListTest < ActiveSupport::TestCase
     @session = Minitest::Mock.new
 
     facade_0 = Import::TestFacade.new
-    @session.expect :build_facade, facade_0 do |data: :facade_0, model: Import::TestFacade|
+    @session.expect :build_facade, facade_0 do |consecutive_number: 1, data: :facade_0, model: Import::TestFacade|
       true
     end
 
     facade_1 = Import::TestFacade.new
-    @session.expect :build_facade, facade_1 do |data: :facede_1, model: Import::TestFacade|
+    @session.expect :build_facade, facade_1 do |consecutive_number: 2, data: :facede_1, model: Import::TestFacade|
       true
     end
 

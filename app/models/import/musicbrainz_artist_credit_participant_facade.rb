@@ -1,5 +1,7 @@
 module Import
   class MusicbrainzArtistCreditParticipantFacade
+    include Concerns::Numerable
+
     def initialize(session, data:, **options)
       @session = session
       @data = data
@@ -7,17 +9,13 @@ module Import
     end
 
     attr_reader :data, :options, :session
+    alias_method :position, :consecutive_number
 
+    # FIXME: implement #join_phrase
     def join_phrase = nil
 
     def participant
       session.build_facade(Import::MusicbrainzParticipantFacade, code: data.artist.id)
-    end
-
-    # FIXME: #position is just a fake
-    @@pos = 0
-    def position
-      @@pos += 1
     end
 
     def model_class = ArtistCreditParticipant

@@ -32,10 +32,10 @@ module Import
       Import::CollectorList.new(session, facade_list: facade_list)
     end
 
-    def build_facade(model, **xx)
+    def build_facade(model, **)
       name = model.name
       facade_class = "Import::Musicbrainz#{name}Facade".constantize
-      facade_class.new(session, **xx)
+      facade_class.new(session, **)
     end
 
     def build_facade_list(data:, model:)

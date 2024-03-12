@@ -13,9 +13,9 @@ module Import
     delegate :each, to: :facades
 
     def facades
-      # debugger
-      # data.map { |item| session.build_facade(data: item, model: model) }
-      data.map { |item| session.build_facade(model, data: item) }
+      data.map.with_index(1) do |item, index|
+        session.build_facade(model, data: item, consecutive_number: index)
+      end
     end
   end
 end
