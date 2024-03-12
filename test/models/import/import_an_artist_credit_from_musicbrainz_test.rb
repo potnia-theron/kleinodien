@@ -20,6 +20,7 @@ class Import::ImportAnArtistCreditFromMusicbrainzTest < ActiveSupport::TestCase
     persisted = @handler.call
 
     assert_equal persisted.name, "Jello Biafra With NoMeansNo"
-    # assert_equal persisted.participants.first.name, "Jello Biafra"
+    assert_equal persisted.participants.first.name, "Jello Biafra"
+    assert_not persisted.participants.second.new_record?
   end
 end

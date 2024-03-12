@@ -23,6 +23,7 @@ module Import::Concerns
 
     def belongs_to_associations
       model_class.reflect_on_all_associations(:belongs_to)
+        .reject { |association| association.name == :import_order }
     end
 
     def has_and_belongs_to_many_associations

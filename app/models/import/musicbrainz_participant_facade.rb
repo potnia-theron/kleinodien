@@ -36,6 +36,10 @@ module Import
     delegate :name, to: :data
     delegate :sort_name, to: :data
 
+    def artist_credit_participants
+      session.build_facade_list(data: data, model: Participant)
+    end
+
     def disambiguation = nil
 
     def begin_date = nil
