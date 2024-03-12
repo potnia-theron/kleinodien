@@ -79,12 +79,5 @@ module Import
     def transform_response(response)
       Import::Json.parse(response.body)
     end
-
-    private
-
-    def build_adapter(model_class, code)
-      klass = "Import::Musicbrainz#{model_class.name}Adapter".constantize
-      klass.new(self, code: code)
-    end
   end
 end
