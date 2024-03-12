@@ -1,9 +1,5 @@
 module Import
   class Collector
-    def self.call(...)
-      new(...).call
-    end
-
     # TODO: remove :model_class from parameter list
     def initialize(session, model_class:, facade:)
       @session = session

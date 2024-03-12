@@ -13,13 +13,6 @@ module Import
 
     def intrinsic_code = nil
 
-    def attributes
-      properties.coining_attributes.index_with { |attr_name| send(attr_name) }
-    end
-
-    # TODO: To Import has_many_associations remove this method
-    def has_many_associations = []
-
     def name
       tokens = data.map { |ac| [ac.name, ac.joinphrase] }.flatten
 
