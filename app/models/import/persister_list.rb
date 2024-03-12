@@ -15,10 +15,5 @@ module Import
     def persisters
       facade_list.map { |facade| session.build_persister(facade, **options) }
     end
-    # def each
-    #   Enumerator.new do |yielder|
-    #     facade_list.each { |item| yielder << session.build_persister(data: item, model: model) }
-    #   end
-    # end
   end
 end
