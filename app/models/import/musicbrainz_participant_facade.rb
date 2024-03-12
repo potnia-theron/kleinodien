@@ -13,16 +13,8 @@ module Import
       @data ||= options[:data] || session.get(:artist, options[:code])
     end
 
-    def get
-      session.get(:artist, options[:code])
-    end
-
     def code
       options[:code] || data.id
-    end
-
-    def properties
-      @properties ||= session.build_properties(model_class)
     end
 
     delegate_missing_to :properties
@@ -35,10 +27,6 @@ module Import
 
     delegate :name, to: :data
     delegate :sort_name, to: :data
-
-    def artist_credit_participants
-      session.build_facade_list(data: data, model: Participant)
-    end
 
     def disambiguation = nil
 
