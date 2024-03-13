@@ -7,7 +7,6 @@ class Import::MusicbrainzArtistCreditFacadeTest < ActiveSupport::TestCase
   TestParticipant = Data.define(:name, :joinphrase)
 
   setup do
-    @data = Minitest::Mock.new
     @subject = Import::MusicbrainzParticipantFacade.new(:fake_session, {data: @data})
   end
 
