@@ -7,11 +7,11 @@ module SharedImportPropertiesTests
     assert_kind_of Array, @subject.belongs_to_associations
   end
 
-  def has_many_associations
+  def test_has_many_associations
     assert_kind_of Array, @subject.has_many_associations
   end
 
-  def has_and_belongs_to_many_associations
+  def test_has_and_belongs_to_many_associations
     assert_kind_of Array, @subject.has_and_belongs_to_many_associations
   end
 end
