@@ -14,7 +14,10 @@ module Import
     def model_class = ArtistCreditParticipant
 
     # FIXME: implement #join_phrase
-    def join_phrase = nil
+    # def join_phrase = nil
+    def join_phrase
+      data.joinphrase
+    end
 
     def participant
       session.build_facade(Import::MusicbrainzParticipantFacade, code: data.artist.id)
