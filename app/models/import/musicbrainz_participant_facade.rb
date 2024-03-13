@@ -27,8 +27,7 @@ module Import
 
     delegate :name, to: :data
     delegate :sort_name, to: :data
-
-    def disambiguation = nil
+    delegate :disambiguation, to: :data
 
     def begin_date = nil
 
