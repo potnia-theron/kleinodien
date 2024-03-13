@@ -29,14 +29,17 @@ module Import
     delegate :sort_name, to: :data
     delegate :disambiguation, to: :data
 
+    # TODO: actually implement #begin_date
     def begin_date = nil
 
     def begin_date_accuracy = nil
 
+    # TODO: actually implement #end_data
     def end_date = nil
 
     def end_date_accuracy = nil
 
+    # TODO: Implement a more general method to get the codes
     def discogs_code
       all_codes[:discogs_code]
     end
