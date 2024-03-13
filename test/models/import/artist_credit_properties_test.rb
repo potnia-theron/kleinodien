@@ -1,19 +1,22 @@
 require "test_helper"
+require "support/shared_import_properties_tests"
 
 class Import::ArtistCreditPropertiesTest < ActiveSupport::TestCase
+  include SharedImportPropertiesTests
+
   setup do
-    @properties = Import::ArtistCreditProperties.new
+    @subject = Import::ArtistCreditProperties.new
   end
 
   test "#belongs_to_associations" do
-    assert_equal @properties.belongs_to_associations, []
+    assert_equal @subject.belongs_to_associations, []
   end
 
   test "#has_many_associations" do
-    assert_equal @properties.has_many_associations.map(&:name), [:participants]
+    assert_equal @subject.has_many_associations.map(&:name), [:participants]
   end
 
   test "#has_and_belongs_to_many_associations" do
-    assert_equal @properties.has_and_belongs_to_many_associations, []
+    assert_equal @subject.has_and_belongs_to_many_associations, []
   end
 end
