@@ -1,11 +1,12 @@
 module Import
   class MusicbrainzArtistCreditFacade
-    def initialize(session, data:)
-      @data = data
+    def initialize(session, data:, **options)
       @session = session
+      @data = data
+      @options = options
     end
 
-    attr_reader :data, :session
+    attr_reader :data, :options, :session
 
     def model_class = ArtistCredit
 
