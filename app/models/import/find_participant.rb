@@ -18,22 +18,17 @@ module Import
     end
 
     def find_by_intrinsic_code
-      search_attributes = intrinsic_codes
-      return unless search_attributes.any?
-      facade.model_class.find_by(search_attributes)
+      return unless intrinsic_codes.any?
+
+      model_class.find_by(intrinsic_codes)
     end
 
     def find_by_all_codes
-      search_attributes = all_codes
-      return unless search_attributes.any?
+      return unless all_codes.any?
 
-      first_pair = search_attributes.shift
-      query = Participant.where(first_pair.first => first_pair.second)
-      search_attributes.each do |attr, code_value|
-        query = query.or(Participant.where(attr => code_value))
-      end
-
-      result = query.load
+      result = OrWithPresentValues
+        .query(attributes: all_codes, model_class: model_class)
+        .load
       return unless result.any?
       raise "Too much reslts" if result.length != 1
 
