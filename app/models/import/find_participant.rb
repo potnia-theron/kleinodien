@@ -19,7 +19,7 @@ module Import
 
     def find_by_intrinsic_code
       search_attributes = intrinsic_codes
-      return unless search_attributes
+      return unless search_attributes.any?
       facade.model_class.find_by(search_attributes)
     end
 
