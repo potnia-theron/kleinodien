@@ -17,10 +17,6 @@ module Import
       options[:code] || data.id
     end
 
-    def properties
-      session.build_properties(model_class)
-    end
-
     delegate_missing_to :properties
 
     def cheap_codes
