@@ -9,7 +9,6 @@ module Import
 
     attr_reader :facade, :session
     delegate :model_class, to: :facade
-    delegate :intrinsic_codes, to: :facade
 
     def properties
       @properties ||= session.build_properties(model_class)
@@ -17,13 +16,6 @@ module Import
 
     def call
       find_by_cheap_codes || find_by_codes
-    end
-
-    def all_codes
-      attribute_names = properties.code_attribute_names
-      return unless attribute_names&.any?
-
-      attribute_names.index_with { |attr_name| facade.send(attr_name) }.compact
     end
   end
 end

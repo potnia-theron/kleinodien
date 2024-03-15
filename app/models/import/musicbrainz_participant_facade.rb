@@ -19,7 +19,8 @@ module Import
 
     delegate_missing_to :properties
 
-    def intrinsic_codes
+    # def intrinsic_codes
+    def cheap_codes
       return unless code
 
       {musicbrainz_code: code}
