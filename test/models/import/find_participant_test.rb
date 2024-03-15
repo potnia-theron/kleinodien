@@ -1,30 +1,49 @@
 require "test_helper"
-require "minitest/mock"
 require "support/shared_import_find_tests"
+
+# Mocking is difficult here because there is a lot of delegation going on.
+# So we use a simple object.
+class FakeFacade
+  def initialize(model_class:)
+    @all_codes = {}
+    @cheap_codes = {}
+    @model_class = model_class
+  end
+
+  attr_accessor :all_codes, :cheap_codes, :model_class
+end
 
 class Import::FindParticipantTest < ActiveSupport::TestCase
   include SharedImportFindTests
 
   setup do
-    @subject = Import::FindParticipant
-  end
-  test "foo" do
-    assert true
+    @facade = FakeFacade.new(model_class: Participant)
+    @subject = Import::FindParticipant.new(:fake_session, facade: @facade)
   end
 
-  #   test "find a non existent Participant" do
-  #     properties = Minitest::Mock.new
+  def create_participant
+    Participant.create!(name: "Airbourne", sort_name: "Airbourne", musicbrainz_code: musicbrainz_code)
+  end
 
-  #     session = Minitest::Mock.new
-  #     session.expect :build_properties, properties, [Participant]
+  def musicbrainz_code = "a025df46-e2a5-11ee-9be0-33eaef18f872"
 
-  #     facade = Minitest::Mock.new
-  #     facade.expect :intrinsic_codes, {discogs_code: "321"}
-  #     2.times { facade.expect :model_class, Participant }
-  #     facade.expect :all_codes, {discogs_code: "321", tmdb_code: "11"}
+  test "Participant can't be found" do
+    assert_not @subject.call
+  end
 
-  #     finder = Import::FindParticipant.new(session, facade: facade)
+  test "find Participant with #cheap_codes" do
+    create_participant
 
-  #     assert_not finder.call
-  #   end
+    @facade.cheap_codes = {musicbrainz_code: musicbrainz_code}
+
+    assert_equal "Airbourne", @subject.call.name
+  end
+
+  test "find Participant with #all_codes" do
+    create_participant
+
+    @facade.all_codes = {musicbrainz_code: musicbrainz_code}
+
+    assert_equal "Airbourne", @subject.call.name
+  end
 end
