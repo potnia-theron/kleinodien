@@ -10,10 +10,6 @@ module Import::Concerns
       class_name.constantize
     end
 
-    def code_attribute_names
-      model_class.attribute_names.filter { |attr_name| attr_name.end_with?("_code") }
-    end
-
     def coining_attributes
       model_class.attribute_names
         .without("id", "created_at", "updated_at")
