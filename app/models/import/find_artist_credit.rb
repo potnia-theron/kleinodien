@@ -7,6 +7,10 @@ module Import
 
     attr_reader :facade, :session
 
-    def call = nil
+    def call
+      name = facade.name
+
+      ArtistCredit.find_by(name: name)
+    end
   end
 end
