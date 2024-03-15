@@ -16,7 +16,7 @@ module Import
     end
 
     def call
-      find_by_intrinsic_code || find_by_all_codes
+      find_by_cheap_codes || find_by_codes
     end
 
     def all_codes
