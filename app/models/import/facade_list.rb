@@ -36,6 +36,19 @@ module Import
         session.build_facade(model, **x)
       end
     end
+
+    def to_collectors
+      map do |facade|
+        session.build_collector(facade)
+      end
+    end
+
+    def to_persisters
+      map do |facade|
+        session.build_persister(facade)
+      end
+    end
+
     # def facades
     #   data.map.with_index(1) do |item, index|
     #     session.build_facade(model, item, consecutive_number: index)
