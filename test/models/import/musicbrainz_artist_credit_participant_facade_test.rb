@@ -21,7 +21,11 @@ class Import::MusicbrainzArtistCreditParticipantFacadeTest < ActiveSupport::Test
   end
 
   test "#participant" do
-    @session.expect :build_facade, :fake_facade, [Import::MusicbrainzParticipantFacade], code: "123"
+    # https://stackoverflow.com/questions/43494606/minitest-mock-expect-keyword-arguments
+    @session.expect :build_facade, :fake_facade do |code:|
+      true
+    end
+
     @data.expect :artist, TestArtist.new(id: "123")
 
     assert_equal :fake_facade, @subject.participant

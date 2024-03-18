@@ -15,12 +15,16 @@ module Import
 
     # FIXME: implement #join_phrase
     # def join_phrase = nil
+    def artist_credit
+      options[:artist_credit]
+    end
+
     def join_phrase
       data.joinphrase
     end
 
     def participant
-      session.build_facade(Import::MusicbrainzParticipantFacade, code: data.artist.id)
+      session.build_facade(Participant, code: data.artist.id)
     end
   end
 end
