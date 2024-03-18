@@ -11,18 +11,17 @@ class Import::FacadeListTest < ActiveSupport::TestCase
   setup do
     @session = Minitest::Mock.new
 
-    @facade_0 = Import::TestFacade.new
-    @session.expect :build_facade, @facade_0 do |consecutive_number: 1, data: :@facade_0, model: Import::TestFacade|
+    # @facade_0 = Import::TestFacade.new
+    @f_mocks = [Import::TestFacade.new, Import::TestFacade.new]
+    @session.expect :build_facade, @f_mocks[0] do |consecutive_number: 1, data: :@facade_0, model: Import::TestFacade|
       true
     end
 
-    @facade_1 = Import::TestFacade.new
-    @session.expect :build_facade, @facade_1 do |consecutive_number: 2, data: :facede_1, model: Import::TestFacade|
+    @session.expect :build_facade, @f_mocks[1] do |consecutive_number: 2, data: :facede_1, model: Import::TestFacade|
       true
     end
 
-    data = [:@facade_0, :@facade_1]
-    @facade_list = Import::FacadeList.new(@session, data: data, model: Import::TestFacade)
+    @facade_list = Import::FacadeList.new(@session, data: @f_mocks, model: Import::TestFacade)
   end
 
   test "#each" do
@@ -42,8 +41,8 @@ class Import::FacadeListTest < ActiveSupport::TestCase
   end
 
   test "#to_collectors" do
-    @session.expect :build_collector, :collector_0, [@facade_0]
-    @session.expect :build_collector, :collector_1, [@facade_1]
+    @session.expect :build_collector, :collector_0, [@f_mocks[0]]
+    @session.expect :build_collector, :collector_1, [@f_mocks[1]]
 
     collectors = @facade_list.to_collectors
 
@@ -53,8 +52,8 @@ class Import::FacadeListTest < ActiveSupport::TestCase
   end
 
   test "#to_persisters" do
-    @session.expect :build_persister, :persister_0, [@facade_0]
-    @session.expect :build_persister, :persister_1, [@facade_1]
+    @session.expect :build_persister, :persister_0, [@f_mocks[0]]
+    @session.expect :build_persister, :persister_1, [@f_mocks[1]]
 
     persisters = @facade_list.to_persisters
 
