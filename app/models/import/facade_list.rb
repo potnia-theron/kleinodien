@@ -2,15 +2,12 @@ module Import
   class FacadeList
     include Enumerable
 
-    # def initialize(session, data:, model:)
     def initialize(session, model:, **options)
       @session = session
-      # @data = data
       @options = options
       @model = model
     end
 
-    # attr_reader :data, :model, :session
     attr_reader :model, :options, :session
 
     delegate :each, to: :facades
@@ -20,21 +17,7 @@ module Import
     end
 
     def facades
-      data.map.with_index(1) do |data, index|
-        # options = {
-        #   consecutive_number: index,
-        #   data: data
-        # }
-        # options[:consecutive_number] = index
-        x = options.merge(
-          {
-            consecutive_number: index,
-            data: data
-
-          }
-        )
-        session.build_facade(model, **x)
-      end
+      data.map.with_index(1) { |data, consecutive_number| build_facade(data, consecutive_number) }
     end
 
     def to_collectors
@@ -49,10 +32,11 @@ module Import
       end
     end
 
-    # def facades
-    #   data.map.with_index(1) do |item, index|
-    #     session.build_facade(model, item, consecutive_number: index)
-    #   end
-    # end
+    private
+
+    def build_facade(data, consecutive_number)
+      facade_options = options.merge({consecutive_number: consecutive_number, data: data})
+      session.build_facade(model, **facade_options)
+    end
   end
 end
