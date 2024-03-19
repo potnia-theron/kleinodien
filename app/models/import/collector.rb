@@ -32,17 +32,15 @@ module Import
       associations = properties.belongs_to_associations
 
       associations.each do |association|
-        # ???
+        # TODO: implement #collect_belongs_to
       end
     end
 
     def collect_has_many_associations
       properties.has_many_associations.each do |association|
-        facade_list = facade.send association.name
-        # collector_list = session.build_collector_list(facade_list)
-        collector_list = facade_list.to_collectors
-        # debugger
-        collector_list.each(&:call)
+        association_name = association.name
+        collectors = facade.send(association_name).to_collectors
+        collectors.each(&:call)
       end
     end
 
