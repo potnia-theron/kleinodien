@@ -39,7 +39,8 @@ module Import
     def collect_has_many_associations
       properties.has_many_associations.each do |association|
         facade_list = facade.send association.name
-        collector_list = session.build_collector_list(facade_list)
+        # collector_list = session.build_collector_list(facade_list)
+        collector_list = facade_list.to_collectors
         # debugger
         collector_list.each(&:call)
       end
