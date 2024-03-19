@@ -41,9 +41,6 @@ module Import
     def build_facade_list(model:, **)
       Import::FacadeList.new(session, model: model, **)
     end
-    # def build_facade_list(data:, model:)
-    #   Import::FacadeList.new(session, data: data, model: model)
-    # end
 
     def build_persister(facade, **)
       Import::Persist.new(session, facade: facade, **)
