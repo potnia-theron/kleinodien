@@ -1,7 +1,7 @@
 require "test_helper"
 require "support/web_mock_external_apis"
 
-class Import::ImportAnFromParticipantFromMusicbrainzTest < ActiveSupport::TestCase
+class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
   setup do
     WebMockExternalApis.setup
 
