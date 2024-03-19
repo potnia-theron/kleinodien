@@ -28,10 +28,6 @@ module Import
       Import::Collector.new(session, facade: facade)
     end
 
-    def build_collector_list(facade_list)
-      Import::CollectorList.new(session, facade_list: facade_list)
-    end
-
     def build_facade(model, **)
       name = model.name
       facade_class = "Import::Musicbrainz#{name}Facade".constantize
@@ -45,10 +41,6 @@ module Import
     def build_persister(facade, **)
       Import::Persist.new(session, facade: facade, **)
     end
-
-    # def build_persister_list(facade_list, **)
-    #   Import::PersisterList.new(session, facade_list: facade_list, **)
-    # end
 
     def build_properties(model_class)
       name = model_class.name
