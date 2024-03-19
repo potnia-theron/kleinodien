@@ -1,5 +1,5 @@
 module Import
-  class MusicbrainzFactory
+  class MusicbrainzFactory < Factory
     def initialize(session, buffer: nil)
       @buffer = buffer || Buffer.new
       @session = session
