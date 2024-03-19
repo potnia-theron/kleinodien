@@ -2,6 +2,7 @@ require "test_helper"
 require "minitest/mock"
 
 class Import::FacadeListTest < ActiveSupport::TestCase
+  # OPTIMIZE: test forwarding of options on #to_collectors and #to_persisters
   setup do
     @session = Minitest::Mock.new
     @f_mocks = 2.times.map { |idx| mock_facade(idx) }

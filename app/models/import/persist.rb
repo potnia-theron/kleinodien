@@ -48,12 +48,16 @@ module Import
 
     def persist_has_many!
       properties.has_many_associations.each do |association|
-        name = association.name
-        facade_list = facade.send name
+        association_name = association.name
         option = association.inverse_of.name
+        persisters = facade.send(association_name).to_persisters(option => @record)
+        # debugger
+        persisters.each(&:persist!)
+        # option = association.inverse_of.name
         # persister_list = Import::PersisterList.new(session, facade_list: facade_list)
-        persister_list = session.build_persister_list(facade_list, option => @record)
-        persister_list.each(&:persist!)
+        # persister_list = session.build_persister_list(facade_list, option => @record)
+        # facade_list =
+        # persister_list.each(&:persist!)
       end
     end
   end

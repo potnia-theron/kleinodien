@@ -20,15 +20,15 @@ module Import
       data.map.with_index(1) { |data, consecutive_number| build_facade(data, consecutive_number) }
     end
 
-    def to_collectors
+    def to_collectors(...)
       map do |facade|
-        session.build_collector(facade)
+        session.build_collector(facade, ...)
       end
     end
 
-    def to_persisters
+    def to_persisters(...)
       map do |facade|
-        session.build_persister(facade)
+        session.build_persister(facade, ...)
       end
     end
 

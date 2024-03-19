@@ -46,9 +46,9 @@ module Import
       Import::Persist.new(session, facade: facade, **)
     end
 
-    def build_persister_list(facade_list, **)
-      Import::PersisterList.new(session, facade_list: facade_list, **)
-    end
+    # def build_persister_list(facade_list, **)
+    #   Import::PersisterList.new(session, facade_list: facade_list, **)
+    # end
 
     def build_properties(model_class)
       name = model_class.name
