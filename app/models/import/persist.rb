@@ -17,7 +17,6 @@ module Import
     def persist!
       belongs_to_attrs = persist_belongs_to!
 
-      # model_class = facade.model_class
       attrs = belongs_to_attrs.merge(attributes)
       @record = model_class.create!(attrs)
 
@@ -30,7 +29,6 @@ module Import
     end
 
     def persist_belongs_to!
-      # properties.belongs_to_associations.map do |association|
       assos = model_class.reflect_on_all_associations(:belongs_to).reject { |association| association.name == :import_order }
       assos.map do |association|
         key = association.name
@@ -51,13 +49,7 @@ module Import
         association_name = association.name
         option = association.inverse_of.name
         persisters = facade.send(association_name).to_persisters(option => @record)
-        # debugger
         persisters.each(&:persist!)
-        # option = association.inverse_of.name
-        # persister_list = Import::PersisterList.new(session, facade_list: facade_list)
-        # persister_list = session.build_persister_list(facade_list, option => @record)
-        # facade_list =
-        # persister_list.each(&:persist!)
       end
     end
   end
