@@ -6,7 +6,7 @@ class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
     WebMockExternalApis.setup
 
     @code = "66c662b6-6e2f-4930-8610-912e24c63ed1"
-    @session = Import::Session.new(:fake_import_order, default_factory: :musicbrainz)
+    @session = Import::MusicbrainzSession.new(:fake_import_order)
   end
 
   test "import a Participant with already fetched data" do

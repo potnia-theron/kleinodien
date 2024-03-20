@@ -5,7 +5,8 @@ class Import::ImportAnArtistCreditFromMusicbrainzTest < ActiveSupport::TestCase
   setup do
     WebMockExternalApis.setup
 
-    @session = Import::Session.new(:fake_import_order, default_factory: :musicbrainz)
+    # @session = Import::Session.new(:fake_import_order, default_factory: :musicbrainz)
+    @session = Import::MusicbrainzSession.new(:fake_import_order)
 
     @artist_credit = @session
       .musicbrainz

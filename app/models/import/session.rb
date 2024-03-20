@@ -1,12 +1,7 @@
 module Import
   class Session
-    def initialize(import_order, default_factory: nil)
+    def initialize(import_order)
       @import_order = import_order
-
-      # TODO: bad code
-      if default_factory
-        @default_factory = send default_factory
-      end
     end
 
     def musicbrainz
@@ -15,11 +10,9 @@ module Import
 
     private
 
-    attr_reader :default_factory, :import_order
-    delegate_missing_to :default_factory
+    attr_reader :import_order
 
     def build_ancillary(factory_name)
-      # factory = factory_name.constantize.new(import_order)
       factory = factory_name.constantize.new(self)
       SessionAncillary.new(factory)
     end

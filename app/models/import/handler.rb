@@ -25,8 +25,8 @@ module Import
     end
 
     def session
-      # !!!!!!!!!!
-      @session ||= Import::Session.new(:evil_fake_import_order, default_factory: :musicbrainz)
+      # FIXME: choose the right session-class
+      @session ||= Import::MusicbrainzSession.new(:evil_fake_import_order)
     end
   end
 end
