@@ -1,3 +1,4 @@
+# TODO: add tests for Import::Factory
 module Import
   # Base class for all Import-factories
   class Factory
