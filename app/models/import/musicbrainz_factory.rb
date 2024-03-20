@@ -10,6 +10,7 @@ module Import
       facade_class.new(session, **)
     end
 
+    # FIXME: is there a better way to receive *params?
     def build_uri_string(*params)
       kind, code = params
       "https://musicbrainz.org/ws/2/#{kind}/#{code}?fmt=json"
