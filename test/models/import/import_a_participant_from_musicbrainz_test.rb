@@ -10,9 +10,7 @@ class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
   end
 
   test "import a Participant with already fetched data" do
-    participant = @session
-      .musicbrainz
-      .get(:artist, "66c662b6-6e2f-4930-8610-912e24c63ed1")
+    participant = @session.get(:artist, @code)
     facade = @session.build_facade(Participant, data: participant)
     handler = Import::Handler.new(facade)
 

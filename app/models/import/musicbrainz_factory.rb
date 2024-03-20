@@ -10,7 +10,8 @@ module Import
       facade_class.new(session, **)
     end
 
-    def build_uri_string(kind, code)
+    def build_uri_string(*params)
+      kind, code = params
       "https://musicbrainz.org/ws/2/#{kind}/#{code}?fmt=json"
     end
 

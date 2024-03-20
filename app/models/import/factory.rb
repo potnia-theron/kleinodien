@@ -9,7 +9,8 @@ module Import
 
     attr_reader :buffer, :session
 
-    def build_fetcher(uri_string)
+    def build_fetcher(...)
+      uri_string = build_uri_string(...)
       Import::Fetcher.new(factory: self, uri: uri_string)
     end
 
