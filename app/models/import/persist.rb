@@ -10,14 +10,12 @@ module Import
 
     delegate :model_class, to: :facade
 
-    def properties
-      @properties ||= session.build_properties(model_class)
-    end
-
     def persist!
       persist_has_many!
       record
     end
+
+    private
 
     def attributes
       properties
@@ -43,6 +41,10 @@ module Import
         persisters = facade.send(association_name).to_persisters(option => record)
         persisters.each(&:persist!)
       end
+    end
+
+    def properties
+      @properties ||= session.build_properties(model_class)
     end
 
     def record
