@@ -31,16 +31,8 @@ module Import
     def persist_belongs_to!
       assos = model_class.reflect_on_all_associations(:belongs_to).reject { |association| association.name == :import_order }
       assos.map do |association|
-        key = association.name
-        value = options[key]
-        if !value
-          other_facade = facade.send(key)
-
-          persister = session.build_persister(other_facade)
-          value = persister.persist!
-        end
-
-        [key, value]
+        association_persister = Import::OneBelongsToAssociationPersister.new(session, association: association, other: self)
+        association_persister.persist
       end.to_h
     end
 
