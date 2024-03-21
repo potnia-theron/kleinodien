@@ -27,8 +27,8 @@ module Import
     end
 
     def persist_belongs_to_associations
-      assos = model_class.reflect_on_all_associations(:belongs_to).reject { |association| association.name == :import_order }
-      assos.map do |association|
+      associations = properties.belongs_to_associations
+      associations.map do |association|
         association_persister = Import::OneBelongsToAssociationPersister.new(session, association: association, other: self)
         association_persister.persist
       end.to_h

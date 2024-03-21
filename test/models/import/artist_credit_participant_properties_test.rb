@@ -9,9 +9,8 @@ class Import::ArtistCreditParticipantPropertiesTest < ActiveSupport::TestCase
   end
 
   test "#belongs_to_associations" do
-    # assert_empty @subject.belongs_to_associations
-    assert_equal 1, @subject.belongs_to_associations.length
-    assert_equal @subject.belongs_to_associations.map(&:name), [:participant]
+    assert_equal 2, @subject.belongs_to_associations.length
+    assert_equal @subject.belongs_to_associations.map(&:name).sort, [:artist_credit, :participant]
   end
 
   test "#has_many_associations" do
