@@ -31,10 +31,8 @@ module Import
     end
 
     def persist_belongs_to_associations
-      associations = properties.belongs_to_associations
-      associations.map do |association|
-        association_persister = build_one_belongs_to_association_persister(association)
-        association_persister.persist
+      properties.belongs_to_associations.map do |association|
+        build_one_belongs_to_association_persister(association).persist
       end.to_h
     end
 
