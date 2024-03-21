@@ -34,7 +34,7 @@ module Import
         key = association.name
         value = options[key]
         if !value
-          other_facade = session.build_facade(association.klass, data: facade.data)
+          other_facade = facade.send(key)
 
           persister = session.build_persister(other_facade)
           value = persister.persist!
