@@ -35,6 +35,10 @@ module Import
       Import::Persist.new(session, facade: facade, **)
     end
 
+    def build_one_belongs_to_association_persister(...)
+      Import::OneBelongsToAssociationPersister.new(session, ...)
+    end
+
     def build_properties(model_class)
       name = model_class.name
       properties_class = "Import::#{name}Properties".constantize

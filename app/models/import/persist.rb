@@ -26,10 +26,14 @@ module Import
         .merge(persist_belongs_to_associations)
     end
 
+    def build_one_belongs_to_association_persister(association)
+      session.build_one_belongs_to_association_persister(association: association, other: self)
+    end
+
     def persist_belongs_to_associations
       associations = properties.belongs_to_associations
       associations.map do |association|
-        association_persister = Import::OneBelongsToAssociationPersister.new(session, association: association, other: self)
+        association_persister = build_one_belongs_to_association_persister(association)
         association_persister.persist
       end.to_h
     end
