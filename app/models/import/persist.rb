@@ -15,7 +15,7 @@ module Import
     end
 
     def persist!
-      belongs_to_attrs = persist_belongs_to!
+      belongs_to_attrs = persist_belongs_to_associations
 
       attrs = belongs_to_attrs.merge(attributes)
       @record = model_class.create!(attrs)
@@ -28,7 +28,7 @@ module Import
       properties.coining_attributes.index_with { |attr_name| facade.send(attr_name) }
     end
 
-    def persist_belongs_to!
+    def persist_belongs_to_associations
       assos = model_class.reflect_on_all_associations(:belongs_to).reject { |association| association.name == :import_order }
       assos.map do |association|
         association_persister = Import::OneBelongsToAssociationPersister.new(session, association: association, other: self)
