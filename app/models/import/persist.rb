@@ -6,7 +6,7 @@ module Import
       @options = options
     end
 
-    attr_reader :facade, :options, :record, :session
+    attr_reader :facade, :options, :session
 
     delegate :model_class, to: :facade
 
@@ -15,17 +15,15 @@ module Import
     end
 
     def persist!
-      belongs_to_attrs = persist_belongs_to_associations
-
-      attrs = belongs_to_attrs.merge(attributes)
-      @record = model_class.create!(attrs)
-
       persist_has_many!
       record
     end
 
     def attributes
-      properties.coining_attributes.index_with { |attr_name| facade.send(attr_name) }
+      properties
+        .coining_attributes
+        .index_with { |attr_name| facade.send(attr_name) }
+        .merge(persist_belongs_to_associations)
     end
 
     def persist_belongs_to_associations
@@ -40,9 +38,13 @@ module Import
       properties.has_many_associations.each do |association|
         association_name = association.name
         option = association.inverse_of.name
-        persisters = facade.send(association_name).to_persisters(option => @record)
+        persisters = facade.send(association_name).to_persisters(option => record)
         persisters.each(&:persist!)
       end
+    end
+
+    def record
+      @record ||= model_class.create!(attributes)
     end
   end
 end
