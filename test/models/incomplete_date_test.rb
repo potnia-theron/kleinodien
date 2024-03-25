@@ -31,7 +31,7 @@ class IncompleteDateTest < ActiveSupport::TestCase
       .each { |bad| assert_raises { IncompleteDate.from_string(bad) } }
   end
 
-  def test_with_valid_arguments
+  test "test_with_valid_arguments" do
     ida = IncompleteDate.new("2000-01-02", "month")
 
     assert_equal 2000, ida.year
@@ -39,11 +39,11 @@ class IncompleteDateTest < ActiveSupport::TestCase
     assert_equal 2, ida.day
   end
 
-  def test_with_an_invalid_date
+  test "test_with_an_invalid_date" do
     assert_raises(Date::Error) { IncompleteDate.new("Wednesday", :day) }
   end
 
-  def test_with_valid_accuracies
+  test "test_with_valid_accuracies" do
     accuracies = %i[year month day].map { |accuracy| [accuracy, accuracy.to_sym] }
     accuracies.push [4, 6, 7]
 
@@ -54,11 +54,11 @@ class IncompleteDateTest < ActiveSupport::TestCase
     end
   end
 
-  def test_with_an_invalid_accuracy
+  test "test_with_an_invalid_accuracy" do
     assert_raises(ArgumentError) { IncompleteDate.new(@today, "green") }
   end
 
-  def test_with_date_as_string
+  test "test_with_date_as_string" do
     ida = IncompleteDate.new("2023-11-07", :year)
 
     assert_instance_of Date, ida.date
