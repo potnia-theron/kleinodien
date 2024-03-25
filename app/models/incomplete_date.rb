@@ -2,6 +2,17 @@ class IncompleteDate
   include DateAccuracy
   attr_reader :accuracy, :date
 
+  STRING_ACCURACY = {1 => :year, 2 => :month, 3 => :day}
+
+  def self.from_string(string)
+    accuracy = string.strip.split("-")
+      .then { |yyyymmdd| yyyymmdd.length }
+      .then { |length| STRING_ACCURACY[length] }
+
+    string = "#{string}-01" if accuracy == :year
+    new(string, accuracy)
+  end
+
   def initialize(date, accuracy)
     date = Date.iso8601(date) if date.is_a? String
     @date = date

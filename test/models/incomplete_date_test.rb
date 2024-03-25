@@ -5,6 +5,32 @@ class IncompleteDateTest < ActiveSupport::TestCase
     @today = Time.zone.today
   end
 
+  test ".from_string with complete string" do
+    incoda = IncompleteDate.from_string(@today.to_s)
+
+    assert_equal @today, incoda.date
+    assert_equal :day, incoda.accuracy
+  end
+
+  test ".from_string with a yyyy-mm string" do
+    incoda = IncompleteDate.from_string("2024-03")
+
+    assert_equal Date.new(2024, 3, 1), incoda.date
+    assert_equal :month, incoda.accuracy
+  end
+
+  test ".from_string with a yyyy string" do
+    incoda = IncompleteDate.from_string("2024")
+
+    assert_equal Date.new(2024, 1, 1), incoda.date
+    assert_equal :year, incoda.accuracy
+  end
+
+  test ".from_string with invalid data" do
+    [nil, "2024-04-05-06", "no date", "", " ", "3033-12-32"]
+      .each { |bad| assert_raises { IncompleteDate.from_string(bad) } }
+  end
+
   def test_with_valid_arguments
     ida = IncompleteDate.new("2000-01-02", "month")
 
