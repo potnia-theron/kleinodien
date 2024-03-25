@@ -1,4 +1,5 @@
 class IncompleteDate
+  include Comparable
   include DateAccuracy
   attr_reader :accuracy, :date
 
@@ -22,6 +23,11 @@ class IncompleteDate
     end
 
     @accuracy = accuracy
+  end
+
+  # accuracy is ignored in comparsion
+  def <=>(other)
+    date <=> other.date
   end
 
   def year

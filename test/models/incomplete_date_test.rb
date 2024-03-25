@@ -63,4 +63,12 @@ class IncompleteDateTest < ActiveSupport::TestCase
 
     assert_instance_of Date, ida.date
   end
+
+  test "<=>" do
+    incoda = IncompleteDate.new(@today, :year)
+
+    assert_equal IncompleteDate.new(@today, :year), incoda
+    assert_equal IncompleteDate.new(@today, :day), incoda, "accuracy is ignored"
+    assert_operator IncompleteDate.new(@today.next_week, :month), :>, incoda
+  end
 end

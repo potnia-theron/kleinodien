@@ -33,4 +33,10 @@ class Import::MusicbrainzParticipantFacadeTest < ActiveSupport::TestCase
       @data.verify
     end
   end
+
+  test "#begin_date" do
+    @data.expect :begin_date, "2024-03-25"
+
+    assert_equal IncompleteDate.new(Date.new(2024, 3, 25), :day), @subject.begin_date
+  end
 end
