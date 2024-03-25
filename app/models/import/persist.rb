@@ -11,7 +11,7 @@ module Import
     delegate :model_class, to: :facade
 
     def persist!
-      persist_has_many!
+      persist_has_many_associations
       record
     end
 
@@ -34,13 +34,15 @@ module Import
       end.to_h
     end
 
-    def persist_has_many!
-      properties.has_many_associations.each do |association|
-        association_name = association.name
-        option = association.inverse_of.name
-        persisters = facade.send(association_name).to_persisters(option => record)
-        persisters.each(&:persist!)
-      end
+    def persist_has_many_associations
+      properties.has_many_associations.each { |association| persist_one_has_many_association(association) }
+    end
+
+    def persist_one_has_many_association(association)
+      association_name = association.name
+      option_name = association.inverse_of.name
+      persisters = facade.send(association_name).to_persisters(option_name => record)
+      persisters.each(&:persist!)
     end
 
     def properties
