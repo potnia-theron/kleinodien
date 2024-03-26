@@ -28,10 +28,12 @@ module Import
       collect_has_and_belongs_to_many_associations
     end
 
+    # TODO: extract class Import::CollectBelongsToAssociation
     def collect_belongs_to
       properties.belongs_to_associations { |association| facade.send(association.name) }
     end
 
+    # TODO: extract class Import::CollectHasManyAssociation
     def collect_has_many_associations
       properties.has_many_associations.each do |association|
         association_name = association.name
