@@ -29,11 +29,7 @@ module Import
     end
 
     def collect_belongs_to
-      associations = properties.belongs_to_associations
-
-      associations.each do |association|
-        # TODO: implement #collect_belongs_to
-      end
+      properties.belongs_to_associations { |association| facade.send(association.name) }
     end
 
     def collect_has_many_associations
