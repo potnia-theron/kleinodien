@@ -29,7 +29,6 @@ module Import
     delegate :sort_name, to: :data
     delegate :disambiguation, to: :data
 
-    # TODO: actually implement #begin_date
     def begins_at
       date_string = data.life_span.begin
       return unless date_string
@@ -43,20 +42,6 @@ module Import
 
       IncompleteDate.from_string(date_string)
     end
-
-    # def begin_date
-    #   date_string = data.life_span.begin
-    #   return unless date_string
-
-    #   IncompleteDate.from_string(date_string)
-    # end
-
-    # def begin_date_accuracy = nil
-
-    # TODO: actually implement #end_data
-    def end_date = nil
-
-    def end_date_accuracy = nil
 
     # TODO: Implement a more general method to get the codes
     def discogs_code
