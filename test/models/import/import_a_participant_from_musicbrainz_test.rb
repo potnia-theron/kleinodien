@@ -27,6 +27,7 @@ class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
     persisted = handler.call
 
     assert_equal persisted.name, "AC/DC"
+    assert_equal Date.new(1973, 12, 31), persisted.begin_date
     assert_not persisted.new_record?
   end
 

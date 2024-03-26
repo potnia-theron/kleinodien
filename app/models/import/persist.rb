@@ -21,7 +21,14 @@ module Import
       properties
         .coining_attributes
         .index_with { |attr_name| facade.send(attr_name) }
+        .merge(date_attributes)
         .merge(persist_belongs_to_associations)
+    end
+
+    def date_attributes
+      return {} unless properties.periodeable?
+
+      {begins_at: facade.begins_at, ends_at: facade.ends_at}.compact
     end
 
     def build_one_belongs_to_association_persister(association)

@@ -5,6 +5,8 @@ require "support/shared_import_facade_tests"
 class Import::MusicbrainzParticipantFacadeTest < ActiveSupport::TestCase
   include SharedImportFacadeTests
 
+  LiveSpan = Data.define(:begin, :end)
+
   setup do
     @data = Minitest::Mock.new
     @subject = Import::MusicbrainzParticipantFacade.new(:fake_session, {data: @data})
@@ -34,9 +36,15 @@ class Import::MusicbrainzParticipantFacadeTest < ActiveSupport::TestCase
     end
   end
 
-  test "#begin_date" do
-    @data.expect :begin_date, "2024-03-25"
+  test "#begins_at" do
+    @data.expect :life_span, LiveSpan.new(begin: "2024-03-25", end: nil)
 
-    assert_equal IncompleteDate.new(Date.new(2024, 3, 25), :day), @subject.begin_date
+    assert_equal IncompleteDate.new(Date.new(2024, 3, 25), :day), @subject.begins_at
+  end
+
+  test "ends_at" do
+    @data.expect :life_span, LiveSpan.new(begin: nil, end: "2024-03-26")
+
+    assert_equal IncompleteDate.new(Date.new(2024, 3, 26), :day), @subject.ends_at
   end
 end

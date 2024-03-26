@@ -30,14 +30,28 @@ module Import
     delegate :disambiguation, to: :data
 
     # TODO: actually implement #begin_date
-    def begin_date
-      date_string = data.begin_date
+    def begins_at
+      date_string = data.life_span.begin
       return unless date_string
 
       IncompleteDate.from_string(date_string)
     end
 
-    def begin_date_accuracy = nil
+    def ends_at
+      date_string = data.life_span.end
+      return unless date_string
+
+      IncompleteDate.from_string(date_string)
+    end
+
+    # def begin_date
+    #   date_string = data.life_span.begin
+    #   return unless date_string
+
+    #   IncompleteDate.from_string(date_string)
+    # end
+
+    # def begin_date_accuracy = nil
 
     # TODO: actually implement #end_data
     def end_date = nil
