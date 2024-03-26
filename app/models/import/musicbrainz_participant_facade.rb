@@ -43,7 +43,7 @@ module Import
       IncompleteDate.from_string(date_string)
     end
 
-    # TODO: Implement a more general method to get the codes
+    # OPTIMIZE: Implement a more general method to get the codes
     def discogs_code
       all_codes[:discogs_code]
     end
