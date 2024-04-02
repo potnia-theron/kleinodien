@@ -11,22 +11,12 @@ module Import
     end
 
     def collect
-      # collector.call
       # TODO: Build Import::CollectorAction via factory
       Import::CollectAction.call(session, facade: facade)
     end
 
     def persist!
       Import::PersistAction.call(session, facade: facade)
-    end
-    # delegate :persist!, to: :persister
-
-    def collector
-      Import::Collector.new(session, facade: facade)
-    end
-
-    def persister
-      Import::Persist.new(session, facade: facade)
     end
 
     def session
