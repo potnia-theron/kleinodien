@@ -16,7 +16,10 @@ module Import
       Import::CollectAction.call(session, facade: facade)
     end
 
-    delegate :persist!, to: :persister
+    def persist!
+      Import::PersistAction.call(session, facade: facade)
+    end
+    # delegate :persist!, to: :persister
 
     def collector
       Import::Collector.new(session, facade: facade)

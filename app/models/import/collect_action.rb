@@ -19,12 +19,8 @@ module Import
 
     delegate :model_class, to: :facade
 
-    def attributes
-      properties.attribute_names.map { |attr_name| facade.send(attr_name) }
-    end
-
     def continue
-      attributes
+      record
       has_many_associations
       has_and_belongs_to_many_associations
     end
@@ -41,6 +37,10 @@ module Import
 
     def properties
       @session.build_properties(model_class)
+    end
+
+    def record
+      properties.attribute_names.index_with { |attr_name| facade.send(attr_name) }
     end
   end
 end
