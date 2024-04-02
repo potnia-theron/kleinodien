@@ -7,7 +7,12 @@ module Import
     attr_reader :facade
 
     def call
-      collect || persist!
+      # collect || persist!
+      record = collect
+      return record if record
+
+      session.freeze
+      persist!
     end
 
     def collect

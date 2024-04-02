@@ -11,6 +11,11 @@ module Import
       buffer.deep_dup
     end
 
+    def freeze
+      return if frozen?
+      buffer.freeze
+    end
+
     # def get(kind, code)
     #   buffer.fetch(kind, code) || fetch(kind, code)
     # end
