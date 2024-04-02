@@ -19,17 +19,19 @@ module Import
 
     def attributes
       properties
-        .coining_attributes
+        .attribute_names
+        # .coining_attributes
         .index_with { |attr_name| facade.send(attr_name) }
-        .merge(date_attributes)
+        # .merge(date_attributes)
         .merge(persist_belongs_to_associations)
+        .compact
     end
 
-    def date_attributes
-      return {} unless properties.periodeable?
+    # def date_attributes
+    #   return {} unless properties.periodeable?
 
-      {begins_at: facade.begins_at, ends_at: facade.ends_at}.compact
-    end
+    #   {begins_at: facade.begins_at, ends_at: facade.ends_at}.compact
+    # end
 
     def build_one_belongs_to_association_persister(association)
       session.build_one_belongs_to_association_persister(association: association, other: self)
