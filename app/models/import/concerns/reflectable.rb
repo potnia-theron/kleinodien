@@ -27,15 +27,6 @@ module Import::Concerns
       belongs_to_associations.map { |association| association.name }
     end
 
-    def coining_attributes
-      model_class.attribute_names
-        .without("id", "created_at", "updated_at")
-        .reject { |attr| attr.end_with? "_id" }
-        .reject { |attr| attr.end_with? "_code" }
-        .reject { |attr| attr.end_with? "_accuracy" }
-        .reject { |attr| ["begin_date", "end_date"].include?(attr) }
-    end
-
     def belongs_to_associations
       model_class.reflect_on_all_associations(:belongs_to)
         .reject { |association| association.name == :import_order }
@@ -47,11 +38,6 @@ module Import::Concerns
 
     def has_many_associations
       model_class.reflect_on_all_associations(:has_many)
-    end
-
-    def periodeable?
-      attribute_names = model_class.attribute_names
-      attribute_names.include?("begin_date") && attribute_names.include?("end_date")
     end
   end
 end
