@@ -12,10 +12,14 @@ module Import
     end
 
     delegate :deep_dup, to: :buffer
-    # #freeze must be delegated to the buffer.
-    # Otherwise lazy loading will not work.
-    delegate :freeze, to: :buffer
-    delegate :frozen?, to: :buffer
+
+    def lock
+      buffer.freeze
+    end
+
+    def locked?
+      buffer.frozen?
+    end
 
     private
 

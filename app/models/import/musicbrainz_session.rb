@@ -6,14 +6,11 @@ module Import
     end
 
     delegate_missing_to :factory
+    delegate :lock, to: :buffer
+    delegate :locked?, to: :buffer
 
     def deep_dup_buffer
       buffer.deep_dup
-    end
-
-    def freeze
-      return if frozen?
-      buffer.freeze
     end
 
     # def get(kind, code)

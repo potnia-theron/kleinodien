@@ -11,7 +11,7 @@ module Import
       record = collect
       return record if record
 
-      session.freeze
+      session.lock
       persist!
     end
 

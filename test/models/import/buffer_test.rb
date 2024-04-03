@@ -39,17 +39,24 @@ class Import::BufferTest < ActiveSupport::TestCase
     assert_raises(ArgumentError) { @buffer.fetch(:foo, :bar, :baz) { :blubber } }
   end
 
-  test "read from a frozen buffer" do
-    @buffer.fetch(:a, :nice) { :value }
-    @buffer.freeze
+  test "#lock" do
+    assert_not @buffer.locked?
 
-    assert @buffer.frozen?
+    @buffer.lock
+    assert @buffer.locked?
+  end
+
+  test "read from a locked buffer" do
+    @buffer.fetch(:a, :nice) { :value }
+    @buffer.lock
+
+    assert @buffer.locked?
     assert @buffer.buffered?(:a, "nice")
     assert_equal @buffer.fetch("a", "nice"), :value
   end
 
-  test "write to a frozen buffer" do
-    @buffer.freeze
+  test "write to a locked buffer" do
+    @buffer.lock
     assert_raises(RuntimeError) { @buffer.fetch(:foo, :bar) { :baz } }
   end
 end
