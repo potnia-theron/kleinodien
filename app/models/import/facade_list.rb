@@ -26,9 +26,9 @@ module Import
       end
     end
 
-    def to_persisters(...)
+    def to_persisters(**params)
       map do |facade|
-        session.build_persister(facade, ...)
+        session.build_create_action(**params, facade: facade)
       end
     end
 

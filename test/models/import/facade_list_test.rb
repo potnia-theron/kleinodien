@@ -41,8 +41,8 @@ class Import::FacadeListTest < ActiveSupport::TestCase
   end
 
   test "#to_persisters" do
-    @session.expect :build_persister, :persister_0, [@f_mocks[0]]
-    @session.expect :build_persister, :persister_1, [@f_mocks[1]]
+    @session.expect :build_create_action, :persister_0, [], facade: @f_mocks[0]
+    @session.expect :build_create_action, :persister_1, [], facade: @f_mocks[1]
 
     persisters = @facade_list.to_persisters
 
