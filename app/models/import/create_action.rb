@@ -1,5 +1,5 @@
 module Import
-  class PersistAction < CollectAction
+  class CreateAction < CollectAction
     def initialize(session, facade:, **options)
       @optios = options
       super(session, facade: facade)

@@ -7,7 +7,12 @@ module Import
     attr_reader :facade
 
     def call
-      collect || create
+      record = collect
+      return record if record
+
+      lock
+
+      create
     end
 
     def collect
@@ -16,9 +21,14 @@ module Import
     end
 
     def create
-      lock
+      ActiveRecord::Base.transaction do
+        create_action.call
+      end
+    end
+
+    def create_action
       # TODO: Build Import::CreateAction via factory
-      Import::PersistAction.call(session, facade: facade)
+      Import::CreateAction.new(session, facade: facade)
     end
 
     delegate :lock, to: :session
