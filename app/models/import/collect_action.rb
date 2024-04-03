@@ -1,9 +1,5 @@
 module Import
   class CollectAction
-    def self.call(...)
-      new(...).call
-    end
-
     def initialize(session, facade:)
       @session = session
       @facade = facade
