@@ -7,22 +7,21 @@ module Import
     attr_reader :facade
 
     def call
-      # collect || persist!
-      record = collect
-      return record if record
-
-      session.lock
-      persist!
+      collect || create
     end
 
     def collect
-      # TODO: Build Import::CollectorAction via factory
+      # TODO: Build Import::CollectAction via factory
       Import::CollectAction.call(session, facade: facade)
     end
 
-    def persist!
+    def create
+      lock
+      # TODO: Build Import::CreateAction via factory
       Import::PersistAction.call(session, facade: facade)
     end
+
+    delegate :lock, to: :session
 
     def session
       # FIXME: choose the right session-class
