@@ -8,6 +8,14 @@ module Import
       @musicbrainz ||= build_ancillary("Import::MusicbrainzFactory")
     end
 
+    def build_collect_action(...)
+      Import::CollectAction.new(session, ...)
+    end
+
+    def build_create_action(...)
+      Import::CreateAction.new(session, ...)
+    end
+
     private
 
     attr_reader :import_order

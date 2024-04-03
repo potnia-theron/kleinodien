@@ -16,8 +16,7 @@ module Import
     end
 
     def collect
-      # TODO: Build Import::CollectAction via factory
-      Import::CollectAction.call(session, facade: facade)
+      collect_action.call
     end
 
     def create
@@ -26,9 +25,12 @@ module Import
       end
     end
 
+    def collect_action
+      session.build_collect_action(facade: facade)
+    end
+
     def create_action
-      # TODO: Build Import::CreateAction via factory
-      Import::CreateAction.new(session, facade: facade)
+      session.build_create_action(facade: facade)
     end
 
     delegate :lock, to: :session
