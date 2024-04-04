@@ -9,26 +9,28 @@ module Import
 
     def continue
       super
-      persist
-      # record
+      record
     end
 
-    def persist
-      new_record
-    end
-
-    def new_record
-      @new_record ||= model_class.create!(attributes)
+    def record
+      @record ||= model_class.create!(attributes)
     end
 
     def attributes
-      attr = properties.belongs_to_association_names.index_with do |a_name|
-        bel2_facade = facade.send(a_name)
-        action = session.build_create_action(facade: bel2_facade)
-        action.call
-      end
+      properties
+        .attribute_names
+        .index_with { |attr_name| facade.send(attr_name) }
+        .merge(belongs_to_attributes)
+        .compact
+    end
 
-      properties.attribute_names.index_with { |attr_name| facade.send(attr_name) }.merge(attr).compact
+    def belongs_to_attributes
+      properties.belongs_to_association_names.index_with do |attr_name|
+        facade
+          .send(attr_name)
+          &.then { |foreign_facade| session.build_create_action(facade: foreign_facade) }
+          &.call
+      end
     end
 
     def has_many_associations
@@ -38,7 +40,7 @@ module Import
     def persist_one_has_many_association(association)
       association_name = association.name
       option_name = association.inverse_of.name
-      persisters = facade.send(association_name).to_persisters(option_name => new_record)
+      persisters = facade.send(association_name).to_persisters(option_name => record)
       persisters.each(&:call)
     end
   end
