@@ -6,8 +6,6 @@ module Import
     end
 
     attr_reader :options
-    delegate :attribute_getter_names, to: :properties
-    delegate :belongs_to_attribute_getter_names, to: :properties
 
     def continue
       super
@@ -19,18 +17,12 @@ module Import
     end
 
     def attributes
-      attribute_getter_names
-        .transform_values { |getter_name| facade.send(getter_name) }
-        .merge(belongs_to_attributes)
-        .compact
+      ordinary_attributes.merge(foreign_attributes).compact
     end
 
-    def belongs_to_attributes
-      belongs_to_attribute_getter_names.transform_values do |getter_name|
-        facade
-          .send(getter_name)
-          &.then { |foreign_facade| session.build_create_action(facade: foreign_facade) }
-          &.call
+    def foreign_attributes
+      super.compact.transform_values do |foreign_facade|
+        session.build_create_action(facade: foreign_facade).call
       end
     end
 
