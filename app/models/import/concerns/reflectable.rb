@@ -23,6 +23,27 @@ module Import::Concerns
         .flatten
     end
 
+    def attribute_getter_names
+      model_class.attribute_names
+        .without("id", "created_at", "updated_at")
+        .reject { |attr| attr.end_with? "_id" }
+        .reject { |attr| attr.end_with? "_code" }
+        .reject { |attr| attr.end_with? "_accuracy" }
+        # .reject { |attr| ["begin_date", "end_date"].include?(attr) }
+        .map { |attr| (attr == "begin_date") ? "begins_at" : attr }
+        .map { |attr| (attr == "end_date") ? "ends_at" : attr }
+        .map { |attr| [attr, attr] }
+        .to_h
+    end
+
+    def belongs_to_attribute_getter_names
+      model_class
+        .reflect_on_all_associations(:belongs_to)
+        .reject { |association| association.name == :import_order }
+        .map { |association| [association.name, association.name] }
+        .to_h
+    end
+
     def belongs_to_association_names
       belongs_to_associations.map { |association| association.name }
     end
