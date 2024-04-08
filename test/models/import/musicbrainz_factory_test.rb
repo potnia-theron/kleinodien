@@ -11,7 +11,7 @@ class Import::MusicbrainzFactoryTest < ActiveSupport::TestCase
   end
 
   test "#build_fetcher returns an Import::Fetcher" do
-    assert_kind_of Import::Fetcher, @factory.build_fetcher("https://example.com")
+    assert_kind_of Import::Fetcher, @factory.build_fetcher(:artist, "0e629912-f5da-11ee-afa2-a7c09c552feb")
   end
 
   test "#build_uri_string builds the expected uri_string" do
