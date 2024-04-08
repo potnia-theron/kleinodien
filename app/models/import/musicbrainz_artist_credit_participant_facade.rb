@@ -13,8 +13,6 @@ module Import
 
     def model_class = ArtistCreditParticipant
 
-    # FIXME: implement #join_phrase
-    # def join_phrase = nil
     def artist_credit
       options[:artist_credit]
     end
