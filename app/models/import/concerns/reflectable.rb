@@ -31,10 +31,6 @@ module Import::Concerns
         .to_h
     end
 
-    def belongs_to_association_names
-      belongs_to_associations.map { |association| association.name }
-    end
-
     def belongs_to_associations
       model_class.reflect_on_all_associations(:belongs_to)
         .reject { |association| association.name == :import_order }
