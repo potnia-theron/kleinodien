@@ -28,7 +28,7 @@ class Import::MusicbrainzArtistCreditParticipantFacadeTest < ActiveSupport::Test
 
     @data.expect :artist, TestArtist.new(id: "123")
 
-    assert_equal :fake_facade, @subject.participant
+    assert_equal :fake_facade, @subject.participant_facade
 
     @data.verify
     @session.verify

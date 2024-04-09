@@ -27,7 +27,7 @@ module Import::Concerns
       model_class
         .reflect_on_all_associations(:belongs_to)
         .reject { |association| association.name == :import_order }
-        .map { |association| [association.name, association.name] }
+        .map { |association| [association.name, "#{association.name}_facade"] }
         .to_h
     end
 

@@ -13,7 +13,7 @@ module Import
 
     def model_class = ArtistCreditParticipant
 
-    def artist_credit
+    def artist_credit_facade
       options[:artist_credit]
     end
 
@@ -21,7 +21,7 @@ module Import
       data.joinphrase
     end
 
-    def participant
+    def participant_facade
       session.build_facade(Participant, code: data.artist.id)
     end
   end
