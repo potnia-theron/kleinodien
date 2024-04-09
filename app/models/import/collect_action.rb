@@ -20,7 +20,7 @@ module Import
 
     attr_reader :facade, :session
     delegate :attribute_getter_names, to: :properties
-    delegate :belongs_to_attribute_getter_names, to: :properties
+    delegate :belongs_to_facade_getter_names, to: :properties
     delegate :model_class, to: :facade
 
     def find
@@ -32,7 +32,7 @@ module Import
     end
 
     def foreign_attributes
-      belongs_to_attribute_getter_names.transform_values { |getter_name| facade.send(getter_name) }
+      belongs_to_facade_getter_names.transform_values { |getter_name| facade.send(getter_name) }
     end
 
     def has_and_belongs_to_many_associations

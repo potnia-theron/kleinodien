@@ -23,7 +23,7 @@ module Import::Concerns
         .to_h
     end
 
-    def belongs_to_attribute_getter_names
+    def belongs_to_facade_getter_names
       model_class
         .reflect_on_all_associations(:belongs_to)
         .reject { |association| association.name == :import_order }
