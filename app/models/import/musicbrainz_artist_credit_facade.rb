@@ -24,7 +24,9 @@ module Import
     end
 
     def participants
-      session.build_facade_list(data: data, model: ArtistCreditParticipant, artist_credit: self)
+      session.build_facade_list(
+        data: data, model: ArtistCreditParticipant, artist_credit_facade: self
+      )
     end
   end
 end

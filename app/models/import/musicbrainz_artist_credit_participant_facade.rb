@@ -14,7 +14,7 @@ module Import
     def model_class = ArtistCreditParticipant
 
     def artist_credit_facade
-      options[:artist_credit]
+      options[:artist_credit_facade]
     end
 
     def join_phrase
