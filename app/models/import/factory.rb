@@ -23,20 +23,8 @@ module Import
       klass.new(session, facade: facade)
     end
 
-    def build_collector(facade)
-      Import::Collector.new(session, facade: facade)
-    end
-
     def build_facade_list(model:, **)
       Import::FacadeList.new(session, model: model, **)
-    end
-
-    def build_persister(facade, **)
-      Import::Persist.new(session, facade: facade, **)
-    end
-
-    def build_one_belongs_to_association_persister(...)
-      Import::OneBelongsToAssociationPersister.new(session, ...)
     end
 
     def build_properties(model_class)
