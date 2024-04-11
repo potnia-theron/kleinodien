@@ -13,6 +13,14 @@ module Import
 
     delegate :deep_dup, to: :buffer
 
+    def lock
+      buffer.freeze
+    end
+
+    def locked?
+      buffer.frozen?
+    end
+
     private
 
     def buffer

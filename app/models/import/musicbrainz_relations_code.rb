@@ -3,6 +3,7 @@ module Import
     REGEX_FOR = {
       "discogs" => %r{/(?<kind>[a-z-]+)/(?<code>\d+)},
       "imdb" => %r{/(?<kind>[a-z-]+)/(?<code>\w\w\d+)}
+      # "wikidata" => %r{}
     }
 
     def initialize(relations)

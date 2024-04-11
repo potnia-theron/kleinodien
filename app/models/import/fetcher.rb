@@ -8,7 +8,7 @@ module Import
     def get
       max_tries.times do
         response = attempt
-        return response.body if response
+        return parse(response) if response
       end
 
       raise "can't get #{uri}"
@@ -23,6 +23,10 @@ module Import
     def attempt
       attempt = build_attempt
       attempt.get(uri)
+    end
+
+    def parse(response)
+      factory.transform_response(response)
     end
   end
 end

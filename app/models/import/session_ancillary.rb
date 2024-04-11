@@ -10,19 +10,13 @@ module Import
       buffer.deep_dup
     end
 
-    def get(kind, code)
-      buffer.fetch(kind, code) || fetch(kind, code)
+    def get(*params)
+      buffer.fetch(*params) { build_fetcher(*params).get }
     end
 
     private
 
     attr_reader :factory
     delegate_missing_to :factory
-
-    def fetch(kind, code)
-      uri_string = build_uri_string(kind, code)
-      fetcher = build_fetcher(uri_string)
-      buffer.fetch(kind, code) { fetcher.get }
-    end
   end
 end

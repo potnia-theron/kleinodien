@@ -1,18 +1,13 @@
 module Import
-  class MusicbrainzFactory
-    def initialize(import_order, buffer: nil)
-      @buffer = buffer || Buffer.new
-      @import_order = import_order
-    end
-
-    attr_reader :buffer, :import_order
-
+  class MusicbrainzFactory < Factory
     def build_attempt
       Import::FaradayAttempt.new(self)
     end
 
-    def build_fetcher(uri_string)
-      Import::Fetcher.new(factory: self, uri: uri_string)
+    def build_facade(model, **)
+      name = model.name
+      facade_class = "Import::Musicbrainz#{name}Facade".constantize
+      facade_class.new(session, **)
     end
 
     def build_uri_string(kind, code)
@@ -35,11 +30,8 @@ module Import
       @config ||= Rails.configuration.import[:musicbrainz]
     end
 
-    private
-
-    def build_adapter(model_class, code)
-      klass = "Import::Musicbrainz#{model_class.name}Adapter".constantize
-      klass.new(self, code: code)
+    def transform_response(response)
+      Import::Json.parse(response.body)
     end
   end
 end
