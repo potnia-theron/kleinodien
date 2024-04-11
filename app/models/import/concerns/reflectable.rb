@@ -14,9 +14,7 @@ module Import::Concerns
       model_class.attribute_names
         .without("id", "created_at", "updated_at")
         .reject { |attr| attr.end_with? "_id" }
-        .reject { |attr| attr.end_with? "_code" }
         .reject { |attr| attr.end_with? "_accuracy" }
-        # .reject { |attr| ["begin_date", "end_date"].include?(attr) }
         .map { |attr| (attr == "begin_date") ? "begins_at" : attr }
         .map { |attr| (attr == "end_date") ? "ends_at" : attr }
         .map { |attr| [attr, attr] }

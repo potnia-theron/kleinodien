@@ -54,8 +54,13 @@ module Import
 
     alias_method :musicbrainz_code, :code
 
+    # Musicbrainz does not offer tmdb-codes, at least for artists
+    # https://musicbrainz.org/relationships/artist-url
     def tmdb_code = nil
 
+    # Wikidata URIs look like this (AC/DC):
+    # https://www.wikidata.org/wiki/Q27593
+    # there is no "type" that can be extracted from the URIs path.
     def wikidata_code = nil
 
     def all_codes
