@@ -79,7 +79,6 @@ group :test do
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem "sinatra", "~> 3.1", require: false
-  gem "webdrivers"
   gem "webmock", "~> 3.19"
 end
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
