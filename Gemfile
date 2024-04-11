@@ -5,7 +5,7 @@ ruby "3.3.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 # gem "rails", "~> 7.0.4", ">= 7.0.4.2"
-gem "rails", "~> 7.1"
+gem "rails", "~> 7.1.3.2"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -79,7 +79,6 @@ group :test do
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem "sinatra", "~> 3.1", require: false
-  gem "webdrivers"
   gem "webmock", "~> 3.19"
 end
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
