@@ -1,0 +1,2 @@
+class AlbumArchetype < ApplicationRecord
+end
