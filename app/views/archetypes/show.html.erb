@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @archetype %>
+
+<div>
+  <%= link_to "Edit this archetype", edit_archetype_path(@archetype) %> |
+  <%= link_to "Back to archetypes", archetypes_path %>
+
+  <%= button_to "Destroy this archetype", @archetype, method: :delete %>
+</div>
