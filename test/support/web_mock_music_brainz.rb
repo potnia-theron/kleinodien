@@ -10,7 +10,9 @@ class WebMockMusicBrainz < Sinatra::Base
     # path = "test/webmock/musicbrainz.org/ws/2/#{params[:kind]}/#{params[:id]}.json"
     # json_string = File.read(path)
     # debugger
-    json_string = Retrieve.musicbrainz(params[:kind], params[:id])
+    kind = params[:kind].tr("_", "-")
+    # json_string = Retrieve.musicbrainz(params[:kind], params[:id])
+    json_string = Retrieve.musicbrainz(kind, params[:id])
 
     return json_string if json_string
 
