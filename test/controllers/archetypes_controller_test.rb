@@ -18,7 +18,9 @@ class ArchetypesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create archetype" do
     assert_difference("Archetype.count") do
-      post archetypes_url, params: {archetype: {archetypeable_id: @archetype.archetypeable_id, archetypeable_type: @archetype.archetypeable_type, artist_credit_id: @archetype.artist_credit_id, title: @archetype.title}}
+      # post archetypes_url, params: {archetype: {archetypeable_type: @archetype.archetypeable_type, artist_credit_id: @archetype.artist_credit_id, title: @archetype.title}}
+      post archetypes_url, params: {archetype: {archetypeable_id: @archetype.archetypeable_id, archetypeable_type: @archetype.archetypeable_type, title: @archetype.title}}
+      # post archetypes_url, params: {archetype: {archetypeable_type: @archetype.archetypeable_type, title: @archetype.title}}
     end
 
     assert_redirected_to archetype_url(Archetype.last)
@@ -35,7 +37,8 @@ class ArchetypesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update archetype" do
-    patch archetype_url(@archetype), params: {archetype: {archetypeable_id: @archetype.archetypeable_id, archetypeable_type: @archetype.archetypeable_type, artist_credit_id: @archetype.artist_credit_id, title: @archetype.title}}
+    # patch archetype_url(@archetype), params: {archetype: {archetypeable_id: @archetype.archetypeable_id, archetypeable_type: @archetype.archetypeable_type, artist_credit_id: @archetype.artist_credit_id, title: @archetype.title}}
+    patch archetype_url(@archetype), params: {archetype: {archetypeable_id: @archetype.archetypeable_id, archetypeable_type: @archetype.archetypeable_type, title: @archetype.title}}
     assert_redirected_to archetype_url(@archetype)
   end
 

@@ -67,6 +67,7 @@ class ArchetypesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def archetype_params
-    params.require(:archetype).permit(:title, :artist_credit_id, :archetypeable_type, :archetypeable_id)
+    # params.require(:archetype).permit(:title, :artist_credit_id, :archetypeable_type, :archetypeable_id)
+    params.require(:archetype).permit(:title, :archetypeable_type, :archetypeable_id)
   end
 end

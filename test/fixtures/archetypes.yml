@@ -3,7 +3,6 @@
 
 one:
   title: MyString
-  artist_credit: one
   # This does not work:
   # archetypeable: one (AlbumArchetype)
   # the generated archetypeable_id is a String representing an Ingeger:
@@ -14,6 +13,5 @@ one:
 
 two:
   title: MyString
-  artist_credit: two
   archetypeable_type: AlbumArchetype
   archetypeable_id: 37f7eeff-831b-5c41-984a-254965f58c0f

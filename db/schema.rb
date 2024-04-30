@@ -15,21 +15,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_175445) do
   enable_extension "plpgsql"
 
   create_table "album_archetypes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "artist_credit_id"
     t.integer "discogs_code"
     t.uuid "musicbrainz_code"
     t.integer "wikidata_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["artist_credit_id"], name: "index_album_archetypes_on_artist_credit_id"
   end
 
   create_table "archetypes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
-    t.uuid "artist_credit_id"
     t.string "archetypeable_type"
     t.string "archetypeable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["artist_credit_id"], name: "index_archetypes_on_artist_credit_id"
   end
 
   create_table "artist_credit_participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -109,7 +109,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_175445) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "archetypes", "artist_credits"
+  add_foreign_key "album_archetypes", "artist_credits"
   add_foreign_key "artist_credit_participants", "artist_credits"
   add_foreign_key "artist_credit_participants", "participants"
   add_foreign_key "email_verification_tokens", "users"

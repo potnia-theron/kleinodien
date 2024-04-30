@@ -15,9 +15,9 @@ class Import::ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveSupport::TestCas
   end
 
   test "import an AlbumArchetype" do
-    archetype = @handler.call
+    album_archetype = @handler.call
 
-    assert_equal "f85647ec-a69b-3b0a-ad04-bb6076c4dcf1", archetype.musicbrainz_code
-    # assert_equal "Highway to Hell", archetype.title
+    assert_equal "f85647ec-a69b-3b0a-ad04-bb6076c4dcf1", album_archetype.musicbrainz_code
+    # assert_equal "Highway to Hell", album_archetype.title
   end
 end

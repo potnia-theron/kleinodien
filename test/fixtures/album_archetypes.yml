@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  artist_credit: one
   discogs_code: 1
   musicbrainz_code: 
   wikidata_code: 1
 
 two:
+  artist_credit: two
   discogs_code: 1
   musicbrainz_code: 
   wikidata_code: 1

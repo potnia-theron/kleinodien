@@ -27,6 +27,10 @@ module Import
       all_codes[:wikidata_code]
     end
 
+    def artist_credit_facade
+      session.build_facade(ArtistCredit, data: data.artist_credit)
+    end
+
     def all_codes
       relations = Import::MusicbrainzRelationsCode.extract(data.relations)
       {
