@@ -17,6 +17,9 @@ module Import
     private
 
     attr_reader :factory
-    delegate_missing_to :factory
+
+    def buffer
+      factory.buffer
+    end
   end
 end

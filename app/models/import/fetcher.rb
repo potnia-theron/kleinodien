@@ -18,7 +18,13 @@ module Import
 
     attr_reader :factory, :uri
 
-    delegate_missing_to :factory
+    def build_attempt
+      factory.build_attempt
+    end
+
+    def max_tries
+      factory.max_tries
+    end
 
     def attempt
       attempt = build_attempt
