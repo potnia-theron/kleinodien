@@ -27,7 +27,7 @@ class Import::MusicbrainzInterrupterTest < ActiveSupport::TestCase
   test "with failed responses" do
     3.times do
       @response.expect(:success?, false)
-      @interrupter.analyze?(@response)
+      assert_not @interrupter.analyze?(@response)
     end
   end
 
