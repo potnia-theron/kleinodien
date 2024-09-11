@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Archetypes</h1>
+
+<div id="archetypes">
+  <% @archetypes.each do |archetype| %>
+    <%= render archetype %>
+    <p>
+      <%= link_to "Show this archetype", archetype %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New archetype", new_archetype_path %>

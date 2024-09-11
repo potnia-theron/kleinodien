@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :archetypes
   resources :artist_credit_participants
   resources :artist_credits
   resources :participants

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+
+one:
+  title: MyString
+  # This does not work:
+  # archetypeable: one (AlbumArchetype)
+  # the generated archetypeable_id is a String representing an Ingeger:
+  #   archetypeable_id: "980190962"
+  # but should be an UUID.
+  archetypeable_type: AlbumArchetype
+  archetypeable_id: aa67c98c-d81f-5a9c-b0bc-26caa0051aea
+
+two:
+  title: MyString
+  archetypeable_type: AlbumArchetype
+  archetypeable_id: 37f7eeff-831b-5c41-984a-254965f58c0f

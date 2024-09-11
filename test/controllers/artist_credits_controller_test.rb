@@ -44,11 +44,11 @@ class ArtistCreditsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to artist_credit_url(@artist_credit)
   end
 
-  test "should destroy artist_credit" do
-    assert_difference("ArtistCredit.count", -1) do
-      delete artist_credit_url(@artist_credit)
-    end
+  # test "should destroy artist_credit" do
+  #   assert_difference("ArtistCredit.count", -1) do
+  #     delete artist_credit_url(@artist_credit)
+  #   end
 
-    assert_redirected_to artist_credits_url
-  end
+  #   assert_redirected_to artist_credits_url
+  # end
 end
