@@ -15,7 +15,7 @@ module Import
     def intrinsic_code = nil
 
     def name
-      tokens = data.map { |ac| [ac.name, ac.joinphrase] }.flatten
+      tokens = data.map { |ac| [ac[:name], ac[:joinphrase]] }.flatten
 
       last_token = tokens.pop
       raise "last participant must not contain anything" if last_token.present?

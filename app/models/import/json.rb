@@ -29,9 +29,8 @@ module Import
 
     def transform_hash(hash)
       hash.transform_keys!(&:underscore)
+      hash.transform_keys!(&:to_sym)
       hash.transform_values! { |value| transform(value) }
-
-      OpenStruct.new(hash)
     end
 
     def raw_data
