@@ -8,16 +8,14 @@ class Import::MusicbrainzParticipantFacadeTest < ActiveSupport::TestCase
   LiveSpan = Data.define(:begin, :end)
 
   setup do
-    @data = Minitest::Mock.new
-    @subject = Import::MusicbrainzParticipantFacade.new(:fake_session, {data: @data})
+    @subject = Import::MusicbrainzParticipantFacade.new(:fake_session, {})
   end
 
   test "#name" do
-    @data.expect :name, "Suffocation"
+    data = {name: "Suffocation"}
+    facade = Import::MusicbrainzParticipantFacade.new(:fake_session, {data: data})
 
-    assert_equal "Suffocation", @subject.name
-
-    @data.verify
+    assert_equal "Suffocation", facade.name
   end
 
   test "data accessors" do
@@ -28,23 +26,24 @@ class Import::MusicbrainzParticipantFacadeTest < ActiveSupport::TestCase
     }
 
     messages_expected.each do |message, expected|
-      @data.expect message, expected
+      data = {message => expected}
+      facade = Import::MusicbrainzParticipantFacade.new(:fake_session, data: data)
 
-      assert_equal expected, @subject.send(message)
-
-      @data.verify
+      assert_equal expected, facade.send(message)
     end
   end
 
   test "#begins_at" do
-    @data.expect :life_span, LiveSpan.new(begin: "2024-03-25", end: nil)
+    data = {life_span: {begin: "2024-03-25", end: nil}}
+    facade = Import::MusicbrainzParticipantFacade.new(:fake_session, {data: data})
 
-    assert_equal IncompleteDate.new(Date.new(2024, 3, 25), :day), @subject.begins_at
+    assert_equal IncompleteDate.new(Date.new(2024, 3, 25), :day), facade.begins_at
   end
 
   test "ends_at" do
-    @data.expect :life_span, LiveSpan.new(begin: nil, end: "2024-03-26")
+    data = {life_span: {begin: nil, end: "2024-03-26"}}
+    facade = Import::MusicbrainzParticipantFacade.new(:fake_session, {data: data})
 
-    assert_equal IncompleteDate.new(Date.new(2024, 3, 26), :day), @subject.ends_at
+    assert_equal IncompleteDate.new(Date.new(2024, 3, 26), :day), facade.ends_at
   end
 end

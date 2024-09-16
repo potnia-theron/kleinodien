@@ -7,9 +7,7 @@ class Import::ImportAnArtistCreditFromMusicbrainzTest < ActiveSupport::TestCase
 
     @session = Import::MusicbrainzSession.new(:fake_import_order)
 
-    @artist_credit = @session
-      .get(:release, "36ddebf6-7fb2-4dc4-8931-aca5a3a35a30")
-      .artist_credit
+    @artist_credit = @session.get(:release, "36ddebf6-7fb2-4dc4-8931-aca5a3a35a30")[:artist_credit]
     @facade = @session.build_facade(ArtistCredit, data: @artist_credit)
 
     @handler = Import::Handler.new(@facade)

@@ -18,11 +18,11 @@ module Import
     end
 
     def join_phrase
-      data.joinphrase
+      data[:joinphrase]
     end
 
     def participant_facade
-      session.build_facade(Participant, code: data.artist.id)
+      session.build_facade(Participant, code: data.dig(:artist, :id))
     end
   end
 end

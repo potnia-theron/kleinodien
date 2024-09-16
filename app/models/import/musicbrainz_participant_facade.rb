@@ -14,7 +14,7 @@ module Import
     end
 
     def code
-      options[:code] || data.id
+      options[:code] || data[:id]
     end
 
     delegate_missing_to :properties
@@ -25,19 +25,28 @@ module Import
       {musicbrainz_code: code}
     end
 
-    delegate :name, to: :data
-    delegate :sort_name, to: :data
-    delegate :disambiguation, to: :data
+    def name
+      data[:name]
+    end
+
+    def sort_name
+      data[:sort_name]
+    end
+
+    def disambiguation
+      data[:disambiguation]
+    end
 
     def begins_at
-      date_string = data.life_span.begin
+      date_string = data.dig(:life_span, :begin)
       return unless date_string
 
       IncompleteDate.from_string(date_string)
     end
 
     def ends_at
-      date_string = data.life_span.end
+      # date_string = data.life_span.end
+      date_string = data.dig(:life_span, :end)
       return unless date_string
 
       IncompleteDate.from_string(date_string)
@@ -64,10 +73,10 @@ module Import
     def wikidata_code = nil
 
     def all_codes
-      relations = Import::MusicbrainzRelationsCode.extract(data.relations)
+      relations = Import::MusicbrainzRelationsCode.extract(data[:relations])
       {
-        discogs_code: relations.dig("discogs", "artist"),
-        imdb_code: relations.dig("imdb", "name")
+        discogs_code: relations.dig(:discogs, :artist),
+        imdb_code: relations.dig(:imdb, :name)
       }.compact
     end
   end

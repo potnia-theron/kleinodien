@@ -20,7 +20,7 @@ module Import
     end
 
     def musicbrainz_code
-      data.id
+      data[:id]
     end
 
     def wikidata_code
@@ -28,11 +28,11 @@ module Import
     end
 
     def artist_credit_facade
-      session.build_facade(ArtistCredit, data: data.artist_credit)
+      session.build_facade(ArtistCredit, data: data[:artist_credit])
     end
 
     def all_codes
-      relations = Import::MusicbrainzRelationsCode.extract(data.relations)
+      relations = Import::MusicbrainzRelationsCode.extract(data[:relations])
       {
         discogs_code: relations.dig("discogs", "artist"),
         imdb_code: relations.dig("imdb", "name")

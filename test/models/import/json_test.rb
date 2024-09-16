@@ -11,29 +11,28 @@ class Import::JsonTest < ActiveSupport::TestCase
     @parsed = Import::Json.parse(json_string)
   end
 
-  test "#parse returns an OpenStruct" do
-    assert_kind_of OpenStruct, @parsed
+  test "#parse returns a Hash" do
+    assert_kind_of Hash, @parsed
   end
 
   test "Dashes are transformed to underscores" do
-    assert_equal @parsed.some_data, "value"
+    assert_equal @parsed[:some_data], "value"
   end
 
   test "deep nested Hash" do
-    assert_equal @parsed.deep.nested.data, "here"
-    assert_kind_of OpenStruct, @parsed.deep.nested
+    assert_equal @parsed.dig(:deep, :nested, :data), "here"
+    assert_kind_of Hash, @parsed.dig(:deep, :nested)
   end
 
   test "Array with a String" do
-    assert_equal @parsed.a_list.first, "first item"
+    assert_equal @parsed[:a_list].first, "first item"
   end
 
   test "Array with a Hash" do
-    assert_equal @parsed.a_list.second.a_hash.some, "value"
-    assert_kind_of OpenStruct, @parsed.a_list.second.a_hash
+    assert_equal @parsed[:a_list][1].dig(:a_hash, :some), "value"
   end
 
   test "Array with an Array" do
-    assert_equal @parsed.a_list[2], ["1", "2", "3"]
+    assert_equal @parsed[:a_list][2], ["1", "2", "3"]
   end
 end
