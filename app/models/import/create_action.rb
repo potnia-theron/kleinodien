@@ -1,5 +1,5 @@
 module Import
-  class CreateAction < CollectAction
+  class CreateAction < Import::BaseAction
     def initialize(session, facade:, **options)
       @optios = options
       super(session, facade: facade)
