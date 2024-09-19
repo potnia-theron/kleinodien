@@ -1,4 +1,6 @@
 require "test_helper"
+require "minitest/mock"
+
 require "shared_bufferable_import_order_tests"
 require "shared_import_order_tests"
 require "shared_transitionable_tests"
@@ -48,5 +50,17 @@ class MusicBrainzImportOrderTest < ActiveSupport::TestCase
     import_order = MusicBrainzImportOrder.new(code: "no-uuid", kind: "release", user: users(:kim))
 
     assert_not_predicate import_order, :valid?
+  end
+
+  def test_perform
+    import_order = MusicBrainzImportOrder.new(kind: "release", uri: "https://musicbrainz.org/non/sense", user: users(:kim))
+
+    # Many attempts have been made to use Minitest::Mock for this,
+    # but all have failed. So here is the sledgehammer method:
+    Import::MusicbrainzHandler.define_method :call do
+      :done
+    end
+
+    assert_equal :done, import_order.perform
   end
 end
