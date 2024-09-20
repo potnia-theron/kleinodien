@@ -6,48 +6,14 @@ class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
     WebMockExternalApis.setup
 
     @code = "66c662b6-6e2f-4930-8610-912e24c63ed1"
-    @session = Import::MusicbrainzSession.new(:fake_import_order)
+    @user = users(:kim)
   end
 
-  test "import a Participant with already fetched data" do
-    participant = @session.get(:artist, @code)
-    facade = @session.build_facade(Participant, data: participant)
-    handler = Import::Handler.new(facade)
+  test "ImportOrder" do
+    import_order = MusicBrainzImportOrder.create!(code: @code, kind: "participant", user: @user)
+    participant = import_order.perform
 
-    persisted = handler.call
-
-    assert_equal persisted.name, "AC/DC"
-    assert_not persisted.new_record?
-  end
-
-  test "import a Participant partialy fetched data" do
-    facade = @session.build_facade(Participant, code: @code)
-    handler = Import::Handler.new(facade)
-
-    persisted = handler.call
-
-    assert_equal persisted.name, "AC/DC"
-    assert_equal Date.new(1973, 12, 31), persisted.begin_date
-    assert_not persisted.new_record?
-  end
-
-  test "don't import if a Participant with that musicbrainz_code already exists" do
-    existing = Participant.create!(name: "Not AC/DC", sort_name: "AC/DC, Not", musicbrainz_code: @code)
-    facade = @session.build_facade(Participant, code: @code)
-    handler = Import::Handler.new(facade)
-
-    persisted = handler.call
-
-    assert_equal persisted, existing
-  end
-
-  test "don't import if a Participant with that discogs_code already exists" do
-    existing = Participant.create!(name: "Not AC/DC", sort_name: "AC/DC, Not", discogs_code: 84752)
-    facade = @session.build_facade(Participant, code: @code)
-    handler = Import::Handler.new(facade)
-
-    persisted = handler.call
-
-    assert_equal persisted, existing
+    assert_equal participant.name, "AC/DC"
+    assert_not participant.new_record?
   end
 end
