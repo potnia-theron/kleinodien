@@ -14,6 +14,8 @@ module Import
 
     def intrinsic_code = nil
 
+    delegate :buffered?, to: :participants
+
     def name
       tokens = data.map { |ac| [ac[:name], ac[:joinphrase]] }.flatten
 
@@ -24,7 +26,7 @@ module Import
     end
 
     def participants
-      session.build_facade_list(
+      @participants ||= session.build_facade_list(
         data: data, model: ArtistCreditParticipant, artist_credit_facade: self
       )
     end

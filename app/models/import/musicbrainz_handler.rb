@@ -7,8 +7,8 @@ module Import
     attr_reader :import_order
 
     def call
-      record = collect
-      return record if record
+      record = find || collect
+      return record if record && record.class.is_a?(ApplicationRecord)
 
       lock
 
@@ -25,6 +25,10 @@ module Import
       end
     end
 
+    def find
+      finder.call
+    end
+
     def collect_action
       session.build_collect_action(facade: facade)
     end
@@ -33,7 +37,15 @@ module Import
       session.build_create_action(facade: facade)
     end
 
+    def finder
+      session.build_finder(facade)
+    end
+
     def facade
+      @facade ||= build_facade
+    end
+
+    def build_facade
       camel_kind = import_order.kind.camelize
       facade_class = "Import::Musicbrainz#{camel_kind}Facade".constantize
       facade_class.new(session, code: import_order.code)
@@ -42,8 +54,7 @@ module Import
     delegate :lock, to: :session
 
     def session
-      # FIXME: choose the right session-class
-      @session ||= Import::MusicbrainzSession.new(:evil_fake_import_order)
+      @session ||= Import::MusicbrainzSession.new(import_order)
     end
   end
 end

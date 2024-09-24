@@ -11,27 +11,30 @@ class MusicBrainzImportOrderTest < ActiveSupport::TestCase
   include SharedTransitionableTests
 
   def setup
-    @subject = MusicBrainzImportOrder.new(kind: "release", code: "41362dd7-0665-4e09-8158-9ad8109d47bc", user: users(:kim))
+    @code = "66650826-7a63-11ef-9b55-871e6cdac01d"
+    @uri = "https://musicbrainz.org/ws/2/release/#{@code}"
+    @user = users(:kim)
+    @subject = MusicBrainzImportOrder.new(kind: "release", code: @code, user: @user)
   end
 
   def test_with_a_valid_uri
-    import_order = MusicBrainzImportOrder.new(uri: "https://musicbrainz.org/release/41362dd7-0665-4e09-8158-9ad8109d47bc", user: users(:kim))
+    import_order = MusicBrainzImportOrder.new(uri: @uri, user: @user)
 
     assert_predicate import_order, :valid?
     assert_equal "release", import_order.kind
-    assert_equal "41362dd7-0665-4e09-8158-9ad8109d47bc", import_order.code
+    assert_equal @code, import_order.code
   end
 
   def test_import_order_uri_type
     assert_nil @subject.uri
 
-    @subject.uri = "https://musicbrainz.org/release/41362dd7-0665-4e09-8158-9ad8109d47bc"
+    @subject.uri = @uri
 
     assert_kind_of ImportOrderUri::MusicBrainz, @subject.uri
   end
 
   def test_with_a_valid_uri_and_a_kind
-    import_order = MusicBrainzImportOrder.new(kind: "release", uri: "https://musicbrainz.org/non/sense", user: users(:kim))
+    import_order = MusicBrainzImportOrder.new(kind: "release", uri: @uri, user: users(:kim))
 
     assert_not_predicate import_order, :valid?
     assert_equal "release", import_order.kind
@@ -39,11 +42,11 @@ class MusicBrainzImportOrderTest < ActiveSupport::TestCase
   end
 
   def test_with_a_valid_uri_and_code
-    import_order = MusicBrainzImportOrder.new(code: "41362dd7-0665-4e09-8158-9ad8109d47bc", uri: "https://musicbrainz.org/non/sense", user: users(:kim))
+    import_order = MusicBrainzImportOrder.new(code: @code, uri: "https://musicbrainz.org/non/sense", user: users(:kim))
 
     assert_not_predicate import_order, :valid?
     assert_nil import_order.kind
-    assert_equal "41362dd7-0665-4e09-8158-9ad8109d47bc", import_order.code
+    assert_equal @code, import_order.code
   end
 
   def test_with_an_invalid_code

@@ -4,7 +4,8 @@ module Import
 
     def initialize(session, data:, **options)
       @session = session
-      @data = data
+      # TODO: why do we get an array for `data`?
+      @data = data[0]
       @options = options
     end
 
@@ -12,6 +13,8 @@ module Import
     alias_method :position, :consecutive_number
 
     def model_class = ArtistCreditParticipant
+
+    delegate :buffered?, to: :participant_facade
 
     def artist_credit_facade
       options[:artist_credit_facade]

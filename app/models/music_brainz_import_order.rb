@@ -8,6 +8,7 @@ class MusicBrainzImportOrder < ImportOrder
     message: "must be an UUID"
   }
 
+  before_validation :set_kind_and_code
   def perform
     Import::MusicbrainzHandler.new(self).call
   end

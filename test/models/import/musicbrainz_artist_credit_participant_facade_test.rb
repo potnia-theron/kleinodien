@@ -6,12 +6,13 @@ class Import::MusicbrainzArtistCreditParticipantFacadeTest < ActiveSupport::Test
   include SharedImportFacadeTests
 
   def setup
-    @subject = Import::MusicbrainzArtistCreditParticipantFacade.new(:fake_session, data: {})
+    @session = Minitest::Mock.new
+    @subject = Import::MusicbrainzArtistCreditParticipantFacade.new(@session, data: {})
   end
 
   test "#join_phrase" do
     facade = Import::MusicbrainzArtistCreditParticipantFacade.new(
-      :fake_session, data: {joinphrase: " With "}
+      @session, data: [{joinphrase: " With "}]
     )
 
     assert_equal " With ", facade.join_phrase
@@ -23,7 +24,7 @@ class Import::MusicbrainzArtistCreditParticipantFacadeTest < ActiveSupport::Test
       true
     end
 
-    data = {artist: {id: "123"}}
+    data = [{artist: {id: "123"}}]
     facade = Import::MusicbrainzArtistCreditParticipantFacade.new(session, data: data)
 
     assert_equal :fake_facade, facade.participant_facade

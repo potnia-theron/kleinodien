@@ -16,7 +16,7 @@ module Import
     end
 
     def call
-      "TestFoo"
+      :called
     end
   end
 end
@@ -29,6 +29,8 @@ class Import::MusicbrainzHandlerTest < ActiveSupport::TestCase
 
     handler = Import::MusicbrainzHandler.new(import_order)
 
-    assert handler.call
+    assert :called, handler.call
+
+    import_order.verify
   end
 end

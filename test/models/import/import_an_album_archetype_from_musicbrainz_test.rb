@@ -4,20 +4,16 @@ require "support/web_mock_external_apis"
 class Import::ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveSupport::TestCase
   setup do
     WebMockExternalApis.setup
-
-    @session = Import::MusicbrainzSession.new(:fake_import_order)
-
-    @album_archetype = @session
-      .get(:release_group, "f85647ec-a69b-3b0a-ad04-bb6076c4dcf1")
-    @facade = @session.build_facade(AlbumArchetype, data: @album_archetype)
-
-    @handler = Import::Handler.new(@facade)
   end
 
   test "import an AlbumArchetype" do
-    album_archetype = @handler.call
+    code = "f85647ec-a69b-3b0a-ad04-bb6076c4dcf1"
+    user = users(:sam)
+    import_order = MusicBrainzImportOrder.create!(code: code, kind: :album_archetype, user: user)
+    handler = Import::MusicbrainzHandler.new(import_order)
 
-    assert_equal "f85647ec-a69b-3b0a-ad04-bb6076c4dcf1", album_archetype.musicbrainz_code
-    # assert_equal "Highway to Hell", album_archetype.title
+    album_archetype = handler.call
+    debugger if album_archetype.is_a? Symbol
+    assert_equal code, album_archetype.musicbrainz_code
   end
 end

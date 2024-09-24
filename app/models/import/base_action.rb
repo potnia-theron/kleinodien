@@ -32,8 +32,10 @@ module Import
     def has_and_belongs_to_many_associations
     end
 
-    def has_many_associations
-    end
+    # BUG: must return what it promises
+    # def has_many_associations
+    #   properties.has_many_associations.each { |association| persist_one_has_many_association(association) }
+    # end
 
     def ordinary_attributes
       attribute_getter_names.transform_values { |getter_name| facade.send(getter_name) }

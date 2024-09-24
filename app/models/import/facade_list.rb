@@ -12,6 +12,10 @@ module Import
 
     delegate :each, to: :facades
 
+    def buffered?
+      all?(&:buffered?)
+    end
+
     def data
       @options[:data]
     end
@@ -20,9 +24,9 @@ module Import
       data.map.with_index(1) { |data, consecutive_number| build_facade(data, consecutive_number) }
     end
 
-    def to_collectors(...)
+    def to_collectors(**params)
       map do |facade|
-        session.build_collector(facade, ...)
+        session.build_collect_action(**params, facade: facade)
       end
     end
 
@@ -35,8 +39,10 @@ module Import
     private
 
     def build_facade(data, consecutive_number)
-      facade_options = options.merge({consecutive_number: consecutive_number, data: data})
-      session.build_facade(model, **facade_options)
+      facade_options = options.merge({consecutive_number: consecutive_number})
+      # debugger
+      # session.build_facade(model, **facade_options)
+      session.build_facade(model, data: data, **facade_options)
     end
   end
 end
