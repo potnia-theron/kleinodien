@@ -18,7 +18,7 @@ module Import
     end
 
     def collect
-      collect_action.call
+      Import::MusicbrainzCollector.call(session, facade)
     end
 
     def create
@@ -27,23 +27,9 @@ module Import
       end
     end
 
-    def find
-      Rails.logger.info("trying to find excisting record")
-      finder.call
-    end
-
-    def collect_action
-      Rails.logger.info("collecting data")
-      session.build_collect_action(facade: facade)
-    end
-
     def create_action
       Rails.logger.info("persisting data")
       session.build_create_action(facade: facade)
-    end
-
-    def finder
-      session.build_finder(facade)
     end
 
     def facade
