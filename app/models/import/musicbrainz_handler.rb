@@ -18,7 +18,9 @@ module Import
     end
 
     def collect
-      Import::MusicbrainzCollector.call(session, facade)
+      # Import::MusicbrainzCollector.call(session, facade)
+      collector = session.build_collection_igniter(facade)
+      collector.call
     end
 
     def lock
@@ -27,7 +29,9 @@ module Import
     end
 
     def create
-      Import::MusicbrainzCreator.call(session, facade)
+      # Import::MusicbrainzCreator.call(session, facade)
+      kreator = session.build_creation_igniter(facade)
+      kreator.call
     end
 
     def facade

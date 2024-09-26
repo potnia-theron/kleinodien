@@ -9,6 +9,14 @@ module Import
     delegate :lock, to: :buffer
     delegate :locked?, to: :buffer
 
+    def build_collection_igniter(facade)
+      Import::MusicbrainzCollector.new(self, facade)
+    end
+
+    def build_creation_igniter(facade)
+      Import::MusicbrainzCreator.new(self, facade)
+    end
+
     def deep_dup_buffer
       buffer.deep_dup
     end

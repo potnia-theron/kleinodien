@@ -1,36 +1,39 @@
 require "test_helper"
 require "minitest/mock"
 
-class TestFoo; end
-
-module Import
-  class MusicbrainzTestFooFacade
-    def initialize(...)
-    end
-
-    def model_class = TestFoo
-  end
-
-  class FindTestFoo
-    def initialize(...)
-    end
-
-    def call
-      :called
-    end
+class Import::MusicbrainzTestMockFacade
+  def initialize(...)
   end
 end
 
+class MockCall
+  def initialize(return_value: nil)
+    @return_value = return_value
+  end
+
+  def call = @return_value
+end
+
 class Import::MusicbrainzHandlerTest < ActiveSupport::TestCase
-  test "with an ImportOrder" do
+  test "foobar" do
     import_order = Minitest::Mock.new
-    import_order.expect :kind, "test_foo"
-    import_order.expect :code, "c9994186-7659-11ef-b5d9-83803fcd2d52"
-
     handler = Import::MusicbrainzHandler.new(import_order)
+    import_order.expect :kind, "test_mock"
+    import_order.expect :kind, "test_mock"
 
-    assert :called, handler.call
+    import_order.expect :code, "9138acfc-7bed-11ef-b718-c33088555133"
+    import_order.expect :code, "9138acfc-7bed-11ef-b718-c33088555133"
+
+    session = Minitest::Mock.new
+    session.expect :build_collection_igniter, proc {}, [Import::MusicbrainzTestMockFacade]
+    session.expect :lock, nil
+    session.expect :build_creation_igniter, proc { :success }, [Import::MusicbrainzTestMockFacade]
+
+    handler.stub :session, session do
+      assert_equal :success, handler.call
+    end
 
     import_order.verify
+    session.verify
   end
 end
