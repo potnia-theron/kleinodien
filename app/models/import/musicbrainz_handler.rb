@@ -31,10 +31,6 @@ module Import
     end
 
     def facade
-      @facade ||= build_facade
-    end
-
-    def build_facade
       camel_kind = import_order.kind.camelize
       facade_class = "Import::Musicbrainz#{camel_kind}Facade".constantize
       facade_class.new(session, code: import_order.code)
