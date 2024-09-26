@@ -21,15 +21,15 @@ class Import::FindParticipantTest < ActiveSupport::TestCase
     @subject = Import::FindParticipant.new(:fake_session, facade: @facade)
   end
 
+  def cannot_find
+    @subject
+  end
+
   def create_participant
     Participant.create!(name: "Airbourne", sort_name: "Airbourne", musicbrainz_code: musicbrainz_code)
   end
 
   def musicbrainz_code = "a025df46-e2a5-11ee-9be0-33eaef18f872"
-
-  test "Participant can't be found" do
-    assert_not @subject.call
-  end
 
   test "find Participant with #cheap_codes" do
     create_participant

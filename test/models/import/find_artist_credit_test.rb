@@ -10,10 +10,10 @@ class Import::FindArtistCreditTest < ActiveSupport::TestCase
     @subject = Import::FindArtistCredit.new(:fake_session, facade: @facade)
   end
 
-  test "ArtistCredit can't be found" do
+  def cannot_find
     @facade.expect :name, "Reborn Christians"
 
-    assert_not @subject.call
+    @subject
   end
 
   test "find ArtistCredit by name" do
