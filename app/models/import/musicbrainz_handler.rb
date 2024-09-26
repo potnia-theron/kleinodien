@@ -21,15 +21,13 @@ module Import
       Import::MusicbrainzCollector.call(session, facade)
     end
 
-    def create
-      ActiveRecord::Base.transaction do
-        create_action.call
-      end
+    def lock
+      Rails.logger.info("locking session")
+      session.lock
     end
 
-    def create_action
-      Rails.logger.info("persisting data")
-      session.build_create_action(facade: facade)
+    def create
+      Import::MusicbrainzCreator.call(session, facade)
     end
 
     def facade
@@ -40,11 +38,6 @@ module Import
       camel_kind = import_order.kind.camelize
       facade_class = "Import::Musicbrainz#{camel_kind}Facade".constantize
       facade_class.new(session, code: import_order.code)
-    end
-
-    def lock
-      Rails.logger.info("locking session")
-      session.lock
     end
 
     def session
