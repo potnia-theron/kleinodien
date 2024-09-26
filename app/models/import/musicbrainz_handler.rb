@@ -8,12 +8,13 @@ module Import
 
     def call
       Rails.logger.info("starting import from MusicBrainz")
-      record = find || collect
-      return record if record && record.class.is_a?(ApplicationRecord)
 
-      lock
-
-      create
+      if (entry = collect)
+        entry
+      else
+        lock
+        create
+      end
     end
 
     def collect
@@ -55,7 +56,6 @@ module Import
       facade_class.new(session, code: import_order.code)
     end
 
-    # delegate :lock, to: :session
     def lock
       Rails.logger.info("locking session")
       session.lock
