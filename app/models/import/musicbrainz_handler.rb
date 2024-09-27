@@ -1,5 +1,9 @@
 module Import
   class MusicbrainzHandler
+    def self.call(...)
+      new(...).call
+    end
+
     def initialize(import_order)
       @import_order = import_order
     end
@@ -10,7 +14,7 @@ module Import
       Rails.logger.info("starting import from MusicBrainz")
 
       if (entry = collect)
-        entry
+        [inspect, entry.inspect]
       else
         lock
         create
@@ -18,7 +22,7 @@ module Import
     end
 
     def collect
-      # Import::MusicbrainzCollector.call(session, facade)
+      import_order.buffering!
       collector = session.build_collection_igniter(facade)
       collector.call
     end
@@ -29,9 +33,15 @@ module Import
     end
 
     def create
-      # Import::MusicbrainzCreator.call(session, facade)
+      import_order.persisting!
       kreator = session.build_creation_igniter(facade)
-      kreator.call
+
+      if (result = kreator.call)
+        import_order.done!
+        result
+      else
+        import_order.failed!
+      end
     end
 
     def facade

@@ -1,38 +1,25 @@
 require "test_helper"
 require "minitest/mock"
 
-class Import::MusicbrainzTestMockFacade
-  def initialize(...)
-  end
-end
-
-class MockCall
-  def initialize(return_value: nil)
-    @return_value = return_value
-  end
-
-  def call = @return_value
-end
-
 class Import::MusicbrainzHandlerTest < ActiveSupport::TestCase
-  test "foobar" do
+  test "#call" do
     import_order = Minitest::Mock.new
-    handler = Import::MusicbrainzHandler.new(import_order)
-    import_order.expect :kind, "test_mock"
-    import_order.expect :kind, "test_mock"
+    import_order.expect :buffering!, true
+    import_order.expect :persisting!, true
+    import_order.expect :done!, true
 
-    import_order.expect :code, "9138acfc-7bed-11ef-b718-c33088555133"
-    import_order.expect :code, "9138acfc-7bed-11ef-b718-c33088555133"
+    facade = :fake_facade # Minitest::Mock.new
 
     session = Minitest::Mock.new
-    session.expect :build_collection_igniter, proc {}, [Import::MusicbrainzTestMockFacade]
+    session.expect :build_collection_igniter, proc {}, [facade]
     session.expect :lock, nil
-    session.expect :build_creation_igniter, proc { :success }, [Import::MusicbrainzTestMockFacade]
+    session.expect :build_creation_igniter, proc { :success }, [facade]
 
-    handler.stub :session, session do
-      assert_equal :success, handler.call
-    end
+    handler = Import::MusicbrainzHandler.new(import_order)
+    handler.define_singleton_method :session, proc { session }
+    handler.define_singleton_method :facade, proc { facade }
 
+    assert_equal :success, handler.call
     import_order.verify
     session.verify
   end

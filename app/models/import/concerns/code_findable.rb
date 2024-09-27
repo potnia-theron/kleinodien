@@ -6,16 +6,18 @@ module Import::Concerns
     delegate :cheap_codes, to: :facade
 
     def find_by_cheap_codes
-      return unless cheap_codes.any?
+      codes = facade.cheap_codes
+      return unless codes.any?
 
-      model_class.find_by(cheap_codes)
+      model_class.find_by(codes)
     end
 
     def find_by_codes
-      return unless all_codes.any?
+      codes = all_codes
+      return unless codes.any?
 
       result = OrWithPresentValues
-        .query(attributes: all_codes, model_class: model_class)
+        .query(attributes: codes, model_class: model_class)
         .load
       return unless result.any?
       raise "Too much reslts" if result.length != 1

@@ -58,12 +58,8 @@ class MusicBrainzImportOrderTest < ActiveSupport::TestCase
   def test_perform
     import_order = MusicBrainzImportOrder.new(kind: "release", uri: "https://musicbrainz.org/non/sense", user: users(:kim))
 
-    # Many attempts have been made to use Minitest::Mock for this,
-    # but all have failed. So here is the sledgehammer method:
-    Import::MusicbrainzHandler.define_method :call do
-      :done
+    Import::MusicbrainzHandler.stub :call, proc { :done } do
+      assert_equal :done, import_order.perform
     end
-
-    assert_equal :done, import_order.perform
   end
 end
