@@ -3,6 +3,9 @@ module Import
     def initialize(session, options)
       @session = session
       @options = options
+
+      # fill the buffer by calling #data:
+      data
     end
 
     attr_reader :options, :session
@@ -10,7 +13,8 @@ module Import
     def model_class = Participant
 
     def data
-      @data ||= options[:data] || session.get(:artist, options[:code])
+      # @data ||= options[:data] || session.get(:artist, options[:code])
+      @data ||= session.get(:artist, options[:code])
     end
 
     def code
@@ -18,6 +22,10 @@ module Import
     end
 
     delegate_missing_to :properties
+
+    def buffered?
+      session.buffer.buffered? :artist, options[:code]
+    end
 
     def cheap_codes
       return unless code

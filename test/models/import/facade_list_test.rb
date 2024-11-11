@@ -30,8 +30,8 @@ class Import::FacadeListTest < ActiveSupport::TestCase
   end
 
   test "#to_collectors" do
-    @session.expect :build_collector, :collector_0, [@f_mocks[0]]
-    @session.expect :build_collector, :collector_1, [@f_mocks[1]]
+    @session.expect :build_collect_action, :collector_0, [], facade: @f_mocks[0]
+    @session.expect :build_collect_action, :collector_1, [], facade: @f_mocks[1]
 
     collectors = @facade_list.to_collectors
 

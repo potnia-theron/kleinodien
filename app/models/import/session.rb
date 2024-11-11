@@ -8,8 +8,9 @@ module Import
       @musicbrainz ||= build_ancillary("Import::MusicbrainzFactory")
     end
 
-    def build_collect_action(...)
-      Import::CollectAction.new(session, ...)
+    def build_collect_action(**params)
+      # debugger
+      Import::CollectAction.new(session, **params)
     end
 
     def build_create_action(...)

@@ -9,8 +9,12 @@ module Import
 
     def model_class = AlbumArchetype
 
+    def buffered?
+      session.buffer.buffered? :release_group, options[:code]
+    end
+
     def data
-      options[:data]
+      @data ||= options[:data] || session.get(:release_group, options[:code])
     end
 
     delegate :title, to: :data

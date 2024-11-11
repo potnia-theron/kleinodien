@@ -15,7 +15,9 @@ module Import
     end
 
     def connection
-      @connection ||= Faraday.new
+      @connection ||= Faraday.new do |faraday|
+        faraday.response :logger, Rails.logger, {log_level: :debug}
+      end
     end
 
     def interrupter

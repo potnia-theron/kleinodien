@@ -1,6 +1,7 @@
 require "test_helper"
 require "minitest/mock"
 require "support/shared_import_facade_tests"
+require "support/web_mock_external_apis"
 
 class Import::MusicbrainzParticipantFacadeTest < ActiveSupport::TestCase
   include SharedImportFacadeTests
@@ -8,42 +9,29 @@ class Import::MusicbrainzParticipantFacadeTest < ActiveSupport::TestCase
   LiveSpan = Data.define(:begin, :end)
 
   setup do
-    @subject = Import::MusicbrainzParticipantFacade.new(:fake_session, {})
+    WebMockExternalApis.setup
+
+    code = "66c662b6-6e2f-4930-8610-912e24c63ed1"
+    import_order = Minitest::Mock.new
+    import_order.expect :kind, :participant
+    import_order.expect :code, code
+    @session = Import::MusicbrainzSession.new(import_order)
+    @subject = Import::MusicbrainzParticipantFacade.new(@session, code: code)
   end
 
-  test "#name" do
-    data = {name: "Suffocation"}
-    facade = Import::MusicbrainzParticipantFacade.new(:fake_session, {data: data})
-
-    assert_equal "Suffocation", facade.name
-  end
-
-  test "data accessors" do
-    messages_expected = {
-      name: "Suffocation",
-      sort_name: "Suffocation, The",
-      disambiguation: "New York Death Metal"
-    }
-
-    messages_expected.each do |message, expected|
-      data = {message => expected}
-      facade = Import::MusicbrainzParticipantFacade.new(:fake_session, data: data)
-
-      assert_equal expected, facade.send(message)
-    end
+  test "name accessors" do
+    assert_equal "AC/DC", @subject.name
+    assert_equal "AC/DC", @subject.sort_name
+    assert_equal "Australian hard rock band", @subject.disambiguation
   end
 
   test "#begins_at" do
-    data = {life_span: {begin: "2024-03-25", end: nil}}
-    facade = Import::MusicbrainzParticipantFacade.new(:fake_session, {data: data})
+    expected_date = IncompleteDate.new(Date.new(1973, 12, 31), :day)
 
-    assert_equal IncompleteDate.new(Date.new(2024, 3, 25), :day), facade.begins_at
+    assert_equal expected_date, @subject.begins_at
   end
 
   test "ends_at" do
-    data = {life_span: {begin: nil, end: "2024-03-26"}}
-    facade = Import::MusicbrainzParticipantFacade.new(:fake_session, {data: data})
-
-    assert_equal IncompleteDate.new(Date.new(2024, 3, 26), :day), facade.ends_at
+    assert_nil @subject.ends_at
   end
 end

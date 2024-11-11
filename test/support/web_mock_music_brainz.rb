@@ -7,15 +7,15 @@ class WebMockMusicBrainz < Sinatra::Base
     content_type :json
     status 200
 
-    # path = "test/webmock/musicbrainz.org/ws/2/#{params[:kind]}/#{params[:id]}.json"
-    # json_string = File.read(path)
-    # debugger
     kind = params[:kind].tr("_", "-")
-    # json_string = Retrieve.musicbrainz(params[:kind], params[:id])
-    json_string = Retrieve.musicbrainz(kind, params[:id])
+    code = params[:id]
+    json_string = Retrieve.musicbrainz(kind, code)
+
+    Rails.logger.debug("#{env.except("rack.logger")}")
 
     return json_string if json_string
 
+    Rails.logger.info("failed to get #{kind} #{code}")
     status 404
     nil
   end
