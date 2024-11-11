@@ -39,25 +39,11 @@ module Import
     end
 
     def gather_one_has_many_association(association)
-      association_name = association.name
-      # option_name = association.inverse_of.name
-      # option_name = "skip_#{association.inverse_of.name}"
+      facade_list = facade.send(association.name)
+      unbuffered_facades = facade_list.reject { |facade| facade.buffered? }
 
-      # persisters = facade.send(association_name).to_persisters(option_name => record)
-      # persisters.each(&:call)
-      # ao = [association_name, option_name]
-      # collectors = facade.send(association_name).to_collectors(option_name => true)
-      # collectors.each(&:call)
-      # debugger
-      # return if facade.send(association_name).buffered?
-      # BUG: ??? wo kommt die facade her?
-      lst = facade.send(association_name)
-      model = lst.model
-
-      lst.each do |listed_facade|
-        next if listed_facade.buffered?
-        action = session.build_collect_action(facade: listed_facade)
-        # debugger
+      unbuffered_facades.each do |unbuffered_facade|
+        action = session_build_collect_action(facade: unbuffered_facade)
         action.call
       end
 
