@@ -11,9 +11,7 @@ class Import::MusicbrainzArtistCreditParticipantFacadeTest < ActiveSupport::Test
   end
 
   test "#join_phrase" do
-    facade = Import::MusicbrainzArtistCreditParticipantFacade.new(
-      @session, data: [{joinphrase: " With "}]
-    )
+    facade = Import::MusicbrainzArtistCreditParticipantFacade.new(@session, data: {joinphrase: " With "})
 
     assert_equal " With ", facade.join_phrase
   end
@@ -24,7 +22,7 @@ class Import::MusicbrainzArtistCreditParticipantFacadeTest < ActiveSupport::Test
       true
     end
 
-    data = [{artist: {id: "123"}}]
+    data = {artist: {id: "123"}}
     facade = Import::MusicbrainzArtistCreditParticipantFacade.new(session, data: data)
 
     assert_equal :fake_facade, facade.participant_facade
