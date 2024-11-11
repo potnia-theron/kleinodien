@@ -4,8 +4,7 @@ module Import
 
     def initialize(session, data:, **options)
       @session = session
-      # TODO: why do we get an array for `data`?
-      @data = data[0]
+      @data = data
       @options = options
     end
 

@@ -40,8 +40,10 @@ module Import
 
     def build_facade(data, consecutive_number)
       facade_options = options.merge({consecutive_number: consecutive_number})
-      # debugger
-      # session.build_facade(model, **facade_options)
+      # delete :data from facade_options. Otherwise the :data of facade_options (an array)
+      # overrides the data: keyword
+      facade_options.delete(:data)
+
       session.build_facade(model, data: data, **facade_options)
     end
   end
