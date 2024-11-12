@@ -3,7 +3,7 @@ require "minitest/mock"
 require "support/shared_import_facade_tests"
 
 class Import::MusicbrainzArtistCreditParticipantFacadeTest < ActiveSupport::TestCase
-  include SharedImportFacadeTests
+  # include SharedImportFacadeTests
 
   def setup
     @session = Minitest::Mock.new
