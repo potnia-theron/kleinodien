@@ -16,7 +16,7 @@ Rails.application.configure do
   config.eager_load = ENV["CI"].present?
 
   # Configure public file server for tests with cache-control for performance.
-  config.public_file_server.headers = { "cache-control" => "public, max-age=3600" }
+  config.public_file_server.headers = {"cache-control" => "public, max-age=3600"}
 
   # Show full error reports.
   config.consider_all_requests_local = true
@@ -37,10 +37,18 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  config.action_mailer.default_url_options = {host: "example.com"}
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  # 2024-11-12 upgrade Rails 7.2 -> Rails 8:
+  # DEPRECATION WARNING:
+  # `to_time` will always preserve the full timezone rather than offset of the receiver
+  # in Rails 8.1. To opt in to the new behavior, set
+  # `config.active_support.to_time_preserves_timezone = :zone`.
+  # (called from <top (required)> at /rails/config/environment.rb:5)
+  config.active_support.to_time_preserves_timezone = :zone
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

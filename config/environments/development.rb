@@ -20,7 +20,7 @@ Rails.application.configure do
   if Rails.root.join("tmp/caching-dev.txt").exist?
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
-    config.public_file_server.headers = { "cache-control" => "public, max-age=#{2.days.to_i}" }
+    config.public_file_server.headers = {"cache-control" => "public, max-age=#{2.days.to_i}"}
   else
     config.action_controller.perform_caching = false
   end
@@ -38,10 +38,18 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.default_url_options = {host: "localhost", port: 3000}
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
+
+  # 2024-11-12 upgrade Rails 7.2 -> Rails 8:
+  # DEPRECATION WARNING:
+  # `to_time` will always preserve the full timezone rather than offset of the receiver
+  # in Rails 8.1. To opt in to the new behavior, set
+  # `config.active_support.to_time_preserves_timezone = :zone`.
+  # (called from <top (required)> at /rails/config/environment.rb:5)
+  config.active_support.to_time_preserves_timezone = :zone
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
