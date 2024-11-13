@@ -8,7 +8,6 @@ services:
       - 3000:3000
     depends_on:
       - postgres
-      - redis
     volumes:
       - .:/rails
       - ruby-bundle-cache:/bundle
@@ -20,11 +19,6 @@ services:
       - 5432:5432
     volumes:
       - postgresql:/var/lib/postgresql/data:delegated
-
-  redis:
-    image: "redis:7-bullseye"
-    ports:
-      - 6379
 
 volumes:
   postgresql:
