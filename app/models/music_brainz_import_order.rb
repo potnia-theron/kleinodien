@@ -9,6 +9,7 @@ class MusicBrainzImportOrder < ImportOrder
   }
 
   before_validation :set_kind_and_code
+
   def perform
     Import::MusicbrainzHandler.call(self)
   end
