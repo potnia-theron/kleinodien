@@ -13,4 +13,8 @@ class MusicBrainzImportOrder < ImportOrder
   def perform
     Import::MusicbrainzHandler.call(self)
   end
+
+  # def perform_layered
+  #   LayeredImport::MusicbrainzWorkflow.new(self).call
+  # end
 end
