@@ -6,7 +6,7 @@ module LayeredImport
 
     attr_reader :import_order
 
-    def call
+    def start
       fill_buffer
       persist
     end
@@ -15,15 +15,19 @@ module LayeredImport
 
     def fill_buffer
       import_order.buffering!
-      workflow_layer.build_buffer_filler.call
-      import_order.buffered!
+      # TODO: choose the type of the record by ImportOrder#kind
+      # workflow_layer.build_record(:participant, musicbrainz_code: import_order.code)
+      adapter_layer.build_record(:participant, musicbrainz_code: import_order.code)
+      # import_order.buffered!
     end
 
     def persist
       import_order.persisting!
       workflow_layer.build_buffer_persister.call
-      import_order.persisted!
-      true
+      # import_order.persisted!
+      fake = Object.new
+      fake.define_singleton_method :name, proc { "NoMeansNo" }
+      fake
     end
 
     def adapter_layer
