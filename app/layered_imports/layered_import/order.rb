@@ -18,6 +18,16 @@ module LayeredImport
         .new(self)
     end
 
+    def create_workflow
+      # embed_class_name_component("LayeredImport::", "Workflow")
+      #   .constantize
+      #   .new(self)
+
+      # TODO: use the upper code when MusicBrainzImportOrder is renamed
+      # to ->                         MusicbrainzImportOrder
+      MusicbrainzWorkflow.new(self)
+    end
+
     def embed_class_name_component(prefix, suffix)
       prefix.concat(class_name_component).concat(suffix)
     end

@@ -1,17 +1,7 @@
 module LayeredImport
-  def self.initiate(import_order)
-    import_order
-      # TODO: remove #downcase and titleize. This requires MusicBrainzImportOrder to be renamed
-      .type
-      .delete_suffix("ImportOrder")
-      # delete
-      .downcase
-      .titleize
-      # /delete
-      .prepend("LayeredImport::")
-      .concat("Workflow")
-      .constantize
-      .new(import_order)
-      .start
+  def self.ignite(import_order)
+    order = Order.new(import_order)
+    workflow = order.create_workflow
+    workflow.start
   end
 end

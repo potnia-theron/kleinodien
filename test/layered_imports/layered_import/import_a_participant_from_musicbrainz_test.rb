@@ -7,7 +7,7 @@ class LayeredImport::ImportAParticipantFromMusicbrainzTest < ActiveSupport::Test
     user = users(:kim)
     import_order = MusicBrainzImportOrder.create!(code: code, kind: "participant", user: user)
 
-    participant = LayeredImport.initiate(import_order)
+    participant = LayeredImport.ignite(import_order)
 
     assert_equal "NoMeansNo", participant.name
   end
