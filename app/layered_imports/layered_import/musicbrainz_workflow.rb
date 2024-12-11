@@ -1,10 +1,10 @@
 module LayeredImport
   class MusicbrainzWorkflow
-    def initialize(import_order)
-      @import_order = import_order
+    def initialize(order)
+      @order = order
     end
 
-    attr_reader :import_order
+    attr_reader :order
 
     def start
       fill_buffer
@@ -14,28 +14,28 @@ module LayeredImport
     private
 
     def fill_buffer
-      import_order.buffering!
+      order.buffering!
       # TODO: choose the type of the record by ImportOrder#kind
-      # workflow_layer.build_record(:participant, musicbrainz_code: import_order.code)
-      adapter_layer.build_record(:participant, musicbrainz_code: import_order.code)
-      # import_order.buffered!
+      # workflow_layer.build_record(:participant, musicbrainz_code: order.code)
+      adapter_layer.build_record(:participant, musicbrainz_code: order.code)
+      # order.buffered!
     end
 
     def persist
-      import_order.persisting!
+      order.persisting!
       workflow_layer.build_buffer_persister.call
-      # import_order.persisted!
+      # order.persisted!
       fake = Object.new
       fake.define_singleton_method :name, proc { "NoMeansNo" }
       fake
     end
 
     def adapter_layer
-      @adapter_layer ||= LayeredImport::AdapterLayer.new(import_order)
+      @adapter_layer ||= LayeredImport::AdapterLayer.new(order)
     end
 
     def workflow_layer
-      @workflow_layer ||= LayeredImport::WorkflowLayer.new(import_order)
+      @workflow_layer ||= LayeredImport::WorkflowLayer.new(order)
     end
   end
 end

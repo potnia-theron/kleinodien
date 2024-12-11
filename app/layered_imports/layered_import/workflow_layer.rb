@@ -1,10 +1,10 @@
 module LayeredImport
   class WorkflowLayer
-    def initialize(import_order)
-      @import_order ||= import_order
+    def initialize(order)
+      @order ||= order
     end
 
-    attr_reader :import_order
+    attr_reader :order
 
     def build_record(model, options)
       reflections = reflections_for(model)

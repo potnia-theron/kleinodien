@@ -4,13 +4,13 @@ module LayeredImport
       new(...).build
     end
 
-    def initialize(import_order)
-      @import_order = import_order
+    def initialize(order)
+      @order = order
     end
 
-    attr_reader :import_order
-    delegate :kind, to: :import_order
-    delegate :type, to: :import_order
+    attr_reader :order
+    delegate :kind, to: :order
+    delegate :type, to: :order
 
     def build
       case type
@@ -22,7 +22,7 @@ module LayeredImport
     end
 
     def build_musicbrainz_workflow
-      LayeredImport::MusicbrainzWorkflow.new(import_order)
+      LayeredImport::MusicbrainzWorkflow.new(order)
     end
   end
 end
