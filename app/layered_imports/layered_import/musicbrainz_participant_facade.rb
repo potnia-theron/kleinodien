@@ -1,6 +1,16 @@
 module LayeredImport
   class MusicbrainzParticipantFacade
-    def initialize(...)
+    def initialize(facade_layer, options)
+      @facade_layer = facade_layer
+      @options = options
+    end
+
+    attr_reader :facade_layer, :options
+
+    delegate_missing_to :facade_layer
+
+    def data
+      @data ||= request_layer.get(:artist, options[:code])
     end
 
     def name

@@ -17,5 +17,9 @@ module LayeredImport
         .constantize
         .new(self, options)
     end
+
+    def request_layer
+      @request_layer = order.create_request_layer
+    end
   end
 end

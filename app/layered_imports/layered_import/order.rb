@@ -18,6 +18,10 @@ module LayeredImport
         .new(self)
     end
 
+    def create_request_layer
+      MusicbrainzRequestLayer.new(self)
+    end
+
     def create_workflow
       # embed_class_name_component("LayeredImport::", "Workflow")
       #   .constantize

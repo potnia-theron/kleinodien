@@ -23,11 +23,14 @@ module LayeredImport
 
     def persist
       order.persisting!
-      workflow_layer.build_buffer_persister.call
+      # workflow_layer.build_buffer_persister.call
+      record = adapter_layer.build_record(:participant, musicbrainz_code: order.code)
+      record.save!
+      record
       # order.persisted!
-      fake = Object.new
-      fake.define_singleton_method :name, proc { "NoMeansNo" }
-      fake
+      # fake = Object.new
+      # fake.define_singleton_method :name, proc { "NoMeansNo" }
+      # fake
     end
 
     def adapter_layer
