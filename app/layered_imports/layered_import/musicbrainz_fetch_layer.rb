@@ -1,4 +1,5 @@
 module LayeredImport
+  # TODO: use an interrupter
   class MusicbrainzFetchLayer
     def initialize(order)
       @order = order
@@ -8,6 +9,8 @@ module LayeredImport
 
     def get(uri_string)
       result = connection.get(uri_string)
+      # TODO: check the result
+      # ...by using the nonexistent interrupter
       json = result.body
       Json.parse(json)
     end
