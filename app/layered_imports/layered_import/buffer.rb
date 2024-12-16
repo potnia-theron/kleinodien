@@ -1,4 +1,5 @@
 module LayeredImport
+  # TODO: Buffer must be locked (write-protected) unless the ImportOrder state is "buffering"
   class Buffer
     def buffered?(kind, code)
       fetch(kind, code) ? true : false
@@ -12,16 +13,6 @@ module LayeredImport
     end
 
     delegate :deep_dup, to: :buffer
-
-    # TODO: remove #lock
-    def lock
-      buffer.freeze
-    end
-
-    # TODO: remove #locked?
-    def locked?
-      buffer.frozen?
-    end
 
     private
 
