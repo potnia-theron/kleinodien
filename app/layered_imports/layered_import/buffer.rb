@@ -13,10 +13,12 @@ module LayeredImport
 
     delegate :deep_dup, to: :buffer
 
+    # TODO: remove #lock
     def lock
       buffer.freeze
     end
 
+    # TODO: remove #locked?
     def locked?
       buffer.frozen?
     end

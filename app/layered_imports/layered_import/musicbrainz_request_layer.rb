@@ -7,15 +7,17 @@ module LayeredImport
     attr_reader :order
     delegate_missing_to :order
 
-    # TODO: implement buffer
-    # TODO: #get needs to search the buffer first
     def get(kind, code)
       uri_string = uri_string_for(kind, code)
-      fetch_layer.get(uri_string)
+      buffer.fetch(kind, code) { fetch_layer.get(uri_string) }
     end
 
     def uri_string_for(kind, code)
       "https://musicbrainz.org/ws/2/#{kind}/#{code}?fmt=json"
+    end
+
+    def buffer
+      @buffer ||= LayeredImport::Buffer.new
     end
 
     def fetcher
