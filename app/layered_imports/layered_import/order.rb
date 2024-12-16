@@ -18,6 +18,10 @@ module LayeredImport
         .new(self)
     end
 
+    def create_fetch_layer
+      MusicbrainzFetchLayer.new(self)
+    end
+
     def create_request_layer
       MusicbrainzRequestLayer.new(self)
     end

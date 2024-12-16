@@ -10,22 +10,14 @@ module LayeredImport
     delegate_missing_to :facade_layer
 
     def data
-      @data ||= request_layer.get(:artist, options[:code])
+      @data ||= request_layer.get(:artist, options[:musicbrainz_code])
     end
 
-    def name
-      # TODO: implement #name
-      "NoMeansNo"
-    end
+    def name = data[:name]
 
-    def sort_name
-      # TODO: implement #sort_name
-      "NoMeansNo"
-    end
+    def sort_name = data[:sort_name]
 
-    def disambiguation
-      # TODO: implement #disambiguation
-    end
+    def disambiguation = data[:disambiguation]
 
     def begins_at
       # TODO: implement #begins_at
