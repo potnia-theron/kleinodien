@@ -8,7 +8,8 @@ module LayeredImport
     attr_reader :order
 
     def get(uri_string)
-      response = attempts(uri_string)
+      fetcher = create_fetcher(uri_string)
+      response = fetcher.get
       response.body
     end
 
@@ -19,12 +20,8 @@ module LayeredImport
       end
     end
 
-    def attempts(uri_string)
-      max_tries.times do
-        connection.get(uri_string).then { |response| return response if response.success? }
-      end
-
-      raise "failed to get #{uri_string}"
+    def create_fetcher(uri_string)
+      LayeredImport::FaradayFetcher.new(self, uri_string)
     end
 
     def max_tries
