@@ -4,7 +4,8 @@ module LayeredImport
       new(*).parse
     end
 
-    def initialize(json_string)
+    # def initialize(json_string, options = {})
+    def initialize(json_string, _ = nil)
       @json_string = json_string
     end
 
