@@ -24,6 +24,17 @@ module LayeredImport
       LayeredImport::FaradayFetcher.new(self, uri_string)
     end
 
+    def clock_control
+      @clock_control ||= LayeredImport::ClockControl.new(self)
+    end
+
+    def calculate_total_timeout(errors)
+      0
+      # TODO: return a calculated value
+      # TODO: only return 0 if some environment-variable is set
+      # minimal_timeout * (errors + 1)
+    end
+
     def max_tries
       # get max_tries from ENV
       3

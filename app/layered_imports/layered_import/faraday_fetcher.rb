@@ -10,7 +10,7 @@ module LayeredImport
 
     def get
       max_tries.times do
-        response = attempt
+        response = clock_control.schedule { attempt }
         return response if response
       end
 

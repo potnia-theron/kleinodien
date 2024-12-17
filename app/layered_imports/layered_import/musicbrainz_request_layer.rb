@@ -20,10 +20,6 @@ module LayeredImport
       @buffer ||= LayeredImport::Buffer.new
     end
 
-    def fetcher
-      @fetcher ||= create_fetcher
-    end
-
     def fetch_layer
       @fetch_layer ||= create_fetch_layer
     end
