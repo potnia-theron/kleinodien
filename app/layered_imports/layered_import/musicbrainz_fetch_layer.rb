@@ -8,8 +8,8 @@ module LayeredImport
     attr_reader :order
 
     def get(uri_string)
-      result = attempts(uri_string)
-      result.body
+      response = attempts(uri_string)
+      response.body
     end
 
     def connection
