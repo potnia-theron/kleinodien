@@ -4,7 +4,8 @@ module LayeredImport
       new(*).parse
     end
 
-    # def initialize(json_string, options = {})
+    # The second parameter (_) is optional and will be ignored.
+    # It is necessary because faraday uses an empty hash as second argument.
     def initialize(json_string, _ = nil)
       @json_string = json_string
     end
