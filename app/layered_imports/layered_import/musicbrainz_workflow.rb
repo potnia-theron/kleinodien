@@ -17,7 +17,6 @@ module LayeredImport
       order.buffering!
       # TODO: choose the type of the record by ImportOrder#kind
       # workflow_layer.build_record(:participant, musicbrainz_code: order.code)
-      record_type = (order.kind == "participant") ? :participant : :artist_credit
       adapter_layer.build_record(record_type, musicbrainz_code: order.code)
       # adapter_layer.build_record(:participant, musicbrainz_code: order.code)
       # order.buffered!
@@ -26,7 +25,6 @@ module LayeredImport
     def persist
       order.persisting!
       # workflow_layer.build_buffer_persister.call
-      record_type = (order.kind == "participant") ? :participant : :artist_credit
       record = adapter_layer.build_record(record_type, musicbrainz_code: order.code)
       record.save!
       record
@@ -38,6 +36,13 @@ module LayeredImport
 
     def adapter_layer
       @adapter_layer ||= LayeredImport::AdapterLayer.new(order)
+    end
+
+    def record_type
+      # TODO: remove #record_type
+      # This is a temporary solution
+      # An ImportOrder#kind shouldn't be an artist_credit or an participant
+      (order.kind == "participant") ? :participant : :artist_credit
     end
 
     def workflow_layer

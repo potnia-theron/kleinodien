@@ -16,7 +16,7 @@ module LayeredImport
       attr_names = reflections.inherent_attribute_names
       # reflections.inherent_attribute_names.each do |attr|
       attr_names.each do |attr|
-        if value = facade.send(attr)
+        if (value = facade.send(attr))
           accessor = "#{attr}="
           record.send(accessor, value)
         end
