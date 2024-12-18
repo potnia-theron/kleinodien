@@ -25,18 +25,17 @@ module LayeredImport
     end
 
     def clock_control
-      @clock_control ||= LayeredImport::ClockControl.new(self)
+      @clock_control ||= LayeredImport::ClockControl.new(timeout_calculator)
     end
 
-    def calculate_total_timeout(errors)
-      0
-      # TODO: return a calculated value
-      # TODO: only return 0 if some environment-variable is set
-      # minimal_timeout * (errors + 1)
+    def timeout_calculator
+      # proc { |errors| minimal_timeout * (errors + 1) }
+      # TODO: actual calculate the timeout
+      proc { |_| 0 }
     end
 
     def max_tries
-      # get max_tries from ENV
+      # TODO: get max_tries from ENV
       3
     end
   end

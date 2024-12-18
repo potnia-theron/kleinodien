@@ -2,14 +2,13 @@ module LayeredImport
   class ClockControl
     ONE_DAY = 86_400
 
-    def initialize(fetch_layer)
-      @fetch_layer = fetch_layer
+    def initialize(timeout_calculator)
+      @timeout_calculator = timeout_calculator
       @errors = 0
       @last = Time.zone.now - ONE_DAY
     end
 
-    attr_reader :errors, :fetch_layer, :last
-    delegate_missing_to :fetch_layer
+    attr_reader :errors, :last, :timeout_calculator
 
     def schedule &block
       timeout
@@ -33,14 +32,12 @@ module LayeredImport
     private
 
     def actual_timeout
-      total_timeout = calculate_total_timeout(errors)
-
-      actual = last + total_timeout - now
-      (actual > 0) ? actual : 0
+      (last + total_timeout - now)
+        .then { |actual| [actual, 0].max } # ensure actual_timeout >= 0
     end
 
-    def now
-      Time.zone.now
-    end
+    def now = Time.zone.now
+
+    def total_timeout = timeout_calculator.call(errors)
   end
 end
