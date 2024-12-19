@@ -10,5 +10,7 @@ module LayeredImport
     end
 
     def self.foreign_attribute_names = []
+
+    def self.has_many_associations = []
   end
 end

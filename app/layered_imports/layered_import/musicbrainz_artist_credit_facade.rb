@@ -20,5 +20,9 @@ module LayeredImport
         .tap { |tokens| tokens.pop }
         .join("")
     end
+
+    def participants
+      data.map { |participant| request_layer.get(:artist, participant[:artist][:id]) }
+    end
   end
 end

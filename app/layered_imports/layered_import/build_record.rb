@@ -13,8 +13,8 @@ module LayeredImport
     def call
       reflections.inherent_attribute_names.index_with { |attr| facade.send(attr) }
 
+      build_has_many_records
       assign_foreign_attributes
-
       record
     end
 
@@ -23,12 +23,16 @@ module LayeredImport
     attr_reader :adapter_layer, :model, :options
     delegate_missing_to :adapter_layer
 
+    def build_has_many_records
+      LayeredImport::BuildHasManyRecords.call(adapter_layer, facade, reflections)
+    end
+
     def inherent_attributes
       reflections.inherent_attribute_names.index_with { |attr| facade.send(attr) }.compact
     end
 
     def assign_foreign_attributes
-      # TODO: impement #assign_foreign_attributes
+      # TODO: implement #assign_foreign_attributes
       reflections.foreign_attribute_names do |attr_name|
       end
     end
