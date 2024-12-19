@@ -28,7 +28,8 @@ module LayeredImport
     private
 
     attr_reader :adapter_layer, :model, :options
-    delegate :facade_layer, to: :adapter_layer
+    # delegate :facade_layer, to: :adapter_layer
+    delegate_missing_to :adapter_layer
 
     def facade
       @facade ||= facade_layer.build_facade(reflections, options)
@@ -39,12 +40,7 @@ module LayeredImport
     end
 
     def reflections
-      @reflections ||= model
-        .to_s
-        .classify
-        .prepend("LayeredImport::")
-        .concat("Reflections")
-        .constantize
+      @reflections ||= build_reflections_for(model)
     end
   end
 end

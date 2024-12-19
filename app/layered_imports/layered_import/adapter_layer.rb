@@ -13,5 +13,14 @@ module LayeredImport
     def facade_layer
       @facade_layer ||= LayeredImport::FacadeLayer.new(order)
     end
+
+    def build_reflections_for(model)
+      model
+        .to_s
+        .classify
+        .prepend("LayeredImport::")
+        .concat("Reflections")
+        .constantize
+    end
   end
 end
