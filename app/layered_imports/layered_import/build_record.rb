@@ -13,14 +13,7 @@ module LayeredImport
     def call
       reflections.inherent_attribute_names.index_with { |attr| facade.send(attr) }
 
-      attr_names = reflections.inherent_attribute_names
-      # reflections.inherent_attribute_names.each do |attr|
-      attr_names.each do |attr|
-        if (value = facade.send(attr))
-          accessor = "#{attr}="
-          record.send(accessor, value)
-        end
-      end
+      assign_inherent_attributes
 
       record
     end
@@ -28,8 +21,16 @@ module LayeredImport
     private
 
     attr_reader :adapter_layer, :model, :options
-    # delegate :facade_layer, to: :adapter_layer
     delegate_missing_to :adapter_layer
+
+    def assign_inherent_attributes
+      reflections.inherent_attribute_names.each do |attr_name|
+        if (value = facade.send(attr_name))
+          accessor = "#{attr_name}="
+          record.send(accessor, value)
+        end
+      end
+    end
 
     def facade
       @facade ||= facade_layer.build_facade(reflections, options)
