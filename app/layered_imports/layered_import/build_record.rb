@@ -13,7 +13,7 @@ module LayeredImport
     def call
       reflections.inherent_attribute_names.index_with { |attr| facade.send(attr) }
 
-      assign_inherent_attributes
+      assign_foreign_attributes
 
       record
     end
@@ -23,12 +23,13 @@ module LayeredImport
     attr_reader :adapter_layer, :model, :options
     delegate_missing_to :adapter_layer
 
-    def assign_inherent_attributes
-      reflections.inherent_attribute_names.each do |attr_name|
-        if (value = facade.send(attr_name))
-          accessor = "#{attr_name}="
-          record.send(accessor, value)
-        end
+    def inherent_attributes
+      reflections.inherent_attribute_names.index_with { |attr| facade.send(attr) }.compact
+    end
+
+    def assign_foreign_attributes
+      # TODO: impement #assign_foreign_attributes
+      reflections.foreign_attribute_names do |attr_name|
       end
     end
 
@@ -37,7 +38,7 @@ module LayeredImport
     end
 
     def record
-      @record ||= model.to_s.classify.constantize.new
+      @record ||= model.to_s.classify.constantize.new(inherent_attributes)
     end
 
     def reflections

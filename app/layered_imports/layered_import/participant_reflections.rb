@@ -8,5 +8,7 @@ module LayeredImport
         .map { |attr| (attr == "begin_date") ? "begins_at" : attr }
         .map { |attr| (attr == "end_date") ? "ends_at" : attr }
     end
+
+    def self.foreign_attribute_names = []
   end
 end
