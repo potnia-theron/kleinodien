@@ -28,7 +28,7 @@ class IncompleteDate
 
   attr_reader :accuracy, :date
 
-  # accuracy is ignored in comparsion
+  # accuracy is ignored in comparison
   def <=>(other)
     date <=> other.date
   end
