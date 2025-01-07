@@ -1,7 +1,6 @@
 class IncompleteDate
   include Comparable
   include DateAccuracy
-  attr_reader :accuracy, :date
 
   STRING_ACCURACY = {1 => :year, 2 => :month, 3 => :day}
 
@@ -27,6 +26,8 @@ class IncompleteDate
     @accuracy = accuracy
   end
 
+  attr_reader :accuracy, :date
+
   # accuracy is ignored in comparsion
   def <=>(other)
     date <=> other.date
@@ -42,5 +43,13 @@ class IncompleteDate
 
   def day
     date&.day
+  end
+
+  private
+
+  def init_accuracy(date_string)
+    @accuracy = string.strip.split("-")
+      .then { |yyyymmdd| yyyymmdd.length }
+      .then { |length| STRING_ACCURACY[length] }
   end
 end
