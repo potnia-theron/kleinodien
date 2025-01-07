@@ -10,6 +10,8 @@ class IncompleteDate
       .then { |yyyymmdd| yyyymmdd.length }
       .then { |length| STRING_ACCURACY[length] }
 
+    # a string only representing a year (eg. "2025") raises Date::Error
+    # a string representing year and month (eg "2024-01") is ok
     string = "#{string}-01" if accuracy == :year
     new(string, accuracy)
   end
