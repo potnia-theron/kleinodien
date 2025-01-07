@@ -32,15 +32,12 @@ class IncompleteDateTest < ActiveSupport::TestCase
   end
 
   test "test_with_valid_arguments" do
-    ida = IncompleteDate.new("2000-01-02", "month")
+    date = Date.iso8601("2000-01-02")
+    ida = IncompleteDate.new(date, "month")
 
     assert_equal 2000, ida.year
     assert_equal 1, ida.month
     assert_equal 2, ida.day
-  end
-
-  test "test_with_an_invalid_date" do
-    assert_raises(Date::Error) { IncompleteDate.new("Wednesday", :day) }
   end
 
   test "test_with_valid_accuracies" do
@@ -56,12 +53,6 @@ class IncompleteDateTest < ActiveSupport::TestCase
 
   test "test_with_an_invalid_accuracy" do
     assert_raises(ArgumentError) { IncompleteDate.new(@today, "green") }
-  end
-
-  test "test_with_date_as_string" do
-    ida = IncompleteDate.new("2023-11-07", :year)
-
-    assert_instance_of Date, ida.date
   end
 
   test "<=>" do
