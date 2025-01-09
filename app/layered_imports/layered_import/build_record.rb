@@ -24,7 +24,9 @@ module LayeredImport
     delegate_missing_to :adapter_layer
 
     def build_has_many_records
-      LayeredImport::BuildHasManyRecords.call(adapter_layer, facade, reflections)
+      reflections.has_many_associations.map do |association|
+        create_has_many_builder(association, facade, record).build_many
+      end
     end
 
     def inherent_attributes
@@ -33,7 +35,9 @@ module LayeredImport
 
     def assign_foreign_attributes
       # TODO: implement #assign_foreign_attributes
-      reflections.foreign_attribute_names do |attr_name|
+      belongs_to_associations = reflections.belong_to_associations
+      belongs_to_associations.each do |association|
+        record.send(:"#{association.name}=", adapter_layer.build_record(association.class_name, facade.send(association.name)))
       end
     end
 

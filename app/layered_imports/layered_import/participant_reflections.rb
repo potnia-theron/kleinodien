@@ -9,6 +9,8 @@ module LayeredImport
         .map { |attr| (attr == "end_date") ? "ends_at" : attr }
     end
 
+    def self.belong_to_associations = []
+
     def self.foreign_attribute_names = []
 
     def self.has_many_associations = []

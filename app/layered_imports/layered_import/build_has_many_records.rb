@@ -18,12 +18,12 @@ module LayeredImport
     end
 
     def build_siblings_for(association)
-      reflections = build_reflections_for(association.class_name)
+      # reflections = build_reflections_for(association.class_name)
       name = association.name
-      facades = facade.send(name)
-      # facades.each do |facade|
-      #   LayeredImport::BuildRecord.call(adapter_layer, facade, reflections)
-      # end
+      option_list = facade.send(name)
+      option_list.map do |opts, index|
+        rec = build_record(association.class_name, opts)
+      end
     end
   end
 end

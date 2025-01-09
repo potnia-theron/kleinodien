@@ -22,7 +22,7 @@ module LayeredImport
     end
 
     def participants
-      data.map { |participant| request_layer.get(:artist, participant[:artist][:id]) }
+      data.map.each_with_index { |ac_participant, idx| ac_participant.merge({position: idx}) }
     end
   end
 end

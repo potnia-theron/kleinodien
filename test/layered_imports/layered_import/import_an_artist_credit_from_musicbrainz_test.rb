@@ -16,5 +16,11 @@ class LayeredImport::ImportAnArtistCreditFromMusicbrainzTest < ActiveSupport::Te
 
     assert_not artist_credit.new_record?
     assert_equal "Jello Biafra With NoMeansNo", artist_credit.name
+
+    artist_credit.participants.each_with_index do |ac_participant, idx|
+      assert_equal ac_participant.position, idx
+      assert_not ac_participant.new_record?
+      assert_not ac_participant.participant.new_record?
+    end
   end
 end

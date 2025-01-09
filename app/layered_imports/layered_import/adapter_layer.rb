@@ -10,6 +10,10 @@ module LayeredImport
       LayeredImport::BuildRecord.call(self, ...)
     end
 
+    def create_has_many_builder(...)
+      LayeredImport::HasManyBuilder.new(self, ...)
+    end
+
     def facade_layer
       @facade_layer ||= LayeredImport::FacadeLayer.new(order)
     end
