@@ -47,14 +47,6 @@ module LayeredImport
       inco_date = IncompleteDate.from_string(date_string).accuracy
     end
 
-    def begins_at
-      # TODO: implement #begins_at
-    end
-
-    def ends_at
-      # TODO: implement #ends_at
-    end
-
     def discogs_code
       # TODO: implement #discogs_code
     end
