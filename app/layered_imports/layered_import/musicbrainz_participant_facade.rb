@@ -37,6 +37,8 @@ module LayeredImport
 
     def discogs_code
       # TODO: implement #discogs_code
+      relations = LayeredImport::MusicbrainzRelationsCode.extract(data[:relations])
+      relations.dig(:discogs, :artist)
     end
 
     def imdb_code
