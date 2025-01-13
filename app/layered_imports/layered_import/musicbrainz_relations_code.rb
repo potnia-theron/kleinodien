@@ -2,17 +2,21 @@ module LayeredImport
   class MusicbrainzRelationsCode
     REGEX_FOR = {
       "discogs" => %r{/(?<kind>[a-z-]+)/(?<code>\d+)},
-      "imdb" => %r{/(?<kind>[a-z-]+)/(?<code>\w\w\d+)}
-      # "wikidata" => %r{}
-    }
+      "imdb" => %r{/(?<kind>[a-z-]+)/(?<code>\w\w\d+)},
+      "wikidata" => %r{/(?<kind>wiki)/(?<code>Q\d+)}
+    }.freeze
 
     def initialize(relations)
       @relations = relations
     end
 
-    def self.extract(*)
-      new(*).extract
+    def get(source, kind)
+      extracted.dig(source.to_sym, kind.to_sym)
     end
+
+    private
+
+    attr_reader :relations
 
     def extract
       result = Hash.new { |hash, key| hash[key] = {} }
@@ -27,9 +31,9 @@ module LayeredImport
       result
     end
 
-    private
-
-    attr_reader :relations
+    def extracted
+      @extracted ||= extract
+    end
 
     def url_rels_of_interest
       relations.filter { |relation| relation[:target_type] == "url" }

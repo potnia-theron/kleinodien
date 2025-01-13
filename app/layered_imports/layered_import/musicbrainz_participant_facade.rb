@@ -37,8 +37,8 @@ module LayeredImport
 
     def discogs_code
       # TODO: implement #discogs_code
-      relations = LayeredImport::MusicbrainzRelationsCode.extract(data[:relations])
-      relations.dig(:discogs, :artist)
+      # relations = LayeredImport::MusicbrainzRelationsCode.extract(data[:relations])
+      relations.get(:discogs, :artist)
     end
 
     def imdb_code
@@ -62,6 +62,10 @@ module LayeredImport
     def life_span_at(position)
       data.dig(:life_span, position)
         &.then { |date_string| IncompleteDate.from_string(date_string) }
+    end
+
+    def relations
+      @relations ||= LayeredImport::MusicbrainzRelationsCode.new(data[:relations])
     end
   end
 end
