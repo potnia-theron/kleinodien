@@ -19,6 +19,34 @@ module LayeredImport
 
     def disambiguation = data[:disambiguation]
 
+    def begin_date
+      date_string = data.dig(:life_span, :begin)
+      return unless date_string
+
+      inco_date = IncompleteDate.from_string(date_string).date
+    end
+
+    def begin_date_accuracy
+      date_string = data.dig(:life_span, :begin)
+      return unless date_string
+
+      inco_date = IncompleteDate.from_string(date_string).accuracy
+    end
+
+    def end_date
+      date_string = data.dig(:life_span, :end)
+      return unless date_string
+
+      inco_date = IncompleteDate.from_string(date_string).date
+    end
+
+    def end_date_accuracy
+      date_string = data.dig(:life_span, :end)
+      return unless date_string
+
+      inco_date = IncompleteDate.from_string(date_string).accuracy
+    end
+
     def begins_at
       # TODO: implement #begins_at
     end

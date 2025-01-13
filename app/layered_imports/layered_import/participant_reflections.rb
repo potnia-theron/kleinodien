@@ -4,9 +4,6 @@ module LayeredImport
       attribute_names
         .without("id", "created_at", "updated_at")
         .reject { |attr| attr.end_with? "_id" }
-        .reject { |attr| attr.end_with? "_accuracy" }
-        .map { |attr| (attr == "begin_date") ? "begins_at" : attr }
-        .map { |attr| (attr == "end_date") ? "ends_at" : attr }
     end
 
     def self.belong_to_associations = []

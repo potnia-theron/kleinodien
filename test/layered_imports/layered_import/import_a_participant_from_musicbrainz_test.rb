@@ -15,5 +15,7 @@ class LayeredImport::ImportAParticipantFromMusicbrainzTest < ActiveSupport::Test
     participant = LayeredImport.ignite(import_order)
 
     assert_equal "NoMeansNo", participant.name
+    assert_equal "1979-01-01", participant.begin_date.to_s
+    assert_equal "2016-09-24", participant.end_date.to_s
   end
 end
