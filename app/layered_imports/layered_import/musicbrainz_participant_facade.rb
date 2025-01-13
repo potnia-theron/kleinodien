@@ -20,31 +20,19 @@ module LayeredImport
     def disambiguation = data[:disambiguation]
 
     def begin_date
-      date_string = data.dig(:life_span, :begin)
-      return unless date_string
-
-      inco_date = IncompleteDate.from_string(date_string).date
+      life_span_at(:begin)&.date
     end
 
     def begin_date_accuracy
-      date_string = data.dig(:life_span, :begin)
-      return unless date_string
-
-      inco_date = IncompleteDate.from_string(date_string).accuracy
+      life_span_at(:begin)&.accuracy
     end
 
     def end_date
-      date_string = data.dig(:life_span, :end)
-      return unless date_string
-
-      inco_date = IncompleteDate.from_string(date_string).date
+      life_span_at(:end)&.date
     end
 
     def end_date_accuracy
-      date_string = data.dig(:life_span, :end)
-      return unless date_string
-
-      inco_date = IncompleteDate.from_string(date_string).accuracy
+      life_span_at(:end)&.accuracy
     end
 
     def discogs_code
@@ -65,6 +53,13 @@ module LayeredImport
 
     def wikidata_code
       # TODO: implement #wikidata_code
+    end
+
+    private
+
+    def life_span_at(position)
+      data.dig(:life_span, position)
+        &.then { |date_string| IncompleteDate.from_string(date_string) }
     end
   end
 end
