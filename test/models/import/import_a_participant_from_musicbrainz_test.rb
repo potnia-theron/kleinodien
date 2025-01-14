@@ -10,7 +10,7 @@ class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
     # code = "66c662b6-6e2f-4930-8610-912e24c63ed1"
     code = "2280ca0e-6968-4349-8c36-cb0cbd6ee95f" # Jello Biafra
     user = users(:kim)
-    import_order = MusicBrainzImportOrder.create!(code: code, kind: "participant", user: user)
+    import_order = MusicbrainzImportOrder.create!(code: code, kind: "participant", user: user)
 
     participant = import_order.perform
 

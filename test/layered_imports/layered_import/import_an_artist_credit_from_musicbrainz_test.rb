@@ -10,7 +10,7 @@ class LayeredImport::ImportAnArtistCreditFromMusicbrainzTest < ActiveSupport::Te
     code = "36ddebf6-7fb2-4dc4-8931-aca5a3a35a30" # The Sky Is Falling and I Want My Mommy
     user = users(:sam)
 
-    import_order = MusicBrainzImportOrder.create!(code: code, kind: :artist_credit, user: user)
+    import_order = MusicbrainzImportOrder.create!(code: code, kind: :artist_credit, user: user)
 
     artist_credit = LayeredImport.ignite(import_order)
 

@@ -31,7 +31,7 @@ class ImportOrdersControllerTest < ActionDispatch::IntegrationTest
       post import_orders_url, params: {import_order: {uri: "https://musicbrainz.org/release/040c8e28-74d8-482e-ba47-175dbf46499c"}}
     end
 
-    assert_redirected_to music_brainz_import_order_url(ImportOrder.last)
+    assert_redirected_to musicbrainz_import_order_url(ImportOrder.last)
   end
 
   test "should not create import_order with bad parameters" do

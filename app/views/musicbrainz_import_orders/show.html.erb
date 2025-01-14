@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @musicbrainz_import_order %>
+
+<div>
+  <%= link_to "Edit this music brainz import order", edit_musicbrainz_import_order_path(@musicbrainz_import_order) %> |
+  <%= link_to "Back to music brainz import orders", musicbrainz_import_orders_path %>
+
+  <%= button_to "Destroy this music brainz import order", @musicbrainz_import_order, method: :delete %>
+</div>

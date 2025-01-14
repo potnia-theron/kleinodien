@@ -1,6 +1,6 @@
 module ImportOrderUri
   EXTENSION_FOR = {
-    "musicbrainz.org" => ::ImportOrderUri::MusicBrainz
+    "musicbrainz.org" => ::ImportOrderUri::Musicbrainz
   }.freeze
 
   def self.build(uri_candidate)

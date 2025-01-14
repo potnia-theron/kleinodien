@@ -62,7 +62,7 @@ module Import
       Rails.logger.warn("Bad uri in #{url_rel}")
       nil
     rescue NoMethodError
-      Rails.logger.warn("Malformed data in MusicBrainz url-rel #{url_rel}")
+      Rails.logger.warn("Malformed data in Musicbrainz url-rel #{url_rel}")
       nil
     end
   end

@@ -1,4 +1,4 @@
-class MusicBrainzImportOrder < ImportOrder
+class MusicbrainzImportOrder < ImportOrder
   include BufferableImport
   include Importable
   include Transitionable
