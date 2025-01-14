@@ -17,7 +17,7 @@ module LayeredImport
     end
 
     def buffer
-      @buffer ||= LayeredImport::Buffer.new
+      @buffer ||= LayeredImport::Buffer.new(order)
     end
 
     def fetch_layer
