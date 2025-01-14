@@ -3,20 +3,12 @@ module LayeredImport
     REGEX_FOR = {
       "discogs" => %r{/(?<kind>[a-z-]+)/(?<code>\d+)},
       "imdb" => %r{/(?<kind>[a-z-]+)/(?<code>\w\w\d+)},
-      "wikidata" => %r{/(?<kind>wiki)/(?<code>Q\d+)}
+      "wikidata" => %r{/(?<kind>wiki)/Q(?<code>\d+)}
     }.freeze
 
     def initialize(relations)
       @relations = relations
     end
-
-    def get(source, kind)
-      extracted.dig(source.to_sym, kind.to_sym)
-    end
-
-    private
-
-    attr_reader :relations
 
     def extract
       result = Hash.new { |hash, key| hash[key] = {} }
@@ -31,9 +23,9 @@ module LayeredImport
       result
     end
 
-    def extracted
-      @extracted ||= extract
-    end
+    private
+
+    attr_reader :relations
 
     def url_rels_of_interest
       relations.filter { |relation| relation[:target_type] == "url" }

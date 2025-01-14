@@ -35,27 +35,17 @@ module LayeredImport
       life_span_at(:end)&.accuracy
     end
 
-    def discogs_code
-      # TODO: implement #discogs_code
-      # relations = LayeredImport::MusicbrainzRelationsCode.extract(data[:relations])
-      relations.get(:discogs, :artist)
-    end
+    def discogs_code = relations.dig(:discogs, :artist)
 
-    def imdb_code
-      # TODO: implement #imdb_code
-    end
+    def imdb_code = relations.dig(:imdb, :name)
 
-    def musicbrainz_code
-      # TODO: implement #musicbrainz_code
-    end
+    def musicbrainz_code = data[:id]
 
     def tmdb_code
       # TODO: implement #tmdb_code
     end
 
-    def wikidata_code
-      # TODO: implement #wikidata_code
-    end
+    def wikidata_code = relations.dig(:wikidata, :wiki)
 
     private
 
@@ -65,7 +55,7 @@ module LayeredImport
     end
 
     def relations
-      @relations ||= LayeredImport::MusicbrainzRelationsCode.new(data[:relations])
+      @relations ||= LayeredImport::MusicbrainzRelationsCode.new(data[:relations]).extract
     end
   end
 end
