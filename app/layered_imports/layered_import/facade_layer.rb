@@ -11,8 +11,7 @@ module LayeredImport
         .base_class
         .name
         .dup # reflections.base_class.name returns a frozen string so we create a new one
-        # TODO: stop using "LayeredImport::Musicbrainz" as prefix for the facade-class
-        .prepend("LayeredImport::Musicbrainz")
+        .prepend("LayeredImport::#{order.class_name_component}")
         .concat("Facade")
         .constantize
         .new(self, options)
