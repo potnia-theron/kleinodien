@@ -32,9 +32,5 @@ module LayeredImport
     def adapter_layer
       @adapter_layer ||= LayeredImport::AdapterLayer.new(order)
     end
-
-    def workflow_layer
-      @workflow_layer ||= LayeredImport::WorkflowLayer.new(order)
-    end
   end
 end
