@@ -16,15 +16,17 @@ module LayeredImport
     def fill_buffer
       order.buffering!
       adapter_layer.build_record(order.kind, musicbrainz_code: order.code)
-      # order.buffered!
     end
 
     def persist
       order.persisting!
+
       record = adapter_layer.build_record(order.kind, musicbrainz_code: order.code)
       record.save!
+
+      order.done!
+
       record
-      # order.persisted!
     end
 
     def adapter_layer
