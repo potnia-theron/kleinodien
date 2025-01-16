@@ -21,8 +21,8 @@ module LayeredImport
       @facade_layer ||= LayeredImport::FacadeLayer.new(order)
     end
 
-    def build_reflections_for(model)
-      model
+    def build_reflections_for(kind)
+      kind
         .to_s
         .classify
         .prepend("LayeredImport::")

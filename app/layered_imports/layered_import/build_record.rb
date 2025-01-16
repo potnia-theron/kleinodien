@@ -4,9 +4,9 @@ module LayeredImport
       new(...).call
     end
 
-    def initialize(adapter_layer, model, options)
+    def initialize(adapter_layer, kind, options)
       @adapter_layer = adapter_layer
-      @model = model
+      @kind = kind
       @options = options
     end
 
@@ -20,7 +20,7 @@ module LayeredImport
 
     private
 
-    attr_reader :adapter_layer, :model, :options
+    attr_reader :adapter_layer, :kind, :options
     delegate_missing_to :adapter_layer
 
     def build_has_many_records
@@ -45,11 +45,11 @@ module LayeredImport
     end
 
     def record
-      @record ||= model.to_s.classify.constantize.new(inherent_attributes)
+      @record ||= kind.to_s.classify.constantize.new(inherent_attributes)
     end
 
     def reflections
-      @reflections ||= build_reflections_for(model)
+      @reflections ||= build_reflections_for(kind)
     end
   end
 end
