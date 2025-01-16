@@ -1,16 +1,16 @@
-module Import
-  class FindParticipant
+module LayeredImport
+  class ParticipantFinder
     include Concerns::CodeFindable
 
-    def initialize(session, facade:)
+    def initialize(order, facade:)
       @session = session
       @facade = facade
     end
 
-    attr_reader :facade, :session
-    delegate :model_class, to: :facade
+    attr_reader :facade, :order
+    delegate :model_class, to: :order
 
-    def call
+    def find
       find_by_cheap_codes || find_by_codes
     end
   end
