@@ -7,11 +7,19 @@ module LayeredImport
     attr_reader :order
 
     def start
-      fill_buffer
-      persist
+      find || create
     end
 
     private
+
+    def find
+      adapter_layer.find_record(order.kind, musicbrainz_code: order.code)
+    end
+
+    def create
+      fill_buffer
+      persist
+    end
 
     def fill_buffer
       order.buffering!

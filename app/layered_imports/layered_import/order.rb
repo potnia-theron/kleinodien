@@ -13,18 +13,21 @@ module LayeredImport
     end
 
     def create_fetch_layer
-      MusicbrainzFetchLayer.new(self)
+      join_and_constantize("LayeredImport::", class_name_component, "FetchLayer").new(self)
     end
 
     def create_request_layer
-      MusicbrainzRequestLayer.new(self)
+      join_and_constantize("LayeredImport::", class_name_component, "RequestLayer").new(self)
     end
 
     def create_workflow
-      ["LayeredImport::", class_name_component, "Workflow"]
-        .join
-        .constantize
-        .new(self)
+      join_and_constantize("LayeredImport::", class_name_component, "Workflow").new(self)
+    end
+
+    private
+
+    def join_and_constantize(*elements)
+      elements.join.constantize
     end
   end
 end

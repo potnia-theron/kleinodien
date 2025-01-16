@@ -14,6 +14,9 @@ module LayeredImport
       LayeredImport::HasManyBuilder.new(self, ...)
     end
 
+    def find_record(...)
+    end
+
     def facade_layer
       @facade_layer ||= LayeredImport::FacadeLayer.new(order)
     end
