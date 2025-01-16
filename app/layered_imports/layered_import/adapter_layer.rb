@@ -10,6 +10,10 @@ module LayeredImport
       LayeredImport::BuildRecord.call(self, ...)
     end
 
+    def create_foreign_attribute_assigner(...)
+      LayeredImport::ForeignAttributeAssigner.new(self, ...)
+    end
+
     def create_has_many_builder(...)
       LayeredImport::HasManyBuilder.new(self, ...)
     end

@@ -34,9 +34,8 @@ module LayeredImport
     end
 
     def assign_foreign_attributes
-      belongs_to_associations = reflections.belong_to_associations
-      belongs_to_associations.each do |association|
-        record.send(:"#{association.name}=", adapter_layer.build_record(association.class_name, facade.send(association.name)))
+      reflections.belong_to_associations.each do |association|
+        adapter_layer.create_foreign_attribute_assigner(association, facade, record).assign
       end
     end
 
