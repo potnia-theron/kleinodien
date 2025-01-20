@@ -1,11 +1,9 @@
 module LayeredImport
   class ClockControl
-    ONE_DAY = 86_400
-
     def initialize(timeout_calculator)
       @timeout_calculator = timeout_calculator
       @errors = 0
-      @last = Time.zone.now - ONE_DAY
+      @last = Time.zone.now.yesterday
     end
 
     attr_reader :errors, :last, :timeout_calculator
