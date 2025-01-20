@@ -8,8 +8,12 @@ module LayeredImport
     attr_reader :order
 
     def get(uri_string)
-      response = fetcher.get(uri_string)
-      response.body
+      max_tries.times do
+        response = fetcher.get(uri_string)
+        return response.body if response
+      end
+
+      raise "Failed to get #{uri_string}"
     end
 
     def connection
