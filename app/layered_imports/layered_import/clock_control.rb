@@ -1,21 +1,26 @@
 module LayeredImport
   class ClockControl
-    def initialize(timeout_calculator)
+    def initialize(response_validator, timeout_calculator)
+      @response_validator = response_validator
       @timeout_calculator = timeout_calculator
       @errors = 0
       @last = Time.zone.now.yesterday
     end
 
-    attr_reader :errors, :last, :timeout_calculator
+    attr_reader :errors, :last, :response_validator, :timeout_calculator
 
     def schedule &block
       timeout
 
-      result = block.call
+      response = block.call
 
-      @errors = result ? 0 : errors + 1
-
-      result
+      if response_validator.call(response)
+        @errors = 0
+        response
+      else
+        @errors += 1
+        nil
+      end
     end
 
     def timeout

@@ -25,7 +25,11 @@ module LayeredImport
     end
 
     def clock_control
-      @clock_control ||= LayeredImport::ClockControl.new(timeout_calculator)
+      @clock_control ||= LayeredImport::ClockControl.new(response_validator, timeout_calculator)
+    end
+
+    def response_validator
+      proc { |response| response.success? }
     end
 
     def timeout_calculator
