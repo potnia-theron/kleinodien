@@ -1,5 +1,4 @@
 module LayeredImport
-  # TODO: use an interrupter
   class MusicbrainzFetchLayer
     def initialize(order)
       @order = order
@@ -24,7 +23,6 @@ module LayeredImport
     end
 
     def fetcher
-      # @fetcher ||= LayeredImport::FaradayFetcher.new(self, connection)
       @fetcher ||= LayeredImport::FaradayFetcher.new(order, clock_control, connection)
     end
 
