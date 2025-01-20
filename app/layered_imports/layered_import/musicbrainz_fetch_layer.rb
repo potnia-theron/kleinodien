@@ -8,8 +8,7 @@ module LayeredImport
     attr_reader :order
 
     def get(uri_string)
-      fetcher = create_fetcher(uri_string)
-      response = fetcher.get
+      response = fetcher.get(uri_string)
       response.body
     end
 
@@ -20,8 +19,9 @@ module LayeredImport
       end
     end
 
-    def create_fetcher(uri_string)
-      LayeredImport::FaradayFetcher.new(self, uri_string)
+    def fetcher
+      # @fetcher ||= LayeredImport::FaradayFetcher.new(self, connection)
+      @fetcher ||= LayeredImport::FaradayFetcher.new(order, clock_control, connection)
     end
 
     def clock_control
