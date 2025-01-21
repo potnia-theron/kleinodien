@@ -7,6 +7,7 @@ module LayeredImport
 
     def take(error_count)
       total_timeout = calculator.call(error_count)
+      now = Time.zone.now
       actual_timeout = last + total_timeout - now
       sleep(actual_timeout) if actual_timeout.positive?
 
@@ -16,7 +17,5 @@ module LayeredImport
     private
 
     attr_reader :calculator, :last
-
-    def now = Time.zone.now
   end
 end
