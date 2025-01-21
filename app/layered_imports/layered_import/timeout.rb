@@ -5,16 +5,18 @@ module LayeredImport
       @last = Time.zone.now.yesterday
     end
 
-    def take
-      sleep(interruption)
+    def take(error_count)
+      total_timeout = calculator.call(error_count)
+      actual_timeout = last + total_timeout - now
+      sleep(actual_timeout) if actual_timeout.positive?
+
+      @last = now
     end
 
     private
 
     attr_reader :calculator, :last
 
-    def interruption
-      calculator.call
-    end
+    def now = Time.zone.now
   end
 end

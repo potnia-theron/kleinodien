@@ -4,8 +4,6 @@ module LayeredImport
       @order = order
     end
 
-    attr_reader :order
-
     def get(uri_string)
       max_tries.times do |error_count|
         take_timeout(error_count)
@@ -16,6 +14,10 @@ module LayeredImport
       raise "Failed to get #{uri_string}"
     end
 
+    private
+
+    attr_reader :order
+
     def connection
       @connection ||= Faraday.new do |faraday|
         faraday.response :logger, Rails.logger, {log_level: :debug}
@@ -23,22 +25,24 @@ module LayeredImport
       end
     end
 
-    def take_timeout(_)
-      timeout.take
+    def take_timeout(error_count)
+      timeout.take(error_count)
     end
 
     def timeout
-      @timeout = Timeout.new(timeout_calculator)
+      @timeout ||= Timeout.new(timeout_calculator)
     end
 
     def timeout_calculator
-      # proc { |errors| minimal_timeout * (errors + 1) }
-      # TODO: actual calculate the timeout
-      proc { |_| 0 }
+      proc { |error_count| minimal_timeout * (error_count + 1) }
     end
 
     def max_tries
       config[:max_tries] || 3
+    end
+
+    def minimal_timeout
+      config[:minimal_timeout] || 1
     end
 
     def config
