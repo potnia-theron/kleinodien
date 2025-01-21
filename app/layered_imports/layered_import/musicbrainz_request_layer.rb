@@ -9,7 +9,7 @@ module LayeredImport
 
     def get(kind, code)
       uri_string = uri_string_for(kind, code)
-      buffer.fetch(kind, code) { fetch_layer.get(uri_string) }
+      buffer.fetch(uri_string) { fetch_layer.get(uri_string) }
     end
 
     def uri_string_for(kind, code)

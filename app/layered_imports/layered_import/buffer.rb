@@ -4,19 +4,12 @@ module LayeredImport
       @order = order
     end
 
-    def buffered?(kind, code)
-      fetch(kind, code) ? true : false
+    def buffered?(uri_string)
+      fetch(uri_string) ? true : false
     end
 
-    def fetch(kind, code, &block)
-      kind, code = [kind.to_s, code.to_s]
-
-      result = buffer.dig(kind, code)
-      return result if result
-
-      store(kind, code, block) if block
-
-      buffer.dig(kind, code)
+    def fetch(uri_string, &block)
+      buffer[uri_string] || block && store(uri_string, block)
     end
 
     delegate :deep_dup, to: :buffer
@@ -30,11 +23,10 @@ module LayeredImport
       @buffer ||= {}
     end
 
-    def store(kind, code, block)
+    def store(uri_string, block)
       raise "can't store unless \"buffering\"" unless buffering?
 
-      buffer[kind] ||= {}
-      buffer[kind][code] = block.call
+      buffer[uri_string] = block.call
     end
   end
 end
