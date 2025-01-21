@@ -23,10 +23,6 @@ module LayeredImport
       end
     end
 
-    def response_validator
-      proc { |response| response.success? }
-    end
-
     def take_timeout(_)
       timeout.take
     end
