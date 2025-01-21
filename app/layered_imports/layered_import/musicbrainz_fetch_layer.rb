@@ -7,9 +7,10 @@ module LayeredImport
     attr_reader :order
 
     def get(uri_string)
-      max_tries.times do
-        response = fetcher.get(uri_string)
-        return response.body if response
+      max_tries.times do |error_count|
+        take_timeout(error_count)
+        response = connection.get(uri_string)
+        return response.body if response.success?
       end
 
       raise "Failed to get #{uri_string}"
@@ -22,16 +23,16 @@ module LayeredImport
       end
     end
 
-    def fetcher
-      @fetcher ||= LayeredImport::FaradayFetcher.new(order, clock_control, connection)
-    end
-
-    def clock_control
-      @clock_control ||= LayeredImport::ClockControl.new(response_validator, timeout_calculator)
-    end
-
     def response_validator
       proc { |response| response.success? }
+    end
+
+    def take_timeout(_)
+      timeout.take
+    end
+
+    def timeout
+      @timeout = Timeout.new(timeout_calculator)
     end
 
     def timeout_calculator
