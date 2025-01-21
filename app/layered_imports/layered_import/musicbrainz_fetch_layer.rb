@@ -38,8 +38,11 @@ module LayeredImport
     end
 
     def max_tries
-      # TODO: get max_tries from ENV
-      3
+      config[:max_tries] || 3
+    end
+
+    def config
+      @config ||= Rails.configuration.import[:musicbrainz]
     end
   end
 end
