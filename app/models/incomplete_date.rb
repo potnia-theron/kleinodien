@@ -1,7 +1,6 @@
 class IncompleteDate
   include Comparable
   include DateAccuracy
-  attr_reader :accuracy, :date
 
   STRING_ACCURACY = {1 => :year, 2 => :month, 3 => :day}
 
@@ -10,12 +9,15 @@ class IncompleteDate
       .then { |yyyymmdd| yyyymmdd.length }
       .then { |length| STRING_ACCURACY[length] }
 
+    # a string only representing a year (eg. "2025") raises Date::Error
+    # a string representing year and month (eg "2024-01") is ok
     string = "#{string}-01" if accuracy == :year
-    new(string, accuracy)
+    date = Date.iso8601(string)
+
+    new(date, accuracy)
   end
 
   def initialize(date, accuracy)
-    date = Date.iso8601(date) if date.is_a? String
     @date = date
 
     if accuracy.present? && DATE_ACCURACY_VALUES.exclude?(accuracy)
@@ -25,7 +27,9 @@ class IncompleteDate
     @accuracy = accuracy
   end
 
-  # accuracy is ignored in comparsion
+  attr_reader :accuracy, :date
+
+  # accuracy is ignored in comparison
   def <=>(other)
     date <=> other.date
   end

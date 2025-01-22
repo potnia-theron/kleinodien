@@ -11,7 +11,7 @@ class ImportOrderUriTypeTest < ActiveSupport::TestCase
     iou = @type_iou.cast(uri_string)
 
     assert_kind_of ImportOrderUri::Common, iou
-    assert_kind_of ImportOrderUri::MusicBrainz, iou
+    assert_kind_of ImportOrderUri::Musicbrainz, iou
   end
 
   def test_serialize_something_that_is_not_blank

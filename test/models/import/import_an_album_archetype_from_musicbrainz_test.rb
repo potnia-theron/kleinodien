@@ -11,7 +11,7 @@ class Import::ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveSupport::TestCas
     code = "9a6f9e35-d05f-3f2b-b2b9-af7f8e619aca" # Twilight of the Thunder God
     user = users(:sam)
 
-    import_order = MusicBrainzImportOrder.create!(code: code, kind: :album_archetype, user: user)
+    import_order = MusicbrainzImportOrder.create!(code: code, kind: :album_archetype, user: user)
     handler = Import::MusicbrainzHandler.new(import_order)
 
     archetype = handler.call

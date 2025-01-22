@@ -1,5 +1,6 @@
 musicbrainz_default: &musicbrainz_default
   max_tries: <%= ENV.fetch("IMPORT_MUSICBRAINZ_MAX_TRIES") { 3 } %>
+  minimal_timeout: <%= ENV.fetch("IMPORT_MUSICBRAINZ_MINIMAL_TIMEOUT") { 1 } %>
 
 production:
 
@@ -9,3 +10,4 @@ test:
   musicbrainz:
     <<: *musicbrainz_default
     skip_sleep: true
+    minimal_timeout: 0

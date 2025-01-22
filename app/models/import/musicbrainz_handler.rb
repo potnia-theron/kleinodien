@@ -11,7 +11,7 @@ module Import
     attr_reader :import_order
 
     def call
-      Rails.logger.info("starting import from MusicBrainz")
+      Rails.logger.info("starting import from Musicbrainz")
 
       if (entry = collect)
         [inspect, entry.inspect]

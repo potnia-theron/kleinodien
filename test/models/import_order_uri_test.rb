@@ -18,8 +18,8 @@ class ImportOrderUriTest < ActiveSupport::TestCase
   def test_musicbrainz_with_a_valid_path
     iou = ImportOrderUri.build("https://musicbrainz.org/release/23cbaa49-1e24-4550-88c9-d07de78b5b89")
 
-    assert_equal "MusicBrainzImportOrder", iou.import_order_type
-    assert_kind_of ImportOrderUri::MusicBrainz, iou
+    assert_equal "MusicbrainzImportOrder", iou.import_order_type
+    assert_kind_of ImportOrderUri::Musicbrainz, iou
   end
 
   def test_musicbrainz_kind_and_kode_with_a_valid_path
@@ -32,7 +32,7 @@ class ImportOrderUriTest < ActiveSupport::TestCase
   def test_musicbrainz_with_an_invalid_path
     iou = ImportOrderUri.build("https://musicbrainz.org/this/is/not-an-uuid")
 
-    assert_kind_of ImportOrderUri::MusicBrainz, iou
+    assert_kind_of ImportOrderUri::Musicbrainz, iou
     assert_nil iou.code
     assert_nil iou.kind
   end

@@ -5,12 +5,12 @@ class CreateMusicBrainzImportOrderTest < ActionDispatch::IntegrationTest
     @user = sign_in_as(users(:kim))
   end
 
-  def test_can_create_a_music_brainz_import_order
+  def test_can_create_a_musicbrainz_import_order
     get new_import_order_path
 
     assert_response :success
 
-    post "/import_orders", params: {import_order: {code: "c0f4b036-e215-43f7-970d-9506e053ea82", kind: "release", state: "open", type: "MusicBrainzImportOrder", user_id: @user.id}}
+    post "/import_orders", params: {import_order: {code: "c0f4b036-e215-43f7-970d-9506e053ea82", kind: "release", state: "open", type: "MusicbrainzImportOrder", user_id: @user.id}}
 
     assert_response :redirect
     follow_redirect!

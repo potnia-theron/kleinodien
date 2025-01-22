@@ -1,10 +1,10 @@
-<%= form_with(model: music_brainz_import_order) do |form| %>
-  <% if music_brainz_import_order.errors.any? %>
+<%= form_with(model: musicbrainz_import_order) do |form| %>
+  <% if musicbrainz_import_order.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(music_brainz_import_order.errors.count, "error") %> prohibited this music_brainz_import_order from being saved:</h2>
+      <h2><%= pluralize(musicbrainz_import_order.errors.count, "error") %> prohibited this musicbrainz_import_order from being saved:</h2>
 
       <ul>
-        <% music_brainz_import_order.errors.each do |error| %>
+        <% musicbrainz_import_order.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -37,8 +37,8 @@
   </div>
 
   <div>
-    <%= form.label :music_brainz_import_order_id, style: "display: block" %>
-    <%= form.text_field :music_brainz_import_order_id %>
+    <%= form.label :musicbrainz_import_order_id, style: "display: block" %>
+    <%= form.text_field :musicbrainz_import_order_id %>
   </div>
 
   <div>
