@@ -13,6 +13,10 @@ module LayeredImport
       @data ||= request_layer.get(:artist, options[:musicbrainz_code])
     end
 
+    def all_codes = {}
+
+    def cheap_codes = {}
+
     def name = data[:name]
 
     def sort_name = data[:sort_name]

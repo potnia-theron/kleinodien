@@ -6,6 +6,10 @@ module LayeredImport
 
     attr_reader :order
 
+    def build_finder_class(reflections)
+      "LayeredImport::#{reflections.base_class.name}Finder".constantize
+    end
+
     def build_record(...)
       LayeredImport::BuildRecord.call(self, ...)
     end
@@ -18,7 +22,11 @@ module LayeredImport
       LayeredImport::HasManyBuilder.new(self, ...)
     end
 
-    def find_record(...)
+    def find_record(kind, options)
+      reflections = build_reflections_for(kind)
+      facade = facade_layer.build_facade(reflections, options)
+      finder_class = build_finder_class(reflections)
+      finder_class.new(order, facade: facade).find
     end
 
     def facade_layer
