@@ -11,8 +11,6 @@ module LayeredImport
     end
 
     def call
-      reflections.inherent_attribute_names.index_with { |attr| facade.send(attr) }
-
       build_has_many_records
       assign_foreign_attributes
       record
