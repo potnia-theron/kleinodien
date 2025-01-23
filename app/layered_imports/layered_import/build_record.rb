@@ -44,7 +44,7 @@ module LayeredImport
     end
 
     def record
-      @record ||= kind.to_s.classify.constantize.new(inherent_attributes)
+      @record ||= reflections.base_class.new(inherent_attributes)
     end
 
     def reflections
