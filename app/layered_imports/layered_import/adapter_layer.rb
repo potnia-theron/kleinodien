@@ -34,12 +34,7 @@ module LayeredImport
     end
 
     def build_reflections_for(kind)
-      kind
-        .to_s
-        .classify
-        .prepend("LayeredImport::")
-        .concat("Reflections")
-        .constantize
+      ReflectionsBuilder.build_reflection(kind)
     end
   end
 end
