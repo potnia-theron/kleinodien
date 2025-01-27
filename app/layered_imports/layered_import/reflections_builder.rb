@@ -15,6 +15,17 @@ module LayeredImport
 
     def build_reflection
       record_class_name = kind.to_s.classify
+
+      # TODO: remove this dirty hack
+      record_class_name = "Archetype" if record_class_name == "AlbumArchetype"
+
+      class_name = [CLASS_PREFIX, record_class_name, CLASS_SUFFIX].join
+      class_name.constantize.new
+    end
+
+    def build_delegated_reflection
+      record_class_name = kind.to_s.classify
+
       class_name = [CLASS_PREFIX, record_class_name, CLASS_SUFFIX].join
       class_name.constantize.new
     end

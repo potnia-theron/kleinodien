@@ -4,6 +4,8 @@ module LayeredImport
       new(...).call
     end
 
+    def self.build_delegated_record(...) = new(...).build_delegated_record
+
     def initialize(adapter_layer, kind, options)
       @adapter_layer = adapter_layer
       @kind = kind
@@ -12,6 +14,14 @@ module LayeredImport
 
     def call
       build_has_many_records
+      assign_foreign_attributes
+      assign_delegated_type
+      record
+    end
+
+    def build_delegated_record
+      @reflections = LayeredImport::AlbumArchetypeReflections.new
+      # build_has_many_records
       assign_foreign_attributes
       record
     end
@@ -29,6 +39,14 @@ module LayeredImport
 
     def inherent_attributes
       reflections.inherent_attribute_names.index_with { |attr| facade.send(attr) }.compact
+    end
+
+    def assign_delegated_type
+      # TODO: remove dirty hack
+      return unless reflections.name == "Archetype"
+
+      x = LayeredImport::BuildRecord.build_delegated_record(adapter_layer, :album_archetype, {})
+      record.archetypeable = x
     end
 
     def assign_foreign_attributes
