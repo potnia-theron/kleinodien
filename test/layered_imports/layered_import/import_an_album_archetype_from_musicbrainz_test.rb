@@ -14,8 +14,10 @@ class LayeredImport::ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveSupport::
     # ... but for testing...
     import_order = MusicbrainzImportOrder.create!(code: code, kind: "album_archetype", user: user)
 
-    archetype = LayeredImport.ignite(import_order)
+    album_archetype = LayeredImport.ignite(import_order)
 
+    assert_kind_of AlbumArchetype, album_archetype
+    # debugger
     assert true
   end
 end

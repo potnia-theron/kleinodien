@@ -11,7 +11,8 @@ module LayeredImport
     end
 
     def build_record(...)
-      LayeredImport::BuildRecord.call(self, ...)
+      # LayeredImport::BuildRecord.call(self, ...)
+      LayeredImport::RecordBuilder.new(self, ...).build_record
     end
 
     def create_foreign_attribute_assigner(...)

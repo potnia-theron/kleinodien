@@ -9,6 +9,16 @@ module LayeredImport
 
     delegate_missing_to :facade_layer
 
+    def data
+      @data ||= request_layer.get(:release_group, options[:musicbrainz_code])
+    end
+
+    def archetypeable_type = "AlbumArchetype"
+
+    def title
+      data[:title]
+    end
+
     def cheap_codes = {}
 
     def all_codes = {}
