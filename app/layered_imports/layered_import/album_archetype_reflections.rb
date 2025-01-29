@@ -1,5 +1,7 @@
 module LayeredImport
   class AlbumArchetypeReflections
+    include Concerns::Reflectable
+
     delegate_missing_to AlbumArchetype
 
     def inherent_attribute_names

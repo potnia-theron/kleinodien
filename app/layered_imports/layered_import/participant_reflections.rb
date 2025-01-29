@@ -1,5 +1,7 @@
 module LayeredImport
   class ParticipantReflections
+    include Concerns::Reflectable
+
     delegate_missing_to Participant
 
     def inherent_attribute_names

@@ -1,5 +1,7 @@
 module LayeredImport
   class ArtistCreditReflections
+    include Concerns::Reflectable
+
     delegate_missing_to ArtistCredit
 
     def inherent_attribute_names
