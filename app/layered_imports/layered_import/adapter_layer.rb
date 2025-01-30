@@ -15,7 +15,11 @@ module LayeredImport
     end
 
     def build_delegated_head(facade, reflections)
-      head_class = reflections.delegated_head
+      head_class = reflections
+        .delegated_of_association
+        &.inverse_of
+        &.active_record
+
       return unless head_class
 
       LayeredImport::DelegatedHeadBuilder.new(self, facade, head_class).build_delegated_head

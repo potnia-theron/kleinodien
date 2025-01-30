@@ -25,8 +25,9 @@ module LayeredImport
       head = build_delegated_head(facade, reflections)
       return unless head
 
-      writer_name = reflections.writer_on_delegated_head
-      head.send(writer_name, record)
+      writer_name = reflections.delegated_of_association_writer
+
+      record.send(writer_name, head)
     end
 
     def facade

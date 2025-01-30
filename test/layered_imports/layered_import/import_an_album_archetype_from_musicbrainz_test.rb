@@ -17,7 +17,6 @@ class LayeredImport::ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveSupport::
     album_archetype = LayeredImport.ignite(import_order)
 
     assert_kind_of AlbumArchetype, album_archetype
-    # debugger
-    assert true
+    assert_kind_of Archetype, album_archetype.archetype
   end
 end
