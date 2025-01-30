@@ -11,8 +11,14 @@ module LayeredImport
     end
 
     def build_record(...)
-      # LayeredImport::BuildRecord.call(self, ...)
       LayeredImport::RecordBuilder.new(self, ...).build_record
+    end
+
+    def build_delegated_head(facade, reflections)
+      head_class = reflections.delegated_head
+      return unless head_class
+
+      LayeredImport::DelegatedHeadBuilder.new(self, facade, head_class).build_delegated_head
     end
 
     def create_foreign_attribute_assigner(...)

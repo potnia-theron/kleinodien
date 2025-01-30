@@ -22,11 +22,9 @@ module LayeredImport
     delegate_missing_to :adapter_layer
 
     def assign_delegated_head
-      head_class = reflections.delegated_head
-      return unless head_class
+      head = build_delegated_head(facade, reflections)
+      return unless head
 
-      # TODO: move #build_delegated_head to AdapterLayer
-      head = LayeredImport::DelegatedHeadBuilder.new(adapter_layer, facade, head_class).build_delegated_head
       writer_name = reflections.writer_on_delegated_head
       head.send(writer_name, record)
     end
