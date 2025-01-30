@@ -17,6 +17,9 @@ class LayeredImport::ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveSupport::
     album_archetype = LayeredImport.ignite(import_order)
 
     assert_kind_of AlbumArchetype, album_archetype
-    assert_kind_of Archetype, album_archetype.archetype
+
+    archetype = album_archetype.archetype
+    assert_kind_of Archetype, archetype
+    assert_equal "Twilight of the Thunder God", archetype.title
   end
 end
