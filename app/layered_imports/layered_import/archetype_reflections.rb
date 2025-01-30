@@ -1,8 +1,8 @@
 module LayeredImport
-  class ParticipantReflections
+  class ArchetypeReflections
     include Concerns::Reflectable
 
-    delegate_missing_to Participant
+    delegate_missing_to Archetype
 
     def inherent_attribute_names
       attribute_names
