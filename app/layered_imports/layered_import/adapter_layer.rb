@@ -45,7 +45,7 @@ module LayeredImport
     end
 
     def build_reflections_for(kind)
-      ReflectionsBuilder.build_reflection(kind)
+      "LayeredImport::#{kind.to_s.classify}Reflections".constantize.new
     end
   end
 end
