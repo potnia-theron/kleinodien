@@ -8,8 +8,7 @@ module LayeredImport
     end
 
     def assign
-      foreign_record = build_foreign_record
-      record.send(association_writer, foreign_record) # build_foreign_record)
+      record.send(association_writer, foreign_record)
     end
 
     private
@@ -21,8 +20,8 @@ module LayeredImport
       "#{association_name}="
     end
 
-    def build_foreign_record
-      adapter_layer.build_record(association.class_name, foreign_attributes)
+    def foreign_record
+      @foreign_record ||= adapter_layer.build_record(association.class_name, foreign_attributes)
     end
 
     def foreign_attributes
