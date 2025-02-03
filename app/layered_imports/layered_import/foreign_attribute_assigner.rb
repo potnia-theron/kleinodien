@@ -15,10 +15,7 @@ module LayeredImport
     private
 
     attr_reader :adapter_layer, :association, :facade, :record
-
-    def association_name
-      association.name
-    end
+    delegate :name, to: :association, prefix: true
 
     def association_writer
       "#{association_name}="
