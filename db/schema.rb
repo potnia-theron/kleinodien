@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_03_181522) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_03_182136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -28,6 +28,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_181522) do
     t.string "archetypeable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "artist_credit_id"
+    t.index ["artist_credit_id"], name: "index_archetypes_on_artist_credit_id"
   end
 
   create_table "artist_credit_participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -107,6 +109,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_181522) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "archetypes", "artist_credits"
   add_foreign_key "artist_credit_participants", "artist_credits"
   add_foreign_key "artist_credit_participants", "participants"
   add_foreign_key "email_verification_tokens", "users"
