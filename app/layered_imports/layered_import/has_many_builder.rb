@@ -8,7 +8,10 @@ module LayeredImport
     end
 
     def build_many
-      record.send association_writer, option_list.map { |options| build_record(model, options) }
+      proxy = record.send(association_name)
+      model = association.options[:class_name]
+
+      option_list.each { |options| proxy.push(build_record(model, options)) }
     end
 
     private
@@ -17,14 +20,6 @@ module LayeredImport
 
     delegate :name, to: :association, prefix: true
     delegate_missing_to :adapter_layer
-
-    def association_writer
-      "#{association_name}="
-    end
-
-    def model
-      association.options[:class_name]
-    end
 
     def option_list
       facade.send association_name
