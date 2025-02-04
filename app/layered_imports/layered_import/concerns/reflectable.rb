@@ -37,5 +37,13 @@ module LayeredImport::Concerns
     end
 
     def after_belongs_to_associations(associations) = associations
+
+    def has_many_associations
+      associations = reflect_on_all_associations(:has_many)
+
+      after_has_many_associations(associations)
+    end
+
+    def after_has_many_associations(associations) = associations
   end
 end
