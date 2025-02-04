@@ -20,9 +20,13 @@ module LayeredImport::Concerns
     end
 
     def inherent_attribute_names
-      attribute_names
+      names = attribute_names
         .without("id", "created_at", "updated_at")
         .reject { |attr| attr.end_with? "_id" }
+
+       after_inherent_attribute_names(names)   
     end
+
+    def after_inherent_attribute_names(names) = names
   end
 end
