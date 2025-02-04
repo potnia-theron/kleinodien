@@ -10,9 +10,5 @@ module LayeredImport
         # TODO: stop rejecting ArtistCredit
         .reject { |association| association.name == :artist_credit }
     end
-
-    # def foreign_attribute_names = []
-
-    def has_many_associations = []
   end
 end
