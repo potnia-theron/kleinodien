@@ -24,9 +24,18 @@ module LayeredImport::Concerns
         .without("id", "created_at", "updated_at")
         .reject { |attr| attr.end_with? "_id" }
 
-       after_inherent_attribute_names(names)   
+      after_inherent_attribute_names(names)
     end
 
     def after_inherent_attribute_names(names) = names
+
+    def belong_to_associations
+      associations = reflect_on_all_associations(:belongs_to)
+        .reject { |association| association.class_name == "ImportOrder" }
+
+      after_belongs_to_associations(associations)
+    end
+
+    def after_belongs_to_associations(associations) = associations
   end
 end
