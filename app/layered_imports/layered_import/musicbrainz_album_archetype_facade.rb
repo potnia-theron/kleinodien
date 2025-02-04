@@ -15,6 +15,10 @@ module LayeredImport
 
     def archetypeable_type = "AlbumArchetype"
 
+    def artist_credit
+      data[:artist_credit]
+    end
+
     def title
       data[:title]
     end
