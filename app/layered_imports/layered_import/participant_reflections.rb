@@ -4,8 +4,6 @@ module LayeredImport
 
     delegate_missing_to Participant
 
-    def foreign_attribute_names = []
-
     def has_many_associations = []
   end
 end
