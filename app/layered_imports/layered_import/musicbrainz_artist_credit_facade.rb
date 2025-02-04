@@ -9,7 +9,7 @@ module LayeredImport
     delegate_missing_to :facade_layer
 
     def data
-      @data ||= request_layer.get(:release, options[:musicbrainz_code])[:artist_credit]
+      @data ||= _data
     end
 
     def name
@@ -23,6 +23,17 @@ module LayeredImport
 
     def participants
       data.map.each_with_index { |ac_participant, idx| ac_participant.merge({position: idx}) }
+    end
+
+    private
+
+    def _data
+      if options.is_a? Array
+        options
+      else
+        # TODO: this will fail on an ArtistCredit of a :recording
+        request_layer.get(:release, options[:musicbrainz_code])[:artist_credit]
+      end
     end
   end
 end

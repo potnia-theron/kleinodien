@@ -7,8 +7,6 @@ module LayeredImport
     def after_belongs_to_associations(associations)
       associations
         .reject { |association| association.name == :archetypeable }
-        # TODO: stop rejecting ArtistCredit
-        .reject { |association| association.name == :artist_credit }
     end
   end
 end

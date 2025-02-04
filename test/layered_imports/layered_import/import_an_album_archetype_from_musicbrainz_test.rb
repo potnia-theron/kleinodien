@@ -21,5 +21,6 @@ class LayeredImport::ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveSupport::
     archetype = album_archetype.archetype
     assert_kind_of Archetype, archetype
     assert_equal "Twilight of the Thunder God", archetype.title
+    assert_equal "Amon Amarth", archetype.artist_credit.name
   end
 end
