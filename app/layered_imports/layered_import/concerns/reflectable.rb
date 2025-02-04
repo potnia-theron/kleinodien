@@ -18,5 +18,11 @@ module LayeredImport::Concerns
 
       results.first
     end
+
+    def inherent_attribute_names
+      attribute_names
+        .without("id", "created_at", "updated_at")
+        .reject { |attr| attr.end_with? "_id" }
+    end
   end
 end
