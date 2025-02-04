@@ -4,8 +4,6 @@ module LayeredImport
 
     delegate_missing_to ArtistCredit
 
-    def belong_to_associations = []
-
     def foreign_attribute_names
       attribute_names.select { |attr| attr.end_with? "_id" }
     end
