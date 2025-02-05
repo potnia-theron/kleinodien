@@ -15,7 +15,9 @@ module LayeredImport::Concerns
     end
 
     def inherent_attributes
-      reflections.inherent_attribute_names.index_with { |attr| facade.send(attr) }.compact
+      # reflections.inherent_attribute_names.index_with { |attr| facade.send(attr) }.compact
+      names = reflections.inherent_attribute_names
+      facade.get_many(names)
     end
   end
 end

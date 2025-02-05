@@ -6,11 +6,15 @@ module LayeredImport
 
     attr_reader :callbacks
 
-    def get(attr, data)
+    def get(attr, facade)
       callback = callbacks[attr]
-      raise ArgumentError, "no callback for \"attr\"" unless callback
+      raise ArgumentError, "no callback for \"#{attr}\"" unless callback
 
-      callback.call(data)
+      callback.call(facade)
+    end
+
+    def get_many(*attrs, facade)
+      attrs.flatten.index_with { |attr| get(attr, facade) }
     end
   end
 end

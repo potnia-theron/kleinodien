@@ -12,6 +12,16 @@ module LayeredImport
       @data ||= _data
     end
 
+    def scraper
+      @@scraper ||= LayeredImport::ScraperBuilder.build do |builder|
+        builder.callback(:name, ->(facade) { facade.name })
+      end
+    end
+
+    def get_many(attr_names)
+      scraper.get_many(attr_names, self)
+    end
+
     def name
       data
         .map { |ac| [ac[:name], ac[:joinphrase]] }

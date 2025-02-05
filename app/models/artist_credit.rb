@@ -15,8 +15,6 @@ class ArtistCredit < ApplicationRecord
     self.name = pairs.join
   end
 
-  private
-
   def join_phrase_for(artist_credit_participant)
     artist_credit_participant.join_phrase || " "
   end

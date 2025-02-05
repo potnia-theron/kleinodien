@@ -19,11 +19,11 @@ module LayeredImport
     def dig(attr, *keys)
       keys = attr if keys.none?
 
-      callbacks[attr] = ->(data) { data.dig(*keys) }
+      callbacks[attr] = ->(facade) { facade.data.dig(*keys) }
     end
 
     def initialize
-      @callbacks = {}
+      @callbacks = {}.with_indifferent_access
     end
 
     attr_reader :callbacks

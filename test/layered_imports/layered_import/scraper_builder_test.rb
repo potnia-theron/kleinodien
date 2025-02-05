@@ -8,20 +8,25 @@ class LayeredImport::ScraperBuilderTest < ActiveSupport::TestCase
       builder.always(:something, "else")
     end
 
-    data = {}
-    assert_nil scraper.get(:nix, data)
-    assert "else", scraper.get(:something, data)
+    facade = Minitest::Mock.new
+
+    assert_nil scraper.get(:nix, facade)
+    assert "else", scraper.get(:something, facade)
+
+    facade.verify
   end
 
   test "#callback" do
     scraper = LayeredImport::ScraperBuilder.build do |builder|
-      builder.callback(:call_me, ->(data) { data.number })
+      builder.callback(:call_me, ->(facade) { facade.number })
     end
 
-    data = Minitest::Mock.new
-    data.expect :number, "3-6, 2-4, 3-6"
+    facade = Minitest::Mock.new
+    facade.expect :number, "3-6, 2-4, 3-6"
 
-    assert_equal "3-6, 2-4, 3-6", scraper.get(:call_me, data)
+    assert_equal "3-6, 2-4, 3-6", scraper.get(:call_me, facade)
+
+    facade.verify
   end
 
   test "#dig" do
@@ -31,14 +36,17 @@ class LayeredImport::ScraperBuilderTest < ActiveSupport::TestCase
       builder.dig(:deep, :deep, :deeper, :deepest)
     end
 
-    data = {
-      title: "Hello Scraper",
-      shallow: "Hello Puddle",
-      deep: {deeper: {deepest: "Welcome to Hell"}}
-    }
+    facade = Minitest::Mock.new
 
-    assert "Hello Scraper", scraper.get(:title, data)
-    assert "Hello Puddle", scraper.get(:not_so_deep, data)
-    assert "Welcome to Hell", scraper.get(:deep, data)
+    facade.expect :data, {title: "Hello Scraper"}
+    assert "Hello Scraper", scraper.get(:title, facade)
+
+    facade.expect :data, {shallow: "Hello Puddle"}
+    assert "Hello Puddle", scraper.get(:not_so_deep, facade)
+
+    facade.expect :data, {deep: {deeper: {deepest: "Welcome to Hell"}}}
+    assert "Welcome to Hell", scraper.get(:deep, facade)
+
+    facade.verify
   end
 end

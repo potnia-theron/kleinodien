@@ -13,15 +13,29 @@ module LayeredImport
       @data ||= request_layer.get(:release_group, options[:musicbrainz_code])
     end
 
+    def scraper
+      @@scraper ||= LayeredImport::ScraperBuilder.build do |builder|
+        builder.dig(:title)
+        builder.always(:archetypeable_type, "AlbumArchetype")
+        builder.always(:discogs_code)
+        builder.always(:wikidata_code)
+        builder.callback(:musicbrainz_code, ->(facade) { facade.options[:code] })
+      end
+    end
+
+    def get_many(attr_names)
+      scraper.get_many(attr_names, self)
+    end
+
     def archetypeable_type = "AlbumArchetype"
 
     def artist_credit
       data[:artist_credit]
     end
 
-    def title
-      data[:title]
-    end
+    # def title
+    #   data[:title]
+    # end
 
     def cheap_codes = {}
 
