@@ -12,8 +12,8 @@ module LayeredImport
 
     def scraper_builder
       @@scraper_builder ||= LayeredImport::ScraperArchitect.build do
-        dig(:join_phrase, :joinphrase)
-        callback(:position, ->(facade) { facade.position })
+        define :join_phrase, :joinphrase
+        define :position, callback: ->(facade) { facade.position }
       end
     end
 

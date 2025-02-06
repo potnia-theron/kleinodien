@@ -15,11 +15,11 @@ module LayeredImport
 
     def scraper_builder
       @@scraper_builder ||= LayeredImport::ScraperArchitect.build do
-        dig(:title)
-        always(:archetypeable_type, "AlbumArchetype")
-        always(:discogs_code)
-        always(:wikidata_code)
-        callback(:musicbrainz_code, ->(facade) { facade.options[:code] })
+        define :title
+        define :archetypeable_type, always: "AlbumArchetype"
+        define :discogs_code, always: nil
+        define :wikidata_code, always: nil
+        define :musicbrainz_code, callback: ->(facade) { facade.options[:code] }
       end
     end
 
