@@ -2,10 +2,10 @@ require "test_helper"
 require "minitest/mock"
 
 class LayeredImport::ScraperArchitectTest < ActiveSupport::TestCase
-  test "#always" do
+  test "#define always" do
     scraper_builder = LayeredImport::ScraperArchitect.build do
-      always(:nix)
-      always(:something, "else")
+      define :nix, always: nil
+      define :something, always: "else"
     end
 
     facade = Minitest::Mock.new
@@ -17,9 +17,9 @@ class LayeredImport::ScraperArchitectTest < ActiveSupport::TestCase
     facade.verify
   end
 
-  test "#callback" do
+  test "#define callback" do
     scraper_builder = LayeredImport::ScraperArchitect.build do
-      callback(:call_me, ->(facade) { facade.number })
+      define :call_me, callback: ->(facade) { facade.number }
     end
 
     facade = Minitest::Mock.new
@@ -32,11 +32,11 @@ class LayeredImport::ScraperArchitectTest < ActiveSupport::TestCase
     facade.verify
   end
 
-  test "#dig" do
+  test "#define dig" do
     scraper_builder = LayeredImport::ScraperArchitect.build do
-      dig(:title)
-      dig(:not_so_deep, :shallow)
-      dig(:deep, :deep, :deeper, :deepest)
+      define :title
+      define :not_so_deep, :shallow
+      define :deep, :deep, :deeper, :deepest
     end
 
     facade = Minitest::Mock.new
