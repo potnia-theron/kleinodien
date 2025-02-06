@@ -1,8 +1,8 @@
 module LayeredImport
   class ScraperBuilder
-    def self.build
+    def self.build(&)
       builder = new
-      yield builder
+      builder.instance_eval(&)
 
       callbacks = builder.callbacks.freeze
       LayeredImport::Scraper.new(callbacks)

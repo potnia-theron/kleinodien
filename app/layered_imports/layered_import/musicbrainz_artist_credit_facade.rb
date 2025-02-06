@@ -13,8 +13,8 @@ module LayeredImport
     end
 
     def scraper
-      @@scraper ||= LayeredImport::ScraperBuilder.build do |builder|
-        builder.callback(:name, ->(facade) { facade.name })
+      @@scraper ||= LayeredImport::ScraperBuilder.build do
+        callback(:name, ->(facade) { facade.name })
       end
     end
 

@@ -11,9 +11,9 @@ module LayeredImport
     delegate_missing_to :facade_layer
 
     def scraper
-      @@scraper ||= LayeredImport::ScraperBuilder.build do |builder|
-        builder.dig(:join_phrase, :joinphrase)
-        builder.callback(:position, ->(facade) { facade.position })
+      @@scraper ||= LayeredImport::ScraperBuilder.build do
+        dig(:join_phrase, :joinphrase)
+        callback(:position, ->(facade) { facade.position })
       end
     end
 
