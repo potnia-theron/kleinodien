@@ -8,13 +8,21 @@ module LayeredImport
       LayeredImport::ScraperBuilder.new(callbacks)
     end
 
+    def initialize
+      @callbacks = {}.with_indifferent_access
+    end
+
+    attr_reader :callbacks
+
     def define(attr, *arguments, **options)
       attr = attr.to_sym
       arguments = arguments.map(&:to_sym)
 
       callbacks[attr] = define_by_options(attr, arguments, options) \
-        || define_by_arguments(attr, arguments, options)
+      || define_by_arguments(attr, arguments, options)
     end
+
+    private
 
     def define_by_options(attr, arguments, options)
       return if options.none?
@@ -22,8 +30,8 @@ module LayeredImport
       case options
       in {always:}
         ->(_) { always }
-      in {callback: callable}
-        callable
+      in {callback:}
+        callback
       else
         nil
       end
@@ -37,11 +45,5 @@ module LayeredImport
         ->(facade) { facade.data.dig(*attr) }
       end
     end
-
-    def initialize
-      @callbacks = {}.with_indifferent_access
-    end
-
-    attr_reader :callbacks
   end
 end
