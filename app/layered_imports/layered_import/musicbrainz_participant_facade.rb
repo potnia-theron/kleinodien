@@ -15,19 +15,18 @@ module LayeredImport
 
     def scraper_builder
       @@scraper ||= LayeredImport::ScraperArchitect.build do
-        dig(:name)
-        dig(:sort_name)
-        dig(:disambiguation)
-        # TODO: stop returning nil for date related data
-        always(:begin_date)
-        always(:begin_date_accuracy)
-        always(:end_date)
-        always(:end_date_accuracy)
-        callback(:discogs_code, ->(facade) { facade.relations.dig(:discogs, :artist) })
-        callback(:imdb_code, ->(facade) { facade.relations.dig(:imdb, :name) })
-        callback(:wikidata_code, ->(facade) { facade.relations.dig(:wikidata, :wiki) })
-        always(:tmdb_code)
-        callback(:musicbrainz_code, ->(facade) { facade.data[:id] })
+        define :name
+        define :sort_name
+        define :disambiguation
+        define :begin_date, always: nil
+        define :begin_date_accuracy, always: nil
+        define :end_date, always: nil
+        define :end_date_accuracy, always: nil
+        define :discogs_code, callback: ->(facade) { facade.relations.dig(:discogs, :artist) }
+        define :imdb_code, callback: ->(facade) { facade.relations.dig(:imdb, :name) }
+        define :wikidata_code, callback: ->(facade) { facade.relations.dig(:wikidata, :wiki) }
+        define :tmdb_code, always: nil
+        define :musicbrainz_code, callback: ->(facade) { facade.data[:id] }
       end
     end
 
