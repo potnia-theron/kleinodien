@@ -3,9 +3,9 @@ require "minitest/mock"
 
 class LayeredImport::ScraperBuilderTest < ActiveSupport::TestCase
   test "#always" do
-    scraper = LayeredImport::ScraperBuilder.build do |builder|
-      builder.always(:nix)
-      builder.always(:something, "else")
+    scraper = LayeredImport::ScraperBuilder.build do
+      always(:nix)
+      always(:something, "else")
     end
 
     facade = Minitest::Mock.new
@@ -17,8 +17,8 @@ class LayeredImport::ScraperBuilderTest < ActiveSupport::TestCase
   end
 
   test "#callback" do
-    scraper = LayeredImport::ScraperBuilder.build do |builder|
-      builder.callback(:call_me, ->(facade) { facade.number })
+    scraper = LayeredImport::ScraperBuilder.build do
+      callback(:call_me, ->(facade) { facade.number })
     end
 
     facade = Minitest::Mock.new
@@ -30,10 +30,10 @@ class LayeredImport::ScraperBuilderTest < ActiveSupport::TestCase
   end
 
   test "#dig" do
-    scraper = LayeredImport::ScraperBuilder.build do |builder|
-      builder.dig(:title)
-      builder.dig(:not_so_deep, :shallow)
-      builder.dig(:deep, :deep, :deeper, :deepest)
+    scraper = LayeredImport::ScraperBuilder.build do
+      dig(:title)
+      dig(:not_so_deep, :shallow)
+      dig(:deep, :deep, :deeper, :deepest)
     end
 
     facade = Minitest::Mock.new
