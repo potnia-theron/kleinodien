@@ -14,7 +14,7 @@ module LayeredImport
     end
 
     def scraper_builder
-      @@scraper ||= LayeredImport::ScraperArchitect.build do
+      @@scraper_builder ||= LayeredImport::ScraperArchitect.build do
         define :name
         define :sort_name
         define :disambiguation
