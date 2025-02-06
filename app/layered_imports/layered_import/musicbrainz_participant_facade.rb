@@ -13,8 +13,8 @@ module LayeredImport
       @data ||= request_layer.get(:artist, options[:musicbrainz_code])
     end
 
-    def scraper
-      @@scraper ||= LayeredImport::ScraperBuilder.build do
+    def scraper_builder
+      @@scraper ||= LayeredImport::ScraperArchitect.build do
         dig(:name)
         dig(:sort_name)
         dig(:disambiguation)
@@ -31,9 +31,11 @@ module LayeredImport
       end
     end
 
-    def get_many(keys)
-      scraper.get_many(keys, self)
+    def scraper
+      @scraper ||= scraper_builder.build(self)
     end
+
+    delegate :get_many, to: :scraper
 
     def all_codes = {}
 

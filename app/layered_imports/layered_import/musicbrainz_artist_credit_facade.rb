@@ -12,15 +12,17 @@ module LayeredImport
       @data ||= _data
     end
 
-    def scraper
-      @@scraper ||= LayeredImport::ScraperBuilder.build do
+    def scraper_builder
+      @@scraper_builder ||= LayeredImport::ScraperArchitect.build do
         callback(:name, ->(facade) { facade.name })
       end
     end
 
-    def get_many(attr_names)
-      scraper.get_many(attr_names, self)
+    def scraper
+      @scraper ||= scraper_builder.build(self)
     end
+
+    delegate :get_many, to: :scraper
 
     def name
       data

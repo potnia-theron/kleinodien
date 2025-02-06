@@ -1,11 +1,11 @@
 module LayeredImport
-  class ScraperBuilder
+  class ScraperArchitect
     def self.build(&)
-      builder = new
-      builder.instance_eval(&)
+      architect = new
+      architect.instance_eval(&)
 
-      callbacks = builder.callbacks.freeze
-      LayeredImport::Scraper.new(callbacks)
+      callbacks = architect.callbacks.freeze
+      LayeredImport::ScraperBuilder.new(callbacks)
     end
 
     def always(attr, default = nil)

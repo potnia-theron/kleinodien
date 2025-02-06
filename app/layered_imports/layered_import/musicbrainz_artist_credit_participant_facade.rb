@@ -10,16 +10,18 @@ module LayeredImport
     attr_reader :facade_layer, :options
     delegate_missing_to :facade_layer
 
-    def scraper
-      @@scraper ||= LayeredImport::ScraperBuilder.build do
+    def scraper_builder
+      @@scraper_builder ||= LayeredImport::ScraperArchitect.build do
         dig(:join_phrase, :joinphrase)
         callback(:position, ->(facade) { facade.position })
       end
     end
 
-    def get_many(attr_names)
-      scraper.get_many(attr_names, self)
+    def scraper
+      @scraper ||= scraper_builder.build(self)
     end
+
+    delegate :get_many, to: :scraper
 
     def data
       options

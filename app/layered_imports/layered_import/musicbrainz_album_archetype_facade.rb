@@ -13,8 +13,8 @@ module LayeredImport
       @data ||= request_layer.get(:release_group, options[:musicbrainz_code])
     end
 
-    def scraper
-      @@scraper ||= LayeredImport::ScraperBuilder.build do
+    def scraper_builder
+      @@scraper_builder ||= LayeredImport::ScraperArchitect.build do
         dig(:title)
         always(:archetypeable_type, "AlbumArchetype")
         always(:discogs_code)
@@ -23,9 +23,11 @@ module LayeredImport
       end
     end
 
-    def get_many(attr_names)
-      scraper.get_many(attr_names, self)
+    def scraper
+      @scraper ||= scraper_builder.build(self)
     end
+
+    delegate :get_many, to: :scraper
 
     def archetypeable_type = "AlbumArchetype"
 
