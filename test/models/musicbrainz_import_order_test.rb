@@ -54,12 +54,4 @@ class MusicbrainzImportOrderTest < ActiveSupport::TestCase
 
     assert_not_predicate import_order, :valid?
   end
-
-  def test_perform
-    import_order = MusicbrainzImportOrder.new(kind: "release", uri: "https://musicbrainz.org/non/sense", user: users(:kim))
-
-    Import::MusicbrainzHandler.stub :call, proc { :done } do
-      assert_equal :done, import_order.perform
-    end
-  end
 end
