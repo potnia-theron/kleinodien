@@ -21,10 +21,6 @@ module LayeredImport
       end
     end
 
-    def scraper
-      @scraper ||= scraper_builder.build(self)
-    end
-
     def name
       data
         .map { |ac| [ac[:name], ac[:joinphrase]] }

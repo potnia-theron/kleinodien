@@ -26,10 +26,6 @@ module LayeredImport
       end
     end
 
-    def scraper
-      @scraper ||= scraper_builder.build(self)
-    end
-
     def all_codes = {}
 
     def cheap_codes = {}

@@ -4,5 +4,9 @@ module LayeredImport::Concerns
 
     delegate :get, to: :scraper
     delegate :get_many, to: :scraper
+
+    def scraper
+      @scraper ||= scraper_builder.build(self)
+    end
   end
 end
