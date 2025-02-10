@@ -1,5 +1,7 @@
 module LayeredImport
   class MusicbrainzArtistCreditFacade
+    include Concerns::Scrapeable
+
     def initialize(facade_layer, options)
       @facade_layer = facade_layer
       @options = options
@@ -22,9 +24,6 @@ module LayeredImport
     def scraper
       @scraper ||= scraper_builder.build(self)
     end
-
-    delegate :get, to: :scraper
-    delegate :get_many, to: :scraper
 
     def name
       data
