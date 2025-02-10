@@ -1,91 +1,50 @@
 module Import
   class MusicbrainzParticipantFacade
-    def initialize(session, options)
-      @session = session
-      @options = options
+    include Concerns::Scrapeable
 
-      # fill the buffer by calling #data:
-      data
+    def initialize(facade_layer, options)
+      @facade_layer = facade_layer
+      @options = options
     end
 
-    attr_reader :options, :session
+    attr_reader :facade_layer, :options
 
-    def model_class = Participant
+    delegate_missing_to :facade_layer
 
     def data
-      # @data ||= options[:data] || session.get(:artist, options[:code])
-      @data ||= session.get(:artist, options[:code])
+      @data ||= request_layer.get(:artist, options[:musicbrainz_code])
     end
 
-    def code
-      options[:code] || data[:id]
+    def scraper_builder
+      @@scraper_builder ||= Import::ScraperArchitect.build do
+        define :name
+        define :sort_name
+        define :disambiguation
+        define :begin_date, always: nil
+        define :begin_date_accuracy, always: nil
+        define :end_date, always: nil
+        define :end_date_accuracy, always: nil
+        define :discogs_code, callback: ->(facade) { facade.relations.dig(:discogs, :artist) }
+        define :imdb_code, callback: ->(facade) { facade.relations.dig(:imdb, :name) }
+        define :wikidata_code, callback: ->(facade) { facade.relations.dig(:wikidata, :wiki) }
+        define :tmdb_code, always: nil
+        define :musicbrainz_code, callback: ->(facade) { facade.data[:id] }
+      end
     end
 
-    delegate_missing_to :properties
+    def all_codes = {}
 
-    def buffered?
-      session.buffer.buffered? :artist, options[:code]
+    def cheap_codes = {}
+
+    def relations
+      @relations ||= Import::MusicbrainzRelationsCode.new(data[:relations]).extract
     end
 
-    def cheap_codes
-      return unless code
+    private
 
-      {musicbrainz_code: code}
-    end
-
-    def name
-      data[:name]
-    end
-
-    def sort_name
-      data[:sort_name]
-    end
-
-    def disambiguation
-      data[:disambiguation]
-    end
-
-    def begins_at
-      date_string = data.dig(:life_span, :begin)
-      return unless date_string
-
-      IncompleteDate.from_string(date_string)
-    end
-
-    def ends_at
-      # date_string = data.life_span.end
-      date_string = data.dig(:life_span, :end)
-      return unless date_string
-
-      IncompleteDate.from_string(date_string)
-    end
-
-    # OPTIMIZE: Implement a more general method to get the codes
-    def discogs_code
-      all_codes[:discogs_code]
-    end
-
-    def imdb_code
-      all_codes[:imdb_code]
-    end
-
-    alias_method :musicbrainz_code, :code
-
-    # Musicbrainz does not offer tmdb-codes, at least for artists
-    # https://musicbrainz.org/relationships/artist-url
-    def tmdb_code = nil
-
-    # Wikidata URIs look like this (AC/DC):
-    # https://www.wikidata.org/wiki/Q27593
-    # there is no "type" that can be extracted from the URIs path.
-    def wikidata_code = nil
-
-    def all_codes
-      relations = Import::MusicbrainzRelationsCode.extract(data[:relations])
-      {
-        discogs_code: relations.dig(:discogs, :artist),
-        imdb_code: relations.dig(:imdb, :name)
-      }.compact
+    def life_span_at(position)
+      data.dig(:life_span, position)
+        &.then { |date_string| IncompleteDate.from_string(date_string) }
     end
   end
 end

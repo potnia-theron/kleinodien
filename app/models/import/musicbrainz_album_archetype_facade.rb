@@ -1,46 +1,35 @@
 module Import
   class MusicbrainzAlbumArchetypeFacade
-    def initialize(session, options)
-      @session = session
+    include Concerns::Scrapeable
+
+    def initialize(facade_layer, options)
+      @facade_layer = facade_layer
       @options = options
     end
 
-    attr_reader :options, :session
+    attr_reader :facade_layer, :options
 
-    def model_class = AlbumArchetype
-
-    def buffered?
-      session.buffer.buffered? :release_group, options[:code]
-    end
+    delegate_missing_to :facade_layer
 
     def data
-      @data ||= options[:data] || session.get(:release_group, options[:code])
+      @data ||= request_layer.get(:release_group, options[:musicbrainz_code])
     end
 
-    delegate :title, to: :data
-
-    def discogs_code
-      all_codes[:discogs_code]
+    def scraper_builder
+      @@scraper_builder ||= Import::ScraperArchitect.build do
+        define :title
+        define :artist_credit
+        define :archetypeable_type, always: "AlbumArchetype"
+        define :discogs_code, always: nil
+        define :wikidata_code, always: nil
+        define :musicbrainz_code, callback: ->(facade) { facade.options[:code] }
+      end
     end
 
-    def musicbrainz_code
-      data[:id]
-    end
+    def all_codes = {}
 
-    def wikidata_code
-      all_codes[:wikidata_code]
-    end
+    def cheap_codes = {}
 
-    def artist_credit_facade
-      session.build_facade(ArtistCredit, data: data[:artist_credit])
-    end
-
-    def all_codes
-      relations = Import::MusicbrainzRelationsCode.extract(data[:relations])
-      {
-        discogs_code: relations.dig("discogs", "artist"),
-        imdb_code: relations.dig("imdb", "name")
-      }.compact
-    end
+    def musicbrainz_code = options[:code]
   end
 end

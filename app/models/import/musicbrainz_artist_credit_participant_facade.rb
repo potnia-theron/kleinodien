@@ -1,30 +1,39 @@
 module Import
   class MusicbrainzArtistCreditParticipantFacade
-    include Concerns::Numerable
+    include Concerns::Scrapeable
 
-    def initialize(session, data:, **options)
-      @session = session
-      @data = data
+    def initialize(facade_layer, options)
+      @facade_layer = facade_layer
       @options = options
+
+      # debugger
     end
 
-    attr_reader :data, :options, :session
-    alias_method :position, :consecutive_number
+    attr_reader :facade_layer, :options
+    delegate_missing_to :facade_layer
 
-    def model_class = ArtistCreditParticipant
+    def scraper_builder
+      @@scraper_builder ||= Import::ScraperArchitect.build do
+        define :join_phrase, :joinphrase
+        define :participant, callback: ->(facade) { {musicbrainz_code: facade.musicbrainz_code} }
+        define :position, callback: ->(facade) { facade.position }
+      end
+    end
 
-    delegate :buffered?, to: :participant_facade
-
-    def artist_credit_facade
-      options[:artist_credit_facade]
+    def data
+      options
     end
 
     def join_phrase
-      data[:joinphrase]
+      options[:joinphrase]
     end
 
-    def participant_facade
-      session.build_facade(Participant, code: data.dig(:artist, :id))
+    def musicbrainz_code
+      options[:artist][:id]
+    end
+
+    def position
+      options[:position]
     end
   end
 end

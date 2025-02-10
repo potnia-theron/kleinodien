@@ -1,35 +1,32 @@
 module Import
   class Buffer
-    def buffered?(kind, code)
-      fetch(kind, code) ? true : false
+    def initialize(order)
+      @order = order
     end
 
-    def fetch(kind, code, &block)
-      kind, code = [kind.to_s, code.to_s]
+    def buffered?(uri_string)
+      fetch(uri_string) ? true : false
+    end
 
-      store(kind, code, block) if block
-      buffer.dig(kind, code)
+    def fetch(uri_string, &block)
+      buffer[uri_string] || block && store(uri_string, block)
     end
 
     delegate :deep_dup, to: :buffer
 
-    def lock
-      buffer.freeze
-    end
-
-    def locked?
-      buffer.frozen?
-    end
-
     private
+
+    attr_reader :order
+    delegate :buffering?, to: :order
 
     def buffer
       @buffer ||= {}
     end
 
-    def store(kind, code, block)
-      buffer[kind] ||= {}
-      buffer[kind][code] = block.call
+    def store(uri_string, block)
+      raise "can't store unless \"buffering\"" unless buffering?
+
+      buffer[uri_string] = block.call
     end
   end
 end

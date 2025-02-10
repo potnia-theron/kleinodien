@@ -1,34 +1,48 @@
 module Import
   class MusicbrainzArtistCreditFacade
-    def initialize(session, data:, **options)
-      @session = session
-      @data = data
+    include Concerns::Scrapeable
+
+    def initialize(facade_layer, options)
+      @facade_layer = facade_layer
       @options = options
     end
 
-    attr_reader :data, :options, :session
+    attr_reader :facade_layer, :options
+    delegate_missing_to :facade_layer
 
-    def model_class = ArtistCredit
+    def data
+      @data ||= _data
+    end
 
-    def all_codes = nil
-
-    def intrinsic_code = nil
-
-    delegate :buffered?, to: :participants
+    def scraper_builder
+      @@scraper_builder ||= Import::ScraperArchitect.build do
+        define :name, callback: ->(facade) { facade.name }
+        define :participants, callback: ->(facade) { facade.participants }
+      end
+    end
 
     def name
-      tokens = data.map { |ac| [ac[:name], ac[:joinphrase]] }.flatten
-
-      last_token = tokens.pop
-      raise "last participant must not contain anything" if last_token.present?
-
-      tokens.join("")
+      data
+        .map { |ac| [ac[:name], ac[:joinphrase]] }
+        .flatten
+        .tap { |tokens| raise "last participant must not contain anything" if tokens.last.present? }
+        .tap { |tokens| tokens.pop }
+        .join("")
     end
 
     def participants
-      @participants ||= session.build_facade_list(
-        data: data, model: ArtistCreditParticipant, artist_credit_facade: self
-      )
+      data.map.each_with_index { |ac_participant, idx| ac_participant.merge({position: idx}) }
+    end
+
+    private
+
+    def _data
+      if options.is_a? Array
+        options
+      else
+        # TODO: this will fail on an ArtistCredit of a :recording
+        request_layer.get(:release, options[:musicbrainz_code])[:artist_credit]
+      end
     end
   end
 end

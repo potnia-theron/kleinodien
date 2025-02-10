@@ -1,45 +1,49 @@
 module Import::Concerns
-  # https://rewind.com/blog/zeitwerk-autoloader-rails-app/
   module Reflectable
     extend ActiveSupport::Concern
 
-    def model_class
-      properties_class_name = self.class.name
-      mad = properties_class_name.match(%r{\AImport::(.+)Properties\z})
-      class_name = mad[1]
-      class_name.constantize
+    def has_one_associations = reflect_on_all_associations(:has_one)
+
+    def delegated_of_association_writer
+      return unless delegated_of_association
+
+      "#{delegated_of_association.name}="
     end
 
-    def attribute_getter_names
-      model_class.attribute_names
+    def delegated_of_association
+      results = has_one_associations.filter { |assoc| assoc.inverse_of.options[:polymorphic] }
+
+      return if results.none?
+      raise "too many delegated_types" if results.length > 1
+
+      results.first
+    end
+
+    def inherent_attribute_names
+      names = attribute_names
         .without("id", "created_at", "updated_at")
         .reject { |attr| attr.end_with? "_id" }
-        .reject { |attr| attr.end_with? "_accuracy" }
-        .map { |attr| (attr == "begin_date") ? "begins_at" : attr }
-        .map { |attr| (attr == "end_date") ? "ends_at" : attr }
-        .map { |attr| [attr, attr] }
-        .to_h
+
+      after_inherent_attribute_names(names)
     end
 
-    def belongs_to_facade_getter_names
-      model_class
-        .reflect_on_all_associations(:belongs_to)
-        .reject { |association| association.name == :import_order }
-        .map { |association| [association.name, "#{association.name}_facade"] }
-        .to_h
+    def after_inherent_attribute_names(names) = names
+
+    def belong_to_associations
+      associations = reflect_on_all_associations(:belongs_to)
+        .reject { |association| association.class_name == "ImportOrder" }
+
+      after_belongs_to_associations(associations)
     end
 
-    def belongs_to_associations
-      model_class.reflect_on_all_associations(:belongs_to)
-        .reject { |association| association.name == :import_order }
-    end
-
-    def has_and_belongs_to_many_associations
-      model_class.reflect_on_all_associations(:has_and_belongs_to_many)
-    end
+    def after_belongs_to_associations(associations) = associations
 
     def has_many_associations
-      model_class.reflect_on_all_associations(:has_many)
+      associations = reflect_on_all_associations(:has_many)
+
+      after_has_many_associations(associations)
     end
+
+    def after_has_many_associations(associations) = associations
   end
 end

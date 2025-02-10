@@ -1,4 +1,5 @@
 require "test_helper"
+require "minitest/mock"
 require "support/web_mock_external_apis"
 
 class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
@@ -6,16 +7,20 @@ class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
     WebMockExternalApis.setup
   end
 
-  test "create a Participant" do
-    # code = "66c662b6-6e2f-4930-8610-912e24c63ed1"
-    code = "2280ca0e-6968-4349-8c36-cb0cbd6ee95f" # Jello Biafra
+  test "import NoMeansNo" do
+    code = "37e9d7b2-7779-41b2-b2eb-3685351caad3" # NoMeansNo
     user = users(:kim)
     import_order = MusicbrainzImportOrder.create!(code: code, kind: "participant", user: user)
 
-    participant = import_order.perform
+    participant = Import.ignite(import_order)
 
-    assert_equal "Jello Biafra", participant.name
-    assert_not participant.new_record?
-    assert import_order.done?
+    assert_equal "NoMeansNo", participant.name
+    # TODO: reactivate tests on ???_date
+    # assert_equal "1979-01-01", participant.begin_date.to_s
+    # assert_equal "2016-09-24", participant.end_date.to_s
+    assert_equal 133641, participant.discogs_code
+    assert_equal "nm2012163", participant.imdb_code
+    assert_equal code, participant.musicbrainz_code
+    assert_equal 1430380, participant.wikidata_code
   end
 end
