@@ -12,7 +12,7 @@ module LayeredImport
     end
 
     def request_layer
-      @request_layer ||= order.create_request_layer
+      @request_layer ||= order.build_request_layer
     end
 
     private

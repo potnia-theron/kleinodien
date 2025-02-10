@@ -1,5 +1,7 @@
 module LayeredImport
   class MusicbrainzAlbumArchetypeFacade
+    include Concerns::Scrapeable
+
     def initialize(facade_layer, options)
       @facade_layer = facade_layer
       @options = options
@@ -13,24 +15,21 @@ module LayeredImport
       @data ||= request_layer.get(:release_group, options[:musicbrainz_code])
     end
 
-    def archetypeable_type = "AlbumArchetype"
-
-    def artist_credit
-      data[:artist_credit]
+    def scraper_builder
+      @@scraper_builder ||= LayeredImport::ScraperArchitect.build do
+        define :title
+        define :artist_credit
+        define :archetypeable_type, always: "AlbumArchetype"
+        define :discogs_code, always: nil
+        define :wikidata_code, always: nil
+        define :musicbrainz_code, callback: ->(facade) { facade.options[:code] }
+      end
     end
-
-    def title
-      data[:title]
-    end
-
-    def cheap_codes = {}
 
     def all_codes = {}
 
-    def discogs_code = nil
+    def cheap_codes = {}
 
     def musicbrainz_code = options[:code]
-
-    def wikidata_code = nil
   end
 end

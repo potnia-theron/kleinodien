@@ -12,15 +12,15 @@ module LayeredImport
       type.delete_suffix("ImportOrder")
     end
 
-    def create_fetch_layer
+    def build_fetch_layer
       join_and_constantize("LayeredImport::", class_name_component, "FetchLayer").new(self)
     end
 
-    def create_request_layer
+    def build_request_layer
       join_and_constantize("LayeredImport::", class_name_component, "RequestLayer").new(self)
     end
 
-    def create_workflow
+    def build_workflow
       join_and_constantize("LayeredImport::", class_name_component, "Workflow").new(self)
     end
 

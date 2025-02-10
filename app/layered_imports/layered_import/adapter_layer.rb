@@ -25,11 +25,11 @@ module LayeredImport
       LayeredImport::DelegatedHeadBuilder.new(self, facade, head_class).build_delegated_head
     end
 
-    def create_foreign_attribute_assigner(...)
+    def build_foreign_attribute_assigner(...)
       LayeredImport::ForeignAttributeAssigner.new(self, ...)
     end
 
-    def create_has_many_builder(...)
+    def build_has_many_builder(...)
       LayeredImport::HasManyBuilder.new(self, ...)
     end
 

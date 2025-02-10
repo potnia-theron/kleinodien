@@ -1,5 +1,7 @@
 module LayeredImport
   class MusicbrainzArtistCreditParticipantFacade
+    include Concerns::Scrapeable
+
     def initialize(facade_layer, options)
       @facade_layer = facade_layer
       @options = options
@@ -10,12 +12,16 @@ module LayeredImport
     attr_reader :facade_layer, :options
     delegate_missing_to :facade_layer
 
-    def data
-      options
+    def scraper_builder
+      @@scraper_builder ||= LayeredImport::ScraperArchitect.build do
+        define :join_phrase, :joinphrase
+        define :participant, callback: ->(facade) { {musicbrainz_code: facade.musicbrainz_code} }
+        define :position, callback: ->(facade) { facade.position }
+      end
     end
 
-    def participant
-      {musicbrainz_code: musicbrainz_code}
+    def data
+      options
     end
 
     def join_phrase
