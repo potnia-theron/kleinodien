@@ -31,24 +31,10 @@ module LayeredImport
     delegate :get, to: :scraper
     delegate :get_many, to: :scraper
 
-    def archetypeable_type = "AlbumArchetype"
-
-    def artist_credit
-      data[:artist_credit]
-    end
-
-    # def title
-    #   data[:title]
-    # end
+    def all_codes = {}
 
     def cheap_codes = {}
 
-    def all_codes = {}
-
-    def discogs_code = nil
-
     def musicbrainz_code = options[:code]
-
-    def wikidata_code = nil
   end
 end

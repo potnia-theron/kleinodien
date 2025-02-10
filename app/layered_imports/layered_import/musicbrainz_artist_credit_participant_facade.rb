@@ -29,10 +29,6 @@ module LayeredImport
       options
     end
 
-    def participant
-      {musicbrainz_code: musicbrainz_code}
-    end
-
     def join_phrase
       options[:joinphrase]
     end
