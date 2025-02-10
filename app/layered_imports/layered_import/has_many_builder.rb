@@ -22,7 +22,8 @@ module LayeredImport
     delegate_missing_to :adapter_layer
 
     def option_list
-      facade.send association_name
+      # facade.send association_name
+      facade.get(association_name)
     end
   end
 end

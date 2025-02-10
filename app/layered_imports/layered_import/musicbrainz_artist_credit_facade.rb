@@ -15,6 +15,7 @@ module LayeredImport
     def scraper_builder
       @@scraper_builder ||= LayeredImport::ScraperArchitect.build do
         define :name, callback: ->(facade) { facade.name }
+        define :participants, callback: ->(facade) { facade.participants }
       end
     end
 
@@ -22,6 +23,7 @@ module LayeredImport
       @scraper ||= scraper_builder.build(self)
     end
 
+    delegate :get, to: :scraper
     delegate :get_many, to: :scraper
 
     def name
