@@ -13,6 +13,7 @@ module LayeredImport
     def scraper_builder
       @@scraper_builder ||= LayeredImport::ScraperArchitect.build do
         define :join_phrase, :joinphrase
+        define :participant, callback: ->(facade) { {musicbrainz_code: facade.musicbrainz_code} }
         define :position, callback: ->(facade) { facade.position }
       end
     end
@@ -21,6 +22,7 @@ module LayeredImport
       @scraper ||= scraper_builder.build(self)
     end
 
+    delegate :get, to: :scraper
     delegate :get_many, to: :scraper
 
     def data

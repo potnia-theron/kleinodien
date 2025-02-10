@@ -25,7 +25,7 @@ module LayeredImport
     end
 
     def foreign_attributes
-      facade.send(association_name)
+      facade.get(association_name)
     end
   end
 end

@@ -16,6 +16,7 @@ module LayeredImport
     def scraper_builder
       @@scraper_builder ||= LayeredImport::ScraperArchitect.build do
         define :title
+        define :artist_credit
         define :archetypeable_type, always: "AlbumArchetype"
         define :discogs_code, always: nil
         define :wikidata_code, always: nil
@@ -27,6 +28,7 @@ module LayeredImport
       @scraper ||= scraper_builder.build(self)
     end
 
+    delegate :get, to: :scraper
     delegate :get_many, to: :scraper
 
     def archetypeable_type = "AlbumArchetype"
