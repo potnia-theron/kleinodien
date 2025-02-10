@@ -5,7 +5,7 @@ module LayeredImport
       architect.instance_eval(&)
 
       callbacks = architect.callbacks.freeze
-      LayeredImport::ScraperBuilder.new(callbacks)
+      ->(facade) { Scraper.new(callbacks, facade) }
     end
 
     def initialize

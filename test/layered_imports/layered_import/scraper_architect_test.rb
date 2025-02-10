@@ -9,7 +9,7 @@ class LayeredImport::ScraperArchitectTest < ActiveSupport::TestCase
     end
 
     facade = Minitest::Mock.new
-    scraper = scraper_builder.build(facade)
+    scraper = scraper_builder.call(facade)
 
     assert_nil scraper.get(:nix)
     assert "else", scraper.get(:something)
@@ -23,7 +23,7 @@ class LayeredImport::ScraperArchitectTest < ActiveSupport::TestCase
     end
 
     facade = Minitest::Mock.new
-    scraper = scraper_builder.build(facade)
+    scraper = scraper_builder.call(facade)
 
     facade.expect :number, "3-6, 2-4, 3-6"
 
@@ -40,7 +40,7 @@ class LayeredImport::ScraperArchitectTest < ActiveSupport::TestCase
     end
 
     facade = Minitest::Mock.new
-    scraper = scraper_builder.build(facade)
+    scraper = scraper_builder.call(facade)
 
     facade.expect :data, {title: "Hello Scraper"}
     assert "Hello Scraper", scraper.get(:title)
