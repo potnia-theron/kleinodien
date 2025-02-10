@@ -21,7 +21,7 @@ module LayeredImport
     end
 
     def fetch_layer
-      @fetch_layer ||= create_fetch_layer
+      @fetch_layer ||= build_fetch_layer
     end
   end
 end
