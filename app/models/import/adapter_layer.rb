@@ -6,10 +6,6 @@ module Import
 
     attr_reader :order
 
-    def build_finder_class(reflections)
-      "Import::#{reflections.base_class.name}Finder".constantize
-    end
-
     def supply_record(...)
       Import::RecordSupplier.new(self, ...).supply_record
     end
@@ -33,11 +29,8 @@ module Import
       Import::HasManyBuilder.new(self, ...)
     end
 
-    def find_record(kind, options)
-      reflections = build_reflections_for(kind)
-      facade = facade_layer.build_facade(reflections, options)
-      finder_class = build_finder_class(reflections)
-      finder_class.new(order, facade: facade).find
+    def find_record(...)
+      Import::RecordFinder.new(self, ...).find
     end
 
     def facade_layer
