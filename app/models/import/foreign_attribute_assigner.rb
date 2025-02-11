@@ -21,7 +21,7 @@ module Import
     end
 
     def foreign_record
-      @foreign_record ||= adapter_layer.build_record(association.class_name, foreign_attributes)
+      @foreign_record ||= adapter_layer.supply_record(association.class_name, foreign_attributes)
     end
 
     def foreign_attributes

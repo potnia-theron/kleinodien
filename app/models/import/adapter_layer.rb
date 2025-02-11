@@ -10,8 +10,8 @@ module Import
       "Import::#{reflections.base_class.name}Finder".constantize
     end
 
-    def build_record(...)
-      Import::RecordSupplier.new(self, ...).build_record
+    def supply_record(...)
+      Import::RecordSupplier.new(self, ...).supply_record
     end
 
     def build_delegated_head(facade, reflections)
