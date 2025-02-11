@@ -11,7 +11,7 @@ module Import
     end
 
     def build_record(...)
-      Import::RecordBuilder.new(self, ...).build_record
+      Import::RecordSupplier.new(self, ...).build_record
     end
 
     def build_delegated_head(facade, reflections)
@@ -22,7 +22,7 @@ module Import
 
       return unless head_class
 
-      Import::DelegatedHeadBuilder.new(self, facade, head_class).build_delegated_head
+      Import::DelegatedHeadSupplier.new(self, facade, head_class).build_delegated_head
     end
 
     def build_foreign_attribute_assigner(...)

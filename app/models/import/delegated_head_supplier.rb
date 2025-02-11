@@ -1,5 +1,5 @@
 module Import
-  class DelegatedHeadBuilder
+  class DelegatedHeadSupplier
     include Concerns::RecordBuildable
 
     def initialize(adapter_layer, facade, head_class)
