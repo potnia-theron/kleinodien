@@ -1,7 +1,7 @@
 require "test_helper"
 require "minitest/mock"
 
-class MusicbrainzArtistCreditFinderTest < ActiveSupport::TestCase
+class Import::MusicbrainzArtistCreditFinderTest < ActiveSupport::TestCase
   setup do
     @order = Minitest::Mock.new
     @facade = Minitest::Mock.new

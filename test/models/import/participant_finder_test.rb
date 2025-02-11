@@ -1,7 +1,7 @@
 require "test_helper"
 require "minitest/mock"
 
-class ParticipantFinderTest < ActiveSupport::TestCase
+class Import::ParticipantFinderTest < ActiveSupport::TestCase
   setup do
     @order = Minitest::Mock.new
     @facade = Minitest::Mock.new
