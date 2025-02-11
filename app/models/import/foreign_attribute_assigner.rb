@@ -25,7 +25,7 @@ module Import
     end
 
     def foreign_attributes
-      facade.get(association_name)
+      facade.scrape(association_name)
     end
   end
 end

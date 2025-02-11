@@ -7,15 +7,15 @@ module Import
 
     attr_reader :callbacks, :facade
 
-    def get(attr)
+    def scrape(attr)
       callback = callbacks[attr]
       raise ArgumentError, "no callback for \"#{attr}\"" unless callback
 
       callback.call(facade)
     end
 
-    def get_many(*attrs)
-      attrs.flatten.index_with { |attr| get(attr) }
+    def scrape_many(*attrs)
+      attrs.flatten.index_with { |attr| scrape(attr) }
     end
   end
 end

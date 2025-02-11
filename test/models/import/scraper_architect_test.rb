@@ -11,8 +11,8 @@ class Import::ScraperArchitectTest < ActiveSupport::TestCase
     facade = Minitest::Mock.new
     scraper = scraper_builder.call(facade)
 
-    assert_nil scraper.get(:nix)
-    assert "else", scraper.get(:something)
+    assert_nil scraper.scrape(:nix)
+    assert "else", scraper.scrape(:something)
 
     facade.verify
   end
@@ -27,7 +27,7 @@ class Import::ScraperArchitectTest < ActiveSupport::TestCase
 
     facade.expect :number, "3-6, 2-4, 3-6"
 
-    assert_equal "3-6, 2-4, 3-6", scraper.get(:call_me)
+    assert_equal "3-6, 2-4, 3-6", scraper.scrape(:call_me)
 
     facade.verify
   end
@@ -43,13 +43,13 @@ class Import::ScraperArchitectTest < ActiveSupport::TestCase
     scraper = scraper_builder.call(facade)
 
     facade.expect :data, {title: "Hello Scraper"}
-    assert "Hello Scraper", scraper.get(:title)
+    assert "Hello Scraper", scraper.scrape(:title)
 
     facade.expect :data, {shallow: "Hello Puddle"}
-    assert "Hello Puddle", scraper.get(:not_so_deep)
+    assert "Hello Puddle", scraper.scrape(:not_so_deep)
 
     facade.expect :data, {deep: {deeper: {deepest: "Welcome to Hell"}}}
-    assert "Welcome to Hell", scraper.get(:deep)
+    assert "Welcome to Hell", scraper.scrape(:deep)
 
     facade.verify
   end
