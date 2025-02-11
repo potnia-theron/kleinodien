@@ -22,8 +22,7 @@ module Import
     delegate_missing_to :adapter_layer
 
     def option_list
-      # facade.send association_name
-      facade.get(association_name)
+      facade.scrape(association_name)
     end
   end
 end
