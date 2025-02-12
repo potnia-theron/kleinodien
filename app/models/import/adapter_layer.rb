@@ -11,11 +11,7 @@ module Import
     end
 
     def supply_delegated_head(facade, reflections)
-      head_class = reflections
-        .delegated_of_association
-        &.inverse_of
-        &.active_record
-
+      head_class = reflections.head_class
       return unless head_class
 
       Import::DelegatedHeadSupplier.new(self, facade, head_class).supply_delegated_head
