@@ -14,7 +14,7 @@ module Import
       head_class = reflections.head_class
       return unless head_class
 
-      Import::DelegatedHeadSupplier.new(self, facade, head_class).supply_delegated_head
+      Import::DelegatedHeadSupplier.new(self, facade, reflections).supply_delegated_head
     end
 
     def build_foreign_attribute_assigner(...)
