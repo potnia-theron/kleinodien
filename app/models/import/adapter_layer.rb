@@ -10,7 +10,7 @@ module Import
       Import::RecordSupplier.new(self, ...).supply_record
     end
 
-    def build_delegated_head(facade, reflections)
+    def supply_delegated_head(facade, reflections)
       head_class = reflections
         .delegated_of_association
         &.inverse_of
@@ -18,7 +18,7 @@ module Import
 
       return unless head_class
 
-      Import::DelegatedHeadSupplier.new(self, facade, head_class).build_delegated_head
+      Import::DelegatedHeadSupplier.new(self, facade, head_class).supply_delegated_head
     end
 
     def build_foreign_attribute_assigner(...)

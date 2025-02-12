@@ -8,7 +8,7 @@ module Import
       @head_class = head_class
     end
 
-    def build_delegated_head
+    def supply_delegated_head
       build_has_many_records
       assign_foreign_attributes
 
