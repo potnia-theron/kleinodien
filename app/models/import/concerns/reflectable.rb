@@ -19,6 +19,14 @@ module Import::Concerns
       results.first
     end
 
+    def head_class
+      @head_class ||= delegated_of_association&.inverse_of&.active_record
+    end
+
+    def head_class?
+      true if head_class
+    end
+
     def inherent_attribute_names
       names = attribute_names
         .without("id", "created_at", "updated_at")

@@ -25,7 +25,7 @@ module Import
     delegate_missing_to :adapter_layer
 
     def assign_delegated_head
-      head = build_delegated_head(facade, reflections)
+      head = supply_delegated_head(facade, reflections)
       return unless head
 
       writer_name = reflections.delegated_of_association_writer
