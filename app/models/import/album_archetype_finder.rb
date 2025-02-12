@@ -12,5 +12,7 @@ module Import
     def find
       find_by_cheap_codes || find_by_codes
     end
+
+    def model_class = AlbumArchetype
   end
 end

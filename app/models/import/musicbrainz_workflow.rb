@@ -23,13 +23,13 @@ module Import
 
     def fill_buffer
       order.buffering!
-      adapter_layer.build_record(order.kind, musicbrainz_code: order.code)
+      adapter_layer.supply_record(order.kind, musicbrainz_code: order.code)
     end
 
     def persist
       order.persisting!
 
-      record = adapter_layer.build_record(order.kind, musicbrainz_code: order.code)
+      record = adapter_layer.supply_record(order.kind, musicbrainz_code: order.code)
       record.save!
 
       order.done!

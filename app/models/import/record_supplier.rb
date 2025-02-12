@@ -8,7 +8,10 @@ module Import
       @options = options
     end
 
-    def build_record
+    def supply_record
+      existing_record = find_record(kind, options)
+      return existing_record if existing_record
+
       build_has_many_records
       assign_foreign_attributes
       assign_delegated_head

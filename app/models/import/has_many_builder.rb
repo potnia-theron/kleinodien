@@ -11,7 +11,7 @@ module Import
       proxy = record.send(association_name)
       model = association.options[:class_name]
 
-      option_list.each { |options| proxy.push(build_record(model, options)) }
+      option_list.each { |options| proxy.push(supply_record(model, options)) }
     end
 
     private
