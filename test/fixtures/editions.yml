@@ -2,10 +2,12 @@
 
 one:
   archetype: one
-  editionable_type: MyString
-  editionable_id: 
+  editionable_type: AlbumEdition
+  editionable_id: <%= ActiveRecord::FixtureSet.identify(:one, column_type = :uuid) %>
 
 two:
   archetype: two
-  editionable_type: MyString
-  editionable_id: 
+  editionable_type: AlbumEdition
+  editionable_id: <%= ActiveRecord::FixtureSet.identify(:two, column_type = :uuid) %>
+
+
