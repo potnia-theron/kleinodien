@@ -1,0 +1,2 @@
+class AlbumEdition < ApplicationRecord
+end
