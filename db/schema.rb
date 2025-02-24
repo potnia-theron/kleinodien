@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_03_182136) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_24_181124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,6 +47,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_182136) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "editions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "archetype_id", null: false
+    t.string "editionable_type"
+    t.uuid "editionable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["archetype_id"], name: "index_editions_on_archetype_id"
   end
 
   create_table "email_verification_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -112,6 +121,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_182136) do
   add_foreign_key "archetypes", "artist_credits"
   add_foreign_key "artist_credit_participants", "artist_credits"
   add_foreign_key "artist_credit_participants", "participants"
+  add_foreign_key "editions", "archetypes"
   add_foreign_key "email_verification_tokens", "users"
   add_foreign_key "import_orders", "import_orders"
   add_foreign_key "import_orders", "users"

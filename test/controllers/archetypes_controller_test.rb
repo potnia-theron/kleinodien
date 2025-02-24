@@ -43,8 +43,11 @@ class ArchetypesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy archetype" do
+    # Build a own Archetype to prevent foreign key constraint violation
+    archetype = Archetype.create!(title: "Foo", archetypeable: album_archetypes(:one))
+
     assert_difference("Archetype.count", -1) do
-      delete archetype_url(@archetype)
+      delete archetype_url(archetype)
     end
 
     assert_redirected_to archetypes_url
