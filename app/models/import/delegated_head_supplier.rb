@@ -28,9 +28,9 @@ module Import
     end
 
     def build
-      build_has_many_records
-      # debugger
       assign_foreign_attributes
+      # assign_foreign_heads
+      build_has_many_records
 
       record
     end
