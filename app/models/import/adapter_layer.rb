@@ -34,7 +34,7 @@ module Import
     end
 
     def build_reflections_for(kind)
-      "Import::#{kind.to_s.classify}Reflections".constantize.new
+      "Import::#{kind.to_s.underscore.classify}Reflections".constantize.new
     end
   end
 end

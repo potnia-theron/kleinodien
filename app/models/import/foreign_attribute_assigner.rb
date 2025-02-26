@@ -8,6 +8,7 @@ module Import
     end
 
     def assign
+      # debugger
       record.send(association_writer, foreign_record)
     end
 

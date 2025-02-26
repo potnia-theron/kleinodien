@@ -20,7 +20,7 @@ module Import
 
     def find
       # TODO: do we really need to lookup for a delegated_head?
-      finder_class.new(order, facade: facade).find
+      # finder_class.new(order, facade: facade).find
     end
 
     def finder_class
@@ -29,6 +29,7 @@ module Import
 
     def build
       build_has_many_records
+      # debugger
       assign_foreign_attributes
 
       record

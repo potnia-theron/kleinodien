@@ -24,7 +24,8 @@ module Import
     end
 
     def reflections
-      @reflections ||= "Import::#{kind.to_s.classify}Reflections".constantize.new
+      # TODO: fix law of demeter violation
+      @reflections ||= "Import::#{kind.to_s.underscore.classify}Reflections".constantize.new
     end
   end
 end

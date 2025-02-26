@@ -42,7 +42,8 @@ module Import
       in []
         ->(facade) { facade.data[attr] }
       else
-        ->(facade) { facade.data.dig(*attr) }
+        # ->(facade) { facade.data.dig(*attr) }
+        ->(facade) { facade.data.dig(*arguments) }
       end
     end
   end

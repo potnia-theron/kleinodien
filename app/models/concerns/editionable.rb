@@ -4,4 +4,8 @@ module Editionable
   included do
     has_one :edition, as: :editionable, touch: true
   end
+
+  def title
+    edition.archetype.title
+  end
 end
