@@ -15,24 +15,26 @@ module Import
 
     attr_reader :adapter_layer, :association, :facade, :record
     delegate :name, to: :association, prefix: true
+    delegate :delegated_base_reader, to: :association
 
     def association_writer
       "#{association_name}="
     end
 
     def foreign_base
-      # TODO: this is a hack to get the archetype record
-      @foreign_base ||= adapter_layer.supply_record(delegated_type_class, foreign_attributes).archetype
+      @foreign_base ||= delegated_type.send(delegated_base_reader)
     end
 
     def foreign_attributes
       facade.scrape(association_name)
     end
 
+    def delegated_type
+      adapter_layer.supply_record(delegated_type_class, foreign_attributes)
+    end
+
     def delegated_type_class
-      # TODO: this is a hack to get the archetype class
-      xxx = record.send(association.delegated_type_reader)
-      xxx.sub("Edition", "Archetype")
+      association.delegated_class_for(record)
     end
   end
 end

@@ -1,7 +1,15 @@
 module Import
   class EditionReflections
-    Association = Data.define(:association, :delegated_type_reader) do
+    Association = Data.define(:association) do
       delegate_missing_to :association
+
+      def delegated_base_reader = :archetype
+
+      def delegated_type_reader = :editionable_type
+
+      def delegated_class_for(record)
+        record.send(delegated_type_reader).sub("Edition", "Archetype")
+      end
     end
 
     include Concerns::Reflectable
@@ -19,7 +27,7 @@ module Import
         .reflect_on_all_associations(:belongs_to)
         .find { |association| association.name == :archetype }
 
-      [Association.new(association, :editionable_type)]
+      [Association.new(association)]
     end
   end
 end
