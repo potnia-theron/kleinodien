@@ -14,7 +14,7 @@ module Import
         .reject { |association| association.name == :archetype }
     end
 
-    def delegated_head_associations
+    def delegated_base_associations
       association = Edition
         .reflect_on_all_associations(:belongs_to)
         .find { |association| association.name == :archetype }

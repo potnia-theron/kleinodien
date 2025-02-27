@@ -10,15 +10,15 @@ module Import
       Import::RecordSupplier.new(self, ...).supply_record
     end
 
-    def supply_delegated_head(facade, reflections)
-      head_class = reflections.head_class
-      return unless head_class
+    def supply_delegated_base(facade, reflections)
+      delegated_base_class = reflections.delegated_base_class
+      return unless delegated_base_class
 
-      Import::DelegatedHeadSupplier.new(self, facade, reflections).supply_delegated_head
+      Import::DelegatedBaseSupplier.new(self, facade, reflections).supply_delegated_base
     end
 
-    def build_foreign_head_assigner(...)
-      Import::ForeignHeadAssigner.new(self, ...)
+    def build_foreign_base_assigner(...)
+      Import::ForeignBaseAssigner.new(self, ...)
     end
 
     def build_foreign_attribute_assigner(...)

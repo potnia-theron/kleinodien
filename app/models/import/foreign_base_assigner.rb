@@ -1,5 +1,5 @@
 module Import
-  class ForeignHeadAssigner
+  class ForeignBaseAssigner
     def initialize(adapter_layer, association, facade, record)
       @adapter_layer = adapter_layer
       @association = association

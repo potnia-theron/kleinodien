@@ -2,11 +2,11 @@ module Import::Concerns
   module RecordBuildable
     extend ActiveSupport::Concern
 
-    def assign_foreign_heads
-      return unless reflections.respond_to? :delegated_head_associations
+    def assign_foreign_bases
+      return unless reflections.respond_to? :delegated_base_associations
 
-      reflections.delegated_head_associations.each do |association|
-        adapter_layer.build_foreign_head_assigner(association, facade, record).assign
+      reflections.delegated_base_associations.each do |association|
+        adapter_layer.build_foreign_base_assigner(association, facade, record).assign
       end
     end
 

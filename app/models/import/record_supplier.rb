@@ -14,7 +14,7 @@ module Import
 
       build_has_many_records
       assign_foreign_attributes
-      assign_delegated_head
+      assign_delegated_base
 
       record
     end
@@ -24,13 +24,13 @@ module Import
     attr_reader :adapter_layer, :kind, :options
     delegate_missing_to :adapter_layer
 
-    def assign_delegated_head
-      head = supply_delegated_head(facade, reflections)
-      return unless head
+    def assign_delegated_base
+      delegated_base = supply_delegated_base(facade, reflections)
+      return unless delegated_base
 
       writer_name = reflections.delegated_of_association_writer
 
-      record.send(writer_name, head)
+      record.send(writer_name, delegated_base)
     end
 
     def facade
