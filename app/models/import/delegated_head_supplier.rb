@@ -29,7 +29,7 @@ module Import
 
     def build
       assign_foreign_attributes
-      # assign_foreign_heads
+      assign_foreign_heads
       build_has_many_records
 
       record

@@ -17,6 +17,10 @@ module Import
       Import::DelegatedHeadSupplier.new(self, facade, reflections).supply_delegated_head
     end
 
+    def build_foreign_head_assigner(...)
+      Import::ForeignHeadAssigner.new(self, ...)
+    end
+
     def build_foreign_attribute_assigner(...)
       Import::ForeignAttributeAssigner.new(self, ...)
     end

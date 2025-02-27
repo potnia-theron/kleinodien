@@ -12,7 +12,8 @@ module Import
     delegate_missing_to :facade_layer
 
     def data
-      @data ||= request_layer.get(:release_group, options[:musicbrainz_code])
+      # @data ||= request_layer.get(:release_group, options[:id])
+      @data ||= request_layer.get(:release_group, musicbrainz_code)
     end
 
     def scraper_builder
@@ -30,6 +31,6 @@ module Import
 
     def cheap_codes = {}
 
-    def musicbrainz_code = options[:code]
+    def musicbrainz_code = options[:musicbrainz_code] || options[:id]
   end
 end
