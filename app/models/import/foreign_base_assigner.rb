@@ -8,7 +8,7 @@ module Import
     end
 
     def assign
-      record.send(association_writer, foreign_record)
+      record.send(association_writer, foreign_base)
     end
 
     private
@@ -20,9 +20,9 @@ module Import
       "#{association_name}="
     end
 
-    def foreign_record
+    def foreign_base
       # TODO: this is a hack to get the archetype record
-      @foreign_record ||= adapter_layer.supply_record(delegated_type_class, foreign_attributes).archetype
+      @foreign_base ||= adapter_layer.supply_record(delegated_type_class, foreign_attributes).archetype
     end
 
     def foreign_attributes
