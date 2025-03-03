@@ -17,16 +17,16 @@ module Import
       Import::DelegatedBaseSupplier.new(self, facade, reflections).supply_delegated_base
     end
 
-    def build_foreign_base_assigner(...)
-      Import::ForeignBaseAssigner.new(self, ...)
-    end
+    def build_foreign_base_assigner(...) = Import::ForeignBaseAssigner.new(self, ...)
 
-    def build_foreign_attribute_assigner(...)
-      Import::ForeignAttributeAssigner.new(self, ...)
-    end
+    def build_foreign_attribute_assigner(...) = Import::ForeignAttributeAssigner.new(self, ...)
 
-    def build_has_many_builder(...)
-      Import::HasManyBuilder.new(self, ...)
+    def build_has_many_builder(...) = Import::HasManyBuilder.new(self, ...)
+
+    def build_record(...) = Import::RecordBuilder.new(self, ...).call
+
+    def build_reflections_for(kind)
+      "Import::#{kind.to_s.underscore.classify}Reflections".constantize.new
     end
 
     def find_record(...)
@@ -35,10 +35,6 @@ module Import
 
     def facade_layer
       @facade_layer ||= Import::FacadeLayer.new(order)
-    end
-
-    def build_reflections_for(kind)
-      "Import::#{kind.to_s.underscore.classify}Reflections".constantize.new
     end
   end
 end
