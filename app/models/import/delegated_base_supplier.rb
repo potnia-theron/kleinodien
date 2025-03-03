@@ -1,7 +1,5 @@
 module Import
-  class DelegatedBaseSupplier
-    include Concerns::RecordBuildable
-
+  class DelegatedBaseSupplier < Import::RecordBuilder
     def initialize(adapter_layer, facade, delegated_type_reflections)
       @adapter_layer = adapter_layer
       @facade = facade
@@ -18,16 +16,10 @@ module Import
 
     private
 
-    attr_reader :adapter_layer, :facade, :delegated_type_reflections
-    delegate :delegated_base_class, to: :delegated_type_reflections
-    delegate_missing_to :adapter_layer
-
-    def record
-      @record ||= delegated_base_class.new(inherent_attributes)
-    end
+    attr_reader :delegated_type_reflections, :facade
 
     def reflections
-      build_reflections_for delegated_base_class
+      build_reflections_for delegated_type_reflections.delegated_base_class
     end
   end
 end
