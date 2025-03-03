@@ -1,5 +1,5 @@
 module Import
-  class DelegatedBaseSupplier < Import::RecordBuilder
+  class DelegatedBaseBuilder < Import::RecordBuilder
     def initialize(adapter_layer, facade, delegated_type_reflections)
       @adapter_layer = adapter_layer
       @facade = facade

@@ -14,7 +14,7 @@ module Import
       delegated_base_class = reflections.delegated_base_class
       return unless delegated_base_class
 
-      Import::DelegatedBaseSupplier.new(self, facade, reflections).supply_delegated_base
+      Import::DelegatedBaseBuilder.new(self, facade, reflections).supply_delegated_base
     end
 
     def build_foreign_base_assigner(...) = Import::ForeignBaseAssigner.new(self, ...)
