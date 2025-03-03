@@ -13,5 +13,15 @@ module Import
 
       record
     end
+
+    private
+
+    def assign_foreign_bases
+      return unless reflections.respond_to? :delegated_base_associations
+
+      reflections.delegated_base_associations.each do |association|
+        adapter_layer.build_foreign_base_assigner(association, facade, record).assign
+      end
+    end
   end
 end
