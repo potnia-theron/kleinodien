@@ -1,7 +1,5 @@
 module Import
   class RecordSupplier
-    include Concerns::RecordBuildable
-
     def initialize(adapter_layer, kind, options)
       @adapter_layer = adapter_layer
       @kind = kind
