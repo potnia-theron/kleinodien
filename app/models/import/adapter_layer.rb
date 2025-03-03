@@ -10,12 +10,7 @@ module Import
       Import::RecordSupplier.new(self, ...).supply_record
     end
 
-    def supply_delegated_base(facade, reflections)
-      delegated_base_class = reflections.delegated_base_class
-      return unless delegated_base_class
-
-      Import::DelegatedBaseBuilder.new(self, facade, reflections).supply_delegated_base
-    end
+    def build_delegated_base(...) = Import::DelegatedBaseBuilder.new(self, ...).supply_delegated_base
 
     def build_foreign_base_assigner(...) = Import::ForeignBaseAssigner.new(self, ...)
 
