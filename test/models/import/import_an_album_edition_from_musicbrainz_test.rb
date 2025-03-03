@@ -18,8 +18,7 @@ class Import::ImportAnAlbumEditionFromMusicbrainzTest < ActiveSupport::TestCase
 
     edition = album_edition.edition
     assert_kind_of Edition, edition
-    # TODO: make the following assertions pass
-    # assert_equal "Highway To Hell", edition.title
-    # assert_equal "AC/DC", edition.artist_credit.name
+    assert_equal "Highway to Hell", edition.archetype.title
+    assert_equal "AC/DC", edition.archetype.artist_credit.name
   end
 end
