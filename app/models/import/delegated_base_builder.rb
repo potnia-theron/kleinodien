@@ -1,9 +1,9 @@
 module Import
   class DelegatedBaseBuilder < Import::RecordBuilder
-    def initialize(adapter_layer, facade, delegated_type_reflections)
+    def initialize(adapter_layer, facade, kind)
       @adapter_layer = adapter_layer
       @facade = facade
-      @delegated_type_reflections = delegated_type_reflections
+      @kind = kind
     end
 
     def supply_delegated_base
@@ -12,14 +12,6 @@ module Import
       build_has_many_records
 
       record
-    end
-
-    private
-
-    attr_reader :delegated_type_reflections, :facade
-
-    def reflections
-      build_reflections_for delegated_type_reflections.delegated_base_class
     end
   end
 end

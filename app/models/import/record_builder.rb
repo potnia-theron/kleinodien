@@ -26,9 +26,10 @@ module Import
     end
 
     def assign_delegated_base
-      return unless reflections.delegated_base_class
+      delegated_base_class = reflections.delegated_base_class
+      return unless delegated_base_class
 
-      delegated_base = build_delegated_base(facade, reflections)
+      delegated_base = build_delegated_base(facade, delegated_base_class.name)
       writer_name = reflections.delegated_of_association_writer
 
       record.send(writer_name, delegated_base)
