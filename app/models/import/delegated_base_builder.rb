@@ -25,7 +25,7 @@ module Import
       return unless reflections.respond_to? :delegated_base_associations
 
       reflections.delegated_base_associations.each do |association|
-        adapter_layer.build_foreign_base_assigner(association, facade, record).assign
+        adapter_layer.assign_foreign_base(association, facade, record)
       end
     end
 

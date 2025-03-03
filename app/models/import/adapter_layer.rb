@@ -10,13 +10,13 @@ module Import
       Import::RecordSupplier.new(self, ...).supply_record
     end
 
+    def assign_foreign_attribute(...) = Import::ForeignAttributeAssigner.new(self, ...).assign
+
+    def assign_foreign_base(...) = Import::ForeignBaseAssigner.new(self, ...).assign
+
     def build_delegated_base(...) = Import::DelegatedBaseBuilder.new(self, ...).supply_delegated_base
 
-    def build_foreign_base_assigner(...) = Import::ForeignBaseAssigner.new(self, ...)
-
-    def build_foreign_attribute_assigner(...) = Import::ForeignAttributeAssigner.new(self, ...)
-
-    def build_has_many_builder(...) = Import::HasManyBuilder.new(self, ...)
+    def build_has_many_associations(...) = Import::HasManyBuilder.new(self, ...).build_many
 
     def build_record(...) = Import::RecordBuilder.new(self, ...).call
 
@@ -24,9 +24,7 @@ module Import
       "Import::#{kind.to_s.underscore.classify}Reflections".constantize.new
     end
 
-    def find_record(...)
-      Import::RecordFinder.new(self, ...).find
-    end
+    def find_record(...) = Import::RecordFinder.new(self, ...).find
 
     def facade_layer
       @facade_layer ||= Import::FacadeLayer.new(order)
