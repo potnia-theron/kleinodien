@@ -1,13 +1,15 @@
 module Import
   class RecordFinder
+    include Callable
+
     def initialize(adapter_layer, kind, options)
       @adapter_layer = adapter_layer
       @kind = kind
       @options = options
     end
 
-    def find
-      finder_class.new(order, facade: facade).find
+    def call
+      finder_class.call(order, facade: facade)
     end
 
     private
@@ -24,7 +26,8 @@ module Import
     end
 
     def reflections
-      @reflections ||= "Import::#{kind.to_s.classify}Reflections".constantize.new
+      # TODO: fix law of demeter violation
+      @reflections ||= "Import::#{kind.to_s.underscore.classify}Reflections".constantize.new
     end
   end
 end

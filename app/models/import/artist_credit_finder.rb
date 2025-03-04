@@ -1,5 +1,6 @@
 module Import
   class ArtistCreditFinder
+    include Callable
     include Concerns::CodeFindable
 
     def initialize(order, facade:)
@@ -9,7 +10,7 @@ module Import
 
     attr_reader :facade, :order
 
-    def find
+    def call
       # this guard-clause ...
       # - may not be ok in a non-musicbrainz.org context
       # - is maybe unnecessary in "real" scenarios

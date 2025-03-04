@@ -8,6 +8,8 @@ module Import
     delegate_missing_to :order
 
     def get(kind, code)
+      kind = kind.to_s.dasherize
+
       uri_string = uri_string_for(kind, code)
       buffer.fetch(uri_string) { fetch_layer.get(uri_string) }
     end

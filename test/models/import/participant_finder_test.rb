@@ -7,12 +7,10 @@ class Import::ParticipantFinderTest < ActiveSupport::TestCase
     @facade = Minitest::Mock.new
   end
   test "participant does not exist" do
-    finder = Import::ParticipantFinder.new(@order, facade: @facade)
-
     @facade.expect :cheap_codes, {}
     @facade.expect :all_codes, {}
 
-    assert_nil finder.find
+    assert_nil Import::ParticipantFinder.call(@order, facade: @facade)
 
     @order.verify
     @facade.verify
@@ -21,11 +19,9 @@ class Import::ParticipantFinderTest < ActiveSupport::TestCase
   test "participant can be found by #cheap_codes" do
     existing_participant = Participant.create!(name: "Abdul Alhazred", discogs_code: 123)
 
-    finder = Import::ParticipantFinder.new(@order, facade: @facade)
-
     @facade.expect :cheap_codes, {discogs_code: 123}
 
-    assert_equal existing_participant, finder.find
+    assert_equal existing_participant, Import::ParticipantFinder.call(@order, facade: @facade)
 
     @order.verify
     @facade.verify
@@ -34,12 +30,10 @@ class Import::ParticipantFinderTest < ActiveSupport::TestCase
   test "participant can be found by #all_codes" do
     existing_participant = Participant.create!(name: "Nicole", tmdb_code: 321)
 
-    finder = Import::ParticipantFinder.new(@order, facade: @facade)
-
     @facade.expect :cheap_codes, {}
     @facade.expect :all_codes, {tmdb_code: 321}
 
-    assert_equal existing_participant, finder.find
+    assert_equal existing_participant, Import::ParticipantFinder.call(@order, facade: @facade)
 
     @order.verify
     @facade.verify

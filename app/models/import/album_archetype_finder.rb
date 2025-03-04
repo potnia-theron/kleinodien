@@ -1,5 +1,6 @@
 module Import
   class AlbumArchetypeFinder
+    include Callable
     include Concerns::CodeFindable
 
     def initialize(order, facade:)
@@ -9,7 +10,7 @@ module Import
 
     attr_reader :facade, :order
 
-    def find
+    def call
       find_by_cheap_codes || find_by_codes
     end
 

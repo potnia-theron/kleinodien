@@ -8,9 +8,7 @@ class Import::ArtistCreditParticipantFinderTest < ActiveSupport::TestCase
     facade = Minitest::Mock.new
     order = Minitest::Mock.new
 
-    finder = Import::ArtistCreditParticipantFinder.new(order, facade: facade)
-
-    assert_nil finder.find
+    assert_nil Import::ArtistCreditParticipantFinder.call(order, facade: facade)
 
     facade.verify
     order.verify

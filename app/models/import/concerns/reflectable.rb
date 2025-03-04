@@ -19,13 +19,13 @@ module Import::Concerns
       results.first
     end
 
-    def head_class
-      @head_class ||= delegated_of_association&.inverse_of&.active_record
+    def delegated_base_class
+      @delegated_base_class ||= delegated_of_association&.inverse_of&.active_record
     end
 
-    def head_class?
-      true if head_class
-    end
+    # def base_class?
+    #   true if base_class
+    # end
 
     def inherent_attribute_names
       names = attribute_names
