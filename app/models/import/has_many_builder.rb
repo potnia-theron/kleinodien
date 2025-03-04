@@ -1,5 +1,7 @@
 module Import
   class HasManyBuilder
+    include Callable
+
     def initialize(adapter_layer, association, facade, record)
       @adapter_layer = adapter_layer
       @association = association
@@ -7,7 +9,7 @@ module Import
       @record = record
     end
 
-    def build_many
+    def call
       proxy = record.send(association_name)
       model = association.options[:class_name]
 

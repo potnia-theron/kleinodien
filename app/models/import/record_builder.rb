@@ -1,5 +1,6 @@
 module Import
   class RecordBuilder
+    include Callable
     include Import::Concerns::RecordBuildable
 
     def initialize(adapter_layer, kind, options)

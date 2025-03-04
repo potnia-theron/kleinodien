@@ -1,12 +1,14 @@
 module Import
   class RecordFinder
+    include Callable
+
     def initialize(adapter_layer, kind, options)
       @adapter_layer = adapter_layer
       @kind = kind
       @options = options
     end
 
-    def find
+    def call
       finder_class.new(order, facade: facade).find
     end
 

@@ -1,5 +1,6 @@
 module Import
   class DelegatedBaseBuilder # < Import::RecordBuilder
+    include Callable
     include Import::Concerns::RecordBuildable
 
     def initialize(adapter_layer, facade, kind)
@@ -8,7 +9,7 @@ module Import
       @kind = kind
     end
 
-    def supply_delegated_base
+    def call
       assign_foreign_attributes
       assign_foreign_bases
       build_has_many_records

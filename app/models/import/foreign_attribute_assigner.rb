@@ -1,5 +1,7 @@
 module Import
   class ForeignAttributeAssigner
+    include Callable
+
     def initialize(adapter_layer, association, facade, record)
       @adapter_layer = adapter_layer
       @association = association
@@ -7,7 +9,7 @@ module Import
       @record = record
     end
 
-    def assign
+    def call
       record.send(association_writer, foreign_record)
     end
 
