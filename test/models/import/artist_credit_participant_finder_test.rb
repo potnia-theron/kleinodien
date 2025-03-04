@@ -1,16 +1,11 @@
 require "test_helper"
 require "minitest/mock"
+require "support/shared_null_finder_tests"
 
 class Import::ArtistCreditParticipantFinderTest < ActiveSupport::TestCase
-  test "#find returns nil" do
-    # Well, for now Import::ArtistCreditParticipantFinder#find returns always nil.
-    # So this test seems a little bloated.
-    facade = Minitest::Mock.new
-    order = Minitest::Mock.new
+  include SharedNullFinderTests
 
-    assert_nil Import::ArtistCreditParticipantFinder.call(order, facade: facade)
-
-    facade.verify
-    order.verify
+  setup do
+    @finder_class = Import::ArtistCreditParticipantFinder
   end
 end
