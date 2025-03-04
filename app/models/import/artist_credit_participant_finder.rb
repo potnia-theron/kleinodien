@@ -1,10 +1,11 @@
 module Import
   class ArtistCreditParticipantFinder
+    include Callable
     # TODO: shall this class remain empty?
     def initialize(...)
     end
 
-    def find
+    def call
     end
   end
 end

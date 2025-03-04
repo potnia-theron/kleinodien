@@ -1,9 +1,11 @@
 module Import
   class EditionFinder
+    include Callable
+
     def initialize(...)
     end
 
-    def find
+    def call
       # TODO: implement #find
     end
   end

@@ -9,7 +9,7 @@ module Import
     end
 
     def call
-      finder_class.new(order, facade: facade).find
+      finder_class.call(order, facade: facade)
     end
 
     private

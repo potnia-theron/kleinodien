@@ -11,7 +11,7 @@ class Import::MusicbrainzArtistCreditFinderTest < ActiveSupport::TestCase
     @order.expect :buffering?, true
     @facade.expect :name, "Lee Aaron"
 
-    assert_nil Import::ArtistCreditFinder.new(@order, facade: @facade).find
+    assert_nil Import::ArtistCreditFinder.call(@order, facade: @facade)
 
     @order.verify
     @facade.verify
@@ -23,7 +23,7 @@ class Import::MusicbrainzArtistCreditFinderTest < ActiveSupport::TestCase
     @order.expect :buffering?, true
     @facade.expect :name, "Lee Aaron"
 
-    assert_equal lee_aaron, Import::ArtistCreditFinder.new(@order, facade: @facade).find
+    assert_equal lee_aaron, Import::ArtistCreditFinder.call(@order, facade: @facade)
 
     @order.verify
     @facade.verify

@@ -1,9 +1,11 @@
 module Import
   class AlbumEditionFinder
+    include Callable
+
     def initialize(...)
     end
 
-    def find
+    def call
       # TODO: implement #find
     end
   end
