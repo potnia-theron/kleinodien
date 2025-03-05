@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_24_185158) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_05_080354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,10 +33,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_24_185158) do
   create_table "archetypes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.string "archetypeable_type"
-    t.string "archetypeable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "artist_credit_id"
+    t.uuid "archetypeable_id"
     t.index ["artist_credit_id"], name: "index_archetypes_on_artist_credit_id"
   end
 
