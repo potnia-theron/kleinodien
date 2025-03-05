@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_05_093942) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_05_100014) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -118,6 +118,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_093942) do
   end
 
   create_table "song_archetypes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "discogs_code"
+    t.uuid "musicbrainz_code"
+    t.integer "wikidata_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "song_editions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "discogs_code"
     t.uuid "musicbrainz_code"
     t.integer "wikidata_code"
