@@ -1,0 +1,2 @@
+class SongArchetype < ApplicationRecord
+end
