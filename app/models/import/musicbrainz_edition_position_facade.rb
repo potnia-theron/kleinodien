@@ -1,5 +1,5 @@
 module Import
-  class MusicbrainzEditionSectionFacade
+  class MusicbrainzEditionPositionFacade
     include Concerns::Scrapeable
 
     def initialize(facade_layer, options)
@@ -16,11 +16,8 @@ module Import
 
     def scraper_builder
       @@scraper_builder ||= Import::ScraperArchitect.build do
-        define :alphanumeric, :position
-        define :level, always: 1
+        define :alphanumeric, :number
         define :no, :position
-        # define :positions, callback: ->(facade) { facade.positions }
-        define :positions, :tracks
       end
     end
   end
