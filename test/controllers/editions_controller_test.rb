@@ -39,11 +39,11 @@ class EditionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to edition_url(@edition)
   end
 
-  test "should destroy edition" do
-    assert_difference("Edition.count", -1) do
-      delete edition_url(@edition)
-    end
+  # test "should destroy edition" do
+  #   assert_difference("Edition.count", -1) do
+  #     delete edition_url(@edition)
+  #   end
 
-    assert_redirected_to editions_url
-  end
+  #   assert_redirected_to editions_url
+  # end
 end

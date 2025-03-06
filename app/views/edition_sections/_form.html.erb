@@ -1,0 +1,42 @@
+<%= form_with(model: edition_section) do |form| %>
+  <% if edition_section.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(edition_section.errors.count, "error") %> prohibited this edition_section from being saved:</h2>
+
+      <ul>
+        <% edition_section.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :alphanumeric, style: "display: block" %>
+    <%= form.text_field :alphanumeric %>
+  </div>
+
+  <div>
+    <%= form.label :level, style: "display: block" %>
+    <%= form.number_field :level %>
+  </div>
+
+  <div>
+    <%= form.label :no, style: "display: block" %>
+    <%= form.number_field :no %>
+  </div>
+
+  <div>
+    <%= form.label :edition_id, style: "display: block" %>
+    <%= form.text_field :edition_id %>
+  </div>
+
+  <div>
+    <%= form.label :positions_count, style: "display: block" %>
+    <%= form.number_field :positions_count %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

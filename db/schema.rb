@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_05_100014) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_06_083332) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -55,6 +55,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_100014) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "edition_sections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "alphanumeric"
+    t.integer "level", limit: 2
+    t.integer "no", limit: 2
+    t.uuid "edition_id", null: false
+    t.integer "positions_count", limit: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["edition_id"], name: "index_edition_sections_on_edition_id"
   end
 
   create_table "editions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -145,6 +156,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_100014) do
   add_foreign_key "archetypes", "artist_credits"
   add_foreign_key "artist_credit_participants", "artist_credits"
   add_foreign_key "artist_credit_participants", "participants"
+  add_foreign_key "edition_sections", "editions"
   add_foreign_key "editions", "archetypes"
   add_foreign_key "email_verification_tokens", "users"
   add_foreign_key "import_orders", "import_orders"

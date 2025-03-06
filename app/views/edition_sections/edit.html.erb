@@ -1,0 +1,12 @@
+<% content_for :title, "Editing edition section" %>
+
+<h1>Editing edition section</h1>
+
+<%= render "form", edition_section: @edition_section %>
+
+<br>
+
+<div>
+  <%= link_to "Show this edition section", @edition_section %> |
+  <%= link_to "Back to edition sections", edition_sections_path %>
+</div>
