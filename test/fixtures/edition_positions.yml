@@ -4,10 +4,11 @@ one:
   alphanumeric: MyString
   'no': 1
   edition: one
-  edition_section: one
+  section: one
 
 two:
   alphanumeric: MyString
   'no': 1
   edition: two
-  edition_section: two
+  section: two
+
