@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_06_083332) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_06_102714) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -55,6 +55,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_083332) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "edition_positions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "alphanumeric"
+    t.integer "no", limit: 2, null: false
+    t.uuid "edition_id", null: false
+    t.uuid "edition_section_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["edition_id"], name: "index_edition_positions_on_edition_id"
+    t.index ["edition_section_id"], name: "index_edition_positions_on_edition_section_id"
   end
 
   create_table "edition_sections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -156,6 +167,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_083332) do
   add_foreign_key "archetypes", "artist_credits"
   add_foreign_key "artist_credit_participants", "artist_credits"
   add_foreign_key "artist_credit_participants", "participants"
+  add_foreign_key "edition_positions", "edition_sections"
+  add_foreign_key "edition_positions", "editions"
   add_foreign_key "edition_sections", "editions"
   add_foreign_key "editions", "archetypes"
   add_foreign_key "email_verification_tokens", "users"

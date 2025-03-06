@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :edition_positions
   resources :edition_sections
   resources :editions
   resources :archetypes

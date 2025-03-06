@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Edition positions" %>
+
+<h1>Edition positions</h1>
+
+<div id="edition_positions">
+  <% @edition_positions.each do |edition_position| %>
+    <%= render edition_position %>
+    <p>
+      <%= link_to "Show this edition position", edition_position %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New edition position", new_edition_position_path %>
