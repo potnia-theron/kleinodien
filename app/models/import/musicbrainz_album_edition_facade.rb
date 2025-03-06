@@ -18,6 +18,7 @@ module Import
       @@scraper_builder ||= Import::ScraperArchitect.build do
         define :archetype, :release_group
         define :editionable_type, always: "AlbumEdition"
+        define :sections, callback: ->(facade) { facade.data[:media] }
         define :discogs_code, always: nil
         define :musicbrainz_code, callback: ->(facade) { facade.options[:code] }
         define :wikidata_code, always: nil
