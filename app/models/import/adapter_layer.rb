@@ -12,7 +12,7 @@ module Import
 
     def assign_foreign_attribute(...) = Import::ForeignAttributeAssigner.call(self, ...)
 
-    def assign_foreign_base(...) = DelegatedBaseToDelegatedBaseAssigner.call(self, ...)
+    def assign_delegate_base_to_delegated_base(...) = DelegatedBaseToDelegatedBaseAssigner.call(self, ...)
 
     def build_delegated_base(...) = Import::DelegatedBaseBuilder.call(self, ...)
 
