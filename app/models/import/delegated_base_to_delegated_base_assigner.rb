@@ -1,5 +1,5 @@
 module Import
-  class ForeignBaseAssigner
+  class DelegatedBaseToDelegatedBaseAssigner
     include Callable
 
     def initialize(adapter_layer, association, facade, record)
