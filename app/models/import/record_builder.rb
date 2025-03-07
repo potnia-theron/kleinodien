@@ -13,6 +13,7 @@ module Import
       build_has_many_records
       assign_foreign_attributes
       assign_delegated_base
+      assign_foreign_bases
 
       record
     end

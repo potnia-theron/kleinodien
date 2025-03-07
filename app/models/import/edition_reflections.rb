@@ -22,6 +22,11 @@ module Import
         .reject { |association| association.name == :archetype }
     end
 
+    # def after_has_many_associations(associations)
+    #   associations
+    #     .reject { |association| association.name == :sections }
+    # end
+
     def delegated_base_associations
       association = Edition
         .reflect_on_all_associations(:belongs_to)

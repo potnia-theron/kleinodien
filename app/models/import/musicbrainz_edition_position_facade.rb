@@ -18,6 +18,7 @@ module Import
       @@scraper_builder ||= Import::ScraperArchitect.build do
         define :alphanumeric, :number
         define :no, :position
+        define :edition, callback: ->(facade) { :debugger }
       end
     end
   end
