@@ -29,9 +29,6 @@ module Import
     end
 
     def musicbrainz_code
-      debugger unless options[:artist]
-      debugger unless options[:artist][:id]
-
       options[:artist][:id]
     end
 

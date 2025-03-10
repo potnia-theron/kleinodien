@@ -12,15 +12,12 @@ module Import
     delegate_missing_to :facade_layer
 
     def data
-      # @data ||= request_layer.get(:release_group, options[:id])
-      # @data ||= request_layer.get(:release_group, musicbrainz_code)
       options
     end
 
     def scraper_builder
       @@scraper_builder ||= Import::ScraperArchitect.build do
         define :title
-        # define :artist_credit
         define :artist_credit, callback: ->(facade) { facade.artist_credit }
         define :archetypeable_type, always: "SongArchetype"
         define :discogs_code, always: nil

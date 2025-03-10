@@ -6,7 +6,6 @@ module Import::Concerns
     delegate :scrape_many, to: :scraper
 
     def scraper
-      # @scraper ||= scraper_builder.build(self)
       @scraper ||= scraper_builder.call(self)
     end
   end

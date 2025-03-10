@@ -9,7 +9,7 @@ module Import
 
     def scrape(attr)
       callback = callbacks[attr]
-      raise ArgumentError, "no callback for \"#{attr}\"" unless callback
+      raise ArgumentError, "don't know how to scrape :#{attr} from #{facade.class}" unless callback
 
       callback.call(facade)
     end

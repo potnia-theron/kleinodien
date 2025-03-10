@@ -18,8 +18,12 @@ module Import
       @@scraper_builder ||= Import::ScraperArchitect.build do
         define :alphanumeric, :number
         define :no, :position
-        # define :edition, callback: ->(facade) { :debugger }
+        define :edition, callback: ->(facade) { facade.edition }
       end
+    end
+
+    def edition
+      options[:recording]
     end
 
     def delegated_type_for(association)
