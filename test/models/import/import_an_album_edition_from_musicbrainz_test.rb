@@ -18,6 +18,7 @@ class Import::ImportAnAlbumEditionFromMusicbrainzTest < ActiveSupport::TestCase
 
     edition = album_edition.edition
     # assert_not edition.new_record?
+    # debugger
     assert_kind_of Edition, edition
     assert_equal "Highway to Hell", edition.archetype.title
     assert_equal "AC/DC", edition.archetype.artist_credit.name

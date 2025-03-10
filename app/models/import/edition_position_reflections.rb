@@ -14,7 +14,7 @@ module Import
 
     include Concerns::Reflectable
 
-    delegate_missing_to "EditionPosition"
+    delegate_missing_to EditionPosition
 
     def after_belongs_to_associations(associations)
       associations
@@ -22,6 +22,11 @@ module Import
         .reject { |association| association.name == :section }
     end
 
+    def foreign_base_associations
+      EditionPosition
+        .reflect_on_all_associations(:belongs_to)
+        .select { |association| association.name == :edition }
+    end
     # def delegated_base_associations
     #   association = EditionPosition
     #     .reflect_on_all_associations(:belongs_to)

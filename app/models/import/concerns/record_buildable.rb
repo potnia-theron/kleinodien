@@ -14,6 +14,14 @@ module Import::Concerns
       end
     end
 
+    def assign_foreign_bases
+      return unless reflections.respond_to? :foreign_base_associations
+
+      reflections.foreign_base_associations.each do |association|
+        adapter_layer.assign_foreign_base(association, facade, record)
+      end
+    end
+
     def inherent_attributes
       names = reflections.inherent_attribute_names
       facade.scrape_many(names)
