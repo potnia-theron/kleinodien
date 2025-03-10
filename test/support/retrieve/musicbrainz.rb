@@ -13,8 +13,10 @@ module Retrieve
     end
 
     def retrieve
-      file = dir.join(longest_filename)
-      file.read
+      filename = longest_filename
+      raise "can't find #{kind} with code #{code}" unless filename
+
+      dir.join(filename).read
     end
 
     private
