@@ -1,0 +1,14 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  alphanumeric: MyString
+  'no': 1
+  edition: one
+  section: one
+
+two:
+  alphanumeric: MyString
+  'no': 1
+  edition: two
+  section: two
+

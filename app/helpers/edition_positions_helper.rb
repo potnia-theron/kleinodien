@@ -1,0 +1,2 @@
+module EditionPositionsHelper
+end

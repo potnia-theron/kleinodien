@@ -16,27 +16,18 @@ module Import
     private
 
     attr_reader :adapter_layer, :association, :facade, :record
-    delegate :name, to: :association, prefix: true
-    delegate :delegated_base_reader, to: :association
+    delegate_missing_to :adapter_layer
 
-    def association_writer
-      "#{association_name}="
-    end
+    def association_name = association.name
+
+    def association_writer = "#{association_name}="
+
+    def delegated_type = @delegated_type ||= facade.delegated_type_for(association)
 
     def foreign_base
-      @foreign_base ||= delegated_type.send(delegated_base_reader)
-    end
-
-    def foreign_attributes
-      facade.scrape(association_name)
-    end
-
-    def delegated_type
-      adapter_layer.supply_record(delegated_type_class, foreign_attributes)
-    end
-
-    def delegated_type_class
-      association.delegated_class_for(record)
+      # TODO: use #supply_record instead of #build_record ?
+      build_record(delegated_type, facade.data)
+        .send(association_name)
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_05_080354) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_06_102714) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -55,6 +55,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_080354) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "edition_positions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "alphanumeric"
+    t.integer "no", limit: 2, null: false
+    t.uuid "edition_id", null: false
+    t.uuid "edition_section_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["edition_id"], name: "index_edition_positions_on_edition_id"
+    t.index ["edition_section_id"], name: "index_edition_positions_on_edition_section_id"
+  end
+
+  create_table "edition_sections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "alphanumeric"
+    t.integer "level", limit: 2
+    t.integer "no", limit: 2
+    t.uuid "edition_id", null: false
+    t.integer "positions_count", limit: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["edition_id"], name: "index_edition_sections_on_edition_id"
   end
 
   create_table "editions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -117,6 +139,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_080354) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "song_archetypes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "discogs_code"
+    t.uuid "musicbrainz_code"
+    t.integer "wikidata_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "song_editions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "discogs_code"
+    t.uuid "musicbrainz_code"
+    t.integer "wikidata_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -129,6 +167,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_080354) do
   add_foreign_key "archetypes", "artist_credits"
   add_foreign_key "artist_credit_participants", "artist_credits"
   add_foreign_key "artist_credit_participants", "participants"
+  add_foreign_key "edition_positions", "edition_sections"
+  add_foreign_key "edition_positions", "editions"
+  add_foreign_key "edition_sections", "editions"
   add_foreign_key "editions", "archetypes"
   add_foreign_key "email_verification_tokens", "users"
   add_foreign_key "import_orders", "import_orders"

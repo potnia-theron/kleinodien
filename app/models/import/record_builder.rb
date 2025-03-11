@@ -12,8 +12,8 @@ module Import
     def call
       build_has_many_records
       assign_foreign_attributes
+      assign_foreign_bases
       assign_delegated_base
-
       record
     end
 
