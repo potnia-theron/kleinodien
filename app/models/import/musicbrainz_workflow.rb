@@ -4,7 +4,7 @@ module Import
       @order = order
     end
 
-    attr_reader :order
+    attr_reader :order, :record
 
     def start
       find || create
@@ -29,8 +29,15 @@ module Import
     def persist
       order.persisting!
 
-      record = adapter_layer.supply_record(order.kind, musicbrainz_code: order.code)
-      record.save!
+      # record = adapter_layer.supply_record(order.kind, musicbrainz_code: order.code)
+      # record.transaction do
+
+      # end
+      ActiveRecord::Base.transaction do
+        @record = adapter_layer.with(supply_persisted: true) do |adapter|
+          adapter.supply_record(order.kind, musicbrainz_code: order.code, persistent: true)
+        end
+      end
 
       order.done!
 

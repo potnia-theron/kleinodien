@@ -10,6 +10,7 @@ module Import
     end
 
     def call
+      # debugger if adapter_layer.supply_persisted?
       record.send(association_writer, foreign_record)
     end
 

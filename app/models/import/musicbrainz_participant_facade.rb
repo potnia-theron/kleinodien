@@ -34,7 +34,7 @@ module Import
 
     def all_codes = {}
 
-    def cheap_codes = {}
+    def cheap_codes = {musicbrainz_code: scrape(:musicbrainz_code)}
 
     def relations
       @relations ||= Import::MusicbrainzRelationsCode.new(data[:relations]).extract

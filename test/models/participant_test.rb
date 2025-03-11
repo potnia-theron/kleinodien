@@ -5,7 +5,7 @@ class ParticipantTest < ActiveSupport::TestCase
   include SharedPeriodeableTests
 
   setup do
-    @subject = Participant.new(name: "Rockstar")
+    @subject = Participant.new(name: "Rock star")
   end
 
   test "with valid attributes" do
@@ -20,7 +20,7 @@ class ParticipantTest < ActiveSupport::TestCase
 
   test "set #sort_name unless present" do
     assert_predicate @subject, :valid?
-    assert_equal "Rockstar", @subject.sort_name
+    assert_equal "Rock star", @subject.sort_name
   end
 
   test "leave #sort_name untouched when set" do
@@ -30,5 +30,14 @@ class ParticipantTest < ActiveSupport::TestCase
     assert_predicate @subject, :valid?
     assert_equal "Some", @subject.name
     assert_equal "One", @subject.sort_name
+  end
+
+  test "#name must be unique" do
+    @subject.save!
+
+    participant = Participant.new(name: @subject.name)
+
+    assert_not_predicate participant, :valid?
+    assert_raises(ActiveRecord::RecordInvalid) { participant.save!(name: "Rock star") }
   end
 end
