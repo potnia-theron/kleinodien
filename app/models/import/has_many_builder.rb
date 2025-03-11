@@ -13,7 +13,11 @@ module Import
       proxy = record.send(association_name)
       model = association.options[:class_name]
 
-      option_list.each { |options| proxy.push(supply_record(model, options)) }
+      # option_list.each { |options| proxy.push(supply_record(model, options)) }
+      option_list.each do |options|
+        owned_entity = find_record(model, options) || build_record(model, options)
+        proxy.push(owned_entity)
+      end
     end
 
     private

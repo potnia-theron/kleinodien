@@ -2,13 +2,11 @@ module Import
   class AdapterLayer
     def initialize(order)
       @order ||= order
+      @supply_persisted = false
     end
 
     attr_reader :order
-
-    def supply_record(...)
-      Import::RecordSupplier.new(self, ...).supply_record
-    end
+    attr_accessor :supply_persisted
 
     def assign_foreign_base(...) = Import::ForeignBaseAssigner.call(self, ...)
 
@@ -26,10 +24,21 @@ module Import
       "Import::#{kind.to_s.underscore.classify}Reflections".constantize.new
     end
 
+    def facade_layer = @facade_layer ||= Import::FacadeLayer.new(order)
+
     def find_record(...) = Import::RecordFinder.call(self, ...)
 
-    def facade_layer
-      @facade_layer ||= Import::FacadeLayer.new(order)
+    # def supply_record(...) = Import::RecordSupplier.call(self, ...)
+    def supply_record(kind, options)
+      entity = find_record(kind, options)
+      return entity if entity
+
+      entity = build_record(kind, options)
+      entity.save! if supply_persisted?
+
+      entity
     end
+
+    def supply_persisted? = supply_persisted
   end
 end
