@@ -23,8 +23,6 @@ module Import
     delegate_missing_to :adapter_layer
 
     def assign_foreign_bases
-      return unless reflections.respond_to? :delegated_base_associations
-
       reflections.delegated_base_associations.each do |association|
         adapter_layer.assign_delegate_base_to_delegated_base(association, entity, facade)
       end
