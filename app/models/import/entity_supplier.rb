@@ -1,5 +1,5 @@
 module Import
-  class RecordSupplier
+  class EntitySupplier
     include Callable
 
     def initialize(adapter_layer, kind, options)

@@ -1,7 +1,7 @@
 module Import
-  class RecordBuilder
+  class EntityBuilder
     include Callable
-    include Import::Concerns::RecordBuildable
+    include Import::Concerns::EntityBuildable
 
     def initialize(adapter_layer, kind, options)
       @adapter_layer = adapter_layer

@@ -1,7 +1,7 @@
 module Import
   class DelegatedBaseBuilder # < Import::RecordBuilder
     include Callable
-    include Import::Concerns::RecordBuildable
+    include Import::Concerns::EntityBuildable
 
     def initialize(adapter_layer, facade, kind)
       @adapter_layer = adapter_layer

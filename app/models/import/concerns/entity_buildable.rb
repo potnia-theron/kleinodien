@@ -1,5 +1,5 @@
 module Import::Concerns
-  module RecordBuildable
+  module EntityBuildable
     extend ActiveSupport::Concern
 
     def build_has_many_records
