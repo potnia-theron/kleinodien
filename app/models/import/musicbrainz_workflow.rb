@@ -29,13 +29,9 @@ module Import
     def persist
       order.persisting!
 
-      # record = adapter_layer.supply_record(order.kind, musicbrainz_code: order.code)
-      # record.transaction do
-
-      # end
       ActiveRecord::Base.transaction do
         @record = adapter_layer.with(supply_persisted: true) do |adapter|
-          adapter.supply_record(order.kind, musicbrainz_code: order.code, persistent: true)
+          adapter.supply_record(order.kind, musicbrainz_code: order.code)
         end
       end
 
