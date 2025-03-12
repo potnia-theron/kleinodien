@@ -2,7 +2,7 @@ module Import
   class DelegatedBaseToDelegatedBaseAssigner
     include Callable
 
-    def initialize(adapter_layer, association, facade, entity)
+    def initialize(adapter_layer, association, entity, facade)
       @adapter_layer = adapter_layer
       @association = association
       @entity = entity

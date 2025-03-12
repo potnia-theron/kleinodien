@@ -26,7 +26,7 @@ module Import
       return unless reflections.respond_to? :delegated_base_associations
 
       reflections.delegated_base_associations.each do |association|
-        adapter_layer.assign_delegate_base_to_delegated_base(association, facade, entity)
+        adapter_layer.assign_delegate_base_to_delegated_base(association, entity, facade)
       end
     end
 
