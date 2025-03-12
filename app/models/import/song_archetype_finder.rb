@@ -3,7 +3,7 @@ module Import
     include Callable
     include Concerns::CodeFindable
 
-    def initialize(order, facade:)
+    def initialize(order, facade)
       @order = order
       @facade = facade
     end
