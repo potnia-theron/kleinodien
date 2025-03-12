@@ -2,7 +2,7 @@ module Import::Concerns
   module EntityBuildable
     extend ActiveSupport::Concern
 
-    def build_has_many_records
+    def assign_has_many_entities
       reflections.has_many_associations.map do |association|
         build_has_many_associations(association, facade, record)
       end

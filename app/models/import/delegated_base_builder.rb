@@ -12,7 +12,7 @@ module Import
     def call
       assign_foreign_attributes
       assign_foreign_bases
-      build_has_many_records
+      assign_has_many_entities
 
       record
     end
