@@ -11,6 +11,7 @@ class Import::ImportAnArtistCreditFromMusicbrainzTest < ActiveSupport::TestCase
     user = users(:sam)
 
     import_order = MusicbrainzImportOrder.create!(code: code, kind: :artist_credit, user: user)
+    import_order.buffering!
 
     artist_credit = Import.ignite(import_order)
 

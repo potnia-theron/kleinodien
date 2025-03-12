@@ -20,7 +20,7 @@ class ArtistCreditsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create artist_credit" do
     assert_difference("ArtistCredit.count") do
-      post artist_credits_url, params: {artist_credit: {name: @artist_credit.name}}
+      post artist_credits_url, params: {artist_credit: {name: "Rock star"}}
     end
 
     assert_redirected_to artist_credit_url(ArtistCredit.last)
@@ -39,7 +39,7 @@ class ArtistCreditsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update artist_credit" do
-    patch artist_credit_url(@artist_credit), params: {artist_credit: {name: @artist_credit.name}}
+    patch artist_credit_url(@artist_credit), params: {artist_credit: {name: "Rock Star"}}
 
     assert_redirected_to artist_credit_url(@artist_credit)
   end
