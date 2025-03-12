@@ -3,7 +3,7 @@ class ArtistCredit < ApplicationRecord
 
   before_validation :ensure_name_has_a_value
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
   private
 

@@ -22,4 +22,13 @@ class ArtistCreditTest < ActiveSupport::TestCase
     assert_predicate artist_credit, :valid?
     assert_equal "first feat. second third", artist_credit.name
   end
+
+  test "name must be unique" do
+    template_artist_credit = artist_credits(:one)
+
+    artist_credit = ArtistCredit.new(name: template_artist_credit.name)
+    assert_not_predicate artist_credit, :valid?
+    assert_equal 1, artist_credit.errors.count
+    assert_equal ["has already been taken"], artist_credit.errors[:name]
+  end
 end
