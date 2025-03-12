@@ -6,7 +6,7 @@ module Import
 
     attr_reader :order
 
-    def start
+    def call
       find || create
     end
 
