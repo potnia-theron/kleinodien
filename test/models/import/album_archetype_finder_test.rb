@@ -11,7 +11,7 @@ class Import::AlbumArchetypeFinderTest < ActiveSupport::TestCase
     @facade.expect :cheap_codes, {discogs_code: 333}
     @facade.expect :all_codes, {discogs_code: 333, musicbrainz_code: "5ec4b261-1afe-4588-9ff7-90b1b32c9dec"}
 
-    assert_nil Import::AlbumArchetypeFinder.call(@order, facade: @facade)
+    assert_nil Import::AlbumArchetypeFinder.call(@order, @facade)
 
     @facade.verify
     @order.verify
@@ -22,11 +22,11 @@ class Import::AlbumArchetypeFinderTest < ActiveSupport::TestCase
     album_archetype = album_archetypes(:one)
     album_archetype.update!(musicbrainz_code: musicbrainz_code)
 
-    # finder = Import::AlbumArchetypeFinder.new(@order, facade: @facade)
+    # finder = Import::AlbumArchetypeFinder.new(@order, facade)
 
     @facade.expect :cheap_codes, {musicbrainz_code: musicbrainz_code}
 
-    assert_equal album_archetype, Import::AlbumArchetypeFinder.call(@order, facade: @facade)
+    assert_equal album_archetype, Import::AlbumArchetypeFinder.call(@order, @facade)
 
     @facade.verify
     @order.verify
@@ -37,12 +37,12 @@ class Import::AlbumArchetypeFinderTest < ActiveSupport::TestCase
     album_archetype = album_archetypes(:one)
     album_archetype.update!(musicbrainz_code: musicbrainz_code)
 
-    # finder = Import::AlbumArchetypeFinder.new(@order, facade: @facade)
+    # finder = Import::AlbumArchetypeFinder.new(@order, facade)
 
     @facade.expect :cheap_codes, {discogs_code: 333}
     @facade.expect :all_codes, {musicbrainz_code: musicbrainz_code}
 
-    assert_equal album_archetype, Import::AlbumArchetypeFinder.call(@order, facade: @facade)
+    assert_equal album_archetype, Import::AlbumArchetypeFinder.call(@order, @facade)
 
     @facade.verify
     @order.verify

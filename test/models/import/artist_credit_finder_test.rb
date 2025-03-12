@@ -10,7 +10,7 @@ class Import::MusicbrainzArtistCreditFinderTest < ActiveSupport::TestCase
   test "ArtistCredit does not exist" do
     @facade.expect :name, "Lee Aaron"
 
-    assert_nil Import::ArtistCreditFinder.call(@order, facade: @facade)
+    assert_nil Import::ArtistCreditFinder.call(@order, @facade)
 
     @facade.verify
   end
@@ -20,7 +20,7 @@ class Import::MusicbrainzArtistCreditFinderTest < ActiveSupport::TestCase
 
     @facade.expect :name, "Lee Aaron"
 
-    assert_equal lee_aaron, Import::ArtistCreditFinder.call(@order, facade: @facade)
+    assert_equal lee_aaron, Import::ArtistCreditFinder.call(@order, @facade)
 
     @facade.verify
   end

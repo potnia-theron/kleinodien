@@ -1,4 +1,4 @@
-module SharedPeriodeableTests
+module SharedPeriodableTests
   def valid_accuracies
     %i[year month day]
   end

@@ -10,7 +10,7 @@ class Import::ParticipantFinderTest < ActiveSupport::TestCase
     @facade.expect :cheap_codes, {}
     @facade.expect :all_codes, {}
 
-    assert_nil Import::ParticipantFinder.call(@order, facade: @facade)
+    assert_nil Import::ParticipantFinder.call(@order, @facade)
 
     @order.verify
     @facade.verify
@@ -21,7 +21,7 @@ class Import::ParticipantFinderTest < ActiveSupport::TestCase
 
     @facade.expect :cheap_codes, {discogs_code: 123}
 
-    assert_equal existing_participant, Import::ParticipantFinder.call(@order, facade: @facade)
+    assert_equal existing_participant, Import::ParticipantFinder.call(@order, @facade)
 
     @order.verify
     @facade.verify
@@ -33,7 +33,7 @@ class Import::ParticipantFinderTest < ActiveSupport::TestCase
     @facade.expect :cheap_codes, {}
     @facade.expect :all_codes, {tmdb_code: 321}
 
-    assert_equal existing_participant, Import::ParticipantFinder.call(@order, facade: @facade)
+    assert_equal existing_participant, Import::ParticipantFinder.call(@order, @facade)
 
     @order.verify
     @facade.verify
