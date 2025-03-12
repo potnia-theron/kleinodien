@@ -28,12 +28,12 @@ module Import
 
     def find_record(...) = Import::RecordFinder.call(self, ...)
 
-    # def supply_record(...) = Import::RecordSupplier.call(self, ...)
-    def supply_record(kind, options)
-      entity = find_record(kind, options)
-      return entity if entity
+    def find_or_build_record(...) = find_record(...) || build_record(...)
 
-      entity = build_record(kind, options)
+    def supply_record(kind, options)
+      entity = find_or_build_record(kind, options)
+
+      return entity unless entity.new_record?
       entity.save! if supply_persisted?
 
       entity
