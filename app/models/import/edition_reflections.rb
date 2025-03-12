@@ -7,8 +7,8 @@ module Import
 
       def delegated_type_reader = :editionable_type
 
-      def delegated_class_for(record)
-        record.send(delegated_type_reader).sub("Edition", "Archetype")
+      def delegated_class_for(entity)
+        entity.send(delegated_type_reader).sub("Edition", "Archetype")
       end
     end
 
@@ -21,11 +21,6 @@ module Import
         .reject { |association| association.name == :editionable }
         .reject { |association| association.name == :archetype }
     end
-
-    # def after_has_many_associations(associations)
-    #   associations
-    #     .reject { |association| association.name == :sections }
-    # end
 
     def delegated_base_associations
       association = Edition

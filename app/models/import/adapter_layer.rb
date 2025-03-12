@@ -18,7 +18,7 @@ module Import
 
     def build_has_many_associations(...) = Import::HasManyBuilder.call(self, ...)
 
-    def build_record(...) = Import::EntityBuilder.call(self, ...)
+    def build_entity(...) = Import::EntityBuilder.call(self, ...)
 
     def build_reflections_for(kind)
       "Import::#{kind.to_s.underscore.classify}Reflections".constantize.new
@@ -26,12 +26,12 @@ module Import
 
     def facade_layer = @facade_layer ||= Import::FacadeLayer.new(order)
 
-    def find_record(...) = Import::EntityFinder.call(self, ...)
+    def find_entity(...) = Import::EntityFinder.call(self, ...)
 
-    def find_or_build_record(...) = find_record(...) || build_record(...)
+    def find_or_build_entity(...) = find_entity(...) || build_entity(...)
 
-    def supply_record(kind, options)
-      entity = find_or_build_record(kind, options)
+    def supply_entity(kind, options)
+      entity = find_or_build_entity(kind, options)
 
       return entity unless entity.new_record?
       entity.save! if supply_persisted?

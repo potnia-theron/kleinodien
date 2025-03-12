@@ -14,7 +14,8 @@ module Import
       assign_foreign_attributes
       assign_foreign_bases
       assign_delegated_base
-      record
+
+      entity
     end
 
     private
@@ -29,15 +30,15 @@ module Import
       delegated_base = build_delegated_base(facade, delegated_base_class.name)
       writer_name = reflections.delegated_of_association_writer
 
-      record.send(writer_name, delegated_base)
+      entity.send(writer_name, delegated_base)
     end
 
     def facade
       @facade ||= facade_layer.build_facade(reflections, options)
     end
 
-    def record
-      @record ||= reflections.base_class.new(inherent_attributes)
+    def entity
+      @entity ||= reflections.base_class.new(inherent_attributes)
     end
 
     def reflections

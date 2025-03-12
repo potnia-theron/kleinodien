@@ -10,8 +10,8 @@ module Import
 
     # TODO: wouldn't the last line do the whole job?
     def call
-      existing_record = find_record(kind, options)
-      return existing_record if existing_record
+      existing_entity = find_record(kind, options)
+      return existing_entity if existing_entity
 
       Import::RecordBuilder.new(adapter_layer, kind, options).call
 
