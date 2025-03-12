@@ -2,7 +2,7 @@ require "test_helper"
 require "shared_periodeable_tests"
 
 class ParticipantTest < ActiveSupport::TestCase
-  include SharedPeriodeableTests
+  include SharedPeriodableTests
 
   setup do
     @subject = Participant.new(name: "Rock star")

@@ -1,4 +1,4 @@
-module Periodeable
+module Periodable
   extend ActiveSupport::Concern
   include DateAccuracy
 
