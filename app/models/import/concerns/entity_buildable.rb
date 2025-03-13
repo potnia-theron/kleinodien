@@ -1,24 +1,22 @@
 module Import::Concerns
-  module RecordBuildable
+  module EntityBuildable
     extend ActiveSupport::Concern
 
-    def build_has_many_records
+    def assign_has_many_entities
       reflections.has_many_associations.map do |association|
-        build_has_many_associations(association, facade, record)
+        build_has_many_associations(association, entity, facade)
       end
     end
 
     def assign_foreign_attributes
       reflections.belong_to_associations.each do |association|
-        adapter_layer.assign_foreign_attribute(association, facade, record)
+        adapter_layer.assign_foreign_attribute(association, entity, facade)
       end
     end
 
     def assign_foreign_bases
-      return unless reflections.respond_to? :foreign_base_associations
-
       reflections.foreign_base_associations.each do |association|
-        adapter_layer.assign_foreign_base(association, facade, record)
+        adapter_layer.assign_foreign_base(association, entity, facade)
       end
     end
 

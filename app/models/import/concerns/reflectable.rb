@@ -23,9 +23,9 @@ module Import::Concerns
       @delegated_base_class ||= delegated_of_association&.inverse_of&.active_record
     end
 
-    # def base_class?
-    #   true if base_class
-    # end
+    def delegated_base_associations = []
+
+    def foreign_base_associations = []
 
     def inherent_attribute_names
       names = attribute_names

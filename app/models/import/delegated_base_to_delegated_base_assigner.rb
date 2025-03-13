@@ -2,20 +2,20 @@ module Import
   class DelegatedBaseToDelegatedBaseAssigner
     include Callable
 
-    def initialize(adapter_layer, association, facade, record)
+    def initialize(adapter_layer, association, entity, facade)
       @adapter_layer = adapter_layer
       @association = association
+      @entity = entity
       @facade = facade
-      @record = record
     end
 
     def call
-      record.send(association_writer, foreign_base)
+      entity.send(association_writer, foreign_base)
     end
 
     private
 
-    attr_reader :adapter_layer, :association, :facade, :record
+    attr_reader :adapter_layer, :association, :entity, :facade
     delegate :name, to: :association, prefix: true
     delegate :delegated_base_reader, to: :association
 
@@ -32,11 +32,11 @@ module Import
     end
 
     def delegated_type
-      adapter_layer.supply_record(delegated_type_class, foreign_attributes)
+      adapter_layer.supply_entity(delegated_type_class, foreign_attributes)
     end
 
     def delegated_type_class
-      association.delegated_class_for(record)
+      association.delegated_class_for(entity)
     end
   end
 end

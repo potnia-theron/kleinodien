@@ -10,29 +10,19 @@ module Import
     attr_reader :facade_layer, :options
     delegate_missing_to :facade_layer
 
-    def data
-      options
-    end
+    alias_method :data, :options
 
     def scraper_builder
       @@scraper_builder ||= Import::ScraperArchitect.build do
         define :alphanumeric, :number
         define :no, :position
-        define :edition, callback: ->(facade) { facade.edition }
       end
     end
 
-    def edition
-      options[:recording]
-    end
+    def delegated_type_for(_)
+      return "SongEdition" unless data[:recording][:video]
 
-    def delegated_type_for(association)
-      # TODO: really check for the required type
-      "SongEdition"
-    end
-
-    def edition_delegate_type
-      "SongEdition"
+      raise "can't determinate delegated_type for data"
     end
   end
 end

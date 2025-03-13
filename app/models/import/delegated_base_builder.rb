@@ -1,7 +1,7 @@
 module Import
-  class DelegatedBaseBuilder # < Import::RecordBuilder
+  class DelegatedBaseBuilder
     include Callable
-    include Import::Concerns::RecordBuildable
+    include Import::Concerns::EntityBuildable
 
     def initialize(adapter_layer, facade, kind)
       @adapter_layer = adapter_layer
@@ -12,9 +12,9 @@ module Import
     def call
       assign_foreign_attributes
       assign_foreign_bases
-      build_has_many_records
+      assign_has_many_entities
 
-      record
+      entity
     end
 
     private
@@ -23,15 +23,13 @@ module Import
     delegate_missing_to :adapter_layer
 
     def assign_foreign_bases
-      return unless reflections.respond_to? :delegated_base_associations
-
       reflections.delegated_base_associations.each do |association|
-        adapter_layer.assign_delegate_base_to_delegated_base(association, facade, record)
+        adapter_layer.assign_delegate_base_to_delegated_base(association, entity, facade)
       end
     end
 
-    def record
-      @record ||= reflections.base_class.new(inherent_attributes)
+    def entity
+      @entity ||= reflections.base_class.new(inherent_attributes)
     end
 
     def reflections

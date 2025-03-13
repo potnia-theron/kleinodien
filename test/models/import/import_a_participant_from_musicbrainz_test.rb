@@ -13,7 +13,7 @@ class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
     import_order = MusicbrainzImportOrder.create!(code: code, kind: "participant", user: user)
     import_order.buffering!
 
-    participant = Import.ignite(import_order)
+    participant ||= Import.ignite(import_order)
 
     assert_equal "NoMeansNo", participant.name
     # TODO: reactivate tests on ???_date

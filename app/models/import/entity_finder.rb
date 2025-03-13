@@ -1,5 +1,5 @@
 module Import
-  class RecordFinder
+  class EntityFinder
     include Callable
 
     def initialize(adapter_layer, kind, options)
