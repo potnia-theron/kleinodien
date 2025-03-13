@@ -28,13 +28,15 @@ module Import
         define :imdb_code, callback: ->(facade) { facade.relations.dig(:imdb, :name) }
         define :wikidata_code, callback: ->(facade) { facade.relations.dig(:wikidata, :wiki) }
         define :tmdb_code, always: nil
-        define :musicbrainz_code, callback: ->(facade) { facade.data[:id] }
+        define :musicbrainz_code, callback: ->(facade) { facade.musicbrainz_code }
       end
     end
 
     def all_codes = {}
 
-    def cheap_codes = {musicbrainz_code: scrape(:musicbrainz_code)}
+    def cheap_codes = {musicbrainz_code: musicbrainz_code}
+
+    def musicbrainz_code = options[:musicbrainz_code] # || options[:id]
 
     def relations
       @relations ||= Import::MusicbrainzRelationsCode.new(data[:relations]).extract

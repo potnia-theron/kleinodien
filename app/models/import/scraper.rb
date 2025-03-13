@@ -15,7 +15,7 @@ module Import
     end
 
     def scrape_many(*attrs)
-      attrs.flatten.index_with { |attr| scrape(attr) }
+      attrs.flatten.index_with { |attr| scrape(attr) }.with_indifferent_access
     end
   end
 end
