@@ -26,5 +26,9 @@ module Import
         # define :wikidata_code, callback: ->(facade) { facade.relations.dig(:wikidata, :wiki) }
       end
     end
+
+    def all_codes = {}
+
+    def cheap_codes = {}
   end
 end

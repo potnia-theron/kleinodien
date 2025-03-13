@@ -1,12 +1,21 @@
 module Import
   class AlbumEditionFinder
     include Callable
+    include Concerns::CodeFindable
 
-    def initialize(...)
+    def initialize(order, facade)
+      @order = order
+      @facade = facade
     end
 
     def call
-      # TODO: implement #find
+      find_by_cheap_codes || find_by_codes
     end
+
+    private
+
+    attr_reader :order, :facade
+
+    def model_class = AlbumEdition
   end
 end
