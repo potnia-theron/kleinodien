@@ -24,10 +24,6 @@ module Import
       options
     end
 
-    def join_phrase
-      options[:joinphrase]
-    end
-
     def musicbrainz_code
       options[:artist][:id]
     end
