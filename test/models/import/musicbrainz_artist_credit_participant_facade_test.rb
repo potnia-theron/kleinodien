@@ -4,7 +4,7 @@ require "support/retrieve"
 require "support/retrieve/musicbrainz"
 
 class Import::MusicbrainzArtistCreditParticipantFacadeTest < ActiveSupport::TestCase
-  test "foo" do
+  test "scrape values" do
     participant_code = "42cb140a-510d-4f8a-8246-94c2eb05df0a"
 
     options = {
