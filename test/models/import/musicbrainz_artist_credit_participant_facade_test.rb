@@ -1,7 +1,4 @@
 require "test_helper"
-# require "minitest/mock"
-require "support/retrieve"
-require "support/retrieve/musicbrainz"
 
 class Import::MusicbrainzArtistCreditParticipantFacadeTest < ActiveSupport::TestCase
   test "scrape values" do
@@ -13,7 +10,7 @@ class Import::MusicbrainzArtistCreditParticipantFacadeTest < ActiveSupport::Test
       position: 0
     }
 
-    facade = Import::MusicbrainzArtistCreditParticipantFacade.new(:foo, options)
+    facade = Import::MusicbrainzArtistCreditParticipantFacade.new(:fake, options)
 
     assert_equal " feat. ", facade.scrape(:join_phrase)
     assert_equal({musicbrainz_code: participant_code}, facade.scrape(:participant))
