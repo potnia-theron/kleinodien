@@ -10,15 +10,12 @@ module Import
     attr_reader :facade_layer, :options
     delegate_missing_to :facade_layer
 
-    def data
-      options
-    end
+    alias_method :data, :options
 
     def scraper_builder
       @@scraper_builder ||= Import::ScraperArchitect.build do
         define :alphanumeric, :number
         define :no, :position
-        define :edition, callback: ->(facade) { facade.edition }
       end
     end
 
