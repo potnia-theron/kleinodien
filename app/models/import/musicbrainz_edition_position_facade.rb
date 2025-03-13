@@ -19,9 +19,10 @@ module Import
       end
     end
 
-    def delegated_type_for(association)
-      # TODO: really check for the required type
-      "SongEdition"
+    def delegated_type_for(_)
+      return "SongEdition" unless data[:recording][:video]
+
+      raise "can't determinate delegated_type for data"
     end
   end
 end
