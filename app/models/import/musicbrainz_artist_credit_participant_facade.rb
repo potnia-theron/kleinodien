@@ -5,8 +5,6 @@ module Import
     def initialize(facade_layer, options)
       @facade_layer = facade_layer
       @options = options
-
-      # debugger
     end
 
     attr_reader :facade_layer, :options
