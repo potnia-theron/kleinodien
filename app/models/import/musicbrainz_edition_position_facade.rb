@@ -22,16 +22,8 @@ module Import
       end
     end
 
-    def edition
-      options[:recording]
-    end
-
     def delegated_type_for(association)
       # TODO: really check for the required type
-      "SongEdition"
-    end
-
-    def edition_delegate_type
       "SongEdition"
     end
   end
