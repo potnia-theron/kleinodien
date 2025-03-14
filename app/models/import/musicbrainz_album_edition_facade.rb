@@ -19,16 +19,18 @@ module Import
         define :archetype, :release_group
         define :editionable_type, always: "AlbumEdition"
         define :sections, callback: ->(facade) { facade.data[:media] }
-        define :discogs_code, always: nil
+        define :discogs_code, callback: ->(facade) { facade.relations.dig(:discogs, :release) }
         define :musicbrainz_code, callback: ->(facade) { facade.options[:code] }
-        define :wikidata_code, always: nil
-        # TODO: scrape wikidata_code from relations
-        # define :wikidata_code, callback: ->(facade) { facade.relations.dig(:wikidata, :wiki) }
+        define :wikidata_code, callback: ->(facade) { facade.relations.dig(:wikidata, :wiki) }
       end
     end
 
     def all_codes = {}
 
     def cheap_codes = {}
+
+    def relations
+      @relations ||= Import::MusicbrainzRelationsCode.new(data[:relations]).extract
+    end
   end
 end
