@@ -26,8 +26,16 @@ module Import
     end
 
     def reflections
-      # TODO: fix law of demeter violation
-      @reflections ||= "Import::#{kind.to_s.underscore.classify}Reflections".constantize.new
+      @reflections ||= reflections_class.new
+    end
+
+    def reflections_class
+      kind
+        .to_s
+        .underscore
+        .classify
+        .then { "Import::#{it}Reflections" }
+        .constantize
     end
   end
 end
