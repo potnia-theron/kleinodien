@@ -10,9 +10,7 @@ module Import
     attr_reader :facade_layer, :options
     delegate_missing_to :facade_layer
 
-    def data
-      @data ||= _data
-    end
+    alias_method :data, :options
 
     def scraper_builder
       @@scraper_builder ||= Import::ScraperArchitect.build do
@@ -32,17 +30,6 @@ module Import
 
     def participants
       data.map.each_with_index { |ac_participant, idx| ac_participant.merge({position: idx}) }
-    end
-
-    private
-
-    def _data
-      if options.is_a? Array
-        options
-      else
-        # TODO: this will fail on an ArtistCredit of a :recording
-        request_layer.get(:release, options[:musicbrainz_code])[:artist_credit]
-      end
     end
   end
 end
