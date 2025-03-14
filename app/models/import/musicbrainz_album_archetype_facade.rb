@@ -20,11 +20,20 @@ module Import
       @@scraper_builder ||= Import::ScraperArchitect.build do
         define :title
         define :artist_credit
+        # define :artist_credit, callback: ->(facade) { facade.artist_credit }
         define :archetypeable_type, always: "AlbumArchetype"
         define :discogs_code, always: nil
         define :wikidata_code, always: nil
         define :musicbrainz_code, callback: ->(facade) { facade.options[:code] }
       end
+    end
+
+    def artist_credit
+      # data[:artist_credit].merge(kleinodien: {artist_credit_of: :album})
+      {
+        artist_credit: data[:artist_credit],
+        kleinodien: {artist_credit_of: :album_archetype}
+      }
     end
 
     def all_codes = {}

@@ -25,7 +25,6 @@ module Import
     def delegated_type = @delegated_type ||= facade.delegated_type_for(association)
 
     def foreign_base
-      # TODO: use #supply_entity instead of #build_entity ?
       build_entity(delegated_type, facade.data)
         .send(association_name)
     end
