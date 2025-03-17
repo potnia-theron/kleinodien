@@ -1,6 +1,6 @@
 require "test_helper"
 require "support/shared_centralable_tests"
-require "shared_periodeable_tests"
+require "support/shared_periodable_tests"
 
 class ParticipantTest < ActiveSupport::TestCase
   include SharedCentralableTests
