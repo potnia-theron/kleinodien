@@ -1,7 +1,9 @@
 require "test_helper"
+require "support/shared_centralable_tests"
 require "shared_periodeable_tests"
 
 class ParticipantTest < ActiveSupport::TestCase
+  include SharedCentralableTests
   include SharedPeriodableTests
 
   setup do
@@ -39,10 +41,5 @@ class ParticipantTest < ActiveSupport::TestCase
 
     assert_not_predicate participant, :valid?
     assert_raises(ActiveRecord::RecordInvalid) { participant.save!(name: "Rock star") }
-  end
-
-  test "central" do
-    @subject.save!
-    assert_not_predicate @subject.central, :new_record?
   end
 end
