@@ -1,0 +1,2 @@
+class LinkKind < ApplicationRecord
+end

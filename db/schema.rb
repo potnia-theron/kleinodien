@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_17_184111) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_18_183525) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -111,6 +111,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_184111) do
     t.datetime "updated_at", null: false
     t.index ["import_order_id"], name: "index_import_orders_on_import_order_id"
     t.index ["user_id"], name: "index_import_orders_on_user_id"
+  end
+
+  create_table "link_kinds", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "link_phrase"
+    t.string "reverse_link_phrase"
+    t.string "long_link_phrase"
+    t.uuid "musicbrainz_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -1,0 +1,11 @@
+<% content_for :title, "New link kind" %>
+
+<h1>New link kind</h1>
+
+<%= render "form", link_kind: @link_kind %>
+
+<br>
+
+<div>
+  <%= link_to "Back to link kinds", link_kinds_path %>
+</div>

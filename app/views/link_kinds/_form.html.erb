@@ -1,0 +1,47 @@
+<%= form_with(model: link_kind) do |form| %>
+  <% if link_kind.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(link_kind.errors.count, "error") %> prohibited this link_kind from being saved:</h2>
+
+      <ul>
+        <% link_kind.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div>
+    <%= form.label :link_phrase, style: "display: block" %>
+    <%= form.text_field :link_phrase %>
+  </div>
+
+  <div>
+    <%= form.label :reverse_link_phrase, style: "display: block" %>
+    <%= form.text_field :reverse_link_phrase %>
+  </div>
+
+  <div>
+    <%= form.label :long_link_phrase, style: "display: block" %>
+    <%= form.text_field :long_link_phrase %>
+  </div>
+
+  <div>
+    <%= form.label :musicbrainz_code, style: "display: block" %>
+    <%= form.text_field :musicbrainz_code %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
