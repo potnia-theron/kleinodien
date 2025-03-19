@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_18_183525) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_18_185121) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -124,6 +124,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_18_183525) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "links", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.date "begin_data"
+    t.integer "begin_date_accuracy", limit: 2
+    t.date "end_date"
+    t.integer "end_date_accuracy", limit: 2
+    t.uuid "source_id", null: false
+    t.uuid "destination_id", null: false
+    t.uuid "link_kind_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["destination_id"], name: "index_links_on_destination_id"
+    t.index ["link_kind_id"], name: "index_links_on_link_kind_id"
+    t.index ["source_id"], name: "index_links_on_source_id"
+  end
+
   create_table "participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "name", null: false
     t.text "sort_name", null: false
@@ -191,6 +206,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_18_183525) do
   add_foreign_key "email_verification_tokens", "users"
   add_foreign_key "import_orders", "import_orders"
   add_foreign_key "import_orders", "users"
+  add_foreign_key "links", "centrals", column: "destination_id", primary_key: "centralable_id"
+  add_foreign_key "links", "centrals", column: "source_id", primary_key: "centralable_id"
+  add_foreign_key "links", "link_kinds"
   add_foreign_key "participants", "import_orders", on_delete: :nullify
   add_foreign_key "password_reset_tokens", "users"
   add_foreign_key "sessions", "users"

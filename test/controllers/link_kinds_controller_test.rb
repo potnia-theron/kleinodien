@@ -40,8 +40,9 @@ class LinkKindsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy link_kind" do
+    destroyable_kind = link_kinds(:destroyable)
     assert_difference("LinkKind.count", -1) do
-      delete link_kind_url(@link_kind)
+      delete link_kind_url(destroyable_kind)
     end
 
     assert_redirected_to link_kinds_url
