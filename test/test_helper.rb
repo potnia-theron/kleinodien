@@ -29,14 +29,3 @@ class ActiveSupport::TestCase
     user
   end
 end
-
-module FixtureHelper
-  MAX_ID = 2**30 - 1
-
-  def centralable_identify(label)
-    identifier = Zlib.crc32(label.to_s) % MAX_ID
-    {centralable_id: identifier}.with_indifferent_access
-  end
-end
-
-ActiveRecord::FixtureSet.context_class.include FixtureHelper
