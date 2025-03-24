@@ -17,12 +17,10 @@ class Import::AlbumArchetypeFinderTest < ActiveSupport::TestCase
     @order.verify
   end
 
-  test "#find by cheap_codes returns if AlbumArchetype does exist" do
+  test "#find_by_cheap_codes returns the AlbumArchetype if it exists" do
     musicbrainz_code = "18c8ecb4-c9fd-4b14-9b2e-249ea3e8c821"
     album_archetype = album_archetypes(:one)
     album_archetype.update!(musicbrainz_code: musicbrainz_code)
-
-    # finder = Import::AlbumArchetypeFinder.new(@order, facade)
 
     @facade.expect :cheap_codes, {musicbrainz_code: musicbrainz_code}
 
@@ -32,12 +30,10 @@ class Import::AlbumArchetypeFinderTest < ActiveSupport::TestCase
     @order.verify
   end
 
-  test "#find by all_codes returns if AlbumArchetype does exist" do
+  test "#find_by_all_codes returns the AlbumArchetype it exists" do
     musicbrainz_code = "18c8ecb4-c9fd-4b14-9b2e-249ea3e8c821"
     album_archetype = album_archetypes(:one)
     album_archetype.update!(musicbrainz_code: musicbrainz_code)
-
-    # finder = Import::AlbumArchetypeFinder.new(@order, facade)
 
     @facade.expect :cheap_codes, {discogs_code: 333}
     @facade.expect :all_codes, {musicbrainz_code: musicbrainz_code}
