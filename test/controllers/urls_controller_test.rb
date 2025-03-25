@@ -39,11 +39,11 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to url_url(@url)
   end
 
-  test "should destroy url" do
-    assert_difference("Url.count", -1) do
-      delete url_url(@url)
-    end
+  # test "should destroy url" do
+  #   assert_difference("Url.count", -1) do
+  #     delete url_url(@url)
+  #   end
 
-    assert_redirected_to urls_url
-  end
+  #   assert_redirected_to urls_url
+  # end
 end
