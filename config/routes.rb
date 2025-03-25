@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :urls
   resources :links
   resources :link_kinds
   resources :edition_positions
