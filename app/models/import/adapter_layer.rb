@@ -14,6 +14,8 @@ module Import
 
     def assign_delegate_base_to_delegated_base(...) = DelegatedBaseToDelegatedBaseAssigner.call(self, ...)
 
+    def assign_links(...) = LinkAssigner.call(self, ...)
+
     def build_delegated_base(...) = Import::DelegatedBaseBuilder.call(self, ...)
 
     def build_has_many_associations(...) = Import::HasManyBuilder.call(self, ...)

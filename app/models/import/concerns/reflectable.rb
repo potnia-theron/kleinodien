@@ -51,11 +51,17 @@ module Import::Concerns
     def after_belongs_to_associations(associations) = associations
 
     def has_many_associations
-      associations = reflect_on_all_associations(:has_many).reject { it.name == :links }
+      associations = reflect_on_all_associations(:has_many)
+        .reject { it.name == :links }
+        .reject { it.name == :backlinks }
 
       after_has_many_associations(associations)
     end
 
     def after_has_many_associations(associations) = associations
+
+    def linkable?
+      reflect_on_all_associations(:has_many).any? { |association| association.name == :links }
+    end
   end
 end

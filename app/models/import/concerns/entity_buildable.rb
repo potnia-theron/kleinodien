@@ -20,6 +20,10 @@ module Import::Concerns
       end
     end
 
+    def assign_links
+      adapter_layer.assign_links(entity, facade, reflections)
+    end
+
     def inherent_attributes
       names = reflections.inherent_attribute_names
       facade.scrape_many(names)
