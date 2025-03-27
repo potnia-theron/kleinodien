@@ -18,7 +18,7 @@ class LinkKindsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create link_kind" do
     assert_difference("LinkKind.count") do
-      post link_kinds_url, params: {link_kind: {description: @link_kind.description, link_phrase: @link_kind.link_phrase, long_link_phrase: @link_kind.long_link_phrase, musicbrainz_code: @link_kind.musicbrainz_code, name: @link_kind.name, reverse_link_phrase: @link_kind.reverse_link_phrase}}
+      post link_kinds_url, params: {link_kind: {description: @link_kind.description, link_phrase: @link_kind.link_phrase, long_link_phrase: @link_kind.long_link_phrase, musicbrainz_code: @link_kind.musicbrainz_code, name: "yet another link kind", reverse_link_phrase: @link_kind.reverse_link_phrase}}
     end
 
     assert_redirected_to link_kind_url(LinkKind.last)
@@ -35,7 +35,7 @@ class LinkKindsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update link_kind" do
-    patch link_kind_url(@link_kind), params: {link_kind: {description: @link_kind.description, link_phrase: @link_kind.link_phrase, long_link_phrase: @link_kind.long_link_phrase, musicbrainz_code: @link_kind.musicbrainz_code, name: @link_kind.name, reverse_link_phrase: @link_kind.reverse_link_phrase}}
+    patch link_kind_url(@link_kind), params: {link_kind: {description: @link_kind.description, link_phrase: @link_kind.link_phrase, long_link_phrase: @link_kind.long_link_phrase, musicbrainz_code: @link_kind.musicbrainz_code, name: "my new name", reverse_link_phrase: @link_kind.reverse_link_phrase}}
     assert_redirected_to link_kind_url(@link_kind)
   end
 
