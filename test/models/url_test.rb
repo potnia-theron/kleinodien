@@ -10,8 +10,17 @@ class UrlTest < ActiveSupport::TestCase
     @subject = Url.new(address: "https://example.com")
   end
 
-  test "#address must be set" do
+  test "#address can't be nil" do
     @subject.address = nil
     assert @subject.invalid?
+    assert_equal 1, @subject.errors.count
+    assert_equal :blank, @subject.errors.first.type
+  end
+
+  test "#address must be unique" do
+    @subject.address = urls(:one).address
+    assert @subject.invalid?
+    assert_equal 1, @subject.errors.count
+    assert_equal :taken, @subject.errors.first.type
   end
 end
