@@ -2,9 +2,7 @@ module Import::Concerns
   module Reflectable
     extend ActiveSupport::Concern
 
-    # def has_one_associations = reflect_on_all_associations(:has_one)
     def has_one_associations
-      # TODO: how to handle "central" in imports
       reflect_on_all_associations(:has_one).reject { it.name == :central }
     end
 
