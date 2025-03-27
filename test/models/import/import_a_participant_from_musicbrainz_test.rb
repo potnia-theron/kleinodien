@@ -24,5 +24,7 @@ class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
     assert_equal code, participant.musicbrainz_code
     assert_equal 1430380, participant.wikidata_code
     assert_not participant.new_record?
+    # TODO: add more specific tests on Participant#links
+    assert_not_empty participant.links
   end
 end

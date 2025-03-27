@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  link_phrase: MyString
+  reverse_link_phrase: MyString
+  long_link_phrase: MyString
+  musicbrainz_code: 
+
+two:
+  name: MyString
+  description: MyString
+  link_phrase: MyString
+  reverse_link_phrase: MyString
+  long_link_phrase: MyString
+  musicbrainz_code: 
+
+destroyable:
+  name: obsolete
+  description: to te removed
+  link_phrase: MyString
+  reverse_link_phrase: MyString
+  long_link_phrase: MyString
+  musicbrainz_code: 

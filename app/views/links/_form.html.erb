@@ -1,0 +1,52 @@
+<%= form_with(model: link) do |form| %>
+  <% if link.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(link.errors.count, "error") %> prohibited this link from being saved:</h2>
+
+      <ul>
+        <% link.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :begin_data, style: "display: block" %>
+    <%= form.date_field :begin_data %>
+  </div>
+
+  <div>
+    <%= form.label :begin_date_accuracy, style: "display: block" %>
+    <%= form.number_field :begin_date_accuracy %>
+  </div>
+
+  <div>
+    <%= form.label :end_date, style: "display: block" %>
+    <%= form.date_field :end_date %>
+  </div>
+
+  <div>
+    <%= form.label :end_date_accuracy, style: "display: block" %>
+    <%= form.number_field :end_date_accuracy %>
+  </div>
+
+  <div>
+    <%= form.label :source_id, style: "display: block" %>
+    <%= form.text_field :source_id %>
+  </div>
+
+  <div>
+    <%= form.label :destination_id, style: "display: block" %>
+    <%= form.text_field :destination_id %>
+  </div>
+
+  <div>
+    <%= form.label :link_kind_id, style: "display: block" %>
+    <%= form.text_field :link_kind_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_06_102714) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_25_185345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -53,6 +53,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_102714) do
 
   create_table "artist_credits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "centrals", primary_key: "centralable_id", id: :uuid, default: nil, force: :cascade do |t|
+    t.string "centralable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -107,6 +113,32 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_102714) do
     t.index ["user_id"], name: "index_import_orders_on_user_id"
   end
 
+  create_table "link_kinds", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "link_phrase"
+    t.string "reverse_link_phrase"
+    t.string "long_link_phrase"
+    t.uuid "musicbrainz_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "links", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.date "begin_data"
+    t.integer "begin_date_accuracy", limit: 2
+    t.date "end_date"
+    t.integer "end_date_accuracy", limit: 2
+    t.uuid "source_id", null: false
+    t.uuid "destination_id", null: false
+    t.uuid "link_kind_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["destination_id"], name: "index_links_on_destination_id"
+    t.index ["link_kind_id"], name: "index_links_on_link_kind_id"
+    t.index ["source_id"], name: "index_links_on_source_id"
+  end
+
   create_table "participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "name", null: false
     t.text "sort_name", null: false
@@ -155,6 +187,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_102714) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "urls", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "address", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -174,6 +212,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_102714) do
   add_foreign_key "email_verification_tokens", "users"
   add_foreign_key "import_orders", "import_orders"
   add_foreign_key "import_orders", "users"
+  add_foreign_key "links", "centrals", column: "destination_id", primary_key: "centralable_id"
+  add_foreign_key "links", "centrals", column: "source_id", primary_key: "centralable_id"
+  add_foreign_key "links", "link_kinds"
   add_foreign_key "participants", "import_orders", on_delete: :nullify
   add_foreign_key "password_reset_tokens", "users"
   add_foreign_key "sessions", "users"

@@ -14,6 +14,7 @@ module Import
       assign_foreign_attributes
       assign_foreign_bases
       assign_delegated_base
+      assign_links
 
       entity
     end

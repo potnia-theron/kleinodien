@@ -1,4 +1,6 @@
 class Participant < ApplicationRecord
+  include Centralable
+  include Linkable
   include Periodable
 
   belongs_to :import_order, optional: true

@@ -1,7 +1,11 @@
 require "test_helper"
-require "shared_periodeable_tests"
+require "support/shared_centralable_tests"
+require "support/shared_linkable_tests"
+require "support/shared_periodable_tests"
 
 class ParticipantTest < ActiveSupport::TestCase
+  include SharedCentralableTests
+  include SharedLinkableTests
   include SharedPeriodableTests
 
   setup do

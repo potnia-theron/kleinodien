@@ -2,7 +2,9 @@ module Import::Concerns
   module Reflectable
     extend ActiveSupport::Concern
 
-    def has_one_associations = reflect_on_all_associations(:has_one)
+    def has_one_associations
+      reflect_on_all_associations(:has_one).reject { it.name == :central }
+    end
 
     def delegated_of_association_writer
       return unless delegated_of_association
@@ -48,10 +50,16 @@ module Import::Concerns
 
     def has_many_associations
       associations = reflect_on_all_associations(:has_many)
+        .reject { it.name == :links }
+        .reject { it.name == :backlinks }
 
       after_has_many_associations(associations)
     end
 
     def after_has_many_associations(associations) = associations
+
+    def linkable?
+      reflect_on_all_associations(:has_many).any? { |association| association.name == :links }
+    end
   end
 end

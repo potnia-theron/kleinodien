@@ -1,9 +1,9 @@
 require "test_helper"
 require "minitest/mock"
 
-require "shared_bufferable_import_order_tests"
-require "shared_import_order_tests"
-require "shared_transitionable_tests"
+require "support/shared_bufferable_import_order_tests"
+require "support/shared_import_order_tests"
+require "support/shared_transitionable_tests"
 
 class MusicbrainzImportOrderTest < ActiveSupport::TestCase
   include SharedBufferableImportOrderTests
