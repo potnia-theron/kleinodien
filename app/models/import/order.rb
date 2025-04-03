@@ -1,5 +1,7 @@
 module Import
   class Order
+    include GlobalID::Identification
+
     def initialize(import_order)
       @import_order = import_order
     end

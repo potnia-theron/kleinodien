@@ -1,5 +1,6 @@
 class ImportOrdersController < ApplicationController
   before_action :set_import_order, only: %i[show edit update destroy]
+  after_action :place_job, only: %i[create]
 
   # GET /import_orders or /import_orders.json
   def index
@@ -75,5 +76,17 @@ class ImportOrdersController < ApplicationController
     parameters[:type] = ImportOrderUri.build(uri_string).import_order_type
 
     parameters
+  end
+
+  def place_job
+    return if @import_order.new_record?
+
+    # TODO: remove dirty hack
+    # @import_order.type = "MusicbrainzImportOrder"
+    # @import_order.save!
+
+    Rails.logger.info("controller: #{@import_order.inspect}")
+
+    Import::JobQueuer.call(@import_order)
   end
 end

@@ -1,5 +1,7 @@
 module Import
   class MusicbrainzWorkflow
+    include Callable
+
     def initialize(order)
       @order = order
     end
@@ -13,7 +15,8 @@ module Import
     private
 
     def find
-      adapter_layer.find_entity(order.kind, musicbrainz_code: order.code)
+      Rails.logger.info("#find: #{order.inspect}")
+      adapter_layer.find_entity(order.target_kind, musicbrainz_code: order.code)
     end
 
     def create
@@ -23,7 +26,8 @@ module Import
 
     def fill_buffer
       order.buffering!
-      adapter_layer.supply_entity(order.kind, musicbrainz_code: order.code)
+      Rails.logger.info("#fill_buffer: #{order.code}")
+      adapter_layer.supply_entity(order.target_kind, musicbrainz_code: order.code)
     end
 
     def persist

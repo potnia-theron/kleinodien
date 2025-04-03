@@ -5,6 +5,7 @@ module Import
     def initialize(facade_layer, options)
       @facade_layer = facade_layer
       @options = options
+      Rails.logger.info("#{self.class}#initialize options: #{@options}")
     end
 
     attr_reader :facade_layer, :options
@@ -40,6 +41,11 @@ module Import
 
     def cheap_codes = {}
 
-    def musicbrainz_code = options[:musicbrainz_code] || options[:id]
+    # def musicbrainz_code = options[:musicbrainz_code] || options[:id]
+    def musicbrainz_code
+      Rails.logger.info(inspect)
+      Rails.logger.info("options: #{options}")
+      options[:musicbrainz_code] || options[:id]
+    end
   end
 end

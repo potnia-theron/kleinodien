@@ -6,6 +6,8 @@ module ImportOrderUri
   def self.build(uri_candidate)
     return uri_candidate if uri_candidate.is_a? ImportOrderUri
 
+    uri_candidate = uri_candidate.strip if uri_candidate.is_a? String
+
     uri_object = URI(uri_candidate)
     host = uri_object.host
     extension_key = uri_object

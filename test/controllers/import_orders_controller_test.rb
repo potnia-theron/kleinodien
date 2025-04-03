@@ -19,8 +19,9 @@ class ImportOrdersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create import_order" do
-    assert_difference("ImportOrder.count") do
-      post import_orders_url, params: {import_order: {code: @import_order.code, import_order_id: @import_order.import_order_id, kind: @import_order.kind, state: @import_order.state, type: @import_order.type, uri: @import_order.uri, user_id: @import_order.user_id}}
+    assert_difference("MusicbrainzImportOrder.count") do
+      post import_orders_url, params: {import_order: {code: "e848bea6-6276-430e-b7de-7f07a2035f73", kind: "release", state: "open", type: "MusicbrainzImportOrder", uri: @import_order.uri, user_id: @import_order.user_id}}
+      # debugger
     end
 
     assert_redirected_to import_order_url(ImportOrder.last)
@@ -31,7 +32,7 @@ class ImportOrdersControllerTest < ActionDispatch::IntegrationTest
       post import_orders_url, params: {import_order: {uri: "https://musicbrainz.org/release/040c8e28-74d8-482e-ba47-175dbf46499c"}}
     end
 
-    assert_redirected_to musicbrainz_import_order_url(ImportOrder.last)
+    assert_redirected_to import_order_url(ImportOrder.last)
   end
 
   test "should not create import_order with bad parameters" do

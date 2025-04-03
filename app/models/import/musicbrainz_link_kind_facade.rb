@@ -10,7 +10,7 @@ module Import
     attr_reader :facade_layer, :options
     # alias_method :data, :options
     def data
-      # debugger
+      Rails.logger.debug { "Options: #{options}" }
       options
     end
 

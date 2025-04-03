@@ -11,7 +11,13 @@ module Import
       callback = callbacks[attr]
       raise ArgumentError, "don't know how to scrape :#{attr} from #{facade.class}" unless callback
 
-      callback.call(facade)
+      Rails.logger.debug { "scraping :#{attr} from #{facade.class}" }
+
+      value = callback.call(facade)
+
+      Rails.logger.warn("scraped value for :#{attr} is nil, hope that's ok") if value.nil?
+
+      value
     end
 
     def scrape_many(*attrs)
