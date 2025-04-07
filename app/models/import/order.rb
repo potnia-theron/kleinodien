@@ -10,30 +10,20 @@ module Import
 
     delegate_missing_to :import_order
 
-    def build_request_layer
-      join_and_constantize("Import::", class_name_component, "RequestLayer").new(self, build_fetch_layer, build_uri_builder)
-    end
+    def build_workflow = class_for("Workflow").new(self)
 
-    def build_workflow
-      join_and_constantize("Import::", class_name_component, "Workflow").new(self)
+    def build_request_layer
+      class_for("RequestLayer").new(self, build_fetch_layer, build_uri_builder)
     end
 
     private
 
-    def build_uri_builder
-      join_and_constantize("Import::", class_name_component, "UriBuilder").new
-    end
+    def build_fetch_layer = class_for("FetchLayer").new(self)
 
-    def join_and_constantize(*elements)
-      elements.join.constantize
-    end
+    def build_uri_builder = class_for("UriBuilder").new
 
-    def class_name_component
-      type.delete_suffix("ImportOrder")
-    end
+    def class_for(suffix) = "Import::#{class_name_component}#{suffix}".constantize
 
-    def build_fetch_layer
-      join_and_constantize("Import::", class_name_component, "FetchLayer").new(self)
-    end
+    def class_name_component = @class_name_component ||= type.delete_suffix("ImportOrder")
   end
 end
