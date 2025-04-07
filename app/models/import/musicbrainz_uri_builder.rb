@@ -1,26 +1,29 @@
 module Import
   class MusicbrainzUriBuilder
+    INC_FOR = {
+      "artist" => "?inc=artist-rels+url-rels",
+      "recording" => "?inc=artist-credits+url-rels",
+      "release" => "?inc=artists+artist-rels+labels+media+recordings+release-groups+url-rels",
+      "release-group" => "?inc=artists+url-rels"
+    }.freeze
+
     def initialize(prefix = "https://musicbrainz.org")
       @prefix = prefix
     end
 
     def call(kind, code)
-      case kind.to_s
-      when "release"
-        "https://musicbrainz.org/ws/2/#{kind}/#{code}?inc=artists+artist-rels+labels+media+recordings+release-groups+url-rels&fmt=json"
-      when "release-group"
-        "https://musicbrainz.org/ws/2/#{kind}/#{code}?inc=artists+url-rels&fmt=json"
-      when "artist"
-        "https://musicbrainz.org/ws/2/#{kind}/#{code}?inc=artist-rels+url-rels&fmt=json"
-      when "recording"
-        "https://musicbrainz.org/ws/2/#{kind}/#{code}?inc=artist-credits+url-rels&fmt=json"
-      else
-        raise "Bad evil! #{kind} #{code}"
-      end
+      inc = inc_for(kind)
+
+      "#{prefix}/ws/2/#{kind}/#{code}#{inc}&fmt=json"
     end
 
     private
 
     attr_reader :prefix
+
+    def inc_for(kind)
+      INC_FOR[kind.to_s]
+        .tap { raise ArgumentError, "don't know how to build an uri for #{kind}" unless it }
+    end
   end
 end

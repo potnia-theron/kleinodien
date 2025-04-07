@@ -16,17 +16,6 @@ module Import
 
     def uri_string_for(kind, code)
       uri_builder.call(kind, code)
-      # if kind.to_s == "release"
-      #   "https://musicbrainz.org/ws/2/#{kind}/#{code}?inc=artists+artist-rels+labels+media+recordings+release-groups+url-rels&fmt=json"
-      # elsif kind.to_s == "release-group"
-      #   "https://musicbrainz.org/ws/2/#{kind}/#{code}?inc=artists+url-rels&fmt=json"
-      # elsif kind.to_s == "artist"
-      #   "https://musicbrainz.org/ws/2/#{kind}/#{code}?inc=artist-rels+url-rels&fmt=json"
-      # elsif kind == "recording"
-      #   "https://musicbrainz.org/ws/2/#{kind}/#{code}?inc=artist-credits+url-rels&fmt=json"
-      # else
-      #   raise "Bad evil! #{kind} #{code}"
-      # end
     end
 
     def uri_builder = @uri_builder ||= Import::MusicbrainzUriBuilder.new
