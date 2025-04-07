@@ -11,11 +11,10 @@ class WebMockMusicBrainz < Sinatra::Base
     code = params[:id]
     json_string = Retrieve.musicbrainz(kind, code)
 
-    Rails.logger.debug("#{env.except("rack.logger")}")
-
     return json_string if json_string
 
     Rails.logger.info("failed to get #{kind} #{code}")
+
     status 404
     nil
   end
