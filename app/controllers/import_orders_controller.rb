@@ -81,12 +81,14 @@ class ImportOrdersController < ApplicationController
   def place_job
     return if @import_order.new_record?
 
-    # TODO: remove dirty hack
-    # @import_order.type = "MusicbrainzImportOrder"
-    # @import_order.save!
-
     Rails.logger.info("controller: #{@import_order.inspect}")
 
-    Import::JobQueuer.call(@import_order)
+    case @import_order.inferred_type
+    when "MusicbrainzImportOrder"
+      # TODO: choose the right Job depending on :kind
+      ImportMusicbrainzReleaseJob.perform_later(@import_order)
+    else
+      raise "can't enqueue job for #{@import_order}"
+    end
   end
 end
