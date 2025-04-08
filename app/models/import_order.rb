@@ -6,22 +6,12 @@ class ImportOrder < ApplicationRecord
   before_validation :set_kind_and_code
 
   def inferred_type
-    ity = inferred_type_xxx
-    Rails.logger.info("infered_type: #{ity}")
-    ity
-  end
-
-  def inferred_type_xxx
-    Rails.logger.info("type: #{type} #{type.present?} #{type.nil?}")
     return type if type.present?
 
     class_name = self.class.name
-    Rails.logger.info("xxxx: #{class_name}")
-    # return class_name if class_name.match? %r{\A[A-Z][a-z]+ImportOrder\z}
     return class_name if VALID_INFERRED_TYPE_REGEX.match? class_name
 
     class_name = uri&.import_order_type
-    Rails.logger.info("xxxx=: #{class_name}")
     class_name if class_name.match? %r{\A[A-Z][a-z]+ImportOrder\z}
   end
 

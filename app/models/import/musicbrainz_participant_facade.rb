@@ -38,7 +38,7 @@ module Import
 
     def links = @link_facade ||= Import::MusicbrainzLinkFacade.new(data[:relations])
 
-    def musicbrainz_code = options[:musicbrainz_code] # || options[:id]
+    def musicbrainz_code = options[:musicbrainz_code]
 
     def relations
       @relations ||= Import::MusicbrainzRelationsCode.new(data[:relations]).extract

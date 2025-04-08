@@ -15,7 +15,6 @@ module Import
     private
 
     def find
-      Rails.logger.info("#find: #{order.inspect}")
       adapter_layer.find_entity(order.target_kind, musicbrainz_code: order.code)
     end
 
@@ -26,7 +25,6 @@ module Import
 
     def fill_buffer
       order.buffering!
-      Rails.logger.info("#fill_buffer: #{order.code}")
       adapter_layer.supply_entity(order.target_kind, musicbrainz_code: order.code)
     end
 

@@ -19,7 +19,6 @@ module Import
         define :alphanumeric, :position
         define :level, always: 1
         define :no, :position
-        # define :positions, callback: ->(facade) { facade.positions }
         define :positions, :tracks
       end
     end

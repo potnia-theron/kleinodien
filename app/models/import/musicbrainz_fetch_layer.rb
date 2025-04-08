@@ -5,7 +5,6 @@ module Import
     end
 
     def get(uri_string)
-      Rails.logger.debug("attempt to get #{uri_string}")
       max_tries.times do |error_count|
         take_timeout(error_count)
         response = connection.get(uri_string)
@@ -39,12 +38,10 @@ module Import
     end
 
     def max_tries
-      # config[:max_tries] || 3
       config.fetch(:max_tries, 3)
     end
 
     def minimal_timeout
-      # config[:minimal_timeout] || 1
       config.fetch(:minimal_timeout, 1)
     end
 
