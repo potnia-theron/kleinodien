@@ -37,6 +37,7 @@ class Import::MusicbrainzParticipantFacadeTest < ActiveSupport::TestCase
   end
 
   def json_string
-    @json_string ||= Retrieve.musicbrainz(:artist, @musicbrainz_code)
+    # @json_string ||= Retrieve.musicbrainz(:artist, @musicbrainz_code)
+    @json_string ||= Retrieve::Musicbrainz.new.call(:artist, @musicbrainz_code, %w[artist-rels url-rels])
   end
 end

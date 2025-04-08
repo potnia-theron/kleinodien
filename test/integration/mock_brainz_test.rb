@@ -13,7 +13,7 @@ class MockBrainzTest < ActionDispatch::IntegrationTest
   end
 
   test "get ACDC" do
-    uri_string = "https://musicbrainz.org/ws/2/artist/66c662b6-6e2f-4930-8610-912e24c63ed1"
+    uri_string = "https://musicbrainz.org/ws/2/artist/66c662b6-6e2f-4930-8610-912e24c63ed1?inc=artist-rels+url-rels&fmt=json"
     response = connection.get(uri_string)
 
     assert_predicate response, :success?
