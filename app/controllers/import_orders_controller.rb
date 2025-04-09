@@ -86,6 +86,7 @@ class ImportOrdersController < ApplicationController
     case @import_order.inferred_type
     when "MusicbrainzImportOrder"
       # TODO: choose the right Job depending on :kind
+      Rails.logger.debug("ImportOrder#uri: #{@import_order.uri.inspect}")
       ImportMusicbrainzReleaseJob.perform_later(@import_order)
     else
       raise "can't enqueue job for #{@import_order}"

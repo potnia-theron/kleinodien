@@ -24,6 +24,6 @@ module Import
 
     def class_for(suffix) = "Import::#{class_name_component}#{suffix}".constantize
 
-    def class_name_component = @class_name_component ||= type.delete_suffix("ImportOrder")
+    def class_name_component = @class_name_component ||= inferred_type.delete_suffix("ImportOrder")
   end
 end
