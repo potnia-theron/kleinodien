@@ -1,5 +1,6 @@
 class ImportOrdersController < ApplicationController
   before_action :set_import_order, only: %i[show edit update destroy]
+  after_action :place_job, only: %i[create]
 
   # GET /import_orders or /import_orders.json
   def index
@@ -75,5 +76,20 @@ class ImportOrdersController < ApplicationController
     parameters[:type] = ImportOrderUri.build(uri_string).import_order_type
 
     parameters
+  end
+
+  def place_job
+    return if @import_order.new_record?
+
+    Rails.logger.info("controller: #{@import_order.inspect}")
+
+    case @import_order.inferred_type
+    when "MusicbrainzImportOrder"
+      # TODO: choose the right Job depending on :kind
+      Rails.logger.debug("ImportOrder#uri: #{@import_order.uri.inspect}")
+      ImportMusicbrainzReleaseJob.perform_later(@import_order)
+    else
+      raise "can't enqueue job for #{@import_order}"
+    end
   end
 end

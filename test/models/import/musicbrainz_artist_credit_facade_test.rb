@@ -1,5 +1,4 @@
 require "test_helper"
-# require "minitest/mock"
 require "support/retrieve"
 require "support/retrieve/musicbrainz"
 
@@ -24,6 +23,6 @@ class Import::MusicbrainzArtistCreditFacadeTest < ActiveSupport::TestCase
 
   def json_string
     code = "36ddebf6-7fb2-4dc4-8931-aca5a3a35a30" # The Sky Is Falling and I Want My Mommy
-    @json_string ||= Retrieve.musicbrainz(:release, code)
+    @json_string ||= Retrieve::Musicbrainz.new.call(:release, code, %w[artists artist-rels labels media recordings release-groups url-rels])
   end
 end

@@ -1,11 +1,10 @@
 module Import
   class MusicbrainzRequestLayer
-    def initialize(order)
+    def initialize(order, fetch_layer, uri_builder)
+      @fetch_layer = fetch_layer
       @order = order
+      @uri_builder = uri_builder
     end
-
-    attr_reader :order
-    delegate_missing_to :order
 
     def get(kind, code)
       kind = kind.to_s.dasherize
@@ -14,16 +13,16 @@ module Import
       buffer.fetch(uri_string) { fetch_layer.get(uri_string) }
     end
 
+    private
+
+    attr_reader :fetch_layer, :order, :uri_builder
+
     def uri_string_for(kind, code)
-      "https://musicbrainz.org/ws/2/#{kind}/#{code}?fmt=json"
+      uri_builder.call(kind, code)
     end
 
     def buffer
       @buffer ||= Import::Buffer.new(order)
-    end
-
-    def fetch_layer
-      @fetch_layer ||= build_fetch_layer
     end
   end
 end

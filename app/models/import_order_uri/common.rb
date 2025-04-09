@@ -4,8 +4,6 @@ module ImportOrderUri
   module Common
     def kind_and_code = nil
 
-    def import_order_class = ImportOrder
-
     def import_order_type = "ImportOrder"
 
     def code

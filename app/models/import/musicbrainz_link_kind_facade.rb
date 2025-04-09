@@ -8,11 +8,8 @@ module Import
     end
 
     attr_reader :facade_layer, :options
-    # alias_method :data, :options
-    def data
-      # debugger
-      options
-    end
+
+    def data = options
 
     def scraper_builder
       @@scraper_builder ||= Import::ScraperArchitect.build do

@@ -1,5 +1,7 @@
 module Import
   class MusicbrainzWorkflow
+    include Callable
+
     def initialize(order)
       @order = order
     end
@@ -13,7 +15,7 @@ module Import
     private
 
     def find
-      adapter_layer.find_entity(order.kind, musicbrainz_code: order.code)
+      adapter_layer.find_entity(order.target_kind, musicbrainz_code: order.code)
     end
 
     def create
@@ -23,7 +25,7 @@ module Import
 
     def fill_buffer
       order.buffering!
-      adapter_layer.supply_entity(order.kind, musicbrainz_code: order.code)
+      adapter_layer.supply_entity(order.target_kind, musicbrainz_code: order.code)
     end
 
     def persist
@@ -46,7 +48,8 @@ module Import
 
     def supply_persisted_entity
       adapter_layer.with(supply_persisted: true) do |adapter|
-        adapter.supply_entity(order.kind, musicbrainz_code: order.code)
+        # adapter.supply_entity(order.kind, musicbrainz_code: order.code)
+        adapter.supply_entity(order.target_kind, musicbrainz_code: order.code)
       end
     end
   end
