@@ -9,10 +9,10 @@ class Import::ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveSupport::TestCas
 
   test "Twilight of the Thunder God" do
     code = "9a6f9e35-d05f-3f2b-b2b9-af7f8e619aca"
-    user = users(:kim)
+    # user = users(:kim)
     # The kind of that import_order is wrong. The musicbrainz-kind is "release-group".
     # ... but for testing...
-    import_order = MusicbrainzImportOrder.create!(code: code, kind: "album_archetype", user: user)
+    import_order = MusicbrainzImportOrder.create!(code: code, kind: "album_archetype") # , user: user)
 
     album_archetype = Import.ignite(import_order)
 

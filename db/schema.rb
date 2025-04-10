@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_25_185345) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_10_172729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -106,11 +106,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_185345) do
     t.string "type"
     t.string "uri"
     t.uuid "import_order_id"
-    t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["import_order_id"], name: "index_import_orders_on_import_order_id"
-    t.index ["user_id"], name: "index_import_orders_on_user_id"
   end
 
   create_table "link_kinds", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -211,7 +209,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_25_185345) do
   add_foreign_key "editions", "archetypes"
   add_foreign_key "email_verification_tokens", "users"
   add_foreign_key "import_orders", "import_orders"
-  add_foreign_key "import_orders", "users"
   add_foreign_key "links", "centrals", column: "destination_id", primary_key: "centralable_id"
   add_foreign_key "links", "centrals", column: "source_id", primary_key: "centralable_id"
   add_foreign_key "links", "link_kinds"

@@ -33,9 +33,9 @@ module SharedImportOrderTests
     assert_nil import_order.code
   end
 
-  def test_without_a_user_it_is_not_valid
-    @subject.user = nil
+  # def test_without_a_user_it_is_not_valid
+  #   @subject.user = nil
 
-    assert_not @subject.valid?
-  end
+  #   assert_not @subject.valid?
+  # end
 end

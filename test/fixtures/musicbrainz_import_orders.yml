@@ -18,7 +18,7 @@ musicbrainz_one:
   state: open
   type: MusicbrainzImportOrder
   uri: MyString
-  user: kim
+  # user: kim
 
 musicbrainz_two:
   code: db1b25be-ef5f-11ed-be5f-f3083ac8dbc5
@@ -26,4 +26,4 @@ musicbrainz_two:
   state: done
   type: MusicbrainzImportOrder
   uri: MyString
-  user: kim
+  # user: kim

@@ -1,9 +1,11 @@
 class MusicbrainzImportOrdersController < ApplicationController
+  # skip_before_action :authenticate
   before_action :set_musicbrainz_import_order, only: %i[show edit update destroy]
 
   # GET /musicbrainz_import_orders or /musicbrainz_import_orders.json
   def index
-    @musicbrainz_import_orders = current_user.musicbrainz_import_orders
+    # @musicbrainz_import_orders = current_user.musicbrainz_import_orders
+    @musicbrainz_import_orders = MusicbrainzImportOrder.all
   end
 
   # GET /musicbrainz_import_orders/1 or /musicbrainz_import_orders/1.json
@@ -12,7 +14,8 @@ class MusicbrainzImportOrdersController < ApplicationController
 
   # GET /musicbrainz_import_orders/new
   def new
-    @musicbrainz_import_order = current_user.musicbrainz_import_orders.build
+    # @musicbrainz_import_order = current_user.musicbrainz_import_orders.build
+    @musicbrainz_import_order = MusicbrainzImportOrder.build
   end
 
   # GET /musicbrainz_import_orders/1/edit
@@ -21,7 +24,8 @@ class MusicbrainzImportOrdersController < ApplicationController
 
   # POST /musicbrainz_import_orders or /musicbrainz_import_orders.json
   def create
-    @musicbrainz_import_order = current_user.musicbrainz_import_orders.build(musicbrainz_import_order_params)
+    # @musicbrainz_import_order = current_user.musicbrainz_import_orders.build(musicbrainz_import_order_params)
+    @musicbrainz_import_order = MusicbrainzImportOrder.build(musicbrainz_import_order_params)
 
     respond_to do |format|
       if @musicbrainz_import_order.save
@@ -67,6 +71,7 @@ class MusicbrainzImportOrdersController < ApplicationController
   # Only allow a list of trusted parameters through.
   def musicbrainz_import_order_params
     # params.fetch(:musicbrainz_import_order, {})
-    params.require(:musicbrainz_import_order).permit(:code, :kind, :state, :type, :uri, :import_order_id, :user_id)
+    # params.require(:musicbrainz_import_order).permit(:code, :kind, :state, :type, :uri, :import_order_id, :user_id)
+    params.require(:musicbrainz_import_order).permit(:code, :kind, :state, :type, :uri, :import_order_id) # , :user_id)
   end
 end

@@ -20,7 +20,7 @@ class MusicbrainzImportOrdersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create musicbrainz_import_order" do
     assert_difference("MusicbrainzImportOrder.count") do
-      post musicbrainz_import_orders_url, params: {musicbrainz_import_order: {code: @musicbrainz_import_order.code, kind: @musicbrainz_import_order.kind, user_id: @musicbrainz_import_order.user_id}}
+      post musicbrainz_import_orders_url, params: {musicbrainz_import_order: {code: @musicbrainz_import_order.code, kind: @musicbrainz_import_order.kind}} # , user_id: @musicbrainz_import_order.user_id}}
     end
 
     assert_redirected_to musicbrainz_import_order_url(MusicbrainzImportOrder.last)
@@ -53,7 +53,7 @@ class MusicbrainzImportOrdersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not update musicbrainz_import_order_with_bad_parameters" do
-    patch musicbrainz_import_order_url(@musicbrainz_import_order), params: {musicbrainz_import_order: {user_id: "821d86ea-ef5b-11ed-a5e2-4f9156b7e391"}}
+    patch musicbrainz_import_order_url(@musicbrainz_import_order), params: {musicbrainz_import_order: {code: "bad evil"}}
 
     assert_response :unprocessable_entity
   end

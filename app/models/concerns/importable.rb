@@ -9,7 +9,7 @@ module Importable
     attribute :state, default: :open
 
     belongs_to :import_order, optional: true
-    belongs_to :user
+    # belongs_to :user
 
     validates :code, presence: true
     validates :kind, presence: true
