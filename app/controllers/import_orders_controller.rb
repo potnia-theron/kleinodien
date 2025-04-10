@@ -4,7 +4,8 @@ class ImportOrdersController < ApplicationController
 
   # GET /import_orders or /import_orders.json
   def index
-    @import_orders = current_user.import_orders
+    # @import_orders = current_user.import_orders
+    @import_orders = ImportOrder.all
   end
 
   # GET /import_orders/1 or /import_orders/1.json
@@ -13,7 +14,8 @@ class ImportOrdersController < ApplicationController
 
   # GET /import_orders/new
   def new
-    @import_order = current_user.import_orders.build
+    # @import_order = current_user.import_orders.build
+    @import_order = ImportOrder.new
   end
 
   # GET /import_orders/1/edit
@@ -22,7 +24,8 @@ class ImportOrdersController < ApplicationController
 
   # POST /import_orders or /import_orders.json
   def create
-    @import_order = current_user.import_orders.build(import_order_params)
+    # @import_order = current_user.import_orders.build(import_order_params)
+    @import_order = ImportOrder.new(import_order_params)
 
     respond_to do |format|
       if @import_order.save
@@ -62,12 +65,13 @@ class ImportOrdersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_import_order
-    @import_order = current_user.import_orders.find(params[:id])
+    # @import_order = current_user.import_orders.find(params[:id])
+    @import_order = ImportOrder.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def import_order_params
-    parameters = params.require(:import_order).permit(:code, :kind, :state, :type, :uri, :import_order_id, :user_id)
+    parameters = params.require(:import_order).permit(:code, :kind, :state, :type, :uri, :import_order_id) # , :user_id)
 
     type, uri_string = parameters.values_at(:type, :uri)
     return parameters if type

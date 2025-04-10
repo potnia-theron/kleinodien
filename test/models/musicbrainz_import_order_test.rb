@@ -13,12 +13,12 @@ class MusicbrainzImportOrderTest < ActiveSupport::TestCase
   def setup
     @code = "66650826-7a63-11ef-9b55-871e6cdac01d"
     @uri = "https://musicbrainz.org/ws/2/release/#{@code}"
-    @user = users(:kim)
-    @subject = MusicbrainzImportOrder.new(kind: "release", code: @code, user: @user)
+    # @user = users(:kim)
+    @subject = MusicbrainzImportOrder.new(kind: "release", code: @code) # , user: @user)
   end
 
   def test_with_a_valid_uri
-    import_order = MusicbrainzImportOrder.new(uri: @uri, user: @user)
+    import_order = MusicbrainzImportOrder.new(uri: @uri) # , user: @user)
 
     assert_predicate import_order, :valid?
     assert_equal "release", import_order.kind
@@ -34,7 +34,7 @@ class MusicbrainzImportOrderTest < ActiveSupport::TestCase
   end
 
   def test_with_a_valid_uri_and_a_kind
-    import_order = MusicbrainzImportOrder.new(kind: "release", uri: @uri, user: users(:kim))
+    import_order = MusicbrainzImportOrder.new(kind: "release", uri: @uri) # , user: users(:kim))
 
     assert_not_predicate import_order, :valid?
     assert_equal "release", import_order.kind
@@ -42,7 +42,7 @@ class MusicbrainzImportOrderTest < ActiveSupport::TestCase
   end
 
   def test_with_a_valid_uri_and_code
-    import_order = MusicbrainzImportOrder.new(code: @code, uri: "https://musicbrainz.org/non/sense", user: users(:kim))
+    import_order = MusicbrainzImportOrder.new(code: @code, uri: "https://musicbrainz.org/non/sense") # , user: users(:kim))
 
     assert_not_predicate import_order, :valid?
     assert_nil import_order.kind
@@ -50,7 +50,7 @@ class MusicbrainzImportOrderTest < ActiveSupport::TestCase
   end
 
   def test_with_an_invalid_code
-    import_order = MusicbrainzImportOrder.new(code: "no-uuid", kind: "release", user: users(:kim))
+    import_order = MusicbrainzImportOrder.new(code: "no-uuid", kind: "release") # , user: users(:kim))
 
     assert_not_predicate import_order, :valid?
   end
