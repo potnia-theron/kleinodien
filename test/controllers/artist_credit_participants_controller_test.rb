@@ -3,7 +3,7 @@ require "test_helper"
 class ArtistCreditParticipantsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @artist_credit_participant = artist_credit_participants(:one)
-    @user = sign_in_as(users(:kim))
+    # @user = sign_in_as(users(:kim))
   end
 
   test "should get index" do

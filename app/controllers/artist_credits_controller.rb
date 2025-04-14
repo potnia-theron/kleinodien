@@ -1,5 +1,5 @@
 class ArtistCreditsController < ApplicationController
-  skip_before_action :authenticate, only: %i[show index]
+  # skip_before_action :authenticate, only: %i[show index]
   before_action :set_artist_credit, only: %i[show edit update destroy]
 
   # GET /artist_credits or /artist_credits.json

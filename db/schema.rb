@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_10_172729) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_14_170524) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -94,11 +94,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_172729) do
     t.index ["archetype_id"], name: "index_editions_on_archetype_id"
   end
 
-  create_table "email_verification_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.index ["user_id"], name: "index_email_verification_tokens_on_user_id"
-  end
-
   create_table "import_orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "code", null: false
     t.string "kind", null: false
@@ -155,20 +150,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_172729) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "password_reset_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.index ["user_id"], name: "index_password_reset_tokens_on_user_id"
-  end
-
-  create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.string "user_agent"
-    t.string "ip_address"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_sessions_on_user_id"
-  end
-
   create_table "song_archetypes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "discogs_code"
     t.uuid "musicbrainz_code"
@@ -191,15 +172,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_172729) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "email", null: false
-    t.string "password_digest", null: false
-    t.boolean "verified", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-  end
-
   add_foreign_key "archetypes", "artist_credits"
   add_foreign_key "artist_credit_participants", "artist_credits"
   add_foreign_key "artist_credit_participants", "participants"
@@ -207,12 +179,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_172729) do
   add_foreign_key "edition_positions", "editions"
   add_foreign_key "edition_sections", "editions"
   add_foreign_key "editions", "archetypes"
-  add_foreign_key "email_verification_tokens", "users"
   add_foreign_key "import_orders", "import_orders"
   add_foreign_key "links", "centrals", column: "destination_id", primary_key: "centralable_id"
   add_foreign_key "links", "centrals", column: "source_id", primary_key: "centralable_id"
   add_foreign_key "links", "link_kinds"
   add_foreign_key "participants", "import_orders", on_delete: :nullify
-  add_foreign_key "password_reset_tokens", "users"
-  add_foreign_key "sessions", "users"
 end

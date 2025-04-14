@@ -3,7 +3,7 @@ require "test_helper"
 class EditionsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @edition = editions(:one)
-    @user = sign_in_as(users(:sam))
+    # @user = sign_in_as(users(:sam))
   end
 
   test "should get index" do

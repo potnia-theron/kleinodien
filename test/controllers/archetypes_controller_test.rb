@@ -3,7 +3,7 @@ require "test_helper"
 class ArchetypesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @archetype = archetypes(:one)
-    @user = sign_in_as(users(:kim))
+    # @user = sign_in_as(users(:kim))
   end
 
   test "should get index" do

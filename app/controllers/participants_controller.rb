@@ -1,5 +1,5 @@
 class ParticipantsController < ApplicationController
-  skip_before_action :authenticate, only: [:show, :index]
+  # skip_before_action :authenticate, only: [:show, :index]
   before_action :set_participant, only: %i[show edit update destroy]
 
   # GET /participants or /participants.json

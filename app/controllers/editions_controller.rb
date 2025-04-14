@@ -1,5 +1,5 @@
 class EditionsController < ApplicationController
-  skip_before_action :authenticate, only: [:index, :show]
+  # skip_before_action :authenticate, only: [:index, :show]
   before_action :set_edition, only: %i[show edit update destroy]
 
   # GET /editions or /editions.json
