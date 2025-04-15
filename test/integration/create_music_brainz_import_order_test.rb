@@ -2,7 +2,7 @@ require "test_helper"
 
 class CreateMusicBrainzImportOrderTest < ActionDispatch::IntegrationTest
   setup do
-    # @user = sign_in_as(users(:kim))
+    @user = sign_in_as(users(:kim))
   end
 
   test "can create a MusicbrainzImportOrder" do

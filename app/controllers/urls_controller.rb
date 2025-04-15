@@ -1,5 +1,5 @@
 class UrlsController < ApplicationController
-  # skip_before_action :authenticate, only: %i[index show]
+  skip_before_action :require_authentication, only: %i[index show]
   before_action :set_url, only: %i[show edit update destroy]
 
   # GET /urls or /urls.json

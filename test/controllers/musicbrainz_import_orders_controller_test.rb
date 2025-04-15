@@ -3,7 +3,7 @@ require "test_helper"
 class MusicbrainzImportOrdersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @musicbrainz_import_order = musicbrainz_import_orders(:musicbrainz_one)
-    # @user = sign_in_as(users(:kim))
+    @user = sign_in_as(users(:kim))
   end
 
   test "should get index" do

@@ -3,7 +3,7 @@ require "test_helper"
 class UrlsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @url = urls(:one)
-    # @user = sign_in_as(users(:sam))
+    @user = sign_in_as(users(:sam))
   end
 
   test "should get index" do

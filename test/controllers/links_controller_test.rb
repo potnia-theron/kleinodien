@@ -3,7 +3,7 @@ require "test_helper"
 class LinksControllerTest < ActionDispatch::IntegrationTest
   setup do
     @link = links(:one)
-    # @user = sign_in_as(users(:sam))
+    @user = sign_in_as(users(:sam))
   end
 
   test "should get index" do
