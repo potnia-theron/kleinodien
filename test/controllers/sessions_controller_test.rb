@@ -8,8 +8,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create session with valid credentials" do
     user = users(:sam)
-    post session_url, params: {email_address: user.email_address, password: "valid_password"}
-    assert_redirected_to new_session_path
+    post session_url, params: {email_address: user.email_address, password: "password"}
+
+    assert_redirected_to root_url # after_authentication_url
   end
 
   test "should not create session with invalid credentials" do
@@ -19,6 +20,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy session" do
+    user = users(:sam)
+    post session_url, params: {email_address: user.email_address, password: "password"}
+
     delete session_url
     assert_redirected_to new_session_path
   end
