@@ -1,5 +1,6 @@
 class RegistrationsController < ApplicationController
-  skip_before_action :authenticate
+  allow_unauthenticated_access only: %i[new create]
+  before_action :resume_session, only: %i[new]
 
   def new
     @user = User.new
@@ -7,14 +8,11 @@ class RegistrationsController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
     if @user.save
-      session = @user.sessions.create!
-      cookies.signed.permanent[:session_token] = {value: session.id, httponly: true}
-
-      send_email_verification
-      redirect_to root_path, notice: "Welcome! You have signed up successfully"
+      start_new_session_for @user
+      redirect_to root_path, notice: "You've successfully signed up to Kleinodien"
     else
+      flash[:alert] = @user.errors.full_messages.join(", ")
       render :new, status: :unprocessable_entity
     end
   end
@@ -22,10 +20,6 @@ class RegistrationsController < ApplicationController
   private
 
   def user_params
-    params.permit(:email, :password, :password_confirmation)
-  end
-
-  def send_email_verification
-    UserMailer.with(user: @user).email_verification.deliver_later
+    params.expect(user: [:email_address, :password, :password_confirmation])
   end
 end

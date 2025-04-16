@@ -1,5 +1,5 @@
 class MusicbrainzImportOrdersController < ApplicationController
-  # skip_before_action :authenticate
+  skip_before_action :require_authentication
   before_action :set_musicbrainz_import_order, only: %i[show edit update destroy]
 
   # GET /musicbrainz_import_orders or /musicbrainz_import_orders.json

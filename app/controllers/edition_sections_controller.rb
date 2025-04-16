@@ -1,6 +1,6 @@
 class EditionSectionsController < ApplicationController
-  skip_before_action :authenticate, only: %i[ index show ]
-  before_action :set_edition_section, only: %i[ show edit update destroy ]
+  skip_before_action :require_authentication, only: %i[index show]
+  before_action :set_edition_section, only: %i[show edit update destroy]
 
   # GET /edition_sections or /edition_sections.json
   def index
@@ -59,13 +59,14 @@ class EditionSectionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_edition_section
-      @edition_section = EditionSection.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def edition_section_params
-      params.expect(edition_section: [ :alphanumeric, :level, :no, :edition_id, :positions_count ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_edition_section
+    @edition_section = EditionSection.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def edition_section_params
+    params.expect(edition_section: [:alphanumeric, :level, :no, :edition_id, :positions_count])
+  end
 end

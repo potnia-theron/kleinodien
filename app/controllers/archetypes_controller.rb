@@ -1,5 +1,5 @@
 class ArchetypesController < ApplicationController
-  skip_before_action :authenticate, only: [:show, :index]
+  skip_before_action :require_authentication, only: [:show, :index]
   before_action :set_archetype, only: %i[show edit update destroy]
 
   # GET /archetypes or /archetypes.json
