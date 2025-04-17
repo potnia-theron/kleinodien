@@ -1,7 +1,8 @@
 require "test_helper"
-# require "support/shared_import_order_tests"
 
 class ImportOrderTest < ActiveSupport::TestCase
+  extend ActiveSupport::Testing::Declarative
+
   test "derive kind and code from a MusicBrainz uri" do
     import_order = ImportOrder.new(
       state: "open",

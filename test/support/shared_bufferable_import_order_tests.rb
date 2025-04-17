@@ -1,5 +1,7 @@
 module SharedBufferableImportOrderTests
-  def test_illegal_transition_from_open_to_persisting
+  extend ActiveSupport::Testing::Declarative
+
+  test "illegal transition from open to persisting" do
     assert_equal "open", @subject.state
 
     @subject.save!
@@ -7,7 +9,7 @@ module SharedBufferableImportOrderTests
     assert_raises(RuntimeError) { @subject.done! }
   end
 
-  def test_setting_all_good_states_via_bang_method
+  test "setting all good states via bang method" do
     assert_equal "open", @subject.state
 
     @subject.buffering!
@@ -17,7 +19,7 @@ module SharedBufferableImportOrderTests
     assert_equal "done", @subject.state
   end
 
-  def test_setting_all_good_states_via_state_method
+  test "setting all good states via state method" do
     assert_equal "open", @subject.state
 
     @subject.state = :buffering
