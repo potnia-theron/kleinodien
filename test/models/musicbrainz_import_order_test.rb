@@ -10,14 +10,14 @@ class MusicbrainzImportOrderTest < ActiveSupport::TestCase
   include SharedImportOrderTests
   include SharedTransitionableTests
 
-  def setup
+  setup do
     @code = "66650826-7a63-11ef-9b55-871e6cdac01d"
     @uri = "https://musicbrainz.org/ws/2/release/#{@code}"
     # @user = users(:kim)
     @subject = MusicbrainzImportOrder.new(kind: "release", code: @code) # , user: @user)
   end
 
-  def test_with_a_valid_uri
+  test "with a valid uri" do
     import_order = MusicbrainzImportOrder.new(uri: @uri) # , user: @user)
 
     assert_predicate import_order, :valid?
@@ -25,7 +25,7 @@ class MusicbrainzImportOrderTest < ActiveSupport::TestCase
     assert_equal @code, import_order.code
   end
 
-  def test_import_order_uri_type
+  test "import order uri type" do
     assert_nil @subject.uri
 
     @subject.uri = @uri
@@ -33,7 +33,7 @@ class MusicbrainzImportOrderTest < ActiveSupport::TestCase
     assert_kind_of ImportOrderUri::Musicbrainz, @subject.uri
   end
 
-  def test_with_a_valid_uri_and_a_kind
+  test "with a valid uri and a kind" do
     import_order = MusicbrainzImportOrder.new(kind: "release", uri: @uri) # , user: users(:kim))
 
     assert_not_predicate import_order, :valid?
@@ -41,7 +41,7 @@ class MusicbrainzImportOrderTest < ActiveSupport::TestCase
     assert_nil import_order.code
   end
 
-  def test_with_a_valid_uri_and_code
+  test "with a valid uri and code" do
     import_order = MusicbrainzImportOrder.new(code: @code, uri: "https://musicbrainz.org/non/sense") # , user: users(:kim))
 
     assert_not_predicate import_order, :valid?
@@ -49,7 +49,7 @@ class MusicbrainzImportOrderTest < ActiveSupport::TestCase
     assert_equal @code, import_order.code
   end
 
-  def test_with_an_invalid_code
+  test "with an invalid code" do
     import_order = MusicbrainzImportOrder.new(code: "no-uuid", kind: "release") # , user: users(:kim))
 
     assert_not_predicate import_order, :valid?

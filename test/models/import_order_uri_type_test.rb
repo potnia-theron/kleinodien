@@ -1,11 +1,13 @@
 require "test_helper"
 
 class ImportOrderUriTypeTest < ActiveSupport::TestCase
-  def setup
+  extend ActiveSupport::Testing::Declarative
+
+  setup do
     @type_iou = ImportOrderUriType.new
   end
 
-  def test_cast_musicbrainz_uri
+  test "cast musicbrainz uri" do
     uri_string = "https://musicbrainz.org/release/bc5fe528-ab8e-4ca2-9f4f-e362a3d24255"
 
     iou = @type_iou.cast(uri_string)
@@ -14,13 +16,13 @@ class ImportOrderUriTypeTest < ActiveSupport::TestCase
     assert_kind_of ImportOrderUri::Musicbrainz, iou
   end
 
-  def test_serialize_something_that_is_not_blank
+  test "serialize something that is not blank" do
     serialized = @type_iou.serialize(:hello)
 
     assert_equal "hello", serialized
   end
 
-  def test_serialize_something_that_is_blank
+  test "serialize something that is blank" do
     assert_nil @type_iou.serialize("")
     assert_nil @type_iou.serialize("   ")
     assert_nil @type_iou.serialize(nil)

@@ -1,5 +1,7 @@
 module SharedImportFindTests
-  def test_when_no_entry_can_be_found
+  extend ActiveSupport::Testing::Declarative  
+
+  test "when no entry can be found" do
     assert_not cannot_find.call
   end
 end

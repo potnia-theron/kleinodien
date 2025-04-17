@@ -1,41 +1,35 @@
-# require "test_helper"
-
 module SharedImportOrderTests
-  def test_import_order_is_valid
+  extend ActiveSupport::Testing::Declarative
+
+  test "import order is valid" do
     assert_predicate(@subject, :valid?)
   end
 
-  def test_without_a_code_it_is_not_valid
+  test "without a code it is not valid" do
     @subject.code = nil
 
     assert_not @subject.valid?
   end
 
-  def test_without_a_kind_it_is_not_valid
+  test "without a kind it is not valid" do
     @subject.kind = nil
 
     assert_not @subject.valid?
   end
 
-  def test_state_can_not_be_nil
+  test "state can not be nil" do
     assert_raises(RuntimeError) { @subject.state = nil }
   end
 
-  def test_with_an_illegal_state
+  test "with an illegal state" do
     assert_raises(ArgumentError) { @subject.state = :illegal_state }
   end
 
-  def test_with_an_invalid_uri
+  test "with an invalid uri" do
     import_order = @subject.class.new(uri: "ftp://example.com/this/is/not/a/love/song")
 
     assert_not_predicate import_order, :valid?
     assert_nil import_order.kind
     assert_nil import_order.code
   end
-
-  # def test_without_a_user_it_is_not_valid
-  #   @subject.user = nil
-
-  #   assert_not @subject.valid?
-  # end
 end

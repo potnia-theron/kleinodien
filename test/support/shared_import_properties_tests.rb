@@ -1,17 +1,19 @@
 module SharedImportPropertiesTests
-  def test_model_class
+  extend ActiveSupport::Testing::Declarative
+
+  test "model_class" do
     assert_kind_of ActiveRecord::Base, @subject.model_class.new
   end
 
-  def test_belongs_to_associations
+  test "belongs_to_associations" do
     assert_kind_of Array, @subject.belongs_to_associations
   end
 
-  def test_has_many_associations
+  test "has_many_associations" do
     assert_kind_of Array, @subject.has_many_associations
   end
 
-  def test_has_and_belongs_to_many_associations
+  test "has_and_belongs_to_many_associations" do
     assert_kind_of Array, @subject.has_and_belongs_to_many_associations
   end
 end

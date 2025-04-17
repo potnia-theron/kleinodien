@@ -1,13 +1,15 @@
 module SharedImportFacadeTests
-  def test_model_class
+  extend ActiveSupport::Testing::Declarative
+
+  test "model_class" do
     assert_kind_of ActiveRecord::Base, @subject.model_class.new
   end
 
-  def test_session
+  test "session" do
     assert_respond_to @subject, :session
   end
 
-  def test_options
+  test "options" do
     assert_respond_to @subject, :options
   end
 end

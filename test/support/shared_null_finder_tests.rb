@@ -1,5 +1,7 @@
 module SharedNullFinderTests
-  def test_calling_the_finder_returns_nil
+  extend ActiveSupport::Testing::Declarative
+
+  test "calling the finder returns nil" do
     assert_nil @finder_class.call
   end
 end
