@@ -1,19 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  code: MyString
-  kind: MyString
-  state: 0
-  type:
-  uri: MyString
-  # import_order: one
-  # user: kim
+  import_orderable_id: <%= ActiveRecord::FixtureSet.identify(:one, column_type = :uuid) %> 
+  import_orderable_type: MusicbrainzImportOrder
+  # code: MyString
+  # kind: MyString
+  # state: 0
+  # type:
+  # uri: MyString
 
 two:
-  code: MyString
-  kind: MyString
-  state: 0
-  type:
-  uri: MyString
-  # import_order: two
-  # user: kim
+  import_orderable_id: <%= ActiveRecord::FixtureSet.identify(:two, column_type = :uuid) %> 
+  import_orderable_type: MusicbrainzImportOrder
+  # code: MyString
+  # kind: MyString
+  # state: 0
+  # type:
+  # uri: MyString

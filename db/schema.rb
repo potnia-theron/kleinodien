@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_15_173714) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_22_182206) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -95,14 +95,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_173714) do
   end
 
   create_table "import_orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "code", null: false
-    t.string "kind", null: false
-    t.integer "state", limit: 2, default: 0, null: false
-    t.string "type"
-    t.string "uri"
     t.uuid "import_order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "import_orderable_type"
+    t.uuid "import_orderable_id"
     t.index ["import_order_id"], name: "index_import_orders_on_import_order_id"
   end
 
@@ -130,6 +127,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_173714) do
     t.index ["destination_id"], name: "index_links_on_destination_id"
     t.index ["link_kind_id"], name: "index_links_on_link_kind_id"
     t.index ["source_id"], name: "index_links_on_source_id"
+  end
+
+  create_table "musicbrainz_import_orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "code", null: false
+    t.string "kind", null: false
+    t.integer "state", limit: 2, default: 0, null: false
+    t.string "uri"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -12,7 +12,8 @@ class Import::ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveSupport::TestCas
     # user = users(:kim)
     # The kind of that import_order is wrong. The musicbrainz-kind is "release-group".
     # ... but for testing...
-    import_order = MusicbrainzImportOrder.create!(code: code, kind: "album_archetype") # , user: user)
+    musicbrainz_import_order = MusicbrainzImportOrder.create!(code: code, kind: "album_archetype")
+    import_order = ImportOrder.create!(import_orderable: musicbrainz_import_order)
 
     album_archetype = Import.ignite(import_order)
 

@@ -71,15 +71,31 @@ class ImportOrdersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def import_order_params
-    parameters = params.require(:import_order).permit(:code, :kind, :state, :type, :uri, :import_order_id) # , :user_id)
+    given = params
+      .require(:import_order)
+      .permit(:code, :kind, :import_orderable_type, :state, :uri, :import_order_id) # , :user_id)
 
-    type, uri_string = parameters.values_at(:type, :uri)
-    return parameters if type
-    return parameters unless uri_string
+    uri_string = given[:uri]
+    return given unless uri_string
 
-    parameters[:type] = ImportOrderUri.build(uri_string).import_order_type
+    import_order_uri = ImportOrderUri.build(uri_string)
+
+    parameters = ActionController::Parameters.new(
+      {
+        import_order: {
+          import_orderable_type: import_order_uri.import_order_type,
+          import_orderable_attributes: {
+            kind: import_order_uri.kind_and_code.kind,
+            code: import_order_uri.kind_and_code.code,
+            uri: uri_string
+          }
+        }
+      }
+    )
 
     parameters
+      .require(:import_order)
+      .permit(:import_orderable_type, {import_orderable_attributes: [:kind, :code, :uri]})
   end
 
   def place_job

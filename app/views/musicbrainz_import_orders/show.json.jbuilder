@@ -1,1 +1,0 @@
-json.partial! "musicbrainz_import_orders/musicbrainz_import_order", musicbrainz_import_order: @musicbrainz_import_order

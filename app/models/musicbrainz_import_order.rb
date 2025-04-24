@@ -1,20 +1,23 @@
-class MusicbrainzImportOrder < ImportOrder
+class MusicbrainzImportOrder < ApplicationRecord
   include BufferableImport
-  include Importable
-  include Transitionable
-
-  def self.model_name = ImportOrder.model_name
-
-  validates :code, format: {
-    with: %r{[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}},
-    message: "must be an UUID"
-  }
+  include ImportOrderable
 
   before_validation :set_kind_and_code
 
-  def target_kind
-    return :album_edition if kind.to_sym == :release
+  # TODO: remove this when we have a proper way to set the target_kind
+  # def target_kind = "album_archetype"
+  def target_kind = kind
+  #   debugger
+  #   "album_archetype"
+  # end
 
-    kind
+  def set_kind_and_code
+    return if kind.present?
+    return if code.present?
+    return if uri.blank?
+
+    import_order_uri = ImportOrderUri.build(uri)
+    self.kind = import_order_uri.kind
+    self.code = import_order_uri.code
   end
 end
