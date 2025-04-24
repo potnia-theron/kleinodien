@@ -101,7 +101,7 @@ class ImportOrdersController < ApplicationController
 
     Rails.logger.info("controller: #{@import_order.inspect}")
 
-    case @import_order.inferred_type
+    case @import_order.import_orderable_type
     when "MusicbrainzImportOrder"
       # TODO: choose the right Job depending on :kind
       Rails.logger.debug("ImportOrder#uri: #{@import_order.uri.inspect}")

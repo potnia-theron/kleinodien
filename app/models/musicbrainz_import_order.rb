@@ -6,7 +6,11 @@ class MusicbrainzImportOrder < ApplicationRecord
 
   # TODO: remove this when we have a proper way to set the target_kind
   # def target_kind = "album_archetype"
-  def target_kind = kind
+  # def target_kind = kind
+  def target_kind
+    return "AlbumEdition" if kind == "release"
+    kind
+  end
 
   def set_kind_and_code
     return if kind.present?
