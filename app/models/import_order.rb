@@ -1,5 +1,5 @@
 class ImportOrder < ApplicationRecord
-  include Importable
+  belongs_to :import_order, optional: true
 
   delegated_type :import_orderable, types: %w[MusicbrainzImportOrder]
   accepts_nested_attributes_for :import_orderable
