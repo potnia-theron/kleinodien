@@ -1,6 +1,10 @@
 class MusicbrainzImportOrder < ApplicationRecord
   include BufferableImport
   include ImportOrderable
+  include Transitionable
+
+  validates :kind, presence: true
+  validates :code, presence: true
 
   before_validation :set_kind_and_code
 
