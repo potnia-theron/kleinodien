@@ -3,17 +3,9 @@
 one:
   import_orderable_id: <%= ActiveRecord::FixtureSet.identify(:one, column_type = :uuid) %> 
   import_orderable_type: MusicbrainzImportOrder
-  # code: MyString
-  # kind: MyString
-  # state: 0
-  # type:
-  # uri: MyString
+  user_id: <%= ActiveRecord::FixtureSet.identify(:kim, column_type = :uuid) %> 
 
 two:
   import_orderable_id: <%= ActiveRecord::FixtureSet.identify(:two, column_type = :uuid) %> 
   import_orderable_type: MusicbrainzImportOrder
-  # code: MyString
-  # kind: MyString
-  # state: 0
-  # type:
-  # uri: MyString
+  user_id: <%= ActiveRecord::FixtureSet.identify(:sam, column_type = :uuid) %> 
