@@ -5,8 +5,8 @@ one:
   end_date: 2025-03-18
   end_date_accuracy: 1
   link_kind: two
-  source_id: aa67c98c-d81f-5a9c-b0bc-26caa0051aea
-  destination_id: 37f7eeff-831b-5c41-984a-254965f58c0f
+  source_id: <%= ActiveRecord::FixtureSet.identify(:one, column_type = :uuid) %>
+  destination_id: <%= ActiveRecord::FixtureSet.identify(:two, column_type = :uuid) %>
 
 two:
   begin_data: 2025-03-18
@@ -14,5 +14,5 @@ two:
   end_date: 2025-03-18
   end_date_accuracy: 1
   link_kind: one
-  source_id: 37f7eeff-831b-5c41-984a-254965f58c0f
-  destination_id: aa67c98c-d81f-5a9c-b0bc-26caa0051aea
+  source_id: <%= ActiveRecord::FixtureSet.identify(:two, column_type = :uuid) %>
+  destination_id: <%= ActiveRecord::FixtureSet.identify(:one, column_type = :uuid) %>
