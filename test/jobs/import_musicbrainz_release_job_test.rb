@@ -20,6 +20,9 @@ class ImportMusicbrainzReleaseJobTest < ActiveJob::TestCase
     end
 
     assert Archetype.find_by(title: "Beating Around the Bush")
-    # assert import_order.done?
+
+    # Since the state of the import_order is change elsewhere, we need to reload it
+    import_order.reload
+    assert import_order.done?
   end
 end
