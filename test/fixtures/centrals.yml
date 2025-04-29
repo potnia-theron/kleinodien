@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  centralable_id: aa67c98c-d81f-5a9c-b0bc-26caa0051aea
+  centralable_id: <%= ActiveRecord::FixtureSet.identify(:one, column_type = :uuid) %>
   centralable_type: MyString
 
 two:
-  centralable_id: 37f7eeff-831b-5c41-984a-254965f58c0f
+  centralable_id: <%= ActiveRecord::FixtureSet.identify(:two, column_type = :uuid) %>
   centralable_type: MyString
