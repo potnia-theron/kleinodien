@@ -4,8 +4,7 @@ class ImportOrdersController < ApplicationController
 
   # GET /import_orders or /import_orders.json
   def index
-    # @import_orders = current_user.import_orders
-    @import_orders = ImportOrder.all
+    @import_orders = Current.user.import_orders
   end
 
   # GET /import_orders/1 or /import_orders/1.json
@@ -14,8 +13,7 @@ class ImportOrdersController < ApplicationController
 
   # GET /import_orders/new
   def new
-    # @import_order = current_user.import_orders.build
-    @import_order = ImportOrder.new
+    @import_order = Current.user.import_orders.build
   end
 
   # GET /import_orders/1/edit
@@ -24,8 +22,7 @@ class ImportOrdersController < ApplicationController
 
   # POST /import_orders or /import_orders.json
   def create
-    # @import_order = current_user.import_orders.build(import_order_params)
-    @import_order = ImportOrder.new(import_order_params)
+    @import_order = Current.user.import_orders.build(import_order_params)
 
     respond_to do |format|
       if @import_order.save
@@ -65,21 +62,34 @@ class ImportOrdersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_import_order
-    # @import_order = current_user.import_orders.find(params[:id])
-    @import_order = ImportOrder.find(params[:id])
+    @import_order = Current.user.import_orders.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def import_order_params
-    parameters = params.require(:import_order).permit(:code, :kind, :state, :type, :uri, :import_order_id) # , :user_id)
+    (import_order_params_by_uri || params)
+      .require(:import_order)
+      .permit(:import_orderable_type, {import_orderable_attributes: [:kind, :code, :uri]})
+  end
 
-    type, uri_string = parameters.values_at(:type, :uri)
-    return parameters if type
-    return parameters unless uri_string
+  def import_order_params_by_uri
+    uri_string = params.dig(:import_order, :uri)
+    return if uri_string.blank?
 
-    parameters[:type] = ImportOrderUri.build(uri_string).import_order_type
+    import_order_uri = ImportOrderUri.build(uri_string)
 
-    parameters
+    ActionController::Parameters.new(
+      {
+        import_order: {
+          import_orderable_type: import_order_uri.import_order_type,
+          import_orderable_attributes: {
+            kind: import_order_uri.kind_and_code.kind,
+            code: import_order_uri.kind_and_code.code,
+            uri: uri_string
+          }
+        }
+      }
+    )
   end
 
   def place_job
@@ -87,7 +97,7 @@ class ImportOrdersController < ApplicationController
 
     Rails.logger.info("controller: #{@import_order.inspect}")
 
-    case @import_order.inferred_type
+    case @import_order.import_orderable_type
     when "MusicbrainzImportOrder"
       # TODO: choose the right Job depending on :kind
       Rails.logger.debug("ImportOrder#uri: #{@import_order.uri.inspect}")

@@ -9,8 +9,9 @@ class Import::ImportAnAlbumEditionFromMusicbrainzTest < ActiveSupport::TestCase
 
   test "Highway to Hell" do
     code = "8866e226-7cd6-414e-b7d2-6ae0b0df6715"
-    # user = users(:kim)
-    import_order = MusicbrainzImportOrder.create!(code: code, kind: "album-edition") # , user: user)
+    user = users(:sam)
+    musicbrainz_import_order = MusicbrainzImportOrder.create!(code: code, kind: "album-edition")
+    import_order = ImportOrder.create!(import_orderable: musicbrainz_import_order, user: user)
 
     album_edition = Import.ignite(import_order)
 

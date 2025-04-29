@@ -1,57 +1,40 @@
 require "test_helper"
-require "minitest/mock"
-
 require "support/shared_bufferable_import_order_tests"
-require "support/shared_import_order_tests"
 require "support/shared_transitionable_tests"
 
 class MusicbrainzImportOrderTest < ActiveSupport::TestCase
   include SharedBufferableImportOrderTests
-  include SharedImportOrderTests
   include SharedTransitionableTests
 
   setup do
-    @code = "66650826-7a63-11ef-9b55-871e6cdac01d"
-    @uri = "https://musicbrainz.org/ws/2/release/#{@code}"
-    # @user = users(:kim)
-    @subject = MusicbrainzImportOrder.new(kind: "release", code: @code) # , user: @user)
+    @subject = MusicbrainzImportOrder.new(kind: "release", code: "073a15b4-1940-4f1e-9234-6a1701a4ce28")
+  end
+
+  test "is valid with kind and code" do
+    import_order = MusicbrainzImportOrder.new(kind: "release", code: "073a15b4-1940-4f1e-9234-6a1701a4ce28")
+    assert import_order.valid?
   end
 
   test "with a valid uri" do
-    import_order = MusicbrainzImportOrder.new(uri: @uri) # , user: @user)
+    import_order = MusicbrainzImportOrder.new(uri: "https://musicbrainz.org/release/073a15b4-1940-4f1e-9234-6a1701a4ce28")
 
-    assert_predicate import_order, :valid?
+    assert import_order.valid?
     assert_equal "release", import_order.kind
-    assert_equal @code, import_order.code
+    assert_equal "073a15b4-1940-4f1e-9234-6a1701a4ce28", import_order.code
   end
 
-  test "import order uri type" do
-    assert_nil @subject.uri
-
-    @subject.uri = @uri
-
-    assert_kind_of ImportOrderUri::Musicbrainz, @subject.uri
+  test "is not valid without kind" do
+    @subject.kind = nil
+    assert @subject.invalid?
   end
 
-  test "with a valid uri and a kind" do
-    import_order = MusicbrainzImportOrder.new(kind: "release", uri: @uri) # , user: users(:kim))
-
-    assert_not_predicate import_order, :valid?
-    assert_equal "release", import_order.kind
-    assert_nil import_order.code
+  test "is not valid without code" do
+    @subject.code = nil
+    assert @subject.invalid?
   end
 
-  test "with a valid uri and code" do
-    import_order = MusicbrainzImportOrder.new(code: @code, uri: "https://musicbrainz.org/non/sense") # , user: users(:kim))
-
-    assert_not_predicate import_order, :valid?
-    assert_nil import_order.kind
-    assert_equal @code, import_order.code
-  end
-
-  test "with an invalid code" do
-    import_order = MusicbrainzImportOrder.new(code: "no-uuid", kind: "release") # , user: users(:kim))
-
-    assert_not_predicate import_order, :valid?
+  test "without kind, code and uri" do
+    import_order = MusicbrainzImportOrder.new
+    assert import_order.invalid?
   end
 end

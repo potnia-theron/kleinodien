@@ -10,7 +10,8 @@ class CreateMusicBrainzImportOrderTest < ActionDispatch::IntegrationTest
 
     assert_response :success
 
-    post "/import_orders", params: {import_order: {code: "c0f4b036-e215-43f7-970d-9506e053ea82", kind: "release", state: "open", type: "MusicbrainzImportOrder"}} # , user_id: @user.id}}
+    # post "/import_orders", params: {import_order: {code: "c0f4b036-e215-43f7-970d-9506e053ea82", kind: "release", state: "open", type: "MusicbrainzImportOrder"}} # , user_id: @user.id}}
+    post "/import_orders", params: {import_order: {uri: "https://musicbrainz.org/release/040c8e28-74d8-482e-ba47-175dbf46499c"}} # , user_id: @user.id}}
 
     assert_response :redirect
     follow_redirect!
