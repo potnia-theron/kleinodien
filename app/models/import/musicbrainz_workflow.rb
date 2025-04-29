@@ -48,7 +48,6 @@ module Import
 
     def supply_persisted_entity
       adapter_layer.with(supply_persisted: true) do |adapter|
-        # adapter.supply_entity(order.kind, musicbrainz_code: order.code)
         adapter.supply_entity(order.target_kind, musicbrainz_code: order.code)
       end
     end
