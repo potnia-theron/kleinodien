@@ -29,8 +29,8 @@ class LinksController < ApplicationController
         format.html { redirect_to @link, notice: "Link was successfully created." }
         format.json { render :show, status: :created, location: @link }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @link.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @link.errors, status: :unprocessable_content }
       end
     end
   end
@@ -42,8 +42,8 @@ class LinksController < ApplicationController
         format.html { redirect_to @link, notice: "Link was successfully updated." }
         format.json { render :show, status: :ok, location: @link }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @link.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @link.errors, status: :unprocessable_content }
       end
     end
   end

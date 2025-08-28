@@ -13,7 +13,7 @@ class RegistrationsController < ApplicationController
       redirect_to root_path, notice: "You've successfully signed up to Kleinodien"
     else
       flash[:alert] = @user.errors.full_messages.join(", ")
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

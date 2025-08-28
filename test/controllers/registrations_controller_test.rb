@@ -31,7 +31,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
         }
       }
     end
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_match "Email address is invalid", flash[:alert]
     assert_match "Password is too short", flash[:alert]
     assert_match "Password confirmation doesn't match Password", flash[:alert]
