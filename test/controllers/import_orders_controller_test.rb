@@ -39,7 +39,7 @@ class ImportOrdersControllerTest < ActionDispatch::IntegrationTest
       post import_orders_url, params: {import_order: {wrong: "parameter"}}
     end
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test "should show import_order" do
@@ -64,7 +64,7 @@ class ImportOrdersControllerTest < ActionDispatch::IntegrationTest
     patch import_order_url(@import_order), params: {import_order: {bad: "evil"}}
 
     assert_redirected_to import_order_url(@import_order)
-    # assert_response :unprocessable_entity
+    # assert_response :unprocessable_content
   end
 
   test "should destroy import_order" do

@@ -29,8 +29,8 @@ class ParticipantsController < ApplicationController
         format.html { redirect_to participant_url(@participant), notice: "Participant was successfully created." }
         format.json { render :show, status: :created, location: @participant }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @participant.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @participant.errors, status: :unprocessable_content }
       end
     end
   end
@@ -42,8 +42,8 @@ class ParticipantsController < ApplicationController
         format.html { redirect_to participant_url(@participant), notice: "Participant was successfully updated." }
         format.json { render :show, status: :ok, location: @participant }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @participant.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @participant.errors, status: :unprocessable_content }
       end
     end
   end

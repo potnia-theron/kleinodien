@@ -29,8 +29,8 @@ class ArtistCreditParticipantsController < ApplicationController
         format.html { redirect_to artist_credit_participant_url(@artist_credit_participant), notice: "Artist credit participant was successfully created." }
         format.json { render :show, status: :created, location: @artist_credit_participant }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @artist_credit_participant.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @artist_credit_participant.errors, status: :unprocessable_content }
       end
     end
   end
@@ -42,8 +42,8 @@ class ArtistCreditParticipantsController < ApplicationController
         format.html { redirect_to artist_credit_participant_url(@artist_credit_participant), notice: "Artist credit participant was successfully updated." }
         format.json { render :show, status: :ok, location: @artist_credit_participant }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @artist_credit_participant.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @artist_credit_participant.errors, status: :unprocessable_content }
       end
     end
   end

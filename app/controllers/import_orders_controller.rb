@@ -29,8 +29,8 @@ class ImportOrdersController < ApplicationController
         format.html { redirect_to url_for(@import_order), notice: "Import order was successfully created." }
         format.json { render :show, status: :created, location: @import_order }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @import_order.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @import_order.errors, status: :unprocessable_content }
       end
     end
   end
@@ -42,8 +42,8 @@ class ImportOrdersController < ApplicationController
         format.html { redirect_to import_order_url(@import_order), notice: "Import order was successfully updated." }
         format.json { render :show, status: :ok, location: @import_order }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @import_order.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @import_order.errors, status: :unprocessable_content }
       end
     end
   end

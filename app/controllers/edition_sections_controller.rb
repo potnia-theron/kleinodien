@@ -29,8 +29,8 @@ class EditionSectionsController < ApplicationController
         format.html { redirect_to @edition_section, notice: "Edition section was successfully created." }
         format.json { render :show, status: :created, location: @edition_section }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @edition_section.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @edition_section.errors, status: :unprocessable_content }
       end
     end
   end
@@ -42,8 +42,8 @@ class EditionSectionsController < ApplicationController
         format.html { redirect_to @edition_section, notice: "Edition section was successfully updated." }
         format.json { render :show, status: :ok, location: @edition_section }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @edition_section.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @edition_section.errors, status: :unprocessable_content }
       end
     end
   end
