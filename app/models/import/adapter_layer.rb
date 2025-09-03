@@ -23,7 +23,7 @@ module Import
     def build_entity(...) = Import::EntityBuilder.call(self, ...)
 
     def build_reflections_for(kind)
-      "Import::#{kind.to_s.underscore.classify}Reflections".constantize.new
+      "IngestionReflections::#{kind.to_s.underscore.classify}".constantize.new
     end
 
     def facade_layer = @facade_layer ||= Import::FacadeLayer.new(order)

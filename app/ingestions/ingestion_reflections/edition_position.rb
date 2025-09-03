@@ -1,8 +1,8 @@
-module Import
-  class EditionPositionReflections
+module IngestionReflections
+  class EditionPosition
     include Concerns::Reflectable
 
-    delegate_missing_to EditionPosition
+    delegate_missing_to ::EditionPosition
 
     def after_belongs_to_associations(associations)
       associations
@@ -11,8 +11,7 @@ module Import
     end
 
     def foreign_base_associations
-      EditionPosition
-        .reflect_on_all_associations(:belongs_to)
+      reflect_on_all_associations(:belongs_to)
         .select { |association| association.name == :edition }
     end
   end

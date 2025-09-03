@@ -1,8 +1,8 @@
-module Import
-  class UrlReflections
+module IngestionReflections
+  class Url
     include Concerns::Reflectable
 
-    delegate_missing_to Url
+    delegate_missing_to ::Url
 
     # TODO: remove #linkable?
     # TODO: ... or shall it stay? Urls shouldn't link to other entities

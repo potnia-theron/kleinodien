@@ -34,7 +34,7 @@ module Import
         .to_s
         .underscore
         .classify
-        .then { "Import::#{it}Reflections" }
+        .then { "IngestionReflections::#{it}" }
         .constantize
     end
   end

@@ -1,8 +1,8 @@
-module Import
-  class ArchetypeReflections
+module IngestionReflections
+  class Archetype
     include Concerns::Reflectable
 
-    delegate_missing_to Archetype
+    delegate_missing_to ::Archetype
 
     def after_belongs_to_associations(associations)
       associations.reject { |association| association.name == :archetypeable }

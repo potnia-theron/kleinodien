@@ -1,8 +1,8 @@
-module Import
-  class EditionSectionReflections
+module IngestionReflections
+  class EditionSection
     include Concerns::Reflectable
 
-    delegate_missing_to "EditionSection"
+    delegate_missing_to ::EditionSection
 
     def after_belongs_to_associations(associations)
       associations.reject { |association| association.name == :edition }
