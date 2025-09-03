@@ -1,4 +1,4 @@
-module Import::Concerns
+module IngestionReflections::Concerns
   module Reflectable
     extend ActiveSupport::Concern
 

@@ -12,7 +12,7 @@ class Import::MusicbrainzParticipantFacadeTest < ActiveSupport::TestCase
   end
 
   test "#all_codes" do
-    known_codes = Import::ParticipantReflections.new
+    known_codes = IngestionReflections::Participant.new
       .inherent_attribute_names
       .filter { |attr| attr.end_with? "_code" }
 

@@ -1,5 +1,9 @@
-module Import
-  class EditionReflections
+module IngestionReflections
+  class Edition
+    include Concerns::Reflectable
+
+    delegate_missing_to ::Edition
+
     Association = Data.define(:association) do
       delegate_missing_to :association
 
@@ -12,9 +16,7 @@ module Import
       end
     end
 
-    include Concerns::Reflectable
-
-    delegate_missing_to Edition
+    delegate_missing_to ::Edition
 
     def after_belongs_to_associations(associations)
       associations
@@ -23,8 +25,8 @@ module Import
     end
 
     def delegated_base_associations
-      association = Edition
-        .reflect_on_all_associations(:belongs_to)
+      #      association = ::Edition
+      association = reflect_on_all_associations(:belongs_to)
         .find { |association| association.name == :archetype }
 
       [Association.new(association)]

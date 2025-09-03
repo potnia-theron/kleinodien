@@ -1,8 +1,8 @@
-module Import
-  class ArtistCreditParticipantReflections
+module IngestionReflections
+  class ArtistCreditParticipant
     include Concerns::Reflectable
 
-    delegate_missing_to ArtistCreditParticipant
+    delegate_missing_to ::ArtistCreditParticipant
 
     def after_belongs_to_associations(associations)
       associations.reject { |association| association.name == :artist_credit }
