@@ -1,7 +1,7 @@
 require "test_helper"
 require "minitest/mock"
 
-class Import::AlbumArchetypeFinderTest < ActiveSupport::TestCase
+class IngestionFinder::AlbumEditionTest < ActiveSupport::TestCase
   setup do
     @order = Minitest::Mock.new
     @facade = Minitest::Mock.new
@@ -11,34 +11,34 @@ class Import::AlbumArchetypeFinderTest < ActiveSupport::TestCase
     @facade.expect :cheap_codes, {discogs_code: 333}
     @facade.expect :all_codes, {discogs_code: 333, musicbrainz_code: "5ec4b261-1afe-4588-9ff7-90b1b32c9dec"}
 
-    assert_nil Import::AlbumArchetypeFinder.call(@order, @facade)
+    assert_nil IngestionFinder::AlbumEdition.call(@order, @facade)
 
     @facade.verify
     @order.verify
   end
 
-  test "#find_by_cheap_codes returns the AlbumArchetype if it exists" do
+  test "#find by cheap_codes returns if AlbumEdition does exist" do
     musicbrainz_code = "18c8ecb4-c9fd-4b14-9b2e-249ea3e8c821"
-    album_archetype = album_archetypes(:one)
-    album_archetype.update!(musicbrainz_code: musicbrainz_code)
+    album_edition = album_editions(:one)
+    album_edition.update!(musicbrainz_code: musicbrainz_code)
 
     @facade.expect :cheap_codes, {musicbrainz_code: musicbrainz_code}
 
-    assert_equal album_archetype, Import::AlbumArchetypeFinder.call(@order, @facade)
+    assert_equal album_edition, IngestionFinder::AlbumEdition.call(@order, @facade)
 
     @facade.verify
     @order.verify
   end
 
-  test "#find_by_all_codes returns the AlbumArchetype it exists" do
+  test "#find by all_codes returns if AlbumEdition does exist" do
     musicbrainz_code = "18c8ecb4-c9fd-4b14-9b2e-249ea3e8c821"
-    album_archetype = album_archetypes(:one)
-    album_archetype.update!(musicbrainz_code: musicbrainz_code)
+    album_edition = album_editions(:one)
+    album_edition.update!(musicbrainz_code: musicbrainz_code)
 
     @facade.expect :cheap_codes, {discogs_code: 333}
     @facade.expect :all_codes, {musicbrainz_code: musicbrainz_code}
 
-    assert_equal album_archetype, Import::AlbumArchetypeFinder.call(@order, @facade)
+    assert_equal album_edition, IngestionFinder::AlbumEdition.call(@order, @facade)
 
     @facade.verify
     @order.verify

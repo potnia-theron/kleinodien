@@ -1,5 +1,5 @@
-module Import
-  class SongArchetypeFinder
+module IngestionFinder
+  class Participant
     include Callable
     include Concerns::CodeFindable
 
@@ -14,6 +14,6 @@ module Import
       find_by_cheap_codes || find_by_codes
     end
 
-    def model_class = SongArchetype
+    def model_class = ::Participant
   end
 end

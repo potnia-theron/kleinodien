@@ -1,7 +1,7 @@
 require "test_helper"
 require "minitest/mock"
 
-class Import::MusicbrainzArtistCreditFinderTest < ActiveSupport::TestCase
+class IngestionFinder::MusicbrainzArtistCreditTest < ActiveSupport::TestCase
   setup do
     @order = Minitest::Mock.new
     @facade = Minitest::Mock.new
@@ -10,7 +10,7 @@ class Import::MusicbrainzArtistCreditFinderTest < ActiveSupport::TestCase
   test "ArtistCredit does not exist" do
     @facade.expect :name, "Lee Aaron"
 
-    assert_nil Import::ArtistCreditFinder.call(@order, @facade)
+    assert_nil IngestionFinder::ArtistCredit.call(@order, @facade)
 
     @facade.verify
   end
@@ -20,7 +20,7 @@ class Import::MusicbrainzArtistCreditFinderTest < ActiveSupport::TestCase
 
     @facade.expect :name, "Lee Aaron"
 
-    assert_equal lee_aaron, Import::ArtistCreditFinder.call(@order, @facade)
+    assert_equal lee_aaron, IngestionFinder::ArtistCredit.call(@order, @facade)
 
     @facade.verify
   end

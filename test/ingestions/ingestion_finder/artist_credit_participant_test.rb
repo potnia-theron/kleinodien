@@ -2,10 +2,10 @@ require "test_helper"
 require "minitest/mock"
 require "support/shared_null_finder_tests"
 
-class Import::ArtistCreditParticipantFinderTest < ActiveSupport::TestCase
+class IngestionFinder::ArtistCreditParticipantTest < ActiveSupport::TestCase
   include SharedNullFinderTests
 
   setup do
-    @finder_class = Import::ArtistCreditParticipantFinder
+    @finder_class = IngestionFinder::ArtistCreditParticipant
   end
 end
