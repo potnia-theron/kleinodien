@@ -1,5 +1,5 @@
-module Import
-  class MusicbrainzLinkFacade
+module MusicbrainzFacade
+  class Link
     def initialize(relations)
       @relations = relations
     end

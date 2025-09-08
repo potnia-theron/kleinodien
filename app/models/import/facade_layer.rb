@@ -19,8 +19,8 @@ module Import
 
     def facade_class_for(reflections)
       base_class_name = reflections.base_class.name.dup
-      ["Import::", class_name_component, base_class_name, "Facade"]
-        .join
+
+      "#{class_name_component}Facade::#{base_class_name}"
         .constantize
     end
   end

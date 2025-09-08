@@ -1,5 +1,5 @@
-module Import
-  class MusicbrainzEditionSectionFacade
+module MusicbrainzFacade
+  class LinkKind
     include Concerns::Scrapeable
 
     def initialize(facade_layer, options)
@@ -8,18 +8,17 @@ module Import
     end
 
     attr_reader :facade_layer, :options
-    delegate_missing_to :facade_layer
 
-    def data
-      options
-    end
+    def data = options
 
     def scraper_builder
       @@scraper_builder ||= Import::ScraperArchitect.build do
-        define :alphanumeric, :position
-        define :level, always: 1
-        define :no, :position
-        define :positions, :tracks
+        define :name
+        define :description
+        define :link_phrase
+        define :reverse_link_phrase
+        define :long_link_phrase
+        define :musicbrainz_code, :id
       end
     end
   end

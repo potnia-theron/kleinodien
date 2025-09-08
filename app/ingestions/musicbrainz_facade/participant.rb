@@ -1,5 +1,5 @@
-module Import
-  class MusicbrainzParticipantFacade
+module MusicbrainzFacade
+  class Participant
     include Concerns::Scrapeable
 
     def initialize(facade_layer, options)
@@ -36,12 +36,12 @@ module Import
 
     def cheap_codes = {musicbrainz_code: musicbrainz_code}
 
-    def links = @link_facade ||= Import::MusicbrainzLinkFacade.new(data[:relations])
+    def links = @link_facade ||= MusicbrainzFacade::Link.new(data[:relations])
 
     def musicbrainz_code = options[:musicbrainz_code]
 
     def relations
-      @relations ||= Import::MusicbrainzRelationsCode.new(data[:relations]).extract
+      @relations ||= MusicbrainzFacade::RelationsCode.new(data[:relations]).extract
     end
 
     private

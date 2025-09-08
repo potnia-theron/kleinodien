@@ -1,5 +1,5 @@
-module Import
-  class MusicbrainzSongEditionFacade
+module MusicbrainzFacade
+  class SongEdition
     include Concerns::Scrapeable
 
     def initialize(facade_layer, options)
