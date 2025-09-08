@@ -1,5 +1,5 @@
-module Import
-  class EntityFinder
+module IngestionFinder
+  class Entity
     include Callable
 
     def initialize(adapter_layer, kind, options)
@@ -22,7 +22,7 @@ module Import
     end
 
     def finder_class
-      @finder_class ||= "Import::#{reflections.base_class.name}Finder".constantize
+      @finder_class ||= "IngestionFinder::#{reflections.base_class.name}".constantize
     end
 
     def reflections

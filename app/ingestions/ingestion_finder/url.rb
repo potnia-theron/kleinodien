@@ -1,5 +1,5 @@
-module Import
-  class LinkKindFinder
+module IngestionFinder
+  class Url
     include Callable
 
     def initialize(order, facade)
@@ -8,11 +8,13 @@ module Import
     end
 
     def call
-      LinkKind.find_by(name: facade.scrape(:name))
+      model_class.find_by(address: facade.scrape(:address))
     end
 
     private
 
     attr_reader :facade, :order
+
+    def model_class = ::Url
   end
 end

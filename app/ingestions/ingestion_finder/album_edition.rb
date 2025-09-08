@@ -1,5 +1,5 @@
-module Import
-  class ArtistCreditFinder
+module IngestionFinder
+  class AlbumEdition
     include Callable
     include Concerns::CodeFindable
 
@@ -8,12 +8,14 @@ module Import
       @facade = facade
     end
 
-    attr_reader :facade, :order
-
     def call
-      name = facade.name
-
-      ArtistCredit.find_by(name: name)
+      find_by_cheap_codes || find_by_codes
     end
+
+    private
+
+    attr_reader :order, :facade
+
+    def model_class = ::AlbumEdition
   end
 end

@@ -28,7 +28,8 @@ module Import
 
     def facade_layer = @facade_layer ||= Import::FacadeLayer.new(order)
 
-    def find_entity(...) = Import::EntityFinder.call(self, ...)
+    # def find_entity(...) = Import::EntityFinder.call(self, ...)
+    def find_entity(...) = IngestionFinder::Entity.call(self, ...)
 
     def find_or_build_entity(...) = find_entity(...) || build_entity(...)
 

@@ -1,4 +1,4 @@
-module Import
+module IngestionFinder
   class NullFinder
     include Callable
 
