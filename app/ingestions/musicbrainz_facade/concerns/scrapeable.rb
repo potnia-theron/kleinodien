@@ -1,4 +1,4 @@
-module Import::Concerns
+module MusicbrainzFacade::Concerns
   module Scrapeable
     extend ActiveSupport::Concern
 

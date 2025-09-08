@@ -1,5 +1,5 @@
-module Import
-  class MusicbrainzArtistCreditParticipantFacade
+module MusicbrainzFacade
+  class ArtistCreditParticipant
     include Concerns::Scrapeable
 
     def initialize(facade_layer, options)

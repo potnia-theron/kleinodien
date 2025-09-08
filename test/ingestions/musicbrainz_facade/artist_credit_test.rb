@@ -2,9 +2,9 @@ require "test_helper"
 require "support/retrieve"
 require "support/retrieve/musicbrainz"
 
-class Import::MusicbrainzArtistCreditFacadeTest < ActiveSupport::TestCase
+class MusicbrainzFacade::ArtistCreditTest < ActiveSupport::TestCase
   setup do
-    @facade = Import::MusicbrainzArtistCreditFacade.new(:fake, options)
+    @facade = MusicbrainzFacade::ArtistCredit.new(:fake, options)
   end
 
   test "#name" do

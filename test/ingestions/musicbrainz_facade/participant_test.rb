@@ -3,12 +3,12 @@ require "minitest/mock"
 require "support/retrieve"
 require "support/retrieve/musicbrainz"
 
-class Import::MusicbrainzParticipantFacadeTest < ActiveSupport::TestCase
+class MusicbrainzFacade::ParticipantTest < ActiveSupport::TestCase
   setup do
     @musicbrainz_code = "2280ca0e-6968-4349-8c36-cb0cbd6ee95f"
     @options = {musicbrainz_code: @musicbrainz_code}
 
-    @subject = Import::MusicbrainzParticipantFacade.new(@facade_layer, @options)
+    @subject = MusicbrainzFacade::Participant.new(@facade_layer, @options)
   end
 
   test "#all_codes" do

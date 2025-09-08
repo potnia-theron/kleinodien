@@ -1,5 +1,5 @@
-module Import
-  class MusicbrainzRelationsCode
+module MusicbrainzFacade
+  class RelationsCode
     REGEX_FOR = {
       "discogs" => %r{/(?<kind>[a-z-]+)/(?<code>\d+)},
       "imdb" => %r{/(?<kind>[a-z-]+)/(?<code>\w\w\d+)},

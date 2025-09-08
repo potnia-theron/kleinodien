@@ -1,5 +1,5 @@
-module Import
-  class MusicbrainzUrlFacade
+module MusicbrainzFacade
+  class Url
     include Concerns::Scrapeable
 
     def initialize(facade_layer, options)
