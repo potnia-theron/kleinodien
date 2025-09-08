@@ -1,8 +1,6 @@
 module Import
   class Json
-    def self.parse(*)
-      new(*).parse
-    end
+    def self.parse(...) = new(...).parse
 
     # The second parameter (_) is optional and will be ignored.
     # It is necessary because faraday uses an empty hash as second argument.
@@ -10,9 +8,7 @@ module Import
       @json_string = json_string
     end
 
-    def parse
-      transform(raw_data)
-    end
+    def parse = ::JSON.parse(json_string).then { transform(it) }
 
     private
 
@@ -25,18 +21,13 @@ module Import
       given
     end
 
-    def transform_array(values)
-      values.map { |value| transform(value) }
-    end
+    def transform_array(values) = values.map { transform(it) }
 
     def transform_hash(hash)
-      hash.transform_keys!(&:underscore)
-      hash.transform_keys!(&:to_sym)
-      hash.transform_values! { |value| transform(value) }
-    end
-
-    def raw_data
-      @raw_data ||= JSON.parse(json_string)
+      hash
+        .transform_keys(&:underscore)
+        .transform_keys!(&:to_sym)
+        .transform_values! { transform(it) }
     end
   end
 end
