@@ -2,7 +2,7 @@ module IngestionFinder
   class Entity
     include Callable
 
-    def initialize(adapter_layer, kind, options)
+  def initialize
       @adapter_layer = adapter_layer
       @kind = kind
       @options = options

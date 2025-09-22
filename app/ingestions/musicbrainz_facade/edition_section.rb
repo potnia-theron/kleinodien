@@ -2,13 +2,13 @@ module MusicbrainzFacade
   class EditionSection
     include Concerns::Scrapeable
 
-    def initialize(facade_layer, options)
-      @facade_layer = facade_layer
+    def initialize(factory, options)
+      @factory = factory
       @options = options
     end
 
-    attr_reader :facade_layer, :options
-    delegate_missing_to :facade_layer
+    attr_reader :factory, :options
+    delegate_missing_to :factory
 
     def data
       options
@@ -19,8 +19,11 @@ module MusicbrainzFacade
         define :alphanumeric, :position
         define :level, always: 1
         define :no, :position
-        define :positions, :tracks
+        # define :positions, :tracks
+        define :positions, callback: ->(facade) { facade.positions }
       end
     end
+
+    def positions = data[:tracks].map { factory.create(:edition_position, it) }
   end
 end

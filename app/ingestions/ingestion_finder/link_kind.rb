@@ -4,7 +4,7 @@ module IngestionFinder
 
     def model_class = ::LinkKind
 
-    def initialize(order, facade)
+  def initialize
       @order = order
       @facade = facade
     end

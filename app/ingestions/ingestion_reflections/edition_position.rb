@@ -2,6 +2,9 @@ module IngestionReflections
   class EditionPosition
     include Concerns::Reflectable
 
+    def initialize(factory)
+      @factory = factory
+    end
     delegate_missing_to ::EditionPosition
 
     def after_belongs_to_associations(associations)
@@ -14,5 +17,9 @@ module IngestionReflections
       reflect_on_all_associations(:belongs_to)
         .select { |association| association.name == :edition }
     end
+
+    private
+
+    attr_reader :factory
   end
 end

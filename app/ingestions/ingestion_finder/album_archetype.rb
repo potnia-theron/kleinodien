@@ -1,17 +1,16 @@
 module IngestionFinder
-  class AlbumArchetype
+  class AlbumArchetype < NullFinder
     include Callable
     include Concerns::CodeFindable
 
-    def initialize(order, facade)
-      @order = order
-      @facade = facade
+    def initialize
+      @factory = factory
     end
 
-    attr_reader :facade, :order
+    attr_reader :factory
 
-    def call
-      find_by_cheap_codes || find_by_codes
+    def call(facade)
+      find_by_cheap_codes(facade) || find_by_codes(facade)
     end
 
     def model_class = ::AlbumArchetype

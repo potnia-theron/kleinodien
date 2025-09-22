@@ -2,23 +2,25 @@ module MusicbrainzFacade
   class AlbumEdition
     include Concerns::Scrapeable
 
-    def initialize(facade_layer, options)
-      @facade_layer = facade_layer
+    def initialize(factory, options)
+      @factory = factory
       @options = options
     end
 
-    attr_reader :facade_layer, :options
-    delegate_missing_to :facade_layer
+    attr_reader :factory, :options
+    delegate_missing_to :factory
 
     def data
-      @data ||= request_layer.get(:release, options[:musicbrainz_code])
+      @data ||= api.get(:release, options[:musicbrainz_code])
     end
 
     def scraper_builder
       @@scraper_builder ||= Import::ScraperArchitect.build do
-        define :archetype, :release_group
+        # define :archetype, :release_group
+        define :archetype, callback: ->(facade) { facade.archetype }
         define :editionable_type, always: "AlbumEdition"
-        define :sections, callback: ->(facade) { facade.data[:media] }
+        # define :sections, callback: ->(facade) { facade.data[:media] }
+        define :sections, callback: ->(facade) { facade.sections }
         define :discogs_code, callback: ->(facade) { facade.relations.dig(:discogs, :release) }
         define :musicbrainz_code, callback: ->(facade) { facade.options[:code] }
         define :wikidata_code, callback: ->(facade) { facade.relations.dig(:wikidata, :wiki) }
@@ -29,8 +31,14 @@ module MusicbrainzFacade
 
     def cheap_codes = {}
 
+    def archetype
+      factory.create(:album_archetype, data[:release_group])
+    end
+
     def relations
       @relations ||= MusicbrainzFacade::RelationsCode.new(data[:relations]).extract
     end
+
+    def sections = @sections ||= data[:media].map { factory.create(:edition_section, it) }
   end
 end

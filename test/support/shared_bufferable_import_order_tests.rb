@@ -5,13 +5,14 @@ module SharedBufferableImportOrderTests
     assert_equal "open", @subject.state
 
     @subject.save!
-    @subject.buffering!
+    # @subject.buffering!
     assert_raises(RuntimeError) { @subject.done! }
   end
 
   test "setting all good states via bang method" do
     assert_equal "open", @subject.state
 
+    @subject.find_existing!
     @subject.buffering!
     @subject.persisting!
     @subject.done!
@@ -22,14 +23,22 @@ module SharedBufferableImportOrderTests
   test "setting all good states via state method" do
     assert_equal "open", @subject.state
 
-    @subject.state = :buffering
-    @subject.save!
+    # @subject.state = :find_existing
+    # @subject.save!
 
-    @subject.state = :persisting
-    @subject.save!
+    # @subject.state = :buffering
+    # @subject.save!
 
-    @subject.state = :done
-    @subject.save!
+    # @subject.state = :persisting
+    # @subject.save!
+
+    # @subject.state = :done
+    # @subject.save!
+
+    %i[find_existing buffering persisting done].each do |state|
+      @subject.state = state
+      @subject.save!
+    end
 
     assert_equal "done", @subject.state
   end

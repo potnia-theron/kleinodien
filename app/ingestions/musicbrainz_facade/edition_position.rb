@@ -2,13 +2,13 @@ module MusicbrainzFacade
   class EditionPosition
     include Concerns::Scrapeable
 
-    def initialize(facade_layer, options)
-      @facade_layer = facade_layer
+    def initialize(factory, options)
+      @factory = factory
       @options = options
     end
 
-    attr_reader :facade_layer, :options
-    delegate_missing_to :facade_layer
+    attr_reader :factory, :options
+    delegate_missing_to :factory
 
     alias_method :data, :options
 
@@ -16,10 +16,26 @@ module MusicbrainzFacade
       @@scraper_builder ||= Import::ScraperArchitect.build do
         define :alphanumeric, :number
         define :no, :position
+        define :edition, callback: ->(facade) { facade.editions }
       end
     end
 
+    def edition = create(edition_class_name, edition_data)
+
     def delegated_type_for(_)
+      # debugger
+      return "SongEdition" unless data[:recording][:video]
+
+      raise "can't determinate delegated_type for data"
+    end
+
+    private
+
+    def edition_data = data.merge(ingestion_reflections: ingestion_reflections)
+
+    def ingestion_reflections = reflections_factory.create(edition_class_name)
+
+    def edition_class_name
       return "SongEdition" unless data[:recording][:video]
 
       raise "can't determinate delegated_type for data"

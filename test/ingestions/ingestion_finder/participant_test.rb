@@ -3,16 +3,16 @@ require "minitest/mock"
 
 class IngestionFinder::ParticipantTest < ActiveSupport::TestCase
   setup do
-    @order = Minitest::Mock.new
     @facade = Minitest::Mock.new
+    @finder = IngestionFinder::Participant.new
   end
+
   test "participant does not exist" do
     @facade.expect :cheap_codes, {}
     @facade.expect :all_codes, {}
 
-    assert_nil IngestionFinder::Participant.call(@order, @facade)
+    assert_nil @finder.call(@facade)
 
-    @order.verify
     @facade.verify
   end
 
@@ -21,9 +21,8 @@ class IngestionFinder::ParticipantTest < ActiveSupport::TestCase
 
     @facade.expect :cheap_codes, {discogs_code: 123}
 
-    assert_equal existing_participant, IngestionFinder::Participant.call(@order, @facade)
+    assert_equal existing_participant, @finder.call(@facade)
 
-    @order.verify
     @facade.verify
   end
 
@@ -33,9 +32,8 @@ class IngestionFinder::ParticipantTest < ActiveSupport::TestCase
     @facade.expect :cheap_codes, {}
     @facade.expect :all_codes, {tmdb_code: 321}
 
-    assert_equal existing_participant, IngestionFinder::Participant.call(@order, @facade)
+    assert_equal existing_participant, @finder.call(@facade)
 
-    @order.verify
     @facade.verify
   end
 end

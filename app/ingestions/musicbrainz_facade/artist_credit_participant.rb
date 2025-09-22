@@ -2,18 +2,18 @@ module MusicbrainzFacade
   class ArtistCreditParticipant
     include Concerns::Scrapeable
 
-    def initialize(facade_layer, options)
-      @facade_layer = facade_layer
+    def initialize(factory, options)
+      @factory = factory
       @options = options
     end
 
-    attr_reader :facade_layer, :options
-    delegate_missing_to :facade_layer
+    attr_reader :factory, :options
+    delegate_missing_to :factory
 
     def scraper_builder
       @@scraper_builder ||= Import::ScraperArchitect.build do
         define :join_phrase, :joinphrase
-        define :participant, callback: ->(facade) { {musicbrainz_code: facade.musicbrainz_code} }
+        define :participant, callback: ->(facade) { facade.participant }
         define :position, callback: ->(facade) { facade.position }
       end
     end
@@ -25,6 +25,8 @@ module MusicbrainzFacade
     def musicbrainz_code
       options[:artist][:id]
     end
+
+    def participant = factory.create(:participant, {musicbrainz_code: musicbrainz_code})
 
     def position
       options[:position]

@@ -1,10 +1,16 @@
 require "test_helper"
+require "minitest/mock"
 require "support/retrieve"
 require "support/retrieve/musicbrainz"
+require "support/web_mock_external_apis"
 
 class MusicbrainzFacade::ArtistCreditTest < ActiveSupport::TestCase
   setup do
-    @facade = MusicbrainzFacade::ArtistCredit.new(:fake, options)
+    WebMockExternalApis.setup
+    reflections_factory = IngestionReflections::Factory.new
+    @order = Minitest::Mock.new
+    @factory = MusicbrainzFacade::Factory.new(@order, reflections_factory)
+    @facade = MusicbrainzFacade::ArtistCredit.new(@factory, options)
   end
 
   test "#name" do
@@ -13,8 +19,15 @@ class MusicbrainzFacade::ArtistCreditTest < ActiveSupport::TestCase
 
   test "#participants" do
     assert_equal 2, @facade.participants.length
-    assert_equal "Biafra, Jello", @facade.participants.first.dig(:artist, :sort_name)
-    assert_equal "NoMeansNo", @facade.participants.second.dig(:artist, :sort_name)
+
+    @order.expect :buffering?, true
+    @order.expect :buffering?, true
+
+    assert_equal "Biafra, Jello", @facade.participants.first.participant.scrape(:sort_name)
+    assert_equal "Jello Biafra", @facade.participants.first.participant.scrape(:name)
+    assert_equal "NoMeansNo", @facade.participants.second.participant.scrape(:sort_name)
+
+    @order.verify
   end
 
   def options

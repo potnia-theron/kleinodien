@@ -2,8 +2,6 @@ module IngestionFinder
   class NullFinder
     include Callable
 
-    def initialize(...) = nil
-
-    def call = nil
+    def call(_) = nil
   end
 end

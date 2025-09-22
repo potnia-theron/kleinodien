@@ -3,14 +3,9 @@ module IngestionFinder
     include Callable
     include Concerns::CodeFindable
 
-    def initialize(order, facade)
-      @order = order
-      @facade = facade
-    end
-
     attr_reader :facade, :order
 
-    def call
+    def call(facade)
       name = facade.name
 
       ::ArtistCredit.find_by(name: name)

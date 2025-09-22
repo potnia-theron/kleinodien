@@ -31,12 +31,12 @@ module Transitionable
 
   # The old state might be an Integer, so we ensure that it is a String.
   def state_change_to_be_saved
-    old, new = super
+    old_state, new_state = super
 
-    if old.is_a? Integer
-      old = self.class.states.find { |_, int| int == old }.first
+    if old_state.is_a? Integer
+      old_state = self.class.states.find { |_, int| int == old }.first
     end
 
-    [old, new]
+    [old_state, new_state]
   end
 end

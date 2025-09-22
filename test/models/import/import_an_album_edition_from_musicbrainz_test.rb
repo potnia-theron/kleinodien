@@ -14,14 +14,20 @@ class Import::ImportAnAlbumEditionFromMusicbrainzTest < ActiveSupport::TestCase
     import_order = ImportOrder.create!(import_orderable: musicbrainz_import_order, user: user)
 
     album_edition = Import.ignite(import_order)
-
+    assert_not album_edition.new_record?
     assert_kind_of AlbumEdition, album_edition
 
     edition = album_edition.edition
-    assert_kind_of Edition, edition
-    assert_equal "Highway to Hell", edition.archetype.title
-    assert_equal "AC/DC", edition.archetype.artist_credit.name
     assert_not edition.new_record?
+    assert_kind_of Edition, edition
     assert_not edition.sections.first.positions.first.new_record?
+
+    archetype = edition.archetype
+    assert_not archetype.new_record?
+    assert_equal "Highway to Hell", archetype.title
+    assert_equal "AC/DC", archetype.artist_credit.name
+
+    album_archetype = archetype.archetypeable
+    assert_not album_archetype.new_record?
   end
 end
