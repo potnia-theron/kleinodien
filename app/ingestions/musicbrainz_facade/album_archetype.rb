@@ -2,23 +2,20 @@ module MusicbrainzFacade
   class AlbumArchetype
     include Concerns::Scrapeable
 
-    def initialize(facade_layer, options)
-      @facade_layer = facade_layer
+    def initialize(factory, options)
+      @factory = factory
       @options = options
     end
 
-    attr_reader :facade_layer, :options
+    attr_reader :factory, :options
+    delegate :api, to: :factory
 
-    delegate_missing_to :facade_layer
-
-    def data
-      @data ||= request_layer.get(:release_group, musicbrainz_code)
-    end
+    def data = @data ||= api.get(:release_group, musicbrainz_code)
 
     def scraper_builder
       @@scraper_builder ||= Import::ScraperArchitect.build do
         define :title
-        define :artist_credit
+        define :artist_credit, callback: ->(facade) { facade.artist_credit }
         define :archetypeable_type, always: "AlbumArchetype"
         define :discogs_code, always: nil
         define :wikidata_code, always: nil
@@ -27,10 +24,7 @@ module MusicbrainzFacade
     end
 
     def artist_credit
-      {
-        artist_credit: data[:artist_credit],
-        kleinodien: {artist_credit_of: :album_archetype}
-      }
+      factory.create(:artist_credit, data[:artist_credit])
     end
 
     def all_codes = {}

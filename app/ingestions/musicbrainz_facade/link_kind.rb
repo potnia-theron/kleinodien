@@ -9,11 +9,14 @@ module MusicbrainzFacade
 
     attr_reader :facade_layer, :options
 
-    def data = options
+    def data
+      options
+    end
 
     def scraper_builder
       @@scraper_builder ||= Import::ScraperArchitect.build do
-        define :name
+        # define :name
+        define :name, :type
         define :description
         define :link_phrase
         define :reverse_link_phrase

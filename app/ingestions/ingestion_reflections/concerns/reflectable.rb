@@ -2,6 +2,10 @@ module IngestionReflections::Concerns
   module Reflectable
     extend ActiveSupport::Concern
 
+    def create_finder
+      factory.create_finder(model_name)
+    end
+
     def has_one_associations
       reflect_on_all_associations(:has_one).reject { it.name == :central }
     end
@@ -22,7 +26,10 @@ module IngestionReflections::Concerns
     end
 
     def delegated_base_class
-      @delegated_base_class ||= delegated_of_association&.inverse_of&.active_record
+      class_name = delegated_of_association&.class_name
+
+      return unless class_name
+      factory.create(class_name)
     end
 
     def delegated_base_associations = []
@@ -39,6 +46,20 @@ module IngestionReflections::Concerns
 
     def after_inherent_attribute_names(names) = names
 
+    def belongs_to_associations
+      associations = reflect_on_all_associations(:belongs_to)
+        .reject { it.class_name == "ImportOrder" }
+
+      after_belongs_to_associations(associations)
+    end
+
+    def belongs_to_association_reflections
+      belongs_to_associations
+        .index_by(&:name)
+        .transform_values { factory.create(it.class_name) }
+    end
+
+    # TODO: delete this duplicate method
     def belong_to_associations
       associations = reflect_on_all_associations(:belongs_to)
         .reject { |association| association.class_name == "ImportOrder" }
@@ -57,6 +78,12 @@ module IngestionReflections::Concerns
     end
 
     def after_has_many_associations(associations) = associations
+
+    def has_many_association_reflections
+      has_many_associations
+        .index_by(&:name)
+        .transform_values { factory.create(it.class_name) }
+    end
 
     def linkable?
       reflect_on_all_associations(:has_many).any? { |association| association.name == :links }

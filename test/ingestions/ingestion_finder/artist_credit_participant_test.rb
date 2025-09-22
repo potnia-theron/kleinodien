@@ -6,6 +6,7 @@ class IngestionFinder::ArtistCreditParticipantTest < ActiveSupport::TestCase
   include SharedNullFinderTests
 
   setup do
-    @finder_class = IngestionFinder::ArtistCreditParticipant
+    @finder = IngestionFinder::ArtistCreditParticipant.new
+    @facade = Minitest::Mock.new
   end
 end

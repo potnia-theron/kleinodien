@@ -2,13 +2,13 @@ module MusicbrainzFacade
   class ArtistCredit
     include Concerns::Scrapeable
 
-    def initialize(facade_layer, options)
-      @facade_layer = facade_layer
+    def initialize(factory, options)
+      @factory = factory
       @options = options
     end
 
-    attr_reader :facade_layer, :options
-    delegate_missing_to :facade_layer
+    attr_reader :factory, :options
+    delegate_missing_to :factory
 
     alias_method :data, :options
 
@@ -29,7 +29,10 @@ module MusicbrainzFacade
     end
 
     def participants
-      data.map.each_with_index { |ac_participant, idx| ac_participant.merge({position: idx}) }
+      data
+        .map
+        .each_with_index { |acp_hash, idx| acp_hash.merge({position: idx}) }
+        .map { factory.create(:artist_credit_participant, it) }
     end
   end
 end

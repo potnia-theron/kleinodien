@@ -2,7 +2,7 @@ module IngestionFinder
   class Url
     include Callable
 
-    def initialize(order, facade)
+  def initialize
       @order = order
       @facade = facade
     end

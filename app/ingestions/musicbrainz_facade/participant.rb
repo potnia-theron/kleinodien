@@ -2,17 +2,16 @@ module MusicbrainzFacade
   class Participant
     include Concerns::Scrapeable
 
-    def initialize(facade_layer, options)
-      @facade_layer = facade_layer
+    def initialize(factory, options)
+      @factory = factory
       @options = options
     end
 
-    attr_reader :facade_layer, :options
-
-    delegate_missing_to :facade_layer
+    attr_reader :factory, :options
+    delegate :api, to: :factory
 
     def data
-      @data ||= request_layer.get(:artist, options[:musicbrainz_code])
+      @data ||= api.get(:artist, options[:musicbrainz_code])
     end
 
     def scraper_builder
@@ -36,7 +35,9 @@ module MusicbrainzFacade
 
     def cheap_codes = {musicbrainz_code: musicbrainz_code}
 
-    def links = @link_facade ||= MusicbrainzFacade::Link.new(data[:relations])
+    def links
+      @links ||= factory.create(:links, data[:relations])
+    end
 
     def musicbrainz_code = options[:musicbrainz_code]
 

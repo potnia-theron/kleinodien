@@ -9,8 +9,15 @@ module Import
     attr_reader :order
 
     def call
-      find || create
+      import_order = order.import_order
+      factory = MusicbrainzIngestionState::Factory.new(import_order)
+      open_state = factory.create(:open)
+      final_state = open_state.call
+      final_state.result
     end
+    # def call
+    #   find || create
+    # end
 
     private
 

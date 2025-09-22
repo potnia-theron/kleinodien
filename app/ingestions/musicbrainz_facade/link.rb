@@ -1,17 +1,40 @@
 module MusicbrainzFacade
   class Link
-    def initialize(relations)
-      @relations = relations
+    include Concerns::Scrapeable
+
+    def initialize(factory, options)
+      @factory = factory
+      @options = options
     end
 
-    def url_links = links_of_target_type("url").map { {kind: it[:type], options: it[:url]} }
+    attr_reader :factory, :options
+    delegate :api, to: :factory
 
-    private
+    # def data = options
+    def data
+      options
+    end
 
-    attr_reader :relations
+    def scraper_builder
+      @@scraper_builder ||= Import::ScraperArchitect.build do
+        define :link_kind, callback: ->(facade) { facade.link_kind }
+        # define :name
+        # define :sort_name
+        # define :disambiguation
+        # define :begin_date, always: nil
+        # define :begin_date_accuracy, always: nil
+        # define :end_date, always: nil
+        # define :end_date_accuracy, always: nil
+        # define :discogs_code, callback: ->(facade) { facade.relations.dig(:discogs, :artist) }
+        # define :imdb_code, callback: ->(facade) { facade.relations.dig(:imdb, :name) }
+        # define :wikidata_code, callback: ->(facade) { facade.relations.dig(:wikidata, :wiki) }
+        # define :tmdb_code, always: nil
+        # define :musicbrainz_code, callback: ->(facade) { facade.musicbrainz_code }
+      end
+    end
 
-    def links_of_target_type(target_type)
-      relations.filter { it[:target_type] == target_type }
+    def link_kind
+      factory.create(:link_kind, options)
     end
   end
 end

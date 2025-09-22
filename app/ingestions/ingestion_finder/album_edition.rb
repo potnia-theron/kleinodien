@@ -3,13 +3,8 @@ module IngestionFinder
     include Callable
     include Concerns::CodeFindable
 
-    def initialize(order, facade)
-      @order = order
-      @facade = facade
-    end
-
-    def call
-      find_by_cheap_codes || find_by_codes
+    def call(facade)
+      find_by_cheap_codes(facade) || find_by_codes(facade)
     end
 
     private
