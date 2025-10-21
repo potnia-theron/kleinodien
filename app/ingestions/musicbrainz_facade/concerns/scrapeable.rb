@@ -8,5 +8,8 @@ module MusicbrainzFacade::Concerns
     def scraper
       @scraper ||= scraper_builder.call(self)
     end
+
+    # TODO: find a better place for #desired_delegated_type
+    def desired_delegated_type = nil
   end
 end

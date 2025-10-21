@@ -5,9 +5,9 @@ module MusicbrainzIngestionState
     end
 
     def call
-      ingestion.persisting!
       import_order.persisting!
-      entity = ingestion.call
+      kit = Ingestion::Kit.new(facade, reflections, persister: persister)
+      entity = Ingestion::RecordBuilder.call(kit)
       done.call(entity)
     end
 
@@ -17,5 +17,7 @@ module MusicbrainzIngestionState
     delegate_missing_to :factory
 
     def done = factory.create(:done)
+
+    def persister = Ingestion::Persister.new
   end
 end

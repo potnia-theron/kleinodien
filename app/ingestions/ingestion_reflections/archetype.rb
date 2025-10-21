@@ -6,6 +6,12 @@ module IngestionReflections
       @factory = factory
     end
 
+    attr_reader :factory
+
+    def record_class = ::Archetype
+
+    delegate_missing_to :record_class
+
     def after_belongs_to_associations(associations)
       associations.reject { |association| association.name == :archetypeable }
     end
@@ -15,10 +21,5 @@ module IngestionReflections
     end
 
     def create_finder = factory.create_finder(::Archetype)
-
-    private
-
-    attr_reader :factory
-    delegate_missing_to ::Archetype
   end
 end

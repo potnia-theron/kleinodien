@@ -5,7 +5,9 @@ module IngestionReflections
       @factory = factory
     end
 
-    delegate_missing_to ::SongArchetype
+    def record_class = ::SongArchetype
+
+    delegate_missing_to :record_class
 
     attr_reader :factory
 

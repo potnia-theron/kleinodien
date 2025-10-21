@@ -6,7 +6,9 @@ module IngestionReflections
       @factory = factory
     end
 
-    delegate_missing_to ::EditionSection
+    def record_class = ::EditionSection
+
+    delegate_missing_to :record_class
 
     def after_belongs_to_associations(associations)
       associations.reject { |association| association.name == :edition }

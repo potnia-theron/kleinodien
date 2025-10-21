@@ -34,5 +34,7 @@ module MusicbrainzFacade
     def musicbrainz_code
       options[:musicbrainz_code] || options[:id]
     end
+
+    def desired_delegated_type = :album_archetype
   end
 end

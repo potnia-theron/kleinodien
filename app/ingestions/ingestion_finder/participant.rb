@@ -7,7 +7,7 @@ module IngestionFinder
     #   @order = order
     #   @facade = facade
     # end
-  def initialize
+    def initialize
       @factory = factory
     end
 

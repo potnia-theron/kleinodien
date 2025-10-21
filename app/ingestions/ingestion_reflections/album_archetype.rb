@@ -6,18 +6,14 @@ module IngestionReflections
       @factory = factory
     end
 
-    delegate_missing_to ::AlbumArchetype
+    attr_reader :factory
+
+    def record_class = ::AlbumArchetype
+
+    delegate_missing_to :record_class
 
     def create_finder = IngestionFinder::AlbumArchetype.new
 
-    def delegated_base
-      return unless delegated_base_class
-
-      factory.create(delegated_base_class.name)
-    end
-
-    private
-
-    attr_reader :factory
+    def delegated_base_reflections = factory.create(:archetype)
   end
 end
