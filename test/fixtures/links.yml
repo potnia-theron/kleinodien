@@ -1,6 +1,6 @@
 ---
 one:
-  begin_data: 2025-03-18
+  begin_date: 2025-03-18
   begin_date_accuracy: 1
   end_date: 2025-03-18
   end_date_accuracy: 1
@@ -9,7 +9,7 @@ one:
   destination_id: <%= ActiveRecord::FixtureSet.identify(:two, column_type = :uuid) %>
 
 two:
-  begin_data: 2025-03-18
+  begin_date: 2025-03-18
   begin_date_accuracy: 1
   end_date: 2025-03-18
   end_date_accuracy: 1
