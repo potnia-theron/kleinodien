@@ -6,7 +6,9 @@ module IngestionReflections
       @factory = factory
     end
 
-    delegate_missing_to ::Edition
+    def record_class = ::Edition
+
+    delegate_missing_to :record_class
 
     Association = Data.define(:association, :factory) do
       delegate_missing_to :association
@@ -21,7 +23,8 @@ module IngestionReflections
 
       def delegated_class_reflections_for(entity) = factory.create(delegated_class_for(entity))
 
-      def delegated_base_reflections = factory.create(:archetype)
+      # This seems to be wrong:
+      # def delegated_base_reflections = factory.create(:archetype)
     end
 
     delegate_missing_to ::Edition
@@ -29,7 +32,8 @@ module IngestionReflections
     def after_belongs_to_associations(associations)
       associations
         .reject { |association| association.name == :editionable }
-        .reject { |association| association.name == :archetype }
+      # 2025-10-22 19:57
+      # .reject { |association| association.name == :archetype }
     end
 
     def delegated_base_associations

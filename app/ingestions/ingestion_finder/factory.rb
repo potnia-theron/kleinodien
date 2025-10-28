@@ -14,6 +14,7 @@ module IngestionFinder
 
     def finder_for(class_name)
       cache[class_name] ||= (class_name.safe_constantize || IngestionFinder::NullFinder).new
+      cache[class_name]
     end
   end
 end

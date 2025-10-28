@@ -6,7 +6,9 @@ module IngestionReflections
       @factory = factory
     end
 
-    delegate_missing_to ::ArtistCredit
+    def record_class = ::ArtistCredit
+
+    delegate_missing_to :record_class
 
     def class_name = ::ArtistCredit.name
 

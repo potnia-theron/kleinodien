@@ -4,11 +4,10 @@ module MusicbrainzIngestionState
       @factory = factory
     end
 
-    # def call = Persisting.new(import_order)
-    # def call = find || persist
     def call
       import_order.buffering!
-      ingestion.call
+      kit = Ingestion::Kit.new(facade, reflections)
+      Ingestion::RecordBuilder.call(kit)
       persisting = factory.create(:persisting)
       persisting.call
     end
@@ -17,9 +16,6 @@ module MusicbrainzIngestionState
 
     attr_reader :factory
 
-    # def ingestion = @ingestion ||= Ingestion::Switch.new(facade, reflections)
-
-    # delegate :facade, :reflections, to: :factory
     delegate_missing_to :factory
   end
 end

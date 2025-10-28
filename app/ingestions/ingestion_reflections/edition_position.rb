@@ -5,11 +5,14 @@ module IngestionReflections
     def initialize(factory)
       @factory = factory
     end
-    delegate_missing_to ::EditionPosition
+
+    def record_class = ::EditionPosition
+
+    delegate_missing_to :record_class
 
     def after_belongs_to_associations(associations)
       associations
-        .reject { |association| association.name == :edition }
+        # .reject { |association| association.name == :edition }
         .reject { |association| association.name == :section }
     end
 

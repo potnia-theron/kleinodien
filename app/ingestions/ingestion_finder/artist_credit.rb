@@ -6,7 +6,7 @@ module IngestionFinder
     attr_reader :facade, :order
 
     def call(facade)
-      name = facade.name
+      name = facade.scrape(:name)
 
       ::ArtistCredit.find_by(name: name)
     end

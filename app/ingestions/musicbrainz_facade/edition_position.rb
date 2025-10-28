@@ -16,7 +16,7 @@ module MusicbrainzFacade
       @@scraper_builder ||= Import::ScraperArchitect.build do
         define :alphanumeric, :number
         define :no, :position
-        define :edition, callback: ->(facade) { facade.editions }
+        define :edition, callback: ->(facade) { facade.edition }
       end
     end
 

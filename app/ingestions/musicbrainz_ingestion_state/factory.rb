@@ -14,10 +14,6 @@ module MusicbrainzIngestionState
 
     def facade = @facade ||= facade_factory.create(target_kind, musicbrainz_code: code)
 
-    def ingestion
-      @ingestion ||= Ingestion::Switch.new(facade, reflections)
-    end
-
     def reflections = @reflections ||= reflections_factory.create(target_kind)
 
     private
@@ -28,7 +24,6 @@ module MusicbrainzIngestionState
 
     def my_module = @my_module ||= self.class.name.sub(/::.+\z/, "")
 
-    # def reflections_factory = @reflections_factory ||= IngestionReflections::Factory.new(import_order)
     def reflections_factory = @reflections_factory ||= IngestionReflections::Factory.new
 
     def target_kind = import_order.target_kind

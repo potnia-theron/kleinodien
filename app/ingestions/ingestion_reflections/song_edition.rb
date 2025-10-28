@@ -6,8 +6,8 @@ module IngestionReflections
       @factory = factory
     end
 
-    def base_class = ::SongEdition
-    delegate_missing_to :base_class
+    def record_class = ::SongEdition
+    delegate_missing_to :record_class
 
     def delegated_base = factory.create("Edition")
 

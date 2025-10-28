@@ -6,7 +6,9 @@ module IngestionReflections
       @factory = factory
     end
 
-    delegate_missing_to ::Participant
+    def record_class = ::Participant
+
+    delegate_missing_to :record_class
 
     def after_has_many_associations(associations)
       associations.reject { |association| association.name == :artist_credit_participants }
