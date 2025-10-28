@@ -18,7 +18,7 @@ class LinksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create link" do
     assert_difference("Link.count") do
-      post links_url, params: {link: {begin_data: @link.begin_data, begin_date_accuracy: @link.begin_date_accuracy, destination_id: @link.destination_id, end_date: @link.end_date, end_date_accuracy: @link.end_date_accuracy, link_kind_id: @link.link_kind_id, source_id: @link.source_id}}
+      post links_url, params: {link: {begin_date: @link.begin_date, begin_date_accuracy: @link.begin_date_accuracy, destination_id: @link.destination_id, end_date: @link.end_date, end_date_accuracy: @link.end_date_accuracy, link_kind_id: @link.link_kind_id, source_id: @link.source_id}}
     end
 
     assert_redirected_to link_url(Link.last)
@@ -35,7 +35,7 @@ class LinksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update link" do
-    patch link_url(@link), params: {link: {begin_data: @link.begin_data, begin_date_accuracy: @link.begin_date_accuracy, destination_id: @link.destination_id, end_date: @link.end_date, end_date_accuracy: @link.end_date_accuracy, link_kind_id: @link.link_kind_id, source_id: @link.source_id}}
+    patch link_url(@link), params: {link: {begin_date: @link.begin_date, begin_date_accuracy: @link.begin_date_accuracy, destination_id: @link.destination_id, end_date: @link.end_date, end_date_accuracy: @link.end_date_accuracy, link_kind_id: @link.link_kind_id, source_id: @link.source_id}}
     assert_redirected_to link_url(@link)
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_28_182100) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_28_201134) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -117,7 +117,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_28_182100) do
   end
 
   create_table "links", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.date "begin_data"
+    t.date "begin_date"
     t.integer "begin_date_accuracy", limit: 2
     t.date "end_date"
     t.integer "end_date_accuracy", limit: 2
