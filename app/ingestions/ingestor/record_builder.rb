@@ -1,8 +1,8 @@
-module Ingestion
+module Ingestor
   class RecordBuilder
     include Callable
 
-    DEFAULT_PERSISTER = NullPersister.new
+    DEFAULT_PERSISTER = Ingestion::NullPersister.new
 
     def initialize(kit, persister: DEFAULT_PERSISTER, extra_args: {})
       @kit = kit
@@ -40,7 +40,7 @@ module Ingestion
       return unless belongs_to_associations.any?
 
       belongs_to_kits.each do |name, assoc_kit|
-        assoc = Ingestion::RecordBuilder.call(assoc_kit)
+        assoc = Ingestor::RecordBuilder.call(assoc_kit)
         writer = "#{name}="
         record.send(writer, assoc)
       end
