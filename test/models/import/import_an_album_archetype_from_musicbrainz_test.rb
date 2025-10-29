@@ -1,5 +1,6 @@
 require "test_helper"
 require "minitest/mock"
+require "support/deeply_persisted"
 require "support/web_mock_external_apis"
 
 class Import::ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveSupport::TestCase
@@ -16,7 +17,7 @@ class Import::ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveSupport::TestCas
     import_order = ImportOrder.create!(import_orderable: musicbrainz_import_order, user: user)
 
     album_archetype = Import.ignite(import_order)
-
+    assert_deeply_persisted album_archetype
     assert_kind_of AlbumArchetype, album_archetype
 
     archetype = album_archetype.archetype
