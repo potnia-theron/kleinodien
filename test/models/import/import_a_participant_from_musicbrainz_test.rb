@@ -1,5 +1,6 @@
 require "test_helper"
 require "minitest/mock"
+require "support/deeply_persisted"
 require "support/web_mock_external_apis"
 
 class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
@@ -14,6 +15,7 @@ class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
     import_order = ImportOrder.create!(import_orderable: musicbrainz_import_order, user: user)
 
     participant ||= Import.ignite(import_order)
+    assert_deeply_persisted participant
 
     assert_equal "NoMeansNo", participant.name
     # TODO: reactivate tests on ???_date
@@ -24,7 +26,6 @@ class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
     assert_equal code, participant.musicbrainz_code
     assert_equal 1430380, participant.wikidata_code
     assert_not participant.new_record?
-    # TODO: add more specific tests on Participant#links
     # TODO: reactivate assert_not_empty participant.links
     # assert_not_empty participant.links
     assert_equal import_order.state, "done"

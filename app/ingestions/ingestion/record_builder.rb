@@ -2,8 +2,11 @@ module Ingestion
   class RecordBuilder
     include Callable
 
-    def initialize(kit, extra_args = {})
+    DEFAULT_PERSISTER = NullPersister.new
+
+    def initialize(kit, persister: DEFAULT_PERSISTER, extra_args: {})
       @kit = kit
+      @persister = persister
       @extra_args = extra_args
     end
 
@@ -24,12 +27,12 @@ module Ingestion
       persister.call(record)
       has_many
 
-      RecordEnhancer.call(kit, record)
+      RecordEnhancer.call(kit, persister, record)
 
       record
     end
 
-    attr_reader :extra_args, :kit
+    attr_reader :extra_args, :kit, :persister
 
     delegate_missing_to :kit
 
@@ -67,7 +70,7 @@ module Ingestion
         inverse_name = my_assoc.inverse_of.name
 
         kits.each do |assoc_kit|
-          assoc_record = RecordBuilder.call(assoc_kit, {inverse_name => record})
+          assoc_record = RecordBuilder.call(assoc_kit, extra_args: {inverse_name => record}, persister: persister)
           proxy.push(assoc_record)
         end
       end

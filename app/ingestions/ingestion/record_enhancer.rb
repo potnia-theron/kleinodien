@@ -2,8 +2,9 @@ module Ingestion
   class RecordEnhancer
     include Callable
 
-    def initialize(kit, record)
+    def initialize(kit, persister, record)
       @kit = kit
+      @persister = persister
       @record = record
     end
 
@@ -13,7 +14,7 @@ module Ingestion
 
     private
 
-    attr_reader :kit, :record
+    attr_reader :kit, :persister, :record
     delegate_missing_to :kit
 
     def delegated_base
@@ -21,7 +22,9 @@ module Ingestion
       return unless base_kit
 
       delegated_type_attr_name = delegated_of_association.inverse_of.name
-      RecordBuilder.call(base_kit, delegated_type_attr_name => record)
+      extra_args = {delegated_type_attr_name => record}
+
+      RecordBuilder.call(base_kit, extra_args: extra_args, persister: persister)
     end
   end
 end

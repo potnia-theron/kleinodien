@@ -48,8 +48,9 @@ module MusicbrainzFacade
     private
 
     def life_span_at(position)
-      data.dig(:life_span, position)
-        &.then { |date_string| IncompleteDate.from_string(date_string) }
+      data
+        .dig(:life_span, position)
+        &.then { IncompleteDate.from_string(it) }
     end
   end
 end

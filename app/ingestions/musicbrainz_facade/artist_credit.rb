@@ -21,10 +21,10 @@ module MusicbrainzFacade
 
     def name
       data
-        .map { |ac| [ac[:name], ac[:joinphrase]] }
+        .map { [it[:name], it[:joinphrase]] }
         .flatten
-        .tap { |tokens| raise "last participant must not contain anything" if tokens.last.present? }
-        .tap { |tokens| tokens.pop }
+        .tap { raise "last participant must not contain anything" if it.last.present? }
+        .tap { it.pop }
         .join("")
     end
 

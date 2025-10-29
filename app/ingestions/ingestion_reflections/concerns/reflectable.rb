@@ -2,6 +2,8 @@ module IngestionReflections::Concerns
   module Reflectable
     extend ActiveSupport::Concern
 
+    delegate :create, to: :factory
+
     def delegated_base_reflections = nil
 
     def create_finder
@@ -13,7 +15,7 @@ module IngestionReflections::Concerns
     end
 
     def delegated_of_association
-      results = has_one_associations.filter { |assoc| assoc.inverse_of.options[:polymorphic] }
+      results = has_one_associations.filter { it.inverse_of.options[:polymorphic] }
 
       return if results.none?
       raise "too many delegated_types" if results.length > 1
@@ -25,21 +27,22 @@ module IngestionReflections::Concerns
 
     def foreign_base_associations = []
 
-    def inherent_attribute_names
-      names = attribute_names
-        .without("id", "created_at", "updated_at")
-        .reject { |attr| attr.end_with? "_id" }
-
-      after_inherent_attribute_names(names)
+    def delegated_type_association
+      reflect_on_all_associations(:belongs_to)
+        .filter(&:foreign_type)
+        .tap { raise "too many delegated types" if it.length > 1 }
+        .first
     end
 
-    def after_inherent_attribute_names(names) = names
+    def inherent_attribute_names
+      attribute_names
+        .without("id", "created_at", "updated_at")
+        .reject { it.end_with? "_id" }
+    end
 
     def belongs_to_associations
-      associations = reflect_on_all_associations(:belongs_to)
+      reflect_on_all_associations(:belongs_to)
         .reject { it.class_name == "ImportOrder" }
-
-      after_belongs_to_associations(associations)
     end
 
     def belongs_to_association_reflections
@@ -48,20 +51,14 @@ module IngestionReflections::Concerns
         .transform_values { factory.create(it.class_name) }
     end
 
-    def after_belongs_to_associations(associations) = associations
-
     def has_many_associations
-      associations = reflect_on_all_associations(:has_many)
+      reflect_on_all_associations(:has_many)
         .reject { it.name == :links }
         .reject { it.name == :backlinks }
-
-      after_has_many_associations(associations)
     end
 
-    def after_has_many_associations(associations) = associations
-
     def linkable?
-      reflect_on_all_associations(:has_many).any? { |association| association.name == :links }
+      reflect_on_all_associations(:has_many).any? { it.name == :links }
     end
   end
 end
