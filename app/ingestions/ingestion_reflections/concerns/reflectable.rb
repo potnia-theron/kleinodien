@@ -2,6 +2,8 @@ module IngestionReflections::Concerns
   module Reflectable
     extend ActiveSupport::Concern
 
+    delegate :create, to: :factory
+
     def delegated_base_reflections = nil
 
     def create_finder

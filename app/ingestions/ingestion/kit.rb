@@ -45,12 +45,11 @@ module Ingestion
     def has_many_kits
       has_many_associations.map do |assoc|
         name = assoc.name
-        assoc_class_name = assoc.class_name
-
         assoc_facades = facade.scrape(name)
-        # TODO: remove `reflections.send(:factory)`
-        factory = reflections.send(:factory)
-        assoc_reflections = factory.create(assoc_class_name)
+
+        assoc_class_name = assoc.class_name
+        assoc_reflections = reflections.create(assoc_class_name)
+
         assoc_kits = assoc_facades.map { Kit.new(it, assoc_reflections, persister: persister, association: assoc) }
 
         [name, assoc_kits]
