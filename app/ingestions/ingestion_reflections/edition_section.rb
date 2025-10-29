@@ -10,15 +10,14 @@ module IngestionReflections
 
     delegate_missing_to :record_class
 
-    def after_belongs_to_associations(associations)
-      associations.reject { |association| association.name == :edition }
+    def belongs_to_associations
+      super.reject { |association| association.name == :edition }
     end
 
-    def after_inherent_attribute_names(names)
-      names.reject { |name| name == "positions_count" }
+    def inherent_attribute_names
+      super.reject { |name| name == "positions_count" }
     end
 
-    # delegate :create_finder, to: :factory
     def create_finder = factory.create_finder(::EditionSection)
 
     private

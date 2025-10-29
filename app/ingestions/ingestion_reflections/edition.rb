@@ -22,18 +22,12 @@ module IngestionReflections
       end
 
       def delegated_class_reflections_for(entity) = factory.create(delegated_class_for(entity))
-
-      # This seems to be wrong:
-      # def delegated_base_reflections = factory.create(:archetype)
     end
 
     delegate_missing_to ::Edition
 
-    def after_belongs_to_associations(associations)
-      associations
-        .reject { |association| association.name == :editionable }
-      # 2025-10-22 19:57
-      # .reject { |association| association.name == :archetype }
+    def belongs_to_associations
+      super.reject { |association| association.name == :editionable }
     end
 
     def delegated_base_associations

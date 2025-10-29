@@ -10,8 +10,8 @@ module IngestionReflections
 
     delegate_missing_to :record_class
 
-    def after_belongs_to_associations(associations)
-      associations.reject { |association| association.name == :artist_credit }
+    def belongs_to_associations
+      super.reject { |association| association.name == :artist_credit }
     end
 
     private

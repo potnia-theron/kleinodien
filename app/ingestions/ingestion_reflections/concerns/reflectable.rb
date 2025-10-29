@@ -35,20 +35,14 @@ module IngestionReflections::Concerns
     end
 
     def inherent_attribute_names
-      names = attribute_names
+      attribute_names
         .without("id", "created_at", "updated_at")
         .reject { |attr| attr.end_with? "_id" }
-
-      after_inherent_attribute_names(names)
     end
 
-    def after_inherent_attribute_names(names) = names
-
     def belongs_to_associations
-      associations = reflect_on_all_associations(:belongs_to)
+      reflect_on_all_associations(:belongs_to)
         .reject { it.class_name == "ImportOrder" }
-
-      after_belongs_to_associations(associations)
     end
 
     def belongs_to_association_reflections
@@ -57,17 +51,11 @@ module IngestionReflections::Concerns
         .transform_values { factory.create(it.class_name) }
     end
 
-    def after_belongs_to_associations(associations) = associations
-
     def has_many_associations
-      associations = reflect_on_all_associations(:has_many)
+      reflect_on_all_associations(:has_many)
         .reject { it.name == :links }
         .reject { it.name == :backlinks }
-
-      after_has_many_associations(associations)
     end
-
-    def after_has_many_associations(associations) = associations
 
     def linkable?
       reflect_on_all_associations(:has_many).any? { |association| association.name == :links }
