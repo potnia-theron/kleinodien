@@ -25,6 +25,13 @@ module IngestionReflections::Concerns
 
     def foreign_base_associations = []
 
+    def delegated_type_association
+      reflect_on_all_associations(:belongs_to)
+        .filter(&:foreign_type)
+        .tap { raise "too many delegated types" if it.length > 1 }
+        .first
+    end
+
     def inherent_attribute_names
       names = attribute_names
         .without("id", "created_at", "updated_at")

@@ -32,18 +32,14 @@ module Ingestion
 
     # When we a delegated_base we want our delegated_type
     def delegated_type_kit
-      return if delegated_base_reflections
-
-      associations = reflections.record_class.reflect_on_all_associations(:belongs_to).filter(&:foreign_type)
-      return if associations.none?
-
-      type_assoc = associations.first
+      type_assoc = reflections.delegated_type_association
+      return unless type_assoc
 
       assoc_name = type_assoc.foreign_type
       assoc_type = facade.scrape(assoc_name)
-      x = reflections.factory.create(assoc_type)
+      delegated_type_reflections = reflections.factory.create(assoc_type)
 
-      Kit.new(facade, x, persister: persister)
+      Kit.new(facade, delegated_type_reflections, persister: persister)
     end
 
     def has_many_kits
