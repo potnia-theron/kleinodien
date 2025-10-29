@@ -28,8 +28,8 @@ module MusicbrainzFacade
     attr_reader :relations
 
     def url_rels_of_interest
-      relations.filter { |relation| relation[:target_type] == "url" }
-        .filter { |url_rel| REGEX_FOR.include?(url_rel[:type].downcase) }
+      relations.filter { it[:target_type] == "url" }
+        .filter { REGEX_FOR.include?(it[:type].downcase) }
     end
 
     def type_kind_and_code_for(url_rel)

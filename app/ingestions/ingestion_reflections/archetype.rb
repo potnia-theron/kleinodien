@@ -13,11 +13,11 @@ module IngestionReflections
     delegate_missing_to :record_class
 
     def belongs_to_associations
-      super.reject { |association| association.name == :archetypeable }
+      super.reject { it.name == :archetypeable }
     end
 
     def has_many_associations
-      super.reject { |association| association.name == :editions }
+      super.reject { it.name == :editions }
     end
 
     def create_finder = factory.create_finder(::Archetype)

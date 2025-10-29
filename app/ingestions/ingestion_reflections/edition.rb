@@ -27,12 +27,12 @@ module IngestionReflections
     delegate_missing_to ::Edition
 
     def belongs_to_associations
-      super.reject { |association| association.name == :editionable }
+      super.reject { it.name == :editionable }
     end
 
     def delegated_base_associations
       association = reflect_on_all_associations(:belongs_to)
-        .find { |association| association.name == :archetype }
+        .find { it.name == :archetype }
 
       [Association.new(association, factory)]
     end

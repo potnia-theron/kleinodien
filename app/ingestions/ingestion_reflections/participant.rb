@@ -11,7 +11,7 @@ module IngestionReflections
     delegate_missing_to :record_class
 
     def has_many_associations
-      super.reject { |association| association.name == :artist_credit_participants }
+      super.reject { it.name == :artist_credit_participants }
     end
 
     def create_finder = factory.create_finder(::Participant)

@@ -11,7 +11,7 @@ module IngestionReflections
     delegate_missing_to :record_class
 
     def belongs_to_associations
-      super.reject { |association| association.name == :artist_credit }
+      super.reject { it.name == :artist_credit }
     end
 
     private
