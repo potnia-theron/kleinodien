@@ -15,7 +15,7 @@ module IngestionReflections::Concerns
     end
 
     def delegated_of_association
-      results = has_one_associations.filter { |assoc| assoc.inverse_of.options[:polymorphic] }
+      results = has_one_associations.filter { it.inverse_of.options[:polymorphic] }
 
       return if results.none?
       raise "too many delegated_types" if results.length > 1
@@ -37,7 +37,7 @@ module IngestionReflections::Concerns
     def inherent_attribute_names
       attribute_names
         .without("id", "created_at", "updated_at")
-        .reject { |attr| attr.end_with? "_id" }
+        .reject { it.end_with? "_id" }
     end
 
     def belongs_to_associations
@@ -58,7 +58,7 @@ module IngestionReflections::Concerns
     end
 
     def linkable?
-      reflect_on_all_associations(:has_many).any? { |association| association.name == :links }
+      reflect_on_all_associations(:has_many).any? { it.name == :links }
     end
   end
 end
