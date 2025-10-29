@@ -7,7 +7,7 @@ module MusicbrainzIngestionState
     def call
       import_order.persisting!
       kit = Ingestion::Kit.new(facade, reflections)
-      entity = Ingestion::RecordBuilder.call(kit, persister: persister)
+      entity = Ingestor.call(kit, persister: persister)
       done.call(entity)
     end
 

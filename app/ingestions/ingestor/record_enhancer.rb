@@ -1,4 +1,4 @@
-module Ingestion
+module Ingestor
   class RecordEnhancer
     include Callable
 
