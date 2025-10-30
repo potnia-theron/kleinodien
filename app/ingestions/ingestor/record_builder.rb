@@ -50,12 +50,11 @@ module Ingestor
       delegated_kit = kit.delegated_type_kit
       return unless delegated_kit
 
-      name = reflections.record_class.reflect_on_all_associations(:belongs_to).filter(&:foreign_type).first.name
-      habs_schon = record.send name
-      return if habs_schon
+      type_name = delegated_type_association.name
+      return if record.send type_name
 
       my_delegated_type = RecordBuilder.call(delegated_kit)
-      writer = "#{name}="
+      writer = "#{type_name}="
       record.send(writer, my_delegated_type)
 
       my_delegated_type
