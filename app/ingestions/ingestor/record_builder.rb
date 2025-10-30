@@ -53,11 +53,9 @@ module Ingestor
       type_name = delegated_type_association.name
       return if record.send type_name
 
-      my_delegated_type = RecordBuilder.call(delegated_kit)
       writer = "#{type_name}="
-      record.send(writer, my_delegated_type)
-
-      my_delegated_type
+      delegated_record = RecordBuilder.call(delegated_kit)
+      record.send(writer, delegated_record)
     end
 
     def has_many
