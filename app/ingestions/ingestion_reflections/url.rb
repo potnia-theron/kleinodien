@@ -1,5 +1,5 @@
 module IngestionReflections
-    class Url < Base
+  class Url < Base
     # include Concerns::Reflectable
 
     delegate_missing_to ::Url

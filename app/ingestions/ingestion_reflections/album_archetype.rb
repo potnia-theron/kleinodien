@@ -1,5 +1,5 @@
 module IngestionReflections
-    class AlbumArchetype < Base
+  class AlbumArchetype < Base
     # include Concerns::Reflectable
 
     def initialize(factory)

@@ -1,5 +1,5 @@
 module IngestionReflections
-    class Participant < Base
+  class Participant < Base
     # include Concerns::Reflectable
 
     def initialize(factory)

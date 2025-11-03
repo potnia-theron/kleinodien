@@ -1,5 +1,5 @@
 module IngestionReflections
-    class ArtistCreditParticipant < Base
+  class ArtistCreditParticipant < Base
     # include Concerns::Reflectable
 
     def initialize(factory)

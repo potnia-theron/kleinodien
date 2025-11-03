@@ -1,5 +1,5 @@
 module IngestionReflections
-    class AlbumEdition < Base
+  class AlbumEdition < Base
     # include Concerns::Reflectable
 
     def initialize(factory)

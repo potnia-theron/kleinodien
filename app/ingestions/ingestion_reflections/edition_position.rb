@@ -1,5 +1,5 @@
 module IngestionReflections
-    class EditionPosition < Base
+  class EditionPosition < Base
     # include Concerns::Reflectable
 
     def initialize(factory)
