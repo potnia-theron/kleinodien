@@ -6,7 +6,8 @@ module MusicbrainzIngestionState
 
     def call
       import_order.buffering!
-      kit = IngestionKit::Single.new(facade, reflections)
+      # kit = IngestionKit::Single.new(facade, reflections)
+      kit = IngestionKit.build(facade, reflections)
       Ingestor.call(kit)
       persisting = factory.create(:persisting)
       persisting.call
