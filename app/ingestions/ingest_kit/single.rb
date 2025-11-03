@@ -1,5 +1,5 @@
-module Ingestion
-  class Kit
+module IngestKit
+  class Single
     def initialize(facade, reflections, association: nil)
       @facade = facade
       @reflections = reflections
@@ -16,7 +16,7 @@ module Ingestion
     def belongs_to_kits
       belongs_to_association_reflections.map do |name, assoc_reflections|
         assoc_facade = scrape(name)
-        [name, Kit.new(assoc_facade, assoc_reflections)]
+        [name, Single.new(assoc_facade, assoc_reflections)]
       end.to_h
     end
 
@@ -36,21 +36,13 @@ module Ingestion
       assoc_type = facade.scrape(assoc_name)
       delegated_type_reflections = reflections.factory.create(assoc_type)
 
-      Kit.new(facade, delegated_type_reflections)
+      Single.new(facade, delegated_type_reflections)
     end
 
     def has_many_kits
-      has_many_associations.map do |assoc|
-        name = assoc.name
-        assoc_facades = facade.scrape(name)
-
-        assoc_class_name = assoc.class_name
-        assoc_reflections = reflections.create(assoc_class_name)
-
-        assoc_kits = assoc_facades.map { Kit.new(it, assoc_reflections, association: assoc) }
-
-        [name, assoc_kits]
-      end.to_h
+      has_many_associations.map do |association|
+        Many.new(association, facade, reflections)
+      end
     end
   end
 end

@@ -25,7 +25,6 @@ module Ingestor
       delegated_type
       belongs_to
       persister.call(record)
-      has_many
 
       RecordEnhancer.call(kit, persister, record)
 
@@ -56,14 +55,6 @@ module Ingestor
       writer = "#{type_name}="
       delegated_record = RecordBuilder.call(delegated_kit)
       record.send(writer, delegated_record)
-    end
-
-    def has_many
-      has_many_kits.each do |association_name, kits|
-        next if kits.none?
-
-        HasManyBuilder.call(association_name, kits, persister, record)
-      end
     end
 
     def record = @record ||= reflections.record_class.new(record_attributes)
