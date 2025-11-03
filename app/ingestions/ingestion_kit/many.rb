@@ -13,7 +13,7 @@ module IngestionKit
     def facades = facade.scrape(name)
 
     def kits
-      facades.map { Single.new(it, associated_reflections) }
+      facades.map { One.new(it, associated_reflections) }
     end
 
     def associated_reflections

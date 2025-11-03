@@ -1,5 +1,5 @@
 module IngestionKit
   def self.build(...)
-    Single.new(...)
+    One.new(...)
   end
 end

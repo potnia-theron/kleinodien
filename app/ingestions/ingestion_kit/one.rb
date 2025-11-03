@@ -1,5 +1,5 @@
 module IngestionKit
-  class Single
+  class One
     def initialize(facade, reflections, association: nil)
       @facade = facade
       @reflections = reflections
@@ -16,7 +16,7 @@ module IngestionKit
     def belongs_to_kits
       belongs_to_association_reflections.map do |name, assoc_reflections|
         assoc_facade = scrape(name)
-        [name, Single.new(assoc_facade, assoc_reflections)]
+        [name, One.new(assoc_facade, assoc_reflections)]
       end.to_h
     end
 
@@ -36,7 +36,7 @@ module IngestionKit
       assoc_type = facade.scrape(assoc_name)
       delegated_type_reflections = reflections.factory.create(assoc_type)
 
-      Single.new(facade, delegated_type_reflections)
+      One.new(facade, delegated_type_reflections)
     end
 
     def has_many_kits
@@ -59,7 +59,7 @@ module IngestionKit
     # def belongs_to_kits
     #   belongs_to_association_reflections.map do |name, assoc_reflections|
     #     assoc_facade = scrape(name)
-    #     [name, Single.new(assoc_facade, assoc_reflections)]
+    #     [name, One.new(assoc_facade, assoc_reflections)]
     #   end.to_h
     # end
 
@@ -79,7 +79,7 @@ module IngestionKit
     #   assoc_type = facade.scrape(assoc_name)
     #   delegated_type_reflections = reflections.factory.create(assoc_type)
 
-    #   Single.new(facade, delegated_type_reflections)
+    #   One.new(facade, delegated_type_reflections)
     # end
 
     # def has_many_kits
