@@ -1,6 +1,6 @@
 module IngestionReflections
-  class Archetype
-    include Concerns::Reflectable
+    class Archetype < Base
+    # include Concerns::Reflectable
 
     def initialize(factory)
       @factory = factory

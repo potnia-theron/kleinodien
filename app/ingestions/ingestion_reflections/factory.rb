@@ -1,5 +1,5 @@
 module IngestionReflections
-  class Factory
+    class Factory < Base
     def create(desired_type)
       "#{my_module}::#{desired_type.to_s.underscore.classify}"
         .constantize

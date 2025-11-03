@@ -1,6 +1,6 @@
 module IngestionReflections
-  class ArtistCreditParticipant
-    include Concerns::Reflectable
+    class ArtistCreditParticipant < Base
+    # include Concerns::Reflectable
 
     def initialize(factory)
       @factory = factory

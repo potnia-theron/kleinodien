@@ -1,6 +1,6 @@
 module IngestionReflections
-  class Edition
-    include Concerns::Reflectable
+    class Edition < Base
+    # include Concerns::Reflectable
 
     def initialize(factory)
       @factory = factory

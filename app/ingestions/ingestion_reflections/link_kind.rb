@@ -1,6 +1,6 @@
 module IngestionReflections
-  class LinkKind
-    include Concerns::Reflectable
+    class LinkKind < Base
+    # include Concerns::Reflectable
 
     delegate_missing_to ::LinkKind
 

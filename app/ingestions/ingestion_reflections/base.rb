@@ -1,7 +1,5 @@
-module IngestionReflections::Concerns
-  module Reflectable
-    extend ActiveSupport::Concern
-
+module IngestionReflections
+  class Base
     delegate :create, to: :factory
 
     def delegated_base_reflections = nil
