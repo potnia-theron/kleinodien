@@ -27,7 +27,7 @@ module IngestionKit
       self.class.new(facade, base_reflections)
     end
 
-    # When we a delegated_base we want our delegated_type
+    # When we are a delegated_base we need our delegated_type
     def delegated_type_kit
       type_assoc = reflections.delegated_type_association
       return unless type_assoc
