@@ -5,7 +5,6 @@ module MusicbrainzFacade
       @options = options
     end
 
-    # def url_links = links_of_target_type("url").map { factory.create(:link, it) }
     def url_links
       links_of_target_type("url").map { factory.create(:link, it) }
     end

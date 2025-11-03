@@ -24,12 +24,6 @@ module Ingestion
     def assign_links_of(kind)
       link_facades_of_kind(kind).each do |link_facade|
         link_kind_facade = link_facade.scrape(:link_kind)
-        # debugger
-        # target = procreate(link_kind_facade)
-        # link_kind = factory.create(:link_kind, :foo)
-        # target = supply_entity(link_kind, link[:options])
-        # link_kind = supply_entity(link_kind, {name: link[:kind]})
-        # Link.build(source: record.central, destination: target.central, link_kind: link_kind)
       end
     end
 

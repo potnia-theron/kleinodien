@@ -2,9 +2,6 @@ module IngestionFinder::Concerns
   module CodeFindable
     extend ActiveSupport::Concern
 
-    # delegate :all_codes, to: :facade
-    # delegate :cheap_codes, to: :facade
-
     def find_by_cheap_codes(facade)
       codes = facade.cheap_codes
       return unless codes.any?

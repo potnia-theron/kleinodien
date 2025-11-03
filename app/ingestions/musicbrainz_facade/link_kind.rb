@@ -15,7 +15,6 @@ module MusicbrainzFacade
 
     def scraper_builder
       @@scraper_builder ||= Import::ScraperArchitect.build do
-        # define :name
         define :name, :type
         define :description
         define :link_phrase

@@ -3,11 +3,6 @@ module IngestionFinder
     include Callable
     include Concerns::CodeFindable
 
-    # def initialize
-    #   @order = order
-    #   @facade = facade
-    # end
-
     attr_reader :facade, :order
 
     def call(facade)

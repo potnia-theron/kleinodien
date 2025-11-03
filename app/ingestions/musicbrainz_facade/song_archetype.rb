@@ -12,14 +12,12 @@ module MusicbrainzFacade
     delegate_missing_to :factory
 
     def data
-      # @data ||= request_layer.get(:recording, options[:id])
       @data ||= api.get(:recording, options[:id])
     end
 
     def scraper_builder
       @@scraper_builder ||= Import::ScraperArchitect.build do
         define :title
-        # define :artist_credit
         define :artist_credit, callback: ->(facade) { facade.artist_credit }
         define :archetypeable_type, always: "SongArchetype"
         define :discogs_code, always: nil

@@ -23,7 +23,6 @@ module MusicbrainzFacade
     def edition = create(edition_class_name, edition_data)
 
     def delegated_type_for(_)
-      # debugger
       return "SongEdition" unless data[:recording][:video]
 
       raise "can't determinate delegated_type for data"
