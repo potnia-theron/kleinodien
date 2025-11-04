@@ -10,16 +10,18 @@ module MusicbrainzApi
     end
 
     def build
-      Requester.new(buffer, import_order, uri_builder)
+      Requester.new(buffer, closeable, uri_builder)
     end
 
     private
 
     attr_reader :import_order, :uri_builder
 
-    def buffer = Buffer.new(buffer_api)
+    def buffer = Buffer.new(closeable)
 
-    def buffer_api = Closeable.new(open_api)
+    def closeable
+      @closeable ||= Closeable.new(open_api)
+    end
 
     # TODO: rename open_api to fetcher
     def open_api = OpenApi.new(config)

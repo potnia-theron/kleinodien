@@ -1,8 +1,8 @@
 module MusicbrainzApi
   class Requester
-    def initialize(api, import_order, uri_builder)
+    def initialize(api, closeable, uri_builder)
       @api = api
-      @import_order = import_order
+      @closeable = closeable
       @uri_builder = uri_builder
     end
 
@@ -11,9 +11,11 @@ module MusicbrainzApi
       api.get(uri)
     end
 
+    delegate :close!, :closed?, to: :closeable
+
     private
 
-    attr_reader :api, :import_order, :uri_builder
+    attr_reader :api, :closeable, :uri_builder
 
     def build_uri(...) = uri_builder.build(...)
   end
