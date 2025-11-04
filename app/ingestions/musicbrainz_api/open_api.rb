@@ -25,24 +25,16 @@ module MusicbrainzApi
       end
     end
 
-    def take_timeout(error_count)
-      timeout.take(error_count)
-    end
+    def take_timeout(error_count) = timeout.take(error_count)
 
     def timeout
       @timeout ||= Timeout.new(timeout_calculator)
     end
 
-    def timeout_calculator
-      proc { |error_count| minimal_timeout * (error_count + 1) }
-    end
+    def timeout_calculator = proc { |error_count| minimal_timeout * (error_count + 1) }
 
-    def max_tries
-      config.fetch(:max_tries, 3)
-    end
+    def max_tries = config.fetch(:max_tries, 3)
 
-    def minimal_timeout
-      config.fetch(:minimal_timeout, 1)
-    end
+    def minimal_timeout = config.fetch(:minimal_timeout, 1)
   end
 end
