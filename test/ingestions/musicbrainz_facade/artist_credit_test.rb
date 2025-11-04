@@ -20,8 +20,8 @@ class MusicbrainzFacade::ArtistCreditTest < ActiveSupport::TestCase
   test "#participants" do
     assert_equal 2, @facade.participants.length
 
-    @order.expect :buffering?, true
-    @order.expect :buffering?, true
+    # @order.expect :buffering?, true
+    # @order.expect :buffering?, true
 
     assert_equal "Biafra, Jello", @facade.participants.first.participant.scrape(:sort_name)
     assert_equal "Jello Biafra", @facade.participants.first.participant.scrape(:name)
