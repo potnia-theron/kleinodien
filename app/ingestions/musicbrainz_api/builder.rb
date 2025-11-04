@@ -21,6 +21,7 @@ module MusicbrainzApi
 
     def buffer_api = Closeable.new(open_api)
 
+    # TODO: rename open_api to fetcher
     def open_api = OpenApi.new(config)
 
     def config
