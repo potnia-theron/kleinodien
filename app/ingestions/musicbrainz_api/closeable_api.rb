@@ -1,11 +1,12 @@
 module MusicbrainzApi
+  # TODO: rename to MusicbrainzApi::Closeable
   class CloseableApi
     def initialize(api)
       @api = api
     end
 
     def get(uri)
-      raise "Bääääää!" if closed?
+      raise "can't get #{uri} on closed API" if closed?
 
       api.get(uri)
     end
