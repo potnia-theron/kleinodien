@@ -21,7 +21,7 @@ module MusicbrainzApi
     def connection
       @connection ||= Faraday.new do |faraday|
         faraday.response :logger, Rails.logger, {log_level: :debug}
-        faraday.response :json, parser_options: {decoder: [Import::Json, :parse]}
+        faraday.response :json, parser_options: {decoder: [Ingestion::Json, :parse]}
       end
     end
 

@@ -39,7 +39,7 @@ class MusicbrainzFacade::ParticipantTest < ActiveSupport::TestCase
   end
 
   def data
-    Import::Json.parse(json_string)
+    Ingestion::Json.parse(json_string)
   end
 
   def json_string

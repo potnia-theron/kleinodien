@@ -1,4 +1,4 @@
-module Import
+module Ingestion
   class Json
     def self.parse(...) = new(...).parse
 
