@@ -5,7 +5,6 @@ require "support/retrieve/musicbrainz"
 
 class MusicbrainzFacade::ParticipantTest < ActiveSupport::TestCase
   setup do
-    @order = Minitest::Mock.new
     @reflections_factory = IngestionReflections::Factory.new
     @factory = MusicbrainzFacade::Factory.new(@order, @reflections_factory)
 
@@ -30,8 +29,6 @@ class MusicbrainzFacade::ParticipantTest < ActiveSupport::TestCase
 
     @subject.instance_variable_set(:@data, data)
     assert_equal expected_codes, @subject.scrape_many(known_codes)
-
-    @order.verify
   end
 
   test "#cheap_codes" do
