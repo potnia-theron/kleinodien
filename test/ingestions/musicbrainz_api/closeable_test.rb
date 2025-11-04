@@ -4,7 +4,7 @@ require "minitest/mock"
 class MusicbrainzApi::CloseableTest < ActiveSupport::TestCase
   setup do
     @open_api = Minitest::Mock.new
-    @closeable = MusicbrainzApi::CloseableApi.new(@open_api)
+    @closeable = MusicbrainzApi::Closeable.new(@open_api)
     @uri = "https://example.org/nice/data"
   end
 

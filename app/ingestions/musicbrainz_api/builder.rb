@@ -19,7 +19,7 @@ module MusicbrainzApi
 
     def buffer = Buffer.new(buffer_api)
 
-    def buffer_api = CloseableApi.new(open_api)
+    def buffer_api = Closeable.new(open_api)
 
     def open_api = OpenApi.new(config)
 

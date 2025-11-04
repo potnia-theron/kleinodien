@@ -1,6 +1,5 @@
 module MusicbrainzApi
-  # TODO: rename to MusicbrainzApi::Closeable
-  class CloseableApi
+  class Closeable
     def initialize(api)
       @api = api
     end
