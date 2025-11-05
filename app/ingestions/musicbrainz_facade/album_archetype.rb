@@ -13,7 +13,7 @@ module MusicbrainzFacade
     def data = @data ||= api.get(:release_group, musicbrainz_code)
 
     def scraper_builder
-      @@scraper_builder ||= Import::ScraperArchitect.build do
+      @@scraper_builder ||= FacadeScraper.build do
         define :title
         define :artist_credit, callback: ->(facade) { facade.artist_credit }
         define :archetypeable_type, always: "AlbumArchetype"

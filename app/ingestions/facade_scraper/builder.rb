@@ -1,6 +1,6 @@
-module Import
-  class ScraperArchitect
-    def self.build(&)
+module FacadeScraper
+  class Builder
+    def self.call(&)
       architect = new
       architect.instance_eval(&)
 

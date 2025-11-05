@@ -8,7 +8,7 @@ module MusicbrainzFacade
     end
 
     def scraper_builder
-      @@scraper_builder ||= Import::ScraperArchitect.build do
+      @@scraper_builder ||= FacadeScraper.build do
         define :address, :resource
       end
     end

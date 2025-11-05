@@ -1,4 +1,4 @@
-module Import
+module FacadeScraper
   class Scraper
     def initialize(callbacks, facade)
       @callbacks = callbacks
