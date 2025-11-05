@@ -18,4 +18,12 @@ class MusicbrainzApi::RequesterTest < ActiveSupport::TestCase
 
     @closeable.verify
   end
+
+  test "#closed!" do
+    @closeable.expect :close!, true
+
+    assert @requester.close!
+
+    @closeable.verify
+  end
 end
