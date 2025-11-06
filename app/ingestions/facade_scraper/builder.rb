@@ -27,11 +27,11 @@ module FacadeScraper
       matchable = [arguments, options]
 
       case matchable
-      in [[], {always:}]
+      in [], {always:}
         ->(_) { always }
-      in [[], {callback:}]
+      in [], {callback:}
         callback
-      in [[], {}]
+      in [], {}
         ->(facade) { facade.data[attr] }
       else
         ->(facade) { facade.data.dig(*arguments) }
