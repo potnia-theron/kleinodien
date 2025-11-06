@@ -1,7 +1,10 @@
-module IngestionReflections::Concerns
-  module Reflectable
-    extend ActiveSupport::Concern
+module IngestionReflections
+  class Base
+    def initialize(factory)
+      @factory = factory
+    end
 
+    attr_reader :factory
     delegate :create, to: :factory
 
     def delegated_base_reflections = nil

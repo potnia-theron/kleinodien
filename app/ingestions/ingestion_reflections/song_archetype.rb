@@ -1,6 +1,6 @@
 module IngestionReflections
-  class SongArchetype
-    include Concerns::Reflectable
+  class SongArchetype < Base
+    # include Concerns::Reflectable
     def initialize(factory)
       @factory = factory
     end

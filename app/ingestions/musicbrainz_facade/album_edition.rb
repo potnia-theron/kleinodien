@@ -15,11 +15,9 @@ module MusicbrainzFacade
     end
 
     def scraper_builder
-      @@scraper_builder ||= Import::ScraperArchitect.build do
-        # define :archetype, :release_group
+      @@scraper_builder ||= FacadeScraper.build do
         define :archetype, callback: ->(facade) { facade.archetype }
         define :editionable_type, always: "AlbumEdition"
-        # define :sections, callback: ->(facade) { facade.data[:media] }
         define :sections, callback: ->(facade) { facade.sections }
         define :discogs_code, callback: ->(facade) { facade.relations.dig(:discogs, :release) }
         define :musicbrainz_code, callback: ->(facade) { facade.options[:code] }

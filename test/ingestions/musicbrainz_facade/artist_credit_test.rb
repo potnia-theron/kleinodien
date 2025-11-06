@@ -8,7 +8,6 @@ class MusicbrainzFacade::ArtistCreditTest < ActiveSupport::TestCase
   setup do
     WebMockExternalApis.setup
     reflections_factory = IngestionReflections::Factory.new
-    @order = Minitest::Mock.new
     @factory = MusicbrainzFacade::Factory.new(@order, reflections_factory)
     @facade = MusicbrainzFacade::ArtistCredit.new(@factory, options)
   end
@@ -20,18 +19,13 @@ class MusicbrainzFacade::ArtistCreditTest < ActiveSupport::TestCase
   test "#participants" do
     assert_equal 2, @facade.participants.length
 
-    @order.expect :buffering?, true
-    @order.expect :buffering?, true
-
     assert_equal "Biafra, Jello", @facade.participants.first.participant.scrape(:sort_name)
     assert_equal "Jello Biafra", @facade.participants.first.participant.scrape(:name)
     assert_equal "NoMeansNo", @facade.participants.second.participant.scrape(:sort_name)
-
-    @order.verify
   end
 
   def options
-    Import::Json.parse(json_string)[:artist_credit]
+    Ingestion::Json.parse(json_string)[:artist_credit]
   end
 
   def json_string

@@ -10,12 +10,21 @@ module Ingestor
 
     def call
       delegated_base
+      has_many
     end
 
     private
 
     attr_reader :kit, :persister, :record
     delegate_missing_to :kit
+
+    def has_many
+      has_many_kits.each do |many_kit|
+        next if many_kit.none?
+
+        HasManyBuilder.call(many_kit, persister, record)
+      end
+    end
 
     def delegated_base
       base_kit = delegated_base_kit

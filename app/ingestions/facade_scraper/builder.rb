@@ -1,6 +1,6 @@
-module Import
-  class ScraperArchitect
-    def self.build(&)
+module FacadeScraper
+  class Builder
+    def self.call(&)
       architect = new
       architect.instance_eval(&)
 
@@ -18,28 +18,20 @@ module Import
       attr = attr.to_sym
       arguments = arguments.map(&:to_sym)
 
-      callbacks[attr] = define_by_options(attr, arguments, options) \
-      || define_by_arguments(attr, arguments, options)
+      callbacks[attr] = callback_for(attr, arguments, options)
     end
 
     private
 
-    def define_by_options(attr, arguments, options)
-      return if options.none?
+    def callback_for(attr, arguments, options)
+      matchable = [arguments, options]
 
-      case options
-      in {always:}
+      case matchable
+      in [], {always:}
         ->(_) { always }
-      in {callback:}
+      in [], {callback:}
         callback
-      else
-        nil
-      end
-    end
-
-    def define_by_arguments(attr, arguments, options)
-      case arguments
-      in []
+      in [], {}
         ->(facade) { facade.data[attr] }
       else
         ->(facade) { facade.data.dig(*arguments) }

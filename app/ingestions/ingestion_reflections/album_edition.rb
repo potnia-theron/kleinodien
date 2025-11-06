@@ -1,6 +1,6 @@
 module IngestionReflections
-  class AlbumEdition
-    include Concerns::Reflectable
+  class AlbumEdition < Base
+    # include Concerns::Reflectable
 
     def initialize(factory)
       @factory = factory

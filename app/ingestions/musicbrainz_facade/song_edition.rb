@@ -19,15 +19,13 @@ module MusicbrainzFacade
     def all_codes = {}
 
     def scraper_builder
-      @@scraper_builder ||= Import::ScraperArchitect.build do
-        # define :archetype, :recording
+      @@scraper_builder ||= FacadeScraper.build do
         define :archetype, callback: ->(facade) { facade.archetype }
         define :editionable_type, always: "SongEdition"
         define :sections, always: []
         define :discogs_code, always: nil
         define :musicbrainz_code, callback: ->(facade) { facade.options[:code] }
         define :wikidata_code, always: nil
-        # define :ingestion_reflections, callback: ->(facade) { facade.reflections_factory.create("SongEdition") }
         define :ingestion_reflections, callback: ->(facade) { facade.ingestion_reflections }
       end
     end

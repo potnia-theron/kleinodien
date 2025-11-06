@@ -13,7 +13,7 @@ module MusicbrainzFacade
     alias_method :data, :options
 
     def scraper_builder
-      @@scraper_builder ||= Import::ScraperArchitect.build do
+      @@scraper_builder ||= FacadeScraper.build do
         define :name, callback: ->(facade) { facade.name }
         define :participants, callback: ->(facade) { facade.participants }
       end

@@ -1,5 +1,5 @@
-module Import
-  class MusicbrainzUriBuilder
+module MusicbrainzApi
+  class UriBuilder
     INC_FOR = {
       "artist" => "?inc=artist-rels+url-rels",
       "recording" => "?inc=artist-credits+url-rels",
@@ -11,10 +11,11 @@ module Import
       @prefix = prefix
     end
 
-    def call(kind, code)
-      inc = inc_for(kind)
-
-      "#{prefix}/ws/2/#{kind}/#{code}#{inc}&fmt=json"
+    def build(kind, code)
+      kind
+        .to_s
+        .dasherize
+        .then { "#{prefix}/ws/2/#{it}/#{code}#{inc_for(it)}&fmt=json" }
     end
 
     private
@@ -22,7 +23,7 @@ module Import
     attr_reader :prefix
 
     def inc_for(kind)
-      INC_FOR[kind.to_s]
+      INC_FOR[kind]
         .tap { raise ArgumentError, "don't know how to build an uri for #{kind}" unless it }
     end
   end

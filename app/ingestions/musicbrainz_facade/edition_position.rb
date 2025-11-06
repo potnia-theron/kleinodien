@@ -13,7 +13,7 @@ module MusicbrainzFacade
     alias_method :data, :options
 
     def scraper_builder
-      @@scraper_builder ||= Import::ScraperArchitect.build do
+      @@scraper_builder ||= FacadeScraper.build do
         define :alphanumeric, :number
         define :no, :position
         define :edition, callback: ->(facade) { facade.edition }
@@ -23,7 +23,6 @@ module MusicbrainzFacade
     def edition = create(edition_class_name, edition_data)
 
     def delegated_type_for(_)
-      # debugger
       return "SongEdition" unless data[:recording][:video]
 
       raise "can't determinate delegated_type for data"

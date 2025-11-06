@@ -1,4 +1,4 @@
-module Import
+module MusicbrainzApi
   class Timeout
     def initialize(calculator)
       @calculator = calculator

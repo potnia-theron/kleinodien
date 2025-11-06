@@ -11,7 +11,7 @@ module MusicbrainzFacade
     delegate_missing_to :factory
 
     def scraper_builder
-      @@scraper_builder ||= Import::ScraperArchitect.build do
+      @@scraper_builder ||= FacadeScraper.build do
         define :join_phrase, :joinphrase
         define :participant, callback: ->(facade) { facade.participant }
         define :position, callback: ->(facade) { facade.position }

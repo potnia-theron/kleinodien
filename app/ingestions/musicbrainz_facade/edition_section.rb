@@ -15,11 +15,10 @@ module MusicbrainzFacade
     end
 
     def scraper_builder
-      @@scraper_builder ||= Import::ScraperArchitect.build do
+      @@scraper_builder ||= FacadeScraper.build do
         define :alphanumeric, :position
         define :level, always: 1
         define :no, :position
-        # define :positions, :tracks
         define :positions, callback: ->(facade) { facade.positions }
       end
     end

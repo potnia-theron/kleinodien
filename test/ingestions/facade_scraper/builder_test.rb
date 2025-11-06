@@ -1,9 +1,9 @@
 require "test_helper"
 require "minitest/mock"
 
-class Import::ScraperArchitectTest < ActiveSupport::TestCase
+class FacadeScraper::BuilderTest < ActiveSupport::TestCase
   test "#define always" do
-    scraper_builder = Import::ScraperArchitect.build do
+    scraper_builder = FacadeScraper::Builder.call do
       define :nix, always: nil
       define :something, always: "else"
     end
@@ -18,7 +18,7 @@ class Import::ScraperArchitectTest < ActiveSupport::TestCase
   end
 
   test "#define callback" do
-    scraper_builder = Import::ScraperArchitect.build do
+    scraper_builder = FacadeScraper::Builder.call do
       define :call_me, callback: ->(facade) { facade.number }
     end
 
@@ -33,7 +33,7 @@ class Import::ScraperArchitectTest < ActiveSupport::TestCase
   end
 
   test "#define dig" do
-    scraper_builder = Import::ScraperArchitect.build do
+    scraper_builder = FacadeScraper::Builder.call do
       define :title
       define :not_so_deep, :shallow
       define :deep, :deep, :deeper, :deepest

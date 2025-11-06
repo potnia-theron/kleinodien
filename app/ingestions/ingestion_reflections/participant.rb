@@ -1,6 +1,6 @@
 module IngestionReflections
-  class Participant
-    include Concerns::Reflectable
+  class Participant < Base
+    # include Concerns::Reflectable
 
     def initialize(factory)
       @factory = factory
