@@ -1,11 +1,5 @@
 module IngestionReflections
   class Edition < Base
-    # include Concerns::Reflectable
-
-    def initialize(factory)
-      @factory = factory
-    end
-
     def record_class = ::Edition
 
     delegate_missing_to :record_class
@@ -36,8 +30,6 @@ module IngestionReflections
 
       [Association.new(association, factory)]
     end
-
-    attr_reader :factory
 
     def create_finder = IngestionFinder::Edition.new
   end

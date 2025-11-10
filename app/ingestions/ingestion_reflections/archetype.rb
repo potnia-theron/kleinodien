@@ -1,13 +1,5 @@
 module IngestionReflections
   class Archetype < Base
-    # include Concerns::Reflectable
-
-    def initialize(factory)
-      @factory = factory
-    end
-
-    attr_reader :factory
-
     def record_class = ::Archetype
 
     delegate_missing_to :record_class
