@@ -8,10 +8,6 @@ module IngestionReflections
       super.reject { it.name == :archetypeable }
     end
 
-    def has_many_associations
-      super.reject { it.name == :editions }
-    end
-
     def create_finder = factory.create_finder(::Archetype)
   end
 end
