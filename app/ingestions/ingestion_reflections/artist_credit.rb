@@ -1,5 +1,5 @@
 module IngestionReflections
-  class ArtistCredit < Base
+  class ArtistCredit < Default
     def record_class = ::ArtistCredit
 
     delegate_missing_to :record_class

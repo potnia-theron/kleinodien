@@ -1,6 +1,6 @@
 module IngestionReflections
   module Associations
-    class Edition < Base
+    class Edition < Default
       def record_class = ::Edition
 
       def belongs_to = super.reject { it.name == :editionable }

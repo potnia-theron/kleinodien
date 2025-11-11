@@ -36,14 +36,14 @@ module IngestionReflections
       class_name = "#{my_module}::Associations::#{record_class_name}"
       record_class = record_class_name.constantize
 
-      instance_for(class_name, Associations::Base, record_class)
+      instance_for(class_name, Associations::Default, record_class)
     end
 
     def reflections_for(record_class_name)
       class_name = "#{my_module}::#{record_class_name}"
       record_class = record_class_name.constantize
 
-      instance_for(class_name, Base, record_class)
+      instance_for(class_name, Default, record_class)
     end
 
     def finder_factory = @finder_factory ||= IngestionFinder::Factory.new

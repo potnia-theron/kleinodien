@@ -1,5 +1,5 @@
 module IngestionReflections
-  class SongArchetype < Base
+  class SongArchetype < Default
     def record_class = ::SongArchetype
 
     delegate_missing_to :record_class

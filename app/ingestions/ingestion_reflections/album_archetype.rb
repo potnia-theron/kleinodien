@@ -1,5 +1,5 @@
 module IngestionReflections
-  class AlbumArchetype < Base
+  class AlbumArchetype < Default
     def record_class = ::AlbumArchetype
 
     delegate_missing_to :record_class

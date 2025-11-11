@@ -1,5 +1,5 @@
 module IngestionReflections
-  class SongEdition < Base
+  class SongEdition < Default
     def record_class = ::SongEdition
 
     delegate_missing_to :record_class

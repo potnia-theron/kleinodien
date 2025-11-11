@@ -1,5 +1,5 @@
 module IngestionReflections
-  class Archetype < Base
+  class Archetype < Default
     def record_class = ::Archetype
 
     delegate_missing_to :record_class

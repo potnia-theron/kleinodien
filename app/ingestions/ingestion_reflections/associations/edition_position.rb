@@ -1,6 +1,6 @@
 module IngestionReflections
   module Associations
-    class EditionPosition < Base
+    class EditionPosition < Default
       def record_class = ::EditionPosition
 
       def belongs_to = super.reject { it.name == :section }

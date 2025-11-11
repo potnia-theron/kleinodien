@@ -1,5 +1,5 @@
 module IngestionReflections
-  class EditionSection < Base
+  class EditionSection < Default
     def record_class = ::EditionSection
 
     delegate_missing_to :record_class

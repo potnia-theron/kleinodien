@@ -1,6 +1,6 @@
 module IngestionReflections
   module Associations
-    class AlbumArchetype < Base
+    class AlbumArchetype < Default
       def record_class = ::AlbumArchetype
 
       def delegated_base_reflections = factory.create(:archetype)
