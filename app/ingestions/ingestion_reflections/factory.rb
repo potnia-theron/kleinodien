@@ -28,11 +28,8 @@ module IngestionReflections
     attr_reader :cached_associations, :cached_reflections
 
     def instance_for(class_name, fallback_class, record_class)
-      if (klass = class_name.safe_constantize)
-        klass.new(self, record_class)
-      else
-        fallback_class.new(self, record_class)
-      end
+      (class_name.safe_constantize || fallback_class)
+        .new(self, record_class)
     end
 
     def associations_for(record_class_name, desired_type)
