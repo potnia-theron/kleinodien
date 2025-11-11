@@ -7,9 +7,11 @@ module IngestionReflections
     # the desired type may contain dashes ("-") e.g. "release-group"
     # so we need to to send #underscore to it
     def create(desired_type)
+      record_class = record_class_for(desired_type)
+
       "#{my_module}::#{desired_type.to_s.underscore.classify}"
         .constantize
-        .new(self)
+        .new(self, record_class)
     end
 
     def create_associations(desired_type)
@@ -37,5 +39,13 @@ module IngestionReflections
     def finder_factory = @finder_factory ||= IngestionFinder::Factory.new
 
     def my_module = @my_module ||= self.class.name.sub(/::.+\z/, "")
+
+    def record_class_for(desired_type)
+      desired_type
+        .to_s
+        .underscore
+        .classify
+        .constantize
+    end
   end
 end

@@ -1,10 +1,12 @@
 module IngestionReflections
   class Base
-    def initialize(factory)
+    def initialize(factory, record_class)
       @factory = factory
+      @record_class = record_class
     end
 
-    attr_reader :factory
+    attr_reader :factory, :record_class
+
     delegate :create, :create_associations, to: :factory
     delegate_missing_to :record_class
 
