@@ -17,10 +17,9 @@ module IngestionReflections
     end
 
     def inherent_attribute_names
-      attribute_names
-        .without("id", "created_at", "updated_at")
-        .reject { it.end_with? "_id" }
-        .reject { it.end_with? "_count" }
+      content_columns
+        .map(&:name)
+        .without("created_at", "updated_at")
     end
 
     def linkable?
