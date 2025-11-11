@@ -1,10 +1,12 @@
 module IngestionReflections
   module Associations
     class Base
-      def initialize(factory)
+      def initialize(factory, record_class)
         @factory = factory
+        @record_class = record_class
       end
 
+      attr_reader :record_class
       # record_class must be defined by the child
       delegate_missing_to :record_class
 
