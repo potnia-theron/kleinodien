@@ -14,7 +14,7 @@ module IngestionKit
     def inherent_attributes = facade.scrape_many(inherent_attribute_names)
 
     def belongs_to_kits
-      associations.belongs_to_association_reflections.map do |name, assoc_reflections|
+      associations.belongs_to_reflections.map do |name, assoc_reflections|
         assoc_facade = scrape(name)
         [name, One.new(assoc_facade, assoc_reflections)]
       end.to_h
@@ -29,8 +29,7 @@ module IngestionKit
 
     # When we are a delegated_base we need our delegated_type
     def delegated_type_kit
-      # type_assoc = reflections.delegated_type_association
-      type_assoc = associations.delegated_type_association
+      type_assoc = associations.delegated_type
       return unless type_assoc
 
       assoc_name = type_assoc.foreign_type
@@ -40,8 +39,6 @@ module IngestionKit
       One.new(facade, delegated_type_reflections)
     end
 
-    def has_many_kits
-      associations.has_many_associations.map { IngestionKit::Many.new(it, facade, reflections) }
-    end
+    def has_many_kits = associations.has_many.map { IngestionKit::Many.new(it, facade, reflections) }
   end
 end

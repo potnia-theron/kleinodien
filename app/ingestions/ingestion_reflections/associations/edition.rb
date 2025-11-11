@@ -3,9 +3,7 @@ module IngestionReflections
     class Edition < Base
       def record_class = ::Edition
 
-      def belongs_to_associations
-        super.reject { it.name == :editionable }
-      end
+      def belongs_to = super.reject { it.name == :editionable }
     end
   end
 end
