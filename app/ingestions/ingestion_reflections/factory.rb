@@ -19,8 +19,6 @@ module IngestionReflections
 
     def create_finder(model_name) = finder_factory.create(model_name.to_s)
 
-    attr_reader :import_order
-
     private
 
     attr_reader :cached_associations
