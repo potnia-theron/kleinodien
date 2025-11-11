@@ -6,7 +6,7 @@ module IngestionReflections
 
     attr_reader :factory
     delegate :create, :create_associations, to: :factory
-    delegate_missing_to :associations
+    delegate_missing_to :record_class
 
     def associations
       @associations ||= create_associations(record_class)
@@ -20,10 +20,11 @@ module IngestionReflections
       attribute_names
         .without("id", "created_at", "updated_at")
         .reject { it.end_with? "_id" }
+        .reject { it.end_with? "_count" }
     end
 
     def linkable?
-      reflect_on_all_associations(:has_many).any? { it.name == :links }
+      associations.reflect_on_all_associations(:has_many).any? { it.name == :links }
     end
   end
 end

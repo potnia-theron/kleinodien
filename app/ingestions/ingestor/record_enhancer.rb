@@ -30,7 +30,7 @@ module Ingestor
       base_kit = delegated_base_kit
       return unless base_kit
 
-      delegated_type_attr_name = delegated_of_association.inverse_of.name
+      delegated_type_attr_name = associations.delegated_of_association.inverse_of.name
       extra_args = {delegated_type_attr_name => record}
 
       RecordBuilder.call(base_kit, extra_args: extra_args, persister: persister)

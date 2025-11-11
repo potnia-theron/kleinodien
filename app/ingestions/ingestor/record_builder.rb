@@ -36,7 +36,7 @@ module Ingestor
     delegate_missing_to :kit
 
     def belongs_to
-      return unless belongs_to_associations.any?
+      return unless associations.belongs_to_associations.any?
 
       belongs_to_kits.each do |name, assoc_kit|
         assoc = Ingestor::RecordBuilder.call(assoc_kit)
@@ -49,7 +49,7 @@ module Ingestor
       delegated_kit = kit.delegated_type_kit
       return unless delegated_kit
 
-      type_name = delegated_type_association.name
+      type_name = associations.delegated_type_association.name
       return if record.send type_name
 
       writer = "#{type_name}="
