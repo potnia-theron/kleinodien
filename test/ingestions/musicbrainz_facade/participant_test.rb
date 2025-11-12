@@ -15,7 +15,8 @@ class MusicbrainzFacade::ParticipantTest < ActiveSupport::TestCase
   end
 
   test "#all_codes" do
-    known_codes = IngestionReflections::Participant.new(@reflections_factory)
+    known_codes = @reflections_factory
+      .create(:participant)
       .inherent_attribute_names
       .filter { |attr| attr.end_with? "_code" }
 

@@ -16,16 +16,12 @@ class Import::ImportAnAlbumEditionFromMusicbrainzTest < ActiveSupport::TestCase
 
     album_edition = Import.ignite(import_order)
     assert_deeply_persisted album_edition
-    assert_not album_edition.new_record?
     assert_kind_of AlbumEdition, album_edition
 
     edition = album_edition.edition
-    assert_not edition.new_record?
     assert_kind_of Edition, edition
-    # assert_not edition.sections.first.positions.first.new_record?
 
     archetype = edition.archetype
-    assert_not archetype.new_record?
     assert_equal "Highway to Hell", archetype.title
     assert_equal "AC/DC", archetype.artist_credit.name
 
@@ -39,8 +35,5 @@ class Import::ImportAnAlbumEditionFromMusicbrainzTest < ActiveSupport::TestCase
       .filter { it.instance_of?(::SongEdition) }
       .length
     assert positions.all? { it.edition.editionable.instance_of?(SongEdition) }
-
-    album_archetype = archetype.archetypeable
-    assert_not album_archetype.new_record?
   end
 end

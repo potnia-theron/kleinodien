@@ -1,9 +1,5 @@
 module IngestionReflections
-  class LinkKind < Base
-    # include Concerns::Reflectable
-
-    delegate_missing_to ::LinkKind
-
+  class LinkKind < Default
     def linkable? = false
   end
 end

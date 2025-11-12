@@ -23,7 +23,7 @@ module Ingestion
 
     def assign_links_of(kind)
       link_facades_of_kind(kind).each do |link_facade|
-        link_kind_facade = link_facade.scrape(:link_kind)
+        link_facade.scrape(:link_kind)
       end
     end
 
