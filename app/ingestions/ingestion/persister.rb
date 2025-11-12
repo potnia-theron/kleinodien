@@ -2,7 +2,7 @@ module Ingestion
   class Persister
     def call(record)
       record.save!
-    rescue => e
+    rescue
       debugger
     end
 
