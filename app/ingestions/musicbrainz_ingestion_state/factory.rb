@@ -22,7 +22,7 @@ module MusicbrainzIngestionState
 
     def facade_factory = @facade_factory ||= MusicbrainzFacade::Factory.new(import_order, reflections_factory)
 
-    def my_module = @my_module ||= self.class.name.sub(/::.+\z/, "")
+    def my_module = @my_module ||= self.class.name.sub(/::[^.+]+\z/, "")
 
     def reflections_factory = @reflections_factory ||= IngestionReflections::Factory.new
 

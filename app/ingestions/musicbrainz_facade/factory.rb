@@ -26,7 +26,7 @@ module MusicbrainzFacade
 
     # def fetch_layer = Import::MusicbrainzFetchLayer.new(import_order)
 
-    def my_module = @my_module ||= self.class.name.sub(/::.+\z/, "")
+    def my_module = @my_module ||= self.class.name.sub(/::[^:]+\z/, "")
 
     # def uri_builder = Import::MusicbrainzUriBuilder.new
     def uri_builder = MusicbrainzApi::UriBuilder.new

@@ -48,7 +48,7 @@ module IngestionReflections
 
     def finder_factory = @finder_factory ||= IngestionFinder::Factory.new
 
-    def my_module = @my_module ||= self.class.name.sub(/::.+\z/, "")
+    def my_module = @my_module ||= self.class.name.sub(/::[^:]+\z/, "")
 
     def record_class_for(desired_type) = record_class_name_for(desired_type).constantize
   end
