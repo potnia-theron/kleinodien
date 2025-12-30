@@ -1,8 +1,7 @@
-# See https://www.fastruby.io/blog/ruby/code-quality/how-we-use-rubocop-and-standardrb.html
-require:
+plugins:
   - rubocop-minitest
   - rubocop-rails
-  - standard
+  # - standard
 
 inherit_gem:
   standard: config/base.yml
