@@ -400,7 +400,7 @@ DEPENDENCIES
   minitest-mock
   pg (~> 1.1)
   puma (~> 6.4)
-  rails (~> 8.1.1)
+  rails (~> 8.1.2)
   rubocop-minitest
   rubocop-rails
   selenium-webdriver
