@@ -31,7 +31,7 @@ module MusicbrainzApi
       @timeout ||= Timeout.new(timeout_calculator)
     end
 
-    def timeout_calculator = proc { |error_count| minimal_timeout * (error_count + 1) }
+    def timeout_calculator = ->(error_count) { minimal_timeout + ((1 * error_count)**2) }
 
     def max_tries = config.fetch(:max_tries, 3)
 
