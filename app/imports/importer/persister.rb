@@ -1,4 +1,4 @@
-module Ingestion
+module Importer
   class Persister
     def call(record) = record.save!
 

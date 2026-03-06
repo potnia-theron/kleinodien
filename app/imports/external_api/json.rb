@@ -1,4 +1,4 @@
-module Ingestion
+module ExternalApi
   class Json
     def self.parse(...) = new(...).parse
 

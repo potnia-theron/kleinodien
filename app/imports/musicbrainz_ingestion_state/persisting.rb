@@ -18,6 +18,6 @@ module MusicbrainzIngestionState
 
     def done = factory.create(:done)
 
-    def persister = Ingestion::Persister.new
+    def persister = Importer::Persister.new
   end
 end

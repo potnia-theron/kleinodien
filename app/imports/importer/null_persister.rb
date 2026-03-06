@@ -1,4 +1,4 @@
-module Ingestion
+module Importer
   class NullPersister
     def initialize(*) = nil
 

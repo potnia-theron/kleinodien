@@ -37,7 +37,7 @@ class MusicbrainzFacade::ParticipantTest < ActiveSupport::TestCase
   end
 
   def data
-    Ingestion::Json.parse(json_string)
+    ExternalApi::Json.parse(json_string)
   end
 
   def json_string

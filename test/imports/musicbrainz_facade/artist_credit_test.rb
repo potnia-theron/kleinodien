@@ -25,7 +25,7 @@ class MusicbrainzFacade::ArtistCreditTest < ActiveSupport::TestCase
   end
 
   def options
-    Ingestion::Json.parse(json_string)[:artist_credit]
+    ExternalApi::Json.parse(json_string)[:artist_credit]
   end
 
   def json_string

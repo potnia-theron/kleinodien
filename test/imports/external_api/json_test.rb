@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Ingestion::JsonTest < ActiveSupport::TestCase
+class ExternalApi::JsonTest < ActiveSupport::TestCase
   setup do
     json_string = JSON.generate(
       "some-data" => "value",
@@ -8,7 +8,7 @@ class Ingestion::JsonTest < ActiveSupport::TestCase
       "a-list" => ["first item", {"a-hash" => {"some" => "value"}}, %w[1 2 3]]
     )
 
-    @parsed = Ingestion::Json.parse(json_string)
+    @parsed = ExternalApi::Json.parse(json_string)
   end
 
   test "#parse returns a Hash" do

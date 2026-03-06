@@ -2,7 +2,7 @@ module Importer
   class RecordBuilder
     include Callable
 
-    DEFAULT_PERSISTER = Ingestion::NullPersister.new
+    DEFAULT_PERSISTER = Importer::NullPersister.new
 
     def initialize(kit, persister: DEFAULT_PERSISTER, extra_args: {})
       @kit = kit
