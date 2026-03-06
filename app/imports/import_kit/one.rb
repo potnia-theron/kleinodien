@@ -1,4 +1,4 @@
-module IngestionKit
+module ImportKit
   class One
     def initialize(facade, reflections, association: nil)
       @facade = facade
@@ -39,6 +39,6 @@ module IngestionKit
       One.new(facade, delegated_type_reflections)
     end
 
-    def has_many_kits = associations.has_many.map { IngestionKit::Many.new(it, facade, reflections) }
+    def has_many_kits = associations.has_many.map { ImportKit::Many.new(it, facade, reflections) }
   end
 end

@@ -1,4 +1,4 @@
-module IngestionKit
+module ImportKit
   class Many
     def initialize(association, facade, reflections)
       @association = association
