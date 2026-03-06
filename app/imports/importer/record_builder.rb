@@ -1,4 +1,4 @@
-module Ingestor
+module Importer
   class RecordBuilder
     include Callable
 
@@ -39,7 +39,7 @@ module Ingestor
       return unless associations.belongs_to.any?
 
       belongs_to_kits.each do |name, assoc_kit|
-        assoc = Ingestor::RecordBuilder.call(assoc_kit)
+        assoc = Importer::RecordBuilder.call(assoc_kit)
         writer = "#{name}="
         record.send(writer, assoc)
       end

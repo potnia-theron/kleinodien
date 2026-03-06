@@ -1,4 +1,4 @@
-module Ingestor
+module Importer
   class RecordEnhancer
     include Callable
 
