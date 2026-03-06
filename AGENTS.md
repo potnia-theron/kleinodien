@@ -4,13 +4,13 @@ This document describes the agent-based architecture patterns used in the Kleino
 
 ## Overview
 
-Kleinodien employs a **multi-agent architecture** where discrete, focused agents coordinate to handle complex domain operations, particularly music data ingestion and persistence. The system emphasizes separation of concerns, composability, and explicit data transformation pipelines.
+Kleinodien employs a **multi-agent architecture** where discrete, focused agents coordinate to handle complex domain operations, particularly music data import and persistence. The system emphasizes separation of concerns, composability, and explicit data transformation pipelines.
 
 ## Core Agent System
 
-### 1. **Ingestor Agents** (`app/ingestions/ingestor/`)
+### 1. **Import Agents** (`app/imports/importer/`)
 
-The `Ingestor` module orchestrates the creation and enhancement of domain model records from facade objects.
+The `Importer` module orchestrates the creation and enhancement of domain model records from facade objects.
 
 #### Key Agents:
 
@@ -59,13 +59,13 @@ end
 - Responsibility: Build and persist collections of associated records
 - Iterates through facades and creates child records, maintaining inverse relationships
 
-### 2. **IngestionKit Agents** (`app/ingestions/ingestion_kit/`)
+### 2. **ImportKit Agents** (`app/imports/import_kit/`)
 
-The `IngestionKit` represents a "package" of metadata and data needed to ingest a single record type.
+The `ImportKit` represents a "package" of metadata and data needed to ingest a single record type.
 
 #### Key Agents:
 
-**IngestionKit::One** - Single record kit
+**ImportKit::One** - Single record kit
 - Wraps a facade object and its reflections
 - Delegates scraping to the facade
 - Provides builder methods for:
@@ -74,12 +74,12 @@ The `IngestionKit` represents a "package" of metadata and data needed to ingest 
   - `has_many_kits`: Returns collection kits
   - `inherent_attributes`: Extracts simple attributes
 
-**IngestionKit::Many** - Collection kit
+**ImportKit::Many** - Collection kit
 - Wraps a has-many association
 - Manages facades for multiple related records
 - Creates `One` kits for each item in the collection
 
-### 3. **Facade Scraper Agents** (`app/ingestions/facade_scraper/`)
+### 3. **Facade Scraper Agents** (`app/imports/facade_scraper/`)
 
 The `FacadeScraper` system provides a declarative way to extract and transform data from raw API responses.
 
@@ -102,7 +102,7 @@ end
 - Handles attribute transformation
 - Returns facade objects with `data` and `scrape` methods
 
-### 4. **MusicBrainz API Agents** (`app/ingestions/musicbrainz_api/`)
+### 4. **MusicBrainz API Agents** (`app/imports/musicbrainz_api/`)
 
 Manages HTTP communication with MusicBrainz API.
 
@@ -122,7 +122,7 @@ Manages HTTP communication with MusicBrainz API.
 
 ## Data Flow Architecture
 
-### Ingestion Pipeline
+### Import Pipeline
 
 ```
 MusicBrainz API
@@ -135,7 +135,7 @@ Raw JSON Response
        ↓
 Facade Objects (data + scrape methods)
        ↓
-[IngestionKit::One/Many] (organize facades + reflections)
+[ImportKit::One/Many] (organize facades + reflections)
        ↓
 [RecordBuilder]
   ├─→ [Finder] (check existence)
@@ -189,20 +189,20 @@ RecordBuilder.call(
 
 ### 4. **Reflections-Based Metadata**
 
-`IngestionReflections` agents provide metadata about record classes:
+`ModelReflections` agents provide metadata about record classes:
 - Association mappings
 - Record class information
 - Finder creation
 - Factory for creating reflection agents
 
-Located in `app/ingestions/ingestion_reflections/`
+Located in `app/imports/model_reflections/`
 
 ### 5. **Persistence Strategy Pattern**
 
 The `Persister` interface allows different persistence strategies:
 
-- **Ingestion::Persister** - Saves records to database
-- **Ingestion::NullPersister** - No-op persister for testing
+- **Importer::Persister** - Saves records to database
+- **Importer::NullPersister** - No-op persister for testing
 
 ## Model Types and Archetypes
 
@@ -226,7 +226,7 @@ Kleinodien models music entities with two concept levels:
 - **Link/LinkKind** - Relationships between entities
 - **URL** - External URLs associated with entities
 
-## Ingestion Workflow
+## Import Workflow
 
 ### Import Orders
 - **ImportOrder** - User request to import music data
@@ -247,7 +247,7 @@ Kleinodien models music entities with two concept levels:
 1. Create a new delegated type (e.g., `SpotifyImportOrder`)
 2. Implement MusicBrainz-like API agent
 3. Define facade scrapers for the API response
-4. Create ingestion reflections for your models
+4. Create model reflections for your models
 5. The existing RecordBuilder and RecordEnhancer agents will work automatically
 
 ### Customizing Persistence
@@ -284,7 +284,7 @@ end
 The architecture supports testing at multiple levels:
 
 1. **Agent Unit Tests** - Test individual agents with mocks
-2. **Integration Tests** - Test full ingestion pipeline with webmock
+2. **Integration Tests** - Test full import pipeline with webmock
 3. **System Tests** - Test via Rails controllers with Selenium
 
 Key test utilities:
