@@ -26,7 +26,7 @@ module MusicbrainzFacade
         define :discogs_code, always: nil
         define :musicbrainz_code, callback: ->(facade) { facade.options[:code] }
         define :wikidata_code, always: nil
-        define :ingestion_reflections, callback: ->(facade) { facade.ingestion_reflections }
+        define :model_reflections, callback: ->(facade) { facade.model_reflections }
       end
     end
 
@@ -34,6 +34,6 @@ module MusicbrainzFacade
       create(:song_archetype, data[:recording])
     end
 
-    def ingestion_reflections = factory.reflections_factory.create("SongEdition")
+    def model_reflections = factory.reflections_factory.create("SongEdition")
   end
 end

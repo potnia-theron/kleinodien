@@ -30,9 +30,9 @@ module MusicbrainzFacade
 
     private
 
-    def edition_data = data.merge(ingestion_reflections: ingestion_reflections)
+    def edition_data = data.merge(model_reflections: model_reflections)
 
-    def ingestion_reflections = reflections_factory.create(edition_class_name)
+    def model_reflections = reflections_factory.create(edition_class_name)
 
     def edition_class_name
       return "SongEdition" unless data[:recording][:video]
