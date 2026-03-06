@@ -1,4 +1,4 @@
-module IngestionFinder
+module RecordFinder
   class ArtistCredit
     include Callable
     include Concerns::CodeFindable

@@ -1,5 +1,5 @@
-module IngestionFinder
-  class Edition < IngestionFinder::NullFinder
+module RecordFinder
+  class Edition < RecordFinder::NullFinder
     include Callable
     include Concerns::CodeFindable
 

@@ -1,10 +1,10 @@
 require "test_helper"
 require "minitest/mock"
 
-class IngestionFinder::AlbumArchetypeTest < ActiveSupport::TestCase
+class RecordFinder::AlbumArchetypeTest < ActiveSupport::TestCase
   setup do
     @facade = Minitest::Mock.new
-    @finder = IngestionFinder::AlbumArchetype.new
+    @finder = RecordFinder::AlbumArchetype.new
   end
 
   test "#find returns nil if AlbumArchetype does not exist" do

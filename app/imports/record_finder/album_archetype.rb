@@ -1,4 +1,4 @@
-module IngestionFinder
+module RecordFinder
   class AlbumArchetype < NullFinder
     include Callable
     include Concerns::CodeFindable

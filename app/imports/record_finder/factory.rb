@@ -1,11 +1,11 @@
-module IngestionFinder
+module RecordFinder
   class Factory
     def initialize
       @cache = {}
     end
 
     def create(model_class)
-      finder_for("IngestionFinder::#{model_class}")
+      finder_for("RecordFinder::#{model_class}")
     end
 
     private
@@ -13,7 +13,7 @@ module IngestionFinder
     attr_reader :cache
 
     def finder_for(class_name)
-      cache[class_name] ||= (class_name.safe_constantize || IngestionFinder::NullFinder).new
+      cache[class_name] ||= (class_name.safe_constantize || RecordFinder::NullFinder).new
       cache[class_name]
     end
   end

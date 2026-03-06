@@ -1,10 +1,10 @@
 require "test_helper"
 require "minitest/mock"
 
-class IngestionFinder::MusicbrainzArtistCreditTest < ActiveSupport::TestCase
+class RecordFinder::MusicbrainzArtistCreditTest < ActiveSupport::TestCase
   setup do
     @facade = Minitest::Mock.new
-    @finder = IngestionFinder::ArtistCredit.new
+    @finder = RecordFinder::ArtistCredit.new
   end
 
   test "ArtistCredit does not exist" do

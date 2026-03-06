@@ -1,4 +1,4 @@
-module IngestionFinder::Concerns
+module RecordFinder::Concerns
   module CodeFindable
     extend ActiveSupport::Concern
 

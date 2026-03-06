@@ -1,8 +1,6 @@
-module IngestionFinder
-  class LinkKind
+module RecordFinder
+  class Url
     include Callable
-
-    def model_class = ::LinkKind
 
     def initialize
       @order = order
@@ -10,11 +8,13 @@ module IngestionFinder
     end
 
     def call
-      model_class.find_by(name: facade.scrape(:name))
+      model_class.find_by(address: facade.scrape(:address))
     end
 
     private
 
     attr_reader :facade, :order
+
+    def model_class = ::Url
   end
 end

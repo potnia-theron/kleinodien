@@ -1,4 +1,4 @@
-module IngestionFinder
+module RecordFinder
   class AlbumEdition
     include Callable
     include Concerns::CodeFindable

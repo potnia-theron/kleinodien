@@ -1,4 +1,4 @@
-module IngestionFinder
+module RecordFinder
   class Entity
     include Callable
 
@@ -22,7 +22,7 @@ module IngestionFinder
     end
 
     def finder_class
-      @finder_class ||= "IngestionFinder::#{reflections.base_class.name}".constantize
+      @finder_class ||= "RecordFinder::#{reflections.base_class.name}".constantize
     end
 
     def reflections

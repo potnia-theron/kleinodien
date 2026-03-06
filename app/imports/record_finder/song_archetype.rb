@@ -1,4 +1,4 @@
-module IngestionFinder
+module RecordFinder
   class SongArchetype
     include Callable
     include Concerns::CodeFindable

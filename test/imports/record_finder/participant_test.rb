@@ -1,10 +1,10 @@
 require "test_helper"
 require "minitest/mock"
 
-class IngestionFinder::ParticipantTest < ActiveSupport::TestCase
+class RecordFinder::ParticipantTest < ActiveSupport::TestCase
   setup do
     @facade = Minitest::Mock.new
-    @finder = IngestionFinder::Participant.new
+    @finder = RecordFinder::Participant.new
   end
 
   test "participant does not exist" do

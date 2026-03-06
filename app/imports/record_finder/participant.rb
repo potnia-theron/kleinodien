@@ -1,4 +1,4 @@
-module IngestionFinder
+module RecordFinder
   class Participant
     include Callable
     include Concerns::CodeFindable

@@ -46,7 +46,7 @@ module ModelReflections
       instance_for(class_name, Default, record_class)
     end
 
-    def finder_factory = @finder_factory ||= IngestionFinder::Factory.new
+    def finder_factory = @finder_factory ||= RecordFinder::Factory.new
 
     def my_module = @my_module ||= self.class.name.sub(/::[^:]+\z/, "")
 
