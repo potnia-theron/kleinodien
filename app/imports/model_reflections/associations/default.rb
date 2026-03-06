@@ -1,4 +1,4 @@
-module IngestionReflections
+module ModelReflections
   module Associations
     class Default
       def initialize(factory, record_class)

@@ -24,7 +24,7 @@ module MusicbrainzIngestionState
 
     def my_module = @my_module ||= self.class.name.sub(/::[^.+]+\z/, "")
 
-    def reflections_factory = @reflections_factory ||= IngestionReflections::Factory.new
+    def reflections_factory = @reflections_factory ||= ModelReflections::Factory.new
 
     def target_kind = import_order.target_kind
   end

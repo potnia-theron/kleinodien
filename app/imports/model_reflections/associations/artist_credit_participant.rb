@@ -1,4 +1,4 @@
-module IngestionReflections
+module ModelReflections
   module Associations
     class ArtistCreditParticipant < Default
       def record_class = ::ArtistCreditParticipant

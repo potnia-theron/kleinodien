@@ -7,7 +7,7 @@ require "support/web_mock_external_apis"
 class MusicbrainzFacade::ArtistCreditTest < ActiveSupport::TestCase
   setup do
     WebMockExternalApis.setup
-    reflections_factory = IngestionReflections::Factory.new
+    reflections_factory = ModelReflections::Factory.new
     @factory = MusicbrainzFacade::Factory.new(@order, reflections_factory)
     @facade = MusicbrainzFacade::ArtistCredit.new(@factory, options)
   end

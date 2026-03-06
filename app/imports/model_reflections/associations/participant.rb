@@ -1,4 +1,4 @@
-module IngestionReflections
+module ModelReflections
   module Associations
     class Participant < Default
       def record_class = ::Participant

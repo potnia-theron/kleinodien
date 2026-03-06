@@ -1,4 +1,4 @@
-module IngestionReflections
+module ModelReflections
   module Associations
     class AlbumArchetype < Default
       def record_class = ::AlbumArchetype

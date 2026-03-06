@@ -34,7 +34,7 @@ module IngestionFinder
         .to_s
         .underscore
         .classify
-        .then { "IngestionReflections::#{it}" }
+        .then { "ModelReflections::#{it}" }
         .constantize
     end
   end

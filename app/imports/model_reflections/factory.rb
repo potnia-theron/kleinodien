@@ -1,4 +1,4 @@
-module IngestionReflections
+module ModelReflections
   class Factory
     def initialize
       @cached_associations = {}

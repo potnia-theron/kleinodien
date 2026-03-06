@@ -1,4 +1,4 @@
-module IngestionReflections
+module ModelReflections
   class Url < Default
     # TODO: remove #linkable?
     # TODO: ... or shall it stay? Urls shouldn't link to other entities

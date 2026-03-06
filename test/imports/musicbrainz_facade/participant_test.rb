@@ -5,7 +5,7 @@ require "support/retrieve/musicbrainz"
 
 class MusicbrainzFacade::ParticipantTest < ActiveSupport::TestCase
   setup do
-    @reflections_factory = IngestionReflections::Factory.new
+    @reflections_factory = ModelReflections::Factory.new
     @factory = MusicbrainzFacade::Factory.new(@order, @reflections_factory)
 
     @musicbrainz_code = "2280ca0e-6968-4349-8c36-cb0cbd6ee95f"

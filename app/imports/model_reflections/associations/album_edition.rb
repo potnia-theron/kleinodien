@@ -1,4 +1,4 @@
-module IngestionReflections
+module ModelReflections
   module Associations
     class AlbumEdition < Default
       def record_class = ::AlbumEdition

@@ -1,4 +1,4 @@
-module IngestionReflections
+module ModelReflections
   module Associations
     class Archetype < Default
       def record_class = ::Archetype

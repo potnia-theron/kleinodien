@@ -1,4 +1,4 @@
-module IngestionReflections
+module ModelReflections
   class Default
     def initialize(factory, record_class)
       @factory = factory

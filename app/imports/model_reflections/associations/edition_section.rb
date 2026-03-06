@@ -1,4 +1,4 @@
-module IngestionReflections
+module ModelReflections
   module Associations
     class EditionSection < Default
       def record_class = ::EditionSection

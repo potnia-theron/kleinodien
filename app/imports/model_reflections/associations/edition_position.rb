@@ -1,4 +1,4 @@
-module IngestionReflections
+module ModelReflections
   module Associations
     class EditionPosition < Default
       def record_class = ::EditionPosition
