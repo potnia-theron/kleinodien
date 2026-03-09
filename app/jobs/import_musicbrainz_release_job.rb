@@ -1,15 +1,37 @@
 class ImportMusicbrainzReleaseJob < ApplicationJob
+  include ActiveJob::Continuable
+
   queue_as :default
 
   def perform(import_order)
-    # TODO: remove all the dirty tricks
-    # import_order.type = "MusicbrainzImportOrder"
-    # import_order.save!
+    reflections_factory = ModelReflections::Factory.new
+    reflections = reflections_factory.create(import_order.target_kind)
 
-    # order = Import::Order.new(import_order)
-    order = Import::Order.new(ImportOrder.find(import_order.id))
-    Rails.logger.info("==== ImportOrder: #{order.inspect}")
+    facade_factory = MusicbrainzFacade::Factory.new(import_order, reflections_factory)
+    facade = facade_factory.create(import_order.target_kind, musicbrainz_code: import_order.code)
 
-    order.build_workflow.call
+    step :find_existing do
+      import_order.find_existing!
+      finder_factory = RecordFinder::Factory.new
+      finder = finder_factory.create(import_order.target_kind)
+      @entity = finder.call(facade)
+    end
+
+    step :buffering do
+      import_order.buffering!
+      kit = ImportKit.build(facade, reflections)
+      Importer.call(kit)
+    end
+
+    step :persisting do
+      import_order.persisting!
+      kit = ImportKit.build(facade, reflections)
+      @entity = Importer.call(kit, persister: Importer::Persister.new)
+    end
+
+    step :done do
+      import_order.done!
+      @entity
+    end
   end
 end
