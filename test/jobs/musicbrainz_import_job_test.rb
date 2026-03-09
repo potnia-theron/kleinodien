@@ -1,7 +1,7 @@
 require "test_helper"
 require "support/web_mock_external_apis"
 
-class ImportMusicbrainzReleaseJobTest < ActiveJob::TestCase
+class MusicbrainzImportJobTest < ActiveJob::TestCase
   setup do
     WebMockExternalApis.setup
   end
@@ -16,7 +16,7 @@ class ImportMusicbrainzReleaseJobTest < ActiveJob::TestCase
     )
 
     perform_enqueued_jobs do
-      ImportMusicbrainzReleaseJob.perform_later(import_order)
+      MusicbrainzImportJob.perform_later(import_order)
     end
 
     assert Archetype.find_by(title: "Beating Around the Bush")

@@ -3,7 +3,7 @@ require "minitest/mock"
 require "support/deeply_persisted"
 require "support/web_mock_external_apis"
 
-class Import::ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveSupport::TestCase
+class ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveJob::TestCase
   setup do
     WebMockExternalApis.setup
   end
@@ -16,7 +16,11 @@ class Import::ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveSupport::TestCas
     musicbrainz_import_order = MusicbrainzImportOrder.create!(code: code, kind: "album_archetype")
     import_order = ImportOrder.create!(import_orderable: musicbrainz_import_order, user: user)
 
-    album_archetype = Import.ignite(import_order)
+    perform_enqueued_jobs do
+      MusicbrainzImportJob.perform_later(import_order)
+    end
+
+    album_archetype = AlbumArchetype.find_by(musicbrainz_code: code)
     assert_deeply_persisted album_archetype
     assert_kind_of AlbumArchetype, album_archetype
 

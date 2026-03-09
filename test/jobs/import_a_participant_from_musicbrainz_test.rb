@@ -3,7 +3,7 @@ require "minitest/mock"
 require "support/deeply_persisted"
 require "support/web_mock_external_apis"
 
-class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
+class ImportAParticipantFromMusicbrainzTest < ActiveJob::TestCase
   setup do
     WebMockExternalApis.setup
   end
@@ -14,7 +14,11 @@ class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
     musicbrainz_import_order = MusicbrainzImportOrder.create!(code: code, kind: "participant")
     import_order = ImportOrder.create!(import_orderable: musicbrainz_import_order, user: user)
 
-    participant ||= Import.ignite(import_order)
+    perform_enqueued_jobs do
+      MusicbrainzImportJob.perform_later(import_order)
+    end
+
+    participant = Participant.find_by(musicbrainz_code: code)
     assert_deeply_persisted participant
 
     assert_equal "NoMeansNo", participant.name
@@ -28,6 +32,7 @@ class Import::ImportAParticipantFromMusicbrainzTest < ActiveSupport::TestCase
     assert_not participant.new_record?
     # TODO: reactivate assert_not_empty participant.links
     # assert_not_empty participant.links
+    import_order.reload
     assert_equal import_order.state, "done"
   end
 end

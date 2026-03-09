@@ -101,7 +101,7 @@ class ImportOrdersController < ApplicationController
     when "MusicbrainzImportOrder"
       # TODO: choose the right Job depending on :kind
       Rails.logger.debug("ImportOrder#uri: #{@import_order.uri.inspect}")
-      ImportMusicbrainzReleaseJob.perform_later(@import_order)
+      MusicbrainzImportJob.perform_later(@import_order)
     else
       raise "can't enqueue job for #{@import_order}"
     end
