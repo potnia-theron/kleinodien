@@ -3,7 +3,7 @@ require "minitest/mock"
 require "support/deeply_persisted"
 require "support/web_mock_external_apis"
 
-class Import::ImportAnAlbumEditionFromMusicbrainzTest < ActiveSupport::TestCase
+class ImportAnAlbumEditionFromMusicbrainzTest < ActiveJob::TestCase
   setup do
     WebMockExternalApis.setup
   end
@@ -14,7 +14,13 @@ class Import::ImportAnAlbumEditionFromMusicbrainzTest < ActiveSupport::TestCase
     musicbrainz_import_order = MusicbrainzImportOrder.create!(code: code, kind: "album-edition")
     import_order = ImportOrder.create!(import_orderable: musicbrainz_import_order, user: user)
 
-    album_edition = Import.ignite(import_order)
+    perform_enqueued_jobs do
+      ImportMusicbrainzReleaseJob.perform_later(import_order)
+    end
+
+    # TODO: find the album_edition by musicbrainz_code instead of just taking the last one
+    # album_edition = AlbumEdition.find_by(musicbrainz_code: code)
+    album_edition = AlbumEdition.last
     assert_deeply_persisted album_edition
     assert_kind_of AlbumEdition, album_edition
 
