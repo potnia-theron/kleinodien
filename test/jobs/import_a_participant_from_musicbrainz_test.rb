@@ -15,7 +15,7 @@ class ImportAParticipantFromMusicbrainzTest < ActiveJob::TestCase
     import_order = ImportOrder.create!(import_orderable: musicbrainz_import_order, user: user)
 
     perform_enqueued_jobs do
-      ImportMusicbrainzReleaseJob.perform_later(import_order)
+      MusicbrainzImportJob.perform_later(import_order)
     end
 
     participant = Participant.find_by(musicbrainz_code: code)

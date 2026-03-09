@@ -17,7 +17,7 @@ class ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveJob::TestCase
     import_order = ImportOrder.create!(import_orderable: musicbrainz_import_order, user: user)
 
     perform_enqueued_jobs do
-      ImportMusicbrainzReleaseJob.perform_later(import_order)
+      MusicbrainzImportJob.perform_later(import_order)
     end
 
     # TODO: find the album_archetype by musicbrainz_code instead of just taking the last one

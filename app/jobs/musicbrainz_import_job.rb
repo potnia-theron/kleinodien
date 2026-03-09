@@ -1,4 +1,4 @@
-class ImportMusicbrainzReleaseJob < ApplicationJob
+class MusicbrainzImportJob < ApplicationJob
   include ActiveJob::Continuable
 
   queue_as :default
