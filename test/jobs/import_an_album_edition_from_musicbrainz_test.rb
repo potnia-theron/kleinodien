@@ -18,9 +18,7 @@ class ImportAnAlbumEditionFromMusicbrainzTest < ActiveJob::TestCase
       MusicbrainzImportJob.perform_later(import_order)
     end
 
-    # TODO: find the album_edition by musicbrainz_code instead of just taking the last one
-    # album_edition = AlbumEdition.find_by(musicbrainz_code: code)
-    album_edition = AlbumEdition.last
+    album_edition = AlbumEdition.find_by(musicbrainz_code: code)
     assert_deeply_persisted album_edition
     assert_kind_of AlbumEdition, album_edition
 

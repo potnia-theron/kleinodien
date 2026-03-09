@@ -20,7 +20,7 @@ module MusicbrainzFacade
         define :editionable_type, always: "AlbumEdition"
         define :sections, callback: ->(facade) { facade.sections }
         define :discogs_code, callback: ->(facade) { facade.relations.dig(:discogs, :release) }
-        define :musicbrainz_code, callback: ->(facade) { facade.options[:code] }
+        define :musicbrainz_code, callback: ->(facade) { facade.musicbrainz_code }
         define :wikidata_code, callback: ->(facade) { facade.relations.dig(:wikidata, :wiki) }
       end
     end
@@ -31,6 +31,10 @@ module MusicbrainzFacade
 
     def archetype
       factory.create(:album_archetype, data[:release_group])
+    end
+
+    def musicbrainz_code
+      options[:musicbrainz_code]
     end
 
     def relations

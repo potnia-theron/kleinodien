@@ -19,7 +19,7 @@ module MusicbrainzFacade
         define :archetypeable_type, always: "AlbumArchetype"
         define :discogs_code, always: nil
         define :wikidata_code, always: nil
-        define :musicbrainz_code, callback: ->(facade) { facade.options[:code] }
+        define :musicbrainz_code, callback: ->(facade) { facade.options[:musicbrainz_code] }
       end
     end
 

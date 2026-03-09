@@ -20,9 +20,7 @@ class ImportAnAlbumArchetypeFromMusicbrainzTest < ActiveJob::TestCase
       MusicbrainzImportJob.perform_later(import_order)
     end
 
-    # TODO: find the album_archetype by musicbrainz_code instead of just taking the last one
-    # album_archetype = AlbumArchetype.find_by(musicbrainz_code: code)
-    album_archetype = AlbumArchetype.last
+    album_archetype = AlbumArchetype.find_by(musicbrainz_code: code)
     assert_deeply_persisted album_archetype
     assert_kind_of AlbumArchetype, album_archetype
 
